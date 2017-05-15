@@ -10,12 +10,14 @@ __all__ = ["Markov", "LISA_Markov", "Spatial_Markov", "kullback",
            "prais", "shorrock", "homogeneity"]
 
 import numpy as np
-from .ergodic import fmpt
-from .ergodic import steady_state as STEADY_STATE
+from ergodic import fmpt
+from ergodic import steady_state as STEADY_STATE
+from components import Graph
 from scipy import stats
 from operator import gt
-import libpysal as ps
-import esda
+import libpysal.api as ps
+from esda.moran import Moran_Local
+import mapclassify.api as mc
 
 # TT predefine LISA transitions
 # TT[i,j] is the transition type from i to j
@@ -97,7 +99,7 @@ class Markov(object):
 
     set classes to quintiles for each year
 
-    >>> q5 = np.array([ps.Quantiles(y).yb for y in pci]).transpose()
+    >>> q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
     >>> m = Markov(q5)
     >>> m.transitions
     array([[ 729.,   71.,    1.,    0.,    0.],
@@ -122,7 +124,7 @@ class Markov(object):
 
     >>> pci = pci.transpose()
     >>> rpci = pci/(pci.mean(axis=0))
-    >>> rq = ps.Quantiles(rpci.flatten()).yb
+    >>> rq = mc.Quantiles(rpci.flatten()).yb
     >>> rq.shape = (48,81)
     >>> mq = Markov(rq)
     >>> mq.transitions
@@ -402,7 +404,7 @@ class Spatial_Markov(object):
         self.variable_name = variable_name
         if fixed:
             yf = y.flatten()
-            yb = ps.Quantiles(yf, k=k).yb
+            yb = mc.Quantiles(yf, k=k).yb
             yb.shape = (rows, cols)
             classes = yb
         else:
@@ -523,10 +525,10 @@ class Spatial_Markov(object):
         ly = ps.lag_spatial(w, y)
         npa = np.array
         if self.fixed:
-            l_classes = ps.Quantiles(ly.flatten(), k=k).yb
+            l_classes = mc.Quantiles(ly.flatten(), k=k).yb
             l_classes.shape = ly.shape
         else:
-            l_classes = npa([ps.Quantiles(
+            l_classes = npa([mc.Quantiles(
                 ly[:, i], k=k).yb for i in np.arange(self.cols)])
             l_classes = l_classes.transpose()
         T = np.zeros((k, k, k))
@@ -919,7 +921,7 @@ class LISA_Markov(Markov):
     def __init__(self, y, w, permutations=0,
                  significance_level=0.05, geoda_quads=False):
         y = y.transpose()
-        pml = esda.Moran_Local
+        pml = Moran_Local
         gq = geoda_quads
         ml = ([pml(yi, w, permutations=permutations, geoda_quads=gq)
                for yi in y])
@@ -1066,7 +1068,7 @@ class LISA_Markov(Markov):
             for t in range(k - 1):
                 s1 = sig_ids[t]
                 s2 = sig_ids[t + 1]
-                g1 = pysal.region.components.Graph(undirected=True)
+                g1 = Graph(undirected=True)
                 for i in s1:
                     for neighbor in neighbors[i2id[i]]:
                         g1.add_edge(i2id[i], neighbor, 1.0)
@@ -1236,7 +1238,7 @@ def prais(pmat):
     >>> import libpysal as ps
     >>> f = ps.open(ps.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
-    >>> q5 = np.array([pysal.Quantiles(y).yb for y in pci]).transpose()
+    >>> q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
     >>> m = Markov(q5)
     >>> m.transitions
     array([[ 729.,   71.,    1.,    0.,    0.],
@@ -1286,7 +1288,7 @@ def shorrock(pmat):
     >>> import libpysal as ps
     >>> f = ps.open(ps.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
-    >>> q5 = np.array([ps.Quantiles(y).yb for y in pci]).transpose()
+    >>> q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
     >>> m = Markov(q5)
     >>> m.transitions
     array([[ 729.,   71.,    1.,    0.,    0.],
