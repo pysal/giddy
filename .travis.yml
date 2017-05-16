@@ -22,7 +22,7 @@ before_install:
   - conda create -y -q -n test-env python=$TRAVIS_PYTHON_VERSION
   - source activate test-env
   - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; 
-        then 2to3 -nw {PACKAGE_NAME} > /dev/null; 
+        then 2to3 -nw giddy > /dev/null; 
     fi
 
 install:
@@ -37,7 +37,7 @@ script:
 notifications:
     email:
         recipients:
-            {AUTHOR_EMAILS}
+                sjsrey@gmail.com
         on_change: always
         on_failure: always
 
