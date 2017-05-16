@@ -1,12 +1,12 @@
 import unittest
-import pysal
-from pysal.spatial_dynamics import directional
+import libpysal
+import giddy.directional as directional
 import numpy as np
 
 
 class Rose_Tester(unittest.TestCase):
     def setUp(self):
-        f = open(pysal.examples.get_path("spi_download.csv"), 'r')
+        f = open(libpysal.examples.get_path("spi_download.csv"), 'r')
         lines = f.readlines()
         f.close()
         lines = [line.strip().split(",") for line in lines]
@@ -31,7 +31,7 @@ class Rose_Tester(unittest.TestCase):
         us = data[0]
         years = np.arange(1969, 2009)
         rel = states / (us * 1.)
-        gal = pysal.open(pysal.examples.get_path('states48.gal'))
+        gal = libpysal.open(libpysal.examples.get_path('states48.gal'))
         self.w = gal.read()
         self.w.transform = 'r'
         self.Y = rel[:, [0, -1]]

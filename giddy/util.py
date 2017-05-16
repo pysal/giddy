@@ -56,7 +56,6 @@ def get_lower(matrix):
     Examples
     --------
     >>> import numpy as np
-    >>> import pysal
     >>> test = np.array([[0,1,2,3],[1,0,1,2],[2,1,0,1],[4,2,1,0]])
     >>> lower = get_lower(test)
     >>> lower

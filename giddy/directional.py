@@ -7,7 +7,8 @@ __author__ = "Sergio J. Rey <srey@asu.edu"
 __all__ = ['rose']
 
 import numpy as np
-import pysal
+import libpysal
+from libpysal.api import lag_spatial
 
 
 def rose(Y, w, k=8, permutations=0):
@@ -54,7 +55,7 @@ def rose(Y, w, k=8, permutations=0):
 
     Load comma delimited data file in and convert to a numpy array
 
-    >>> f=open(pysal.examples.get_path("spi_download.csv"),'r')
+    >>> f=open(libpysal.examples.get_path("spi_download.csv"),'r')
     >>> lines=f.readlines()
     >>> f.close()
     >>> lines=[line.strip().split(",") for line in lines]
@@ -91,7 +92,7 @@ def rose(Y, w, k=8, permutations=0):
     Create our contiguity matrix from an external GAL file and row standardize
     the resulting weights
 
-    >>> gal=pysal.open(pysal.examples.get_path('states48.gal'))
+    >>> gal=libpysal.open(libpysal.examples.get_path('states48.gal'))
     >>> w=gal.read()
     >>> w.transform='r'
 
@@ -141,7 +142,7 @@ def rose(Y, w, k=8, permutations=0):
     results = {}
     sw = 2 * np.pi / k
     cuts = np.arange(0.0, 2 * np.pi + sw, sw)
-    wY = pysal.lag_spatial(w, Y)
+    wY = lag_spatial(w, Y)
     dx = Y[:, -1] - Y[:, 0]
     dy = wY[:, -1] - wY[:, 0]
     theta = np.arctan2(dy, dx)
@@ -157,7 +158,7 @@ def rose(Y, w, k=8, permutations=0):
         for i in range(permutations):
             rid = np.random.permutation(ids)
             YR = Y[rid, :]
-            wYR = pysal.lag_spatial(w, YR)
+            wYR = lag_spatial(w, YR)
             dx = YR[:, -1] - YR[:, 0]
             dy = wYR[:, -1] - wYR[:, 0]
             theta = np.arctan2(dy, dx)

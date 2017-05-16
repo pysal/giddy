@@ -93,8 +93,8 @@ class Markov(object):
 
     US nominal per capita income 48 states 81 years 1929-2009
 
-    >>> import libpysal as ps
-    >>> f = ps.open(ps.examples.get_path("usjoin.csv"))
+    >>> import libpysal
+    >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
 
     set classes to quintiles for each year
@@ -283,12 +283,12 @@ class Spatial_Markov(object):
 
     Examples
     --------
-    >>> import libpysal as ps
-    >>> f = ps.open(ps.examples.get_path("usjoin.csv"))
+    >>> import libpysal
+    >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
     >>> pci = pci.transpose()
     >>> rpci = pci/(pci.mean(axis=0))
-    >>> w = ps.open(ps.examples.get_path("states48.gal")).read()
+    >>> w = libpysal.open(libpysal.examples.get_path("states48.gal")).read()
     >>> w.transform = 'r'
     >>> sm = Spatial_Markov(rpci, w, fixed=True, k=5, variable_name='rpci')
     >>> for p in sm.P:
@@ -634,12 +634,12 @@ def chi2(T1, T2):
 
     Examples
     --------
-    >>> import libpysal as ps
-    >>> f = ps.open(ps.examples.get_path("usjoin.csv"))
+    >>> import libpysal
+    >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
     >>> years = range(1929, 2010)
     >>> pci = np.array([f.by_col[str(y)] for y in years]).transpose()
     >>> rpci = pci/(pci.mean(axis=0))
-    >>> w = ps.open(ps.examples.get_path("states48.gal")).read()
+    >>> w = libpysal.open(libpysal.examples.get_path("states48.gal")).read()
     >>> w.transform='r'
     >>> sm = Spatial_Markov(rpci, w, fixed=True)
     >>> T1 = sm.T[0]
@@ -827,12 +827,12 @@ class LISA_Markov(Markov):
 
     Examples
     --------
-    >>> import libpysal as ps
+    >>> import libpysal
     >>> import numpy as np
-    >>> f = ps.open(ps.examples.get_path("usjoin.csv"))
+    >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
     >>> years = range(1929, 2010)
     >>> pci = np.array([f.by_col[str(y)] for y in years]).transpose()
-    >>> w = ps.open(ps.examples.get_path("states48.gal")).read()
+    >>> w = libpysal.open(libpysal.examples.get_path("states48.gal")).read()
     >>> lm = LISA_Markov(pci,w)
     >>> lm.classes
     array([1, 2, 3, 4])
@@ -1008,10 +1008,10 @@ class LISA_Markov(Markov):
 
         Examples
         --------
-        >>> f = ps.open(ps.examples.get_path("usjoin.csv"))
+        >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
         >>> years = range(1929, 2010)
         >>> pci = np.array([f.by_col[str(y)] for y in years]).transpose()
-        >>> w = ps.open(ps.examples.get_path("states48.gal")).read()
+        >>> w = libpysal.open(libpysal.examples.get_path("states48.gal")).read()
         >>> np.random.seed(10)
         >>> lm_random = LISA_Markov(pci, w, permutations=99)
         >>> r = lm_random.spillover()
@@ -1235,8 +1235,8 @@ def prais(pmat):
     Examples
     --------
     >>> import numpy as np
-    >>> import libpysal as ps
-    >>> f = ps.open(ps.examples.get_path("usjoin.csv"))
+    >>> import libpysal
+    >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
     >>> q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
     >>> m = Markov(q5)
@@ -1285,8 +1285,8 @@ def shorrock(pmat):
     Examples
     --------
     >>> import numpy as np
-    >>> import libpysal as ps
-    >>> f = ps.open(ps.examples.get_path("usjoin.csv"))
+    >>> import libpysal
+    >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
     >>> q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
     >>> m = Markov(q5)

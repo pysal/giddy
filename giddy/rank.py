@@ -6,13 +6,10 @@ __author__ = "Sergio J. Rey <srey@asu.edu> "
 
 __all__ = ['SpatialTau', 'Tau', 'Theta']
 
-#from pysal.common import *
 from scipy.stats.mstats import rankdata
 from scipy.special import erfc
-import pysal
 import numpy as np
 import scipy as sp
-from numpy.random import permutation as NRP
 
 class Theta:
     """
@@ -62,8 +59,8 @@ class Theta:
                    
     Examples
     --------
-    >>> import pysal
-    >>> f=pysal.open(pysal.examples.get_path("mexico.csv"))
+    >>> import libpysal as ps
+    >>> f=ps.open(ps.examples.get_path("mexico.csv"))
     >>> vnames=["pcgdp%d"%dec for dec in range(1940,2010,10)]
     >>> y=np.transpose(np.array([f.by_col[v] for v in vnames]))
     >>> regime=np.array(f.by_col['esquivel99'])
@@ -321,15 +318,15 @@ class SpatialTau(object):
 
     Examples
     --------
-    >>> import pysal 
+    >>> import libpysal as ps
     >>> import numpy as np
-    >>> f=pysal.open(pysal.examples.get_path("mexico.csv"))
+    >>> f=ps.open(ps.examples.get_path("mexico.csv"))
     >>> vnames=["pcgdp%d"%dec for dec in range(1940,2010,10)]
     >>> y=np.transpose(np.array([f.by_col[v] for v in vnames]))
     >>> regime=np.array(f.by_col['esquivel99'])
-    >>> w=pysal.weights.block_weights(regime)
+    >>> w=ps.weights.block_weights(regime)
     >>> np.random.seed(12345)
-    >>> res=[pysal.SpatialTau(y[:,i],y[:,i+1],w,99) for i in range(6)]
+    >>> res=[SpatialTau(y[:,i],y[:,i+1],w,99) for i in range(6)]
     >>> for r in res:
     ...     ev = r.taus.mean()
     ...     "%8.3f %8.3f %8.3f"%(r.tau_spatial, ev, r.tau_spatial_psim)

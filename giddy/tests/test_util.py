@@ -1,6 +1,5 @@
 import unittest
-import pysal
-from pysal.spatial_dynamics import util
+import giddy.util as util
 import numpy as np
 
 

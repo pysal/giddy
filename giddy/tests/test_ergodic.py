@@ -1,6 +1,5 @@
 import unittest
-import pysal
-from pysal.spatial_dynamics import ergodic
+import giddy.ergodic as ergodic
 import numpy as np
 
 
