@@ -28,7 +28,7 @@ before_install:
 install:
   - conda install --yes pip
   - conda install --yes --file requirements.txt;
-  - conda install shapely
+  - conda install --yes shapely
   - pip install libpysal
   - pip install esda
   - pip install mapclassify
@@ -36,7 +36,8 @@ install:
 
 script:
   - python setup.py sdist >/dev/null
-  - nosetests --with-coverage --cover-package={PACKAGE_NAME};
+  - echo "check_stable=False" >giddy/config.py
+  - nosetests --with-coverage --cover-package=giddy;
 
 notifications:
     email:
