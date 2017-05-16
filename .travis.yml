@@ -28,6 +28,9 @@ before_install:
 install:
   - conda install --yes pip
   - conda install --yes --file requirements.txt;
+  - pip install libpysal
+  - pip install esda
+  - pip install mapclassify
   - pip install -r requirements_dev.txt
 
 script:
