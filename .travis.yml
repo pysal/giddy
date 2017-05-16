@@ -28,10 +28,16 @@ before_install:
 install:
   - conda install --yes pip
   - conda install --yes --file requirements.txt;
-  - conda install --yes shapely
-  - pip install libpysal
-  - pip install esda
-  - pip install mapclassify
+  - cd ../ && git clone https://github.com/pysal/libpysal.git
+  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then 2to3 -nw libpysal/ > /dev/null; fi
+  - pip install -e ./libpysal
+  - git clone https://github.com/pysal/esda.git
+  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then 2to3 -nw esda/ > /dev/null; fi
+  - pip install -e ./esda
+  - git clone https://github.com/pysal/mapclassify.git
+  - if [[ $TRAVIS_PYTHON_VERSION == 3* ]]; then 2to3 -nw mapclassify/ > /dev/null; fi
+  - pip install -e ./mapclassify
+  - cd ./giddy
   - pip install -r requirements_dev.txt
 
 script:
