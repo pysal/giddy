@@ -1,18 +1,21 @@
 import unittest
-import pysal
-from pysal.spatial_dynamics import markov
+import libpysal as ps
 import numpy as np
-from pysal.common import RTOL
+import mapclassify.api as mc
+from giddy.markov import Markov, shorrock, kullback, prais
+from giddy.markov import Spatial_Markov, LISA_Markov
+
+
+RTOL = 0.00001
 
 
 class test_Markov(unittest.TestCase):
     def test___init__(self):
         # markov = Markov(class_ids, classes)
-        import pysal
-        f = pysal.open(pysal.examples.get_path('usjoin.csv'))
+        f = ps.open(ps.examples.get_path('usjoin.csv'))
         pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)])
-        q5 = np.array([pysal.Quantiles(y).yb for y in pci]).transpose()
-        m = pysal.Markov(q5)
+        q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
+        m = Markov(q5)
         expected = np.array([[729., 71., 1., 0., 0.],
                              [72., 567., 80., 3., 0.],
                              [0., 81., 631., 86., 2.],
@@ -38,14 +41,14 @@ class test_Markov(unittest.TestCase):
 
 class test_Spatial_Markov(unittest.TestCase):
     def test___init__(self):
-        import pysal
-        f = pysal.open(pysal.examples.get_path('usjoin.csv'))
+        import libpysal as ps
+        f = ps.open(ps.examples.get_path('usjoin.csv'))
         pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)])
         pci = pci.transpose()
         rpci = pci / (pci.mean(axis=0))
-        w = pysal.open(pysal.examples.get_path("states48.gal")).read()
+        w = ps.open(ps.examples.get_path("states48.gal")).read()
         w.transform = 'r'
-        sm = pysal.Spatial_Markov(rpci, w, fixed=True, k=5)
+        sm = Spatial_Markov(rpci, w, fixed=True, k=5)
         S = np.array([[0.43509425, 0.2635327, 0.20363044, 0.06841983,
                        0.02932278], [0.13391287, 0.33993305, 0.25153036,
                                      0.23343016, 0.04119356], [0.12124869,
@@ -61,14 +64,14 @@ class test_Spatial_Markov(unittest.TestCase):
 
 class test_chi2(unittest.TestCase):
     def test_chi2(self):
-        import pysal
-        f = pysal.open(pysal.examples.get_path('usjoin.csv'))
+        import libpysal as ps
+        f = ps.open(ps.examples.get_path('usjoin.csv'))
         pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)])
         pci = pci.transpose()
         rpci = pci / (pci.mean(axis=0))
-        w = pysal.open(pysal.examples.get_path("states48.gal")).read()
+        w = ps.open(ps.examples.get_path("states48.gal")).read()
         w.transform = 'r'
-        sm = pysal.Spatial_Markov(rpci, w, fixed=True, k=5)
+        sm = Spatial_Markov(rpci, w, fixed=True, k=5)
         chi = np.matrix([[4.05598541e+01, 6.44644317e-04, 1.60000000e+01],
                          [5.54751974e+01, 2.97033748e-06, 1.60000000e+01],
                          [1.77528996e+01, 3.38563882e-01, 1.60000000e+01],
@@ -90,11 +93,11 @@ class test_chi2(unittest.TestCase):
 class test_LISA_Markov(unittest.TestCase):
     def test___init__(self):
         import numpy as np
-        f = pysal.open(pysal.examples.get_path('usjoin.csv'))
+        f = ps.open(ps.examples.get_path('usjoin.csv'))
         pci = np.array(
             [f.by_col[str(y)] for y in range(1929, 2010)]).transpose()
-        w = pysal.open(pysal.examples.get_path("states48.gal")).read()
-        lm = pysal.LISA_Markov(pci, w)
+        w = ps.open(ps.examples.get_path("states48.gal")).read()
+        lm = LISA_Markov(pci, w)
         obs = np.array([1, 2, 3, 4])
         np.testing.assert_array_almost_equal(obs, lm.classes)
         ss = np.matrix([[0.28561505], [0.14190226], [0.40493672],
@@ -117,7 +120,7 @@ class test_LISA_Markov(unittest.TestCase):
                                                                 0.88603531]])
         np.testing.assert_array_almost_equal(lm.p, p)
         np.random.seed(10)
-        lm_random = pysal.LISA_Markov(pci, w, permutations=99)
+        lm_random = LISA_Markov(pci, w, permutations=99)
         expected = np.array([[1.12328098e+03,   1.15377356e+01,
                               3.47522158e-01, 3.38337644e+01], [
                                   3.50272664e+00,   5.28473882e+02,
@@ -152,7 +155,7 @@ class test_kullback(unittest.TestCase):
         ])
 
         F = np.array([s1, s2])
-        res = markov.kullback(F)
+        res = kullback(F)
         np.testing.assert_array_almost_equal(160.96060031170782,
                                              res['Conditional homogeneity'])
         dof = res['Conditional homogeneity dof']
@@ -164,23 +167,23 @@ class test_kullback(unittest.TestCase):
 class test_prais(unittest.TestCase):
     def test___init__(self):
         import numpy as np
-        f = pysal.open(pysal.examples.get_path('usjoin.csv'))
+        f = ps.open(ps.examples.get_path('usjoin.csv'))
         pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)])
-        q5 = np.array([pysal.Quantiles(y).yb for y in pci]).transpose()
-        m = pysal.Markov(q5)
+        q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
+        m = Markov(q5)
         res = np.matrix([[0.08988764, 0.21468144,
                           0.21125, 0.20194986, 0.07259074]])
-        np.testing.assert_array_almost_equal(markov.prais(m.p), res)
+        np.testing.assert_array_almost_equal(prais(m.p), res)
 
 
 class test_shorrock(unittest.TestCase):
     def test___init__(self):
         import numpy as np
-        f = pysal.open(pysal.examples.get_path('usjoin.csv'))
+        f = ps.open(ps.examples.get_path('usjoin.csv'))
         pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)])
-        q5 = np.array([pysal.Quantiles(y).yb for y in pci]).transpose()
-        m = pysal.Markov(q5)
-        np.testing.assert_array_almost_equal(markov.shorrock(m.p),
+        q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
+        m = Markov(q5)
+        np.testing.assert_array_almost_equal(shorrock(m.p),
                                              0.19758992000997844)
 
 

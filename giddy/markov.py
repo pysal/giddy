@@ -10,11 +10,14 @@ __all__ = ["Markov", "LISA_Markov", "Spatial_Markov", "kullback",
            "prais", "shorrock", "homogeneity"]
 
 import numpy as np
-from pysal.spatial_dynamics.ergodic import fmpt
-from pysal.spatial_dynamics.ergodic import steady_state as STEADY_STATE
+from ergodic import fmpt
+from ergodic import steady_state as STEADY_STATE
+from components import Graph
 from scipy import stats
 from operator import gt
-import pysal
+import libpysal.api as ps
+from esda.moran import Moran_Local
+import mapclassify.api as mc
 
 # TT predefine LISA transitions
 # TT[i,j] is the transition type from i to j
@@ -90,13 +93,13 @@ class Markov(object):
 
     US nominal per capita income 48 states 81 years 1929-2009
 
-    >>> import pysal
-    >>> f = pysal.open(pysal.examples.get_path("usjoin.csv"))
+    >>> import libpysal as ps
+    >>> f = ps.open(ps.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
 
     set classes to quintiles for each year
 
-    >>> q5 = np.array([pysal.Quantiles(y).yb for y in pci]).transpose()
+    >>> q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
     >>> m = Markov(q5)
     >>> m.transitions
     array([[ 729.,   71.,    1.,    0.,    0.],
@@ -121,7 +124,7 @@ class Markov(object):
 
     >>> pci = pci.transpose()
     >>> rpci = pci/(pci.mean(axis=0))
-    >>> rq = pysal.Quantiles(rpci.flatten()).yb
+    >>> rq = mc.Quantiles(rpci.flatten()).yb
     >>> rq.shape = (48,81)
     >>> mq = Markov(rq)
     >>> mq.transitions
@@ -280,14 +283,14 @@ class Spatial_Markov(object):
 
     Examples
     --------
-    >>> import pysal as ps
+    >>> import libpysal as ps
     >>> f = ps.open(ps.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
     >>> pci = pci.transpose()
     >>> rpci = pci/(pci.mean(axis=0))
     >>> w = ps.open(ps.examples.get_path("states48.gal")).read()
     >>> w.transform = 'r'
-    >>> sm = ps.Spatial_Markov(rpci, w, fixed=True, k=5, variable_name='rpci')
+    >>> sm = Spatial_Markov(rpci, w, fixed=True, k=5, variable_name='rpci')
     >>> for p in sm.P:
     ...     print(p)
     ...
@@ -401,11 +404,11 @@ class Spatial_Markov(object):
         self.variable_name = variable_name
         if fixed:
             yf = y.flatten()
-            yb = pysal.Quantiles(yf, k=k).yb
+            yb = mc.Quantiles(yf, k=k).yb
             yb.shape = (rows, cols)
             classes = yb
         else:
-            classes = npa([pysal.Quantiles(y[:, i], k=k)
+            classes = npa([ps.Quantiles(y[:, i], k=k)
                            .yb for i in np.arange(cols)]).transpose()
         classic = Markov(classes)
         self.classes = classes
@@ -519,13 +522,13 @@ class Spatial_Markov(object):
         return self._x2_dof
 
     def _calc(self, y, w, classes, k):
-        ly = pysal.lag_spatial(w, y)
+        ly = ps.lag_spatial(w, y)
         npa = np.array
         if self.fixed:
-            l_classes = pysal.Quantiles(ly.flatten(), k=k).yb
+            l_classes = mc.Quantiles(ly.flatten(), k=k).yb
             l_classes.shape = ly.shape
         else:
-            l_classes = npa([pysal.Quantiles(
+            l_classes = npa([mc.Quantiles(
                 ly[:, i], k=k).yb for i in np.arange(self.cols)])
             l_classes = l_classes.transpose()
         T = np.zeros((k, k, k))
@@ -631,12 +634,12 @@ def chi2(T1, T2):
 
     Examples
     --------
-    >>> import pysal
-    >>> f = pysal.open(pysal.examples.get_path("usjoin.csv"))
+    >>> import libpysal as ps
+    >>> f = ps.open(ps.examples.get_path("usjoin.csv"))
     >>> years = range(1929, 2010)
     >>> pci = np.array([f.by_col[str(y)] for y in years]).transpose()
     >>> rpci = pci/(pci.mean(axis=0))
-    >>> w = pysal.open(pysal.examples.get_path("states48.gal")).read()
+    >>> w = ps.open(ps.examples.get_path("states48.gal")).read()
     >>> w.transform='r'
     >>> sm = Spatial_Markov(rpci, w, fixed=True)
     >>> T1 = sm.T[0]
@@ -824,13 +827,13 @@ class LISA_Markov(Markov):
 
     Examples
     --------
-    >>> import pysal as ps
+    >>> import libpysal as ps
     >>> import numpy as np
     >>> f = ps.open(ps.examples.get_path("usjoin.csv"))
     >>> years = range(1929, 2010)
     >>> pci = np.array([f.by_col[str(y)] for y in years]).transpose()
     >>> w = ps.open(ps.examples.get_path("states48.gal")).read()
-    >>> lm = ps.LISA_Markov(pci,w)
+    >>> lm = LISA_Markov(pci,w)
     >>> lm.classes
     array([1, 2, 3, 4])
     >>> lm.steady_state
@@ -861,7 +864,7 @@ class LISA_Markov(Markov):
     significant
 
     >>> np.random.seed(10)
-    >>> lm_random = pysal.LISA_Markov(pci, w, permutations=99)
+    >>> lm_random = LISA_Markov(pci, w, permutations=99)
     >>> lm_random.significant_moves[0, :3]
     array([11, 11, 11])
     >>> lm_random.significant_moves[0,-3:]
@@ -910,7 +913,7 @@ class LISA_Markov(Markov):
 
     >>> lm.q[0:5,0]
     array([3, 2, 3, 1, 4])
-    >>> lm = ps.LISA_Markov(pci,w, geoda_quads=True)
+    >>> lm = LISA_Markov(pci,w, geoda_quads=True)
     >>> lm.q[0:5,0]
     array([2, 3, 2, 1, 4])
 
@@ -918,7 +921,7 @@ class LISA_Markov(Markov):
     def __init__(self, y, w, permutations=0,
                  significance_level=0.05, geoda_quads=False):
         y = y.transpose()
-        pml = pysal.Moran_Local
+        pml = Moran_Local
         gq = geoda_quads
         ml = ([pml(yi, w, permutations=permutations, geoda_quads=gq)
                for yi in y])
@@ -956,12 +959,12 @@ class LISA_Markov(Markov):
 
         ybar = y.mean(axis=0)
         r = y / ybar
-        ylag = np.array([pysal.lag_spatial(w, yt) for yt in y])
+        ylag = np.array([ps.lag_spatial(w, yt) for yt in y])
         rlag = ylag / ybar
         rc = r < 1.
         rlagc = rlag < 1.
-        markov_y = pysal.Markov(rc)
-        markov_ylag = pysal.Markov(rlagc)
+        markov_y = Markov(rc)
+        markov_ylag = Markov(rlagc)
         A = np.matrix([[1, 0, 0, 0],
                        [0, 0, 1, 0],
                        [0, 0, 0, 1],
@@ -972,7 +975,7 @@ class LISA_Markov(Markov):
         t1 = np.diag(trans) * kp
         t2 = self.transitions
         t1 = t1.getA()
-        self.chi_2 = pysal.spatial_dynamics.markov.chi2(t2, t1)
+        self.chi_2 = chi2(t2, t1)
         self.expected_t = t1
         self.permutations = permutations
 
@@ -1005,12 +1008,12 @@ class LISA_Markov(Markov):
 
         Examples
         --------
-        >>> f = pysal.open(pysal.examples.get_path("usjoin.csv"))
+        >>> f = ps.open(ps.examples.get_path("usjoin.csv"))
         >>> years = range(1929, 2010)
         >>> pci = np.array([f.by_col[str(y)] for y in years]).transpose()
-        >>> w = pysal.open(pysal.examples.get_path("states48.gal")).read()
+        >>> w = ps.open(ps.examples.get_path("states48.gal")).read()
         >>> np.random.seed(10)
-        >>> lm_random = pysal.LISA_Markov(pci, w, permutations=99)
+        >>> lm_random = LISA_Markov(pci, w, permutations=99)
         >>> r = lm_random.spillover()
         >>> r['components'][:,12]
         array([ 0.,  0.,  0.,  2.,  0.,  1.,  1.,  0.,  0.,  2.,  0.,  0.,  0.,
@@ -1065,7 +1068,7 @@ class LISA_Markov(Markov):
             for t in range(k - 1):
                 s1 = sig_ids[t]
                 s2 = sig_ids[t + 1]
-                g1 = pysal.region.components.Graph(undirected=True)
+                g1 = Graph(undirected=True)
                 for i in s1:
                     for neighbor in neighbors[i2id[i]]:
                         g1.add_edge(i2id[i], neighbor, 1.0)
@@ -1232,11 +1235,11 @@ def prais(pmat):
     Examples
     --------
     >>> import numpy as np
-    >>> import pysal
-    >>> f = pysal.open(pysal.examples.get_path("usjoin.csv"))
+    >>> import libpysal as ps
+    >>> f = ps.open(ps.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
-    >>> q5 = np.array([pysal.Quantiles(y).yb for y in pci]).transpose()
-    >>> m = pysal.Markov(q5)
+    >>> q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
+    >>> m = Markov(q5)
     >>> m.transitions
     array([[ 729.,   71.,    1.,    0.,    0.],
            [  72.,  567.,   80.,    3.,    0.],
@@ -1249,7 +1252,7 @@ def prais(pmat):
             [ 0.        ,  0.10125   ,  0.78875   ,  0.1075    ,  0.0025    ],
             [ 0.        ,  0.00417827,  0.11977716,  0.79805014,  0.07799443],
             [ 0.        ,  0.        ,  0.00125156,  0.07133917,  0.92740926]])
-    >>> pysal.spatial_dynamics.markov.prais(m.p)
+    >>> prais(m.p)
     matrix([[ 0.08988764,  0.21468144,  0.21125   ,  0.20194986,  0.07259074]])
 
     """
@@ -1282,11 +1285,11 @@ def shorrock(pmat):
     Examples
     --------
     >>> import numpy as np
-    >>> import pysal
-    >>> f = pysal.open(pysal.examples.get_path("usjoin.csv"))
+    >>> import libpysal as ps
+    >>> f = ps.open(ps.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
-    >>> q5 = np.array([pysal.Quantiles(y).yb for y in pci]).transpose()
-    >>> m = pysal.Markov(q5)
+    >>> q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
+    >>> m = Markov(q5)
     >>> m.transitions
     array([[ 729.,   71.,    1.,    0.,    0.],
            [  72.,  567.,   80.,    3.,    0.],
@@ -1299,7 +1302,7 @@ def shorrock(pmat):
             [ 0.        ,  0.10125   ,  0.78875   ,  0.1075    ,  0.0025    ],
             [ 0.        ,  0.00417827,  0.11977716,  0.79805014,  0.07799443],
             [ 0.        ,  0.        ,  0.00125156,  0.07133917,  0.92740926]])
-    >>> pysal.spatial_dynamics.markov.shorrock(m.p)
+    >>> shorrock(m.p)
     0.19758992000997844
 
     """
