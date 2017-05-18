@@ -2,7 +2,7 @@
 """
 Rank and spatial rank mobility measures.
 """
-__author__ = "Sergio J. Rey <srey@asu.edu> "
+__author__ = "Sergio J. Rey <sjsrey@gmail.com>"
 
 __all__ = ['SpatialTau', 'Tau', 'Theta']
 
