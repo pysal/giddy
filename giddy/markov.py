@@ -4,7 +4,7 @@ from __future__ import print_function
 """
 Markov based methods for spatial dynamics.
 """
-__author__ = "Sergio J. Rey <srey@asu.edu"
+__author__ = "Sergio J. Rey <sjsrey@gmail.com>"
 
 __all__ = ["Markov", "LISA_Markov", "Spatial_Markov", "kullback",
            "prais", "shorrock", "homogeneity"]

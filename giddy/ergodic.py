@@ -1,7 +1,7 @@
 """
 Summary measures for ergodic Markov chains
 """
-__author__ = "Sergio J. Rey <srey@asu.edu>"
+__author__ = "Sergio J. Rey <sjsrey@gmail.com>"
 
 __all__ = ['steady_state', 'fmpt', 'var_fmpt']
 
