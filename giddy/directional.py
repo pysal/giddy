@@ -7,8 +7,12 @@ __author__ = "Sergio J. Rey <sjsrey@gmail.com>"
 __all__ = ['rose']
 
 import numpy as np
-import libpysal
 from libpysal.api import lag_spatial
+
+POS8 = np.array([1, 1, 0, 0, 1, 1, 0, 0])
+POS4 = np.array([1, 0, 1, 0])
+NEG8 = 1 - POS8
+NEG4 = 1 - POS4
 
 
 def rose(Y, w, k=8, permutations=0):
@@ -17,30 +21,30 @@ def rose(Y, w, k=8, permutations=0):
 
     Parameters
     ----------
-    Y             : array 
-                    (n, 2), variable observed on n spatial units over 2 time. 
+    Y             : array
+                    (n, 2), variable observed on n spatial units over 2 time.
                     periods
     w             : W
                     spatial weights object.
     k             : int, optional
-                    number of circular sectors in rose diagram (the default is 
+                    number of circular sectors in rose diagram (the default is
                     8).
     permutations  : int, optional
-                    number of random spatial permutations for calculation of 
+                    number of random spatial permutations for calculation of
                     pseudo p-values (the default is 0).
 
     Returns
     -------
-    results       : dictionary 
+    results       : dictionary
                     (keys defined below)
-    counts        : array 
-                    (k, 1), number of vectors with angular movement falling in 
+    counts        : array
+                    (k, 1), number of vectors with angular movement falling in
                     each sector.
-    cuts          : array 
+    cuts          : array
                     (k, 1), intervals defining circular sectors (in radians).
-    random_counts : array 
+    random_counts : array
                     (permutations, k), counts from random permutations.
-    pvalues       : array 
+    pvalues       : array
                     (k, 1), one sided (upper tail) pvalues for observed counts.
 
     Notes
@@ -51,7 +55,7 @@ def rose(Y, w, k=8, permutations=0):
     --------
     Constructing data for illustration of directional LISA analytics.
     Data is for the 48 lower US states over the period 1969-2009 and
-    includes per capita income normalized to the national average. 
+    includes per capita income normalized to the national average.
 
     Load comma delimited data file in and convert to a numpy array
 
@@ -74,6 +78,7 @@ def rose(Y, w, k=8, permutations=0):
     ...      '"Mideast"',
     ...      '"Great Lakes"',
     ...      '"Plains"',
+
     ...      '"Southeast"',
     ...      '"Southwest"',
     ...      '"Rocky Mountain"',
@@ -176,3 +181,140 @@ def rose(Y, w, k=8, permutations=0):
         results['random_counts'] = all_counts
 
     return results
+
+class Rose(object):
+    def __init__(self, Y, w, k=8):
+        self.Y = Y
+        self.w = w
+        self.k = k
+        self.permtuations = 0
+        self.sw = 2 * np.pi / self.k
+        self.cuts = np.arange(0.0, 2 * np.pi + self.sw, self.sw)
+        observed = self._calc(Y, w, k)
+        self.theta = observed['theta']
+        self.bins = observed['bins']
+        self.counts = observed['counts']
+        self.r = observed['r']
+        self.lag = observed['lag']
+
+
+    def permute(self, permutations=99, alternative='two.sided'):
+        rY = self.Y.copy()
+        idxs = np.arange(len(rY))
+        counts = np.zeros((permutations, len(self.counts)))
+        for m in range(permutations):
+            np.random.shuffle(idxs)
+            res = self._calc(rY[idxs,:], self.w, self.k)
+            counts[m] = res['counts']
+        self.counts_perm = counts
+        self.larger_perm = np.array([(counts[:,i]>=self.counts[i]).sum() for i in range(self.k)])
+        self.smaller_perm = np.array([(counts[:,i]<=self.counts[i]).sum() for i in range(self.k)])
+        self.expected_perm = counts.mean(axis=0)
+        self.std_perm = counts.std(axis=0)
+
+        # pvalue logic
+        # if P is the proportion that are as large for a one sided test (larger
+        # than), then
+        # p=P.
+        #
+        # For a two-tailed test, if P < .5, p = 2 * P, else, p = 2(1-P)
+        # Source: Rayner, J. C. W., O. Thas, and D. J. Best. 2009. "Appendix B:
+        # Parametric Bootstrap P-Values." In Smooth Tests of Goodness of Fit,
+        # 247. John Wiley and Sons.
+        # Note that the larger and smaller counts would be complements (except
+        # for the shared equality, for
+        # a given bin in the circular histogram. So we only need one of them.
+
+        # We report two-sided p-values for each bin as the default
+        # since a priori there could # be different alternatives for each bin depending on the problem at
+        # hand.
+
+        alt = alternative.upper()
+        if alt == 'TWO.SIDED':
+            P = (self.larger_perm + 1) / (permutations + 1.)
+            mask = P < 0.5
+            self.p = mask * 2 * P + (1 - mask) * 2 * (1-P)
+        elif alt == 'POSITIVE':
+            # NE, SW sectors are higher, NW, SE are lower
+            POS = POS8
+            if self.k == 4:
+                POS = POS4
+            L = (self.larger_perm + 1) / (permutations + 1.)
+            S = (self.smaller_perm + 1) / (permutations + 1.)
+            P = POS * L + (1-POS) * S
+            self.p = P
+        elif alt == 'NEGATIVE':
+            # NE, SW sectors are lower, NW, SE are higher
+            NEG = NEG8
+            if self.k == 4:
+                NEG = NEG4
+            L = (self.larger_perm + 1) / (permutations + 1.)
+            S = (self.smaller_perm + 1) / (permutations + 1.)
+            P = NEG * L + (1-NEG) * S
+            self.p = P
+        else:
+            print('Bad option for alternative: %s.'%alternative)
+
+
+    def _calc(self, Y, w, k):
+        wY = lag_spatial(w, Y)
+        dx = Y[:, -1] - Y[:,0]
+        dy = wY[:, -1] - wY[:, 0]
+        self.wY = wY
+        self.Y = Y
+        r = np.sqrt(dx*dx + dy*dy)
+        theta = np.arctan2(dy, dx)
+        neg = theta < 0.0
+        utheta = theta * (1 - neg) + neg * (2 *np.pi + theta)
+        counts, bins = np.histogram(utheta, self.cuts)
+        results = {}
+        results['counts'] = counts
+        results['theta'] = theta
+        results['bins' ] = bins
+        results['r'] = r
+        results['lag'] = wY
+        self._dx = dx
+        self._dy = dy
+        return results
+
+    def plot(self, attribute=None):
+        import matplotlib.cm as cm
+        import matplotlib.pyplot as plt
+        ax = plt.subplot(111, projection='polar')
+        ax.set_rlabel_position(315)
+        if attribute is None:
+            c = ax.scatter(self.theta, self.r)
+        else:
+            c = ax.scatter(self.theta, self.r, c=attribute)
+            plt.colorbar(c)
+
+    def plot_origin(self, attribute=None):
+        import matplotlib.cm as cm
+        import matplotlib.pyplot as plt
+        ax = plt.subplot(111 )
+        xlim = [self._dx.min(), self._dx.max()]
+        ylim = [self._dy.min(), self._dy.max()]
+        if attribute is None:
+            for x,y in zip(self._dx, self._dy):
+                xs = [0, x]
+                ys = [0, y]
+                plt.plot(xs,ys)
+            plt.axis('equal')  #<-- set the axes to the same scale
+            plt.xlim(xlim) #<-- set the x axis limits
+            plt.ylim(ylim) #<-- set the y axis limits
+
+
+    def plot_vectors(self, attribute=None):
+        import matplotlib.cm as cm
+        import matplotlib.pyplot as plt
+        ax = plt.subplot(111 )
+        xlim = [self.Y.min(), self.Y.max()]
+        ylim = [self.wY.min(), self.wY.max()]
+        if attribute is None:
+            for i in range(len(self.Y)):
+                xs = self.Y[i,:]
+                ys = self.wY[i,:]
+                plt.plot(xs,ys)
+            plt.axis('equal')  #<-- set the axes to the same scale
+            plt.xlim(xlim) #<-- set the x axis limits
+            plt.ylim(ylim) #<-- set the y axis limits
