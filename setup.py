@@ -12,7 +12,7 @@ REQUIREMENTS = [i.strip() for i in open(pth).readlines()]
 
 setup(name='giddy', #name of package
       version='1.0.0',
-      description='Methods and Functions for the analysis of dynamics of longitudinal spatial data (GIDDY = GeospatIal Distribution DYnamics)', #short <80chr description
+      description='SPAtiali Graphs: nETworks, Topology, and Inference', #short <80chr description
       url='https://github.com/pysal/giddy', #github repo
       maintainer='Wei Kang',
       maintainer_email='weikang9009@gmail.com',
