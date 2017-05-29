@@ -7,7 +7,7 @@ Markov based methods for spatial dynamics.
 __author__ = "Sergio J. Rey <sjsrey@gmail.com>"
 
 __all__ = ["Markov", "LISA_Markov", "Spatial_Markov", "kullback",
-           "prais", "shorrock", "homogeneity"]
+           "prais", "homogeneity"]
 
 import numpy as np
 from ergodic import fmpt
@@ -408,7 +408,7 @@ class Spatial_Markov(object):
             yb.shape = (rows, cols)
             classes = yb
         else:
-            classes = npa([ps.Quantiles(y[:, i], k=k)
+            classes = npa([mc.Quantiles(y[:, i], k=k)
                            .yb for i in np.arange(cols)]).transpose()
         classic = Markov(classes)
         self.classes = classes
@@ -1258,59 +1258,6 @@ def prais(pmat):
     """
     pr = (pmat.sum(axis=1) - np.diag(pmat))[0]
     return pr
-
-
-def shorrock(pmat):
-    """
-    Shorrock's mobility measure.
-
-    Parameters
-    ----------
-    pmat : matrix
-           (k, k), Markov probability transition matrix.
-
-    Returns
-    -------
-    sh   : float
-           Shorrock mobility measure.
-
-    Notes
-    -----
-    Shorock's mobility measure is defined as
-
-    .. math::
-
-         sh = (k  - \sum_{j=1}^{k} p_{j,j})/(k - 1)
-
-    Examples
-    --------
-    >>> import numpy as np
-    >>> import libpysal
-    >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
-    >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
-    >>> q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
-    >>> m = Markov(q5)
-    >>> m.transitions
-    array([[ 729.,   71.,    1.,    0.,    0.],
-           [  72.,  567.,   80.,    3.,    0.],
-           [   0.,   81.,  631.,   86.,    2.],
-           [   0.,    3.,   86.,  573.,   56.],
-           [   0.,    0.,    1.,   57.,  741.]])
-    >>> m.p
-    matrix([[ 0.91011236,  0.0886392 ,  0.00124844,  0.        ,  0.        ],
-            [ 0.09972299,  0.78531856,  0.11080332,  0.00415512,  0.        ],
-            [ 0.        ,  0.10125   ,  0.78875   ,  0.1075    ,  0.0025    ],
-            [ 0.        ,  0.00417827,  0.11977716,  0.79805014,  0.07799443],
-            [ 0.        ,  0.        ,  0.00125156,  0.07133917,  0.92740926]])
-    >>> shorrock(m.p)
-    0.19758992000997844
-
-    """
-    t = np.trace(pmat)
-    k = pmat.shape[1]
-    sh = (k - t) / (k - 1)
-    return sh
-
 
 def homogeneity(transition_matrices, regime_names=[], class_names=[],
                 title="Markov Homogeneity Test"):

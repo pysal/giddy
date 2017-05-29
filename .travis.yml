@@ -48,8 +48,8 @@ script:
 notifications:
     email:
         recipients:
-                - weikang9009@gmail.com
-                - sjsrey@gmail.com
+            - weikang9009@gmail.com
+            - sjsrey@gmail.com
         on_change: always
         on_failure: always
 

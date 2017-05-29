@@ -2,7 +2,7 @@ import unittest
 import libpysal as ps
 import numpy as np
 import mapclassify.api as mc
-from giddy.markov import Markov, shorrock, kullback, prais
+from giddy.markov import Markov, kullback, prais
 from giddy.markov import Spatial_Markov, LISA_Markov
 
 
@@ -163,7 +163,6 @@ class test_kullback(unittest.TestCase):
         p_value = res['Conditional homogeneity pvalue']
         np.testing.assert_array_almost_equal(0.0, p_value)
 
-
 class test_prais(unittest.TestCase):
     def test___init__(self):
         import numpy as np
@@ -174,18 +173,6 @@ class test_prais(unittest.TestCase):
         res = np.matrix([[0.08988764, 0.21468144,
                           0.21125, 0.20194986, 0.07259074]])
         np.testing.assert_array_almost_equal(prais(m.p), res)
-
-
-class test_shorrock(unittest.TestCase):
-    def test___init__(self):
-        import numpy as np
-        f = ps.open(ps.examples.get_path('usjoin.csv'))
-        pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)])
-        q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
-        m = Markov(q5)
-        np.testing.assert_array_almost_equal(shorrock(m.p),
-                                             0.19758992000997844)
-
 
 if __name__ == '__main__':
     unittest.main()
