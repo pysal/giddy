@@ -16,6 +16,29 @@ NEG4 = 1 - POS4
 
 
 class Rose(object):
+    """
+    Rose diagram based inference for directional LISAs.
+
+
+    Attributes
+    ----------
+
+    Methods
+    -------
+    permute(permutations=99)
+        Carry out random spatial permutations and generate psuedo p-values for vector segments
+
+    plot(attribute=None)
+        Plot rose diagram with LISA vectors
+
+    plot_origin(attribute=None)
+        Plot origin standardized LISA vectors
+
+    plot_vectors(attribute=None)
+        Plot unstandardized LISA vectors
+
+    """
+
     def __init__(self, Y, w, k=8):
         """
         Calculation of rose diagram for local indicators of spatial
@@ -125,7 +148,8 @@ class Rose(object):
         What are the cut-offs for our histogram - in radians
 
         >>> r4.cuts
-        array([ 0.        ,  1.57079633,  3.14159265,  4.71238898,  6.28318531])
+        array([ 0.        ,  1.57079633,  3.14159265,  4.71238898,
+               6.28318531])
 
         How many vectors fell in each sector
 
@@ -187,14 +211,13 @@ class Rose(object):
         self.r = observed['r']
         self.lag = observed['lag']
 
-
     def permute(self, permutations=99, alternative='two.sided'):
         rY = self.Y.copy()
         idxs = np.arange(len(rY))
         counts = np.zeros((permutations, len(self.counts)))
         for m in range(permutations):
             np.random.shuffle(idxs)
-            res = self._calc(rY[idxs,:], self.w, self.k)
+            res = self._calc(rY[idxs, :], self.w, self.k)
             counts[m] = res['counts']
         self.counts_perm = counts
         self.larger_perm = np.array([(counts[:,i]>=self.counts[i]).sum() for i in range(self.k)])
