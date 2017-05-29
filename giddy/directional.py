@@ -9,19 +9,54 @@ __all__ = ['Rose']
 import numpy as np
 from libpysal.api import lag_spatial
 
-POS8 = np.array([1, 1, 0, 0, 1, 1, 0, 0])
-POS4 = np.array([1, 0, 1, 0])
-NEG8 = 1 - POS8
-NEG4 = 1 - POS4
+_POS8 = np.array([1, 1, 0, 0, 1, 1, 0, 0])
+_POS4 = np.array([1, 0, 1, 0])
+_NEG8 = 1 - _POS8
+_NEG4 = 1 - _POS4
 
 
 class Rose(object):
-    """
-    Rose diagram based inference for directional LISAs.
+    """ Rose diagram based inference for directional LISAs.
 
+    For n units with LISA values at two points in time, the Rose class provides
+    the LISA vectors, their visualization, and computationally based inference.
+
+    Parameters
+    ----------
+    Y : array (n,2)
+        Columns correspond to end-point time periods to calculate LISA vectors for n object.
+    w : PySAL W
+        Spatial weights object.
+    k : int
+        Number of circular sectors in rose diagram.
 
     Attributes
     ----------
+    cuts : (k, 1) ndarray
+        Radian cuts for rose diagram (circular histogram).
+    counts: (k, 1) ndarray
+        Number of vectors contained in each sector.
+    r : (n, 1) ndarray
+        Vector lengths.
+    theta : (n,1) ndarray
+        Signed radians for observed LISA vectors.
+
+    If self.permute is called the following attributes are available:
+
+    alternative : string
+        Form of the specified alternative hypothesis ['two-sided'(default) |
+        'positive' | 'negative']
+    counts_perm : (permutations, k) ndarray
+        Counts obtained for each sector for every permutation
+    expected_perm : (k, 1) ndarray
+        Average number of counts for each sector taken over all permutations.
+    p : (k, 1) ndarray
+        Psuedo p-values for the observed sector counts under the specified alternative.
+    larger_perm : (k, 1) ndarray
+        Number of times realized counts are as large as observed sector count.
+    smaller_perm : (k, 1) ndarray
+        Number of times realized counts are as small as observed sector count.
+
 
     Methods
     -------
@@ -31,10 +66,10 @@ class Rose(object):
     plot(attribute=None)
         Plot rose diagram with LISA vectors
 
-    plot_origin(attribute=None)
+    plot_origin
         Plot origin standardized LISA vectors
 
-    plot_vectors(attribute=None)
+    plot_vectors
         Plot unstandardized LISA vectors
 
     """
@@ -46,33 +81,13 @@ class Rose(object):
 
         Parameters
         ----------
-        Y             : array
-                        (n, 2), variable observed on n spatial units over 2
-                        time periods
-        w             : W
-                        spatial weights object.
-        k             : int, optional
-                        number of circular sectors in rose diagram (the default
-                        is 8).
-        permutations  : int, optional
-                        number of random spatial permutations for calculation
-                        of pseudo p-values (the default is 0).
+        Y :  (n, 2) ndarray
+            Variable observed on n spatial units over 2 time periods
+        w : W
+            Spatial weights object.
+        k : int
+            number of circular sectors in rose diagram (the default is 8).
 
-        Returns
-        -------
-        results       : dictionary
-                        (keys defined below)
-        counts        : array
-                        (k, 1), number of vectors with angular movement falling
-                        in each sector.
-        cuts          : array
-                        (k, 1), intervals defining circular sectors (in
-                        radians).
-        random_counts : array
-                        (permutations, k), counts from random permutations.
-        pvalues       : array
-                        (k, 1), one sided (upper tail) pvalues for observed
-                        counts.
 
         Notes
         -----
@@ -148,8 +163,7 @@ class Rose(object):
         What are the cut-offs for our histogram - in radians
 
         >>> r4.cuts
-        array([ 0.        ,  1.57079633,  3.14159265,  4.71238898,
-               6.28318531])
+        array([ 0.        ,  1.57079633,  3.14159265,  4.71238898,  6.28318531])
 
         How many vectors fell in each sector
 
@@ -212,6 +226,21 @@ class Rose(object):
         self.lag = observed['lag']
 
     def permute(self, permutations=99, alternative='two.sided'):
+        """Generate ransom spatial permutations for inference on LISA vectors.
+
+        Parameters
+        ----------
+        permutations : int, optional
+            Number of random permutations of observations.
+        alternative : string, optional
+            Type of alternative to form in generating p-values.
+            Options are: `two-sided` which tests for difference between observed
+            counts and those obtained from the permutation distribution;
+            `positive` which tests the alternative that the focal unit and its
+            lag move in the same direction over time; `negative` which tests
+            that the focal unit and its lag move in opposite directions over
+            the interval.
+        """
         rY = self.Y.copy()
         idxs = np.arange(len(rY))
         counts = np.zeros((permutations, len(self.counts)))
@@ -220,10 +249,10 @@ class Rose(object):
             res = self._calc(rY[idxs, :], self.w, self.k)
             counts[m] = res['counts']
         self.counts_perm = counts
-        self.larger_perm = np.array([(counts[:,i]>=self.counts[i]).sum() for i in range(self.k)])
-        self.smaller_perm = np.array([(counts[:,i]<=self.counts[i]).sum() for i in range(self.k)])
+        self.larger_perm = np.array([(counts[:, i] >= self.counts[i]).sum() for i in range(self.k)])
+        self.smaller_perm = np.array([(counts[:, i] <= self.counts[i]).sum() for i in range(self.k)])
         self.expected_perm = counts.mean(axis=0)
-        self.std_perm = counts.std(axis=0)
+        self.alternative = alternative
 
         # pvalue logic
         # if P is the proportion that are as large for a one sided test (larger
@@ -239,8 +268,8 @@ class Rose(object):
         # a given bin in the circular histogram. So we only need one of them.
 
         # We report two-sided p-values for each bin as the default
-        # since a priori there could # be different alternatives for each bin depending on the problem at
-        # hand.
+        # since a priori there could # be different alternatives for each bin
+        # depending on the problem at hand.
 
         alt = alternative.upper()
         if alt == 'TWO.SIDED':
@@ -249,25 +278,24 @@ class Rose(object):
             self.p = mask * 2 * P + (1 - mask) * 2 * (1-P)
         elif alt == 'POSITIVE':
             # NE, SW sectors are higher, NW, SE are lower
-            POS = POS8
+            POS = _POS8
             if self.k == 4:
-                POS = POS4
+                POS = _POS4
             L = (self.larger_perm + 1) / (permutations + 1.)
             S = (self.smaller_perm + 1) / (permutations + 1.)
             P = POS * L + (1-POS) * S
             self.p = P
         elif alt == 'NEGATIVE':
             # NE, SW sectors are lower, NW, SE are higher
-            NEG = NEG8
+            NEG = _NEG8
             if self.k == 4:
-                NEG = NEG4
+                NEG = _NEG4
             L = (self.larger_perm + 1) / (permutations + 1.)
             S = (self.smaller_perm + 1) / (permutations + 1.)
             P = NEG * L + (1-NEG) * S
             self.p = P
         else:
-            print('Bad option for alternative: %s.'%alternative)
-
+            print('Bad option for alternative: %s.' % alternative)
 
     def _calc(self, Y, w, k):
         wY = lag_spatial(w, Y)
@@ -291,6 +319,13 @@ class Rose(object):
         return results
 
     def plot(self, attribute=None):
+        """Plot the rose diagram.
+
+        Parameters
+        ----------
+        attribute : (n,) ndarray, optional
+            Variable to specify colors of the colorbars.
+        """
         import matplotlib.cm as cm
         import matplotlib.pyplot as plt
         ax = plt.subplot(111, projection='polar')
@@ -301,33 +336,30 @@ class Rose(object):
             c = ax.scatter(self.theta, self.r, c=attribute)
             plt.colorbar(c)
 
-    def plot_origin(self, attribute=None):
+    def plot_origin(self):  # TODO add attribute option to color vectors
         import matplotlib.cm as cm
         import matplotlib.pyplot as plt
         ax = plt.subplot(111 )
         xlim = [self._dx.min(), self._dx.max()]
         ylim = [self._dy.min(), self._dy.max()]
-        if attribute is None:
-            for x,y in zip(self._dx, self._dy):
-                xs = [0, x]
-                ys = [0, y]
-                plt.plot(xs,ys)
-            plt.axis('equal')  #<-- set the axes to the same scale
-            plt.xlim(xlim) #<-- set the x axis limits
-            plt.ylim(ylim) #<-- set the y axis limits
+        for x, y in zip(self._dx, self._dy):
+            xs = [0, x]
+            ys = [0, y]
+            plt.plot(xs, ys, '-b')  # TODO change this to scale with attribute
+        plt.axis('equal')
+        plt.xlim(xlim)
+        plt.ylim(ylim)
 
-
-    def plot_vectors(self, attribute=None):
+    def plot_vectors(self):  # TODO add attribute option to color vectors
         import matplotlib.cm as cm
         import matplotlib.pyplot as plt
         ax = plt.subplot(111 )
         xlim = [self.Y.min(), self.Y.max()]
         ylim = [self.wY.min(), self.wY.max()]
-        if attribute is None:
-            for i in range(len(self.Y)):
-                xs = self.Y[i,:]
-                ys = self.wY[i,:]
-                plt.plot(xs,ys)
-            plt.axis('equal')  #<-- set the axes to the same scale
-            plt.xlim(xlim) #<-- set the x axis limits
-            plt.ylim(ylim) #<-- set the y axis limits
+        for i in range(len(self.Y)):
+            xs = self.Y[i,:]
+            ys = self.wY[i,:]
+            plt.plot(xs,ys, '-b')  # TODO change this to scale with attribute
+        plt.axis('equal')
+        plt.xlim(xlim)
+        plt.ylim(ylim)
