@@ -224,6 +224,8 @@ class Rose(object):
         self.counts = observed['counts']
         self.r = observed['r']
         self.lag = observed['lag']
+        self._dx = observed['dx']
+        self._dy = observed['dy']
 
     def permute(self, permutations=99, alternative='two.sided'):
         """Generate ransom spatial permutations for inference on LISA vectors.
@@ -314,8 +316,8 @@ class Rose(object):
         results['bins' ] = bins
         results['r'] = r
         results['lag'] = wY
-        self._dx = dx
-        self._dy = dy
+        results['dx'] = dx
+        results['dy'] = dy
         return results
 
     def plot(self, attribute=None):
