@@ -3,8 +3,7 @@ GeospatIal Distribution DYnamics (giddy) in PySAL
 
 [![Build Status](https://travis-ci.org/pysal/giddy.svg?branch=master)](https://travis-ci.org/pysal/giddy)
 
-Space–time analytics that consider the role of space in the evolution
- of distributions over time.
+Space–time analytics that consider the role of space in the evolution of distributions over time.
 
 Features
 --------
@@ -19,12 +18,14 @@ Features
 Examples
 --------
 
-* [Markov based methods](notebooks/Markov_Based_Methods.ipynb)
-* [Rank based methods](notebooks/Rank_based_Methods_-_applied_to_Mexico.ipynb)
-* [Mobility measures](notebooks/Mobility_measures.ipynb)
+* [Markov based methods](https://github.com/pysal/giddy/blob/master/notebooks/Markov%20Based%20Methods.ipynb)
+* [Rank based methods](https://github.com/pysal/giddy/blob/master/notebooks/Rank%20based%20Methods.ipynb)
+* [Mobility measures](https://github.com/pysal/giddy/blob/master/notebooks/Mobility%20measures.ipynb)
 
 Installation
 ------------
+
+**Note: giddy is not yet available on pypi**
 
 Install giddy by running:
 
@@ -45,11 +46,7 @@ Contribute
 
 PySAL-giddy is under active development and contributors are welcome.
 
-If you have any suggestion, feature request, or bug report, please open
- a new [issue](https://github.com/pysal/giddy/issues) on GitHub. To
- submit patches, please follow the PySAL development [guidelines](http://pysal.readthedocs.io/en/latest/developers/index.html)
- and open a [pull request](https://github.com/pysal/giddy). Once your changes get merged, you’ll
- automatically be added to the [Contributors List](https://github.com/pysal/giddy/graphs/contributors).
+If you have any suggestion, feature request, or bug report, please open a new [issue](https://github.com/pysal/giddy/issues) on GitHub. To submit patches, please follow the PySAL development [guidelines](http://pysal.readthedocs.io/en/latest/developers/index.html) and open a [pull request](https://github.com/pysal/giddy). Once your changes get merged, you’ll automatically be added to the [Contributors List](https://github.com/pysal/giddy/graphs/contributors).
 
 Support
 -------
