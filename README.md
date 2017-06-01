@@ -19,9 +19,9 @@ Features
 Examples
 --------
 
-* [Markov based methods](notebooks/Markov Based Methods.ipynb)
-* [Rank based methods](notebooks/Rank based Methods - applied to Mexico.ipynb)
-* [Mobility measures](notebooks/Mobility measures.ipynb)
+* [Markov based methods](notebooks/Markov_Based_Methods.ipynb)
+* [Rank based methods](notebooks/Rank_based_Methods_-_applied_to_Mexico.ipynb)
+* [Mobility measures](notebooks/Mobility_measures.ipynb)
 
 Installation
 ------------
