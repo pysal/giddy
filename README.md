@@ -18,9 +18,9 @@ Features
 Examples
 --------
 
-* [Markov based methods](https://github.com/pysal/giddy/blob/master/notebooks/Markov%20Based%20Methods.ipynb)
-* [Rank based methods](https://github.com/pysal/giddy/blob/master/notebooks/Rank%20based%20Methods.ipynb)
-* [Mobility measures](https://github.com/pysal/giddy/blob/master/notebooks/Mobility%20measures.ipynb)
+* [Markov based methods](notebooks/Markov%20Based%20Methods.ipynb)
+* [Rank based methods](notebooks/Rank%20based%20Methods.ipynb)
+* [Mobility measures](notebooks/Mobility%20measures.ipynb)
 
 Installation
 ------------
