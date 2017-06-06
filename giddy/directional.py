@@ -112,6 +112,7 @@ class Rose(object):
         Bottom of the file has regional data which we don't need for this
         example so we will subset only those records that match a state name
 
+<<<<<<< HEAD
         >>> sids=range(60)
         >>> out=['"United States 3/"',
         ...      '"Alaska 3/"',
@@ -212,6 +213,49 @@ class Rose(object):
 
         """
 
+=======
+    """
+    results = {}
+    sw = 2 * np.pi / k
+    cuts = np.arange(0.0, 2 * np.pi + sw, sw)
+    wY = lag_spatial(w, Y)
+    dx = Y[:, -1] - Y[:, 0]
+    dy = wY[:, -1] - wY[:, 0]
+    theta = np.arctan2(dy, dx)
+    neg = theta < 0.0
+    utheta = theta * (1 - neg) + neg * (2 * np.pi + theta)
+    counts, bins = np.histogram(utheta, cuts)
+    results['counts'] = counts
+    results['cuts'] = cuts
+    if permutations:
+        n, k1 = Y.shape
+        ids = np.arange(n)
+        all_counts = np.zeros((permutations, k))
+        for i in range(permutations):
+            rid = np.random.permutation(ids)
+            YR = Y[rid, :]
+            wYR = lag_spatial(w, YR)
+            dx = YR[:, -1] - YR[:, 0]
+            dy = wYR[:, -1] - wYR[:, 0]
+            theta = np.arctan2(dy, dx)
+            neg = theta < 0.0
+            utheta = theta * (1 - neg) + neg * (2 * np.pi + theta)
+            c, b = np.histogram(utheta, cuts)
+            c.shape = (1, k)
+            all_counts[i, :] = c
+        larger = sum(all_counts >= counts)
+        p_l = permutations - larger
+        extreme = (p_l) < larger
+        extreme = np.where(extreme, p_l, larger)
+        p = (extreme + 1.) / (permutations + 1.)
+        results['pvalues'] = p
+        results['random_counts'] = all_counts
+
+    return results
+
+class Rose(object):
+    def __init__(self, Y, w, k=8):
+>>>>>>> 596b8a4a32d9c8a66b0a520111aadf096389c1cc
         self.Y = Y
         self.w = w
         self.k = k
@@ -224,6 +268,7 @@ class Rose(object):
         self.counts = observed['counts']
         self.r = observed['r']
         self.lag = observed['lag']
+<<<<<<< HEAD
         self._dx = observed['dx']
         self._dy = observed['dy']
 
@@ -243,11 +288,17 @@ class Rose(object):
             that the focal unit and its lag move in opposite directions over
             the interval.
         """
+=======
+
+
+    def permute(self, permutations=99, alternative='two.sided'):
+>>>>>>> 596b8a4a32d9c8a66b0a520111aadf096389c1cc
         rY = self.Y.copy()
         idxs = np.arange(len(rY))
         counts = np.zeros((permutations, len(self.counts)))
         for m in range(permutations):
             np.random.shuffle(idxs)
+<<<<<<< HEAD
             res = self._calc(rY[idxs, :], self.w, self.k)
             counts[m] = res['counts']
         self.counts_perm = counts
@@ -255,6 +306,15 @@ class Rose(object):
         self.smaller_perm = np.array([(counts[:, i] <= self.counts[i]).sum() for i in range(self.k)])
         self.expected_perm = counts.mean(axis=0)
         self.alternative = alternative
+=======
+            res = self._calc(rY[idxs,:], self.w, self.k)
+            counts[m] = res['counts']
+        self.counts_perm = counts
+        self.larger_perm = np.array([(counts[:,i]>=self.counts[i]).sum() for i in range(self.k)])
+        self.smaller_perm = np.array([(counts[:,i]<=self.counts[i]).sum() for i in range(self.k)])
+        self.expected_perm = counts.mean(axis=0)
+        self.std_perm = counts.std(axis=0)
+>>>>>>> 596b8a4a32d9c8a66b0a520111aadf096389c1cc
 
         # pvalue logic
         # if P is the proportion that are as large for a one sided test (larger
@@ -270,8 +330,13 @@ class Rose(object):
         # a given bin in the circular histogram. So we only need one of them.
 
         # We report two-sided p-values for each bin as the default
+<<<<<<< HEAD
         # since a priori there could # be different alternatives for each bin
         # depending on the problem at hand.
+=======
+        # since a priori there could # be different alternatives for each bin depending on the problem at
+        # hand.
+>>>>>>> 596b8a4a32d9c8a66b0a520111aadf096389c1cc
 
         alt = alternative.upper()
         if alt == 'TWO.SIDED':
@@ -280,24 +345,41 @@ class Rose(object):
             self.p = mask * 2 * P + (1 - mask) * 2 * (1-P)
         elif alt == 'POSITIVE':
             # NE, SW sectors are higher, NW, SE are lower
+<<<<<<< HEAD
             POS = _POS8
             if self.k == 4:
                 POS = _POS4
+=======
+            POS = POS8
+            if self.k == 4:
+                POS = POS4
+>>>>>>> 596b8a4a32d9c8a66b0a520111aadf096389c1cc
             L = (self.larger_perm + 1) / (permutations + 1.)
             S = (self.smaller_perm + 1) / (permutations + 1.)
             P = POS * L + (1-POS) * S
             self.p = P
         elif alt == 'NEGATIVE':
             # NE, SW sectors are lower, NW, SE are higher
+<<<<<<< HEAD
             NEG = _NEG8
             if self.k == 4:
                 NEG = _NEG4
+=======
+            NEG = NEG8
+            if self.k == 4:
+                NEG = NEG4
+>>>>>>> 596b8a4a32d9c8a66b0a520111aadf096389c1cc
             L = (self.larger_perm + 1) / (permutations + 1.)
             S = (self.smaller_perm + 1) / (permutations + 1.)
             P = NEG * L + (1-NEG) * S
             self.p = P
         else:
+<<<<<<< HEAD
             print('Bad option for alternative: %s.' % alternative)
+=======
+            print('Bad option for alternative: %s.'%alternative)
+
+>>>>>>> 596b8a4a32d9c8a66b0a520111aadf096389c1cc
 
     def _calc(self, Y, w, k):
         wY = lag_spatial(w, Y)
@@ -316,6 +398,7 @@ class Rose(object):
         results['bins' ] = bins
         results['r'] = r
         results['lag'] = wY
+<<<<<<< HEAD
         results['dx'] = dx
         results['dy'] = dy
         return results
@@ -328,6 +411,13 @@ class Rose(object):
         attribute : (n,) ndarray, optional
             Variable to specify colors of the colorbars.
         """
+=======
+        self._dx = dx
+        self._dy = dy
+        return results
+
+    def plot(self, attribute=None):
+>>>>>>> 596b8a4a32d9c8a66b0a520111aadf096389c1cc
         import matplotlib.cm as cm
         import matplotlib.pyplot as plt
         ax = plt.subplot(111, projection='polar')
@@ -338,12 +428,17 @@ class Rose(object):
             c = ax.scatter(self.theta, self.r, c=attribute)
             plt.colorbar(c)
 
+<<<<<<< HEAD
     def plot_origin(self):  # TODO add attribute option to color vectors
+=======
+    def plot_origin(self, attribute=None):
+>>>>>>> 596b8a4a32d9c8a66b0a520111aadf096389c1cc
         import matplotlib.cm as cm
         import matplotlib.pyplot as plt
         ax = plt.subplot(111 )
         xlim = [self._dx.min(), self._dx.max()]
         ylim = [self._dy.min(), self._dy.max()]
+<<<<<<< HEAD
         for x, y in zip(self._dx, self._dy):
             xs = [0, x]
             ys = [0, y]
@@ -353,11 +448,25 @@ class Rose(object):
         plt.ylim(ylim)
 
     def plot_vectors(self):  # TODO add attribute option to color vectors
+=======
+        if attribute is None:
+            for x,y in zip(self._dx, self._dy):
+                xs = [0, x]
+                ys = [0, y]
+                plt.plot(xs,ys)
+            plt.axis('equal')  #<-- set the axes to the same scale
+            plt.xlim(xlim) #<-- set the x axis limits
+            plt.ylim(ylim) #<-- set the y axis limits
+
+
+    def plot_vectors(self, attribute=None):
+>>>>>>> 596b8a4a32d9c8a66b0a520111aadf096389c1cc
         import matplotlib.cm as cm
         import matplotlib.pyplot as plt
         ax = plt.subplot(111 )
         xlim = [self.Y.min(), self.Y.max()]
         ylim = [self.wY.min(), self.wY.max()]
+<<<<<<< HEAD
         for i in range(len(self.Y)):
             xs = self.Y[i,:]
             ys = self.wY[i,:]
@@ -365,3 +474,13 @@ class Rose(object):
         plt.axis('equal')
         plt.xlim(xlim)
         plt.ylim(ylim)
+=======
+        if attribute is None:
+            for i in range(len(self.Y)):
+                xs = self.Y[i,:]
+                ys = self.wY[i,:]
+                plt.plot(xs,ys)
+            plt.axis('equal')  #<-- set the axes to the same scale
+            plt.xlim(xlim) #<-- set the x axis limits
+            plt.ylim(ylim) #<-- set the y axis limits
+>>>>>>> 596b8a4a32d9c8a66b0a520111aadf096389c1cc
