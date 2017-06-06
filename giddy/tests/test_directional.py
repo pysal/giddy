@@ -39,16 +39,12 @@ class Rose_Tester(unittest.TestCase):
     def test_rose(self):
         k = 4
         np.random.seed(100)
-        r4 = directional.rose(self.Y, self.w, k, permutations=999)
+        r4 = directional.Rose(self.Y, self.w, k)
         exp = [0., 1.57079633, 3.14159265, 4.71238898, 6.28318531]
-        obs = list(r4['cuts'])
+        obs = list(r4.cuts)
         for i in range(k + 1):
             self.assertAlmostEqual(exp[i], obs[i])
-        self.assertEquals(list(r4['counts']), [32, 5, 9, 2])
-        exp = [0.02, 0.001, 0.001, 0.001]
-        obs = list(r4['pvalues'])
-        for i in range(k):
-            self.assertAlmostEqual(exp[i], obs[i])
+        self.assertEquals(list(r4.counts), [32, 5, 9, 2])
 
 
 suite = unittest.TestSuite()
