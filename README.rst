@@ -1,2 +1,0 @@
-GIDDY: GeospatIal Distribution DYnamics
-=======================================
