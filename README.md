@@ -11,8 +11,12 @@ Features
 - Spatially explicit Markov methods:
     - Spatial Markov and inference
     - LISA Markov and inference
-- Spatilly explicit rank-based methods:
-    - Spatial decomposition of exchange mobility measure
+- Spatial decomposition of exchange mobility measure (rank methods):
+    - Global indicator of mobility association (GIMA) and inference
+    - Inter- and intra-regional decomposition of mobility association and inference
+    - Local indicator of mobility association (LIMA)
+        - Neighbor set LIMA and inference
+        - Neighborhood set LIMA and inference
 - Income mobility measures
 
 Examples
