@@ -1,4 +1,3 @@
-
 from __future__ import print_function
 
 """
@@ -1507,3 +1506,7 @@ class Homogeneity_Results:
                 c.append("\\end{tabular}")
                 s2 = "".join(c)
                 f.write(s1+s2)
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()

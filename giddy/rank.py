@@ -1,15 +1,16 @@
-# -*- coding: utf-8 -*-
 """
 Rank and spatial rank mobility measures.
 """
-__author__ = "Sergio J. Rey <sjsrey@gmail.com>"
+__author__ = "Sergio J. Rey <sjsrey@gmail.com>, Wei Kang <weikang9009@gmail.com>"
 
-__all__ = ['SpatialTau', 'Tau', 'Theta']
+__all__ = ['SpatialTau', 'Tau', 'Theta', 'Tau_Local', 'Tau_Local_Neighbor',
+           'Tau_Local_Neighborhood', 'Tau_Regional']
 
 from scipy.stats.mstats import rankdata
 from scipy.special import erfc
 import numpy as np
 import scipy as sp
+import libpysal.api as ps
 
 class Theta:
     """
@@ -77,6 +78,7 @@ class Theta:
     512
 
     """
+
     def __init__(self, y, regime, permutations=999):
         ranks = rankdata(y, axis=0)
         self.ranks = ranks
@@ -306,8 +308,8 @@ class SpatialTau(object):
     taus               : float
                          spatial tau values for permuted samples (if permutations>0).
     tau_spatial_psim   : float
-                         pseudo p-value for observed tau_spatial under the null
-                         of spatial randomness (if permutations>0).
+                         one-sided pseudo p-value for observed tau_spatial under the null
+                         of spatial randomness of rank exchanges (if permutations>0).
 
     Notes
     -----
@@ -320,13 +322,14 @@ class SpatialTau(object):
 
     Examples
     --------
-    >>> import libpysal as ps
+    >>> import libpysal
+    >>> import libpysal.api as ps
     >>> import numpy as np
-    >>> f=ps.open(ps.examples.get_path("mexico.csv"))
+    >>> f=libpysal.open(libpysal.examples.get_path("mexico.csv"))
     >>> vnames=["pcgdp%d"%dec for dec in range(1940,2010,10)]
     >>> y=np.transpose(np.array([f.by_col[v] for v in vnames]))
     >>> regime=np.array(f.by_col['esquivel99'])
-    >>> w=ps.weights.util.block_weights(regime)
+    >>> w=ps.block_weights(regime)
     >>> np.random.seed(12345)
     >>> res=[SpatialTau(y[:,i],y[:,i+1],w,99) for i in range(6)]
     >>> for r in res:
@@ -399,7 +402,6 @@ class SpatialTau(object):
         gd = gc - iS
         return [tau_g, gc, gd]
 
-
 def pseudop(sim, observed, nperm):
     above = sim >= observed
     larger = above.sum()
@@ -408,3 +410,517 @@ def pseudop(sim, observed, nperm):
         psim = (nperm - larger + 1.) / (nperm + 1.)
     return psim
 
+class Tau_Local:
+    """
+    Local version of the classic Tau.
+
+    Decomposition of the classic Tau into local components.
+
+    Parameters
+    ----------
+    x             : array
+                    (n, ), first variable.
+    y             : array
+                    (n, ), second variable.
+
+    Attributes
+    ----------
+    n             : int
+                    number of observations.
+    tau           : float
+                    The classic Tau statistic.
+    tau_local     : array
+                    (n, ), local concordance (local version of the
+                    classic tau).
+    S             : array
+                    (n ,n), concordance matrix, s_{i,j}=1 if
+                    observation i and j are concordant, s_{i,j}=-1
+                    if observation i and j are discordant, and
+                    s_{i,j}=0 otherwise.
+
+    Notes
+    -----
+    The equation for calculating local concordance statistic can be
+    found in Rey (2016) [Rey2016]_ Equation (9).
+
+    Examples
+    --------
+    >>> import libpysal
+    >>> import numpy as np
+    >>> np.random.seed(10)
+    >>> f = libpysal.open(libpysal.examples.get_path("mexico.csv"))
+    >>> vnames = ["pcgdp%d"%dec for dec in range(1940, 2010, 10)]
+    >>> y = np.transpose(np.array([f.by_col[v] for v in vnames]))
+    >>> r = y / y.mean(axis=0)
+    >>> tau_local = Tau_Local(r[:,0],r[:,1])
+    >>> tau_local.tau_local
+    array([-0.03225806,  0.93548387,  0.80645161,  0.74193548,  0.93548387,
+            0.74193548,  0.67741935,  0.41935484,  1.        ,  0.5483871 ,
+            0.74193548,  0.93548387,  0.67741935,  0.74193548,  0.80645161,
+            0.74193548,  0.5483871 ,  0.67741935,  0.74193548,  0.74193548,
+            0.5483871 , -0.16129032,  0.93548387,  0.61290323,  0.67741935,
+            0.48387097,  0.93548387,  0.61290323,  0.74193548,  0.41935484,
+            0.61290323,  0.61290323])
+    >>> tau_local.tau
+    0.66129032258064513
+    >>> tau_classic = Tau(r[:,0],r[:,1])
+    >>> tau_classic.tau
+    0.66129032258064513
+
+    """
+
+    def __init__(self, x, y):
+
+        self.n = len(x)
+        x = np.asarray(x)
+        y = np.asarray(y)
+        xx = x.reshape(self.n, 1)
+        yy = y.reshape(self.n, 1)
+
+        C = (xx - xx.T) * (yy - yy.T)
+        self.S = -1 * (C < 0) + 1 * (C > 0)
+
+        self.tau = self.S.sum()*1. / (self.n*(self.n-1))
+        si = self.S.sum(axis=1)
+
+        self.tau_local = si * 1. / (self.n - 1)
+
+class Tau_Local_Neighbor:
+    """
+    Neighbor set LIMA.
+
+    Local concordance relationships between a focal unit and its
+    neighbors. A decomposition of local Tau into neighbor and
+    non-neighbor components.
+
+    Parameters
+    ----------
+    x              : array
+                     (n, ), first variable.
+    y              : array
+                     (n, ), second variable.
+    w              : W
+                     spatial weights object.
+    permutations   : int
+                     number of random spatial permutations for
+                     computationally based inference.
+                     
+    Attributes
+    ----------
+    n              : int
+                     number of observations.
+    tau_local       : array
+                     (n, ), local concordance (local version of the
+                     classic tau).
+    S              : array
+                     (n ,n), concordance matrix, s_{i,j}=1 if
+                     observation i and j are concordant, s_{i,
+                     j}=-1 if observation i and j are discordant,
+                     and s_{i,j}=0 otherwise.
+    tau_ln         : array
+                     (n, ), observed neighbor set LIMA values.
+    tau_ln_weights : array
+                     (n, ), weights for neighbor set LIMA at each
+                     location. GIMA is the weighted average of
+                     neighbor set LIMA.
+    tau_ln_sim     : array
+                     (n, permutations), neighbor set LIMA values for
+                     permuted samples (if permutations>0).
+    tau_ln_pvalues : array
+                     (n, ), one-sided pseudo p-values for observed neighbor
+                     set LIMA values under the null that concordance
+                     relationship between the focal state and itsn
+                     eighbors is not different from what could be
+                     expected from randomly distributed rank changes.
+    sign           : array
+                     (n, ), values indicate concordant or
+                     disconcordant: 1 concordant, -1 disconcordant
+
+    Notes
+    -----
+    The equation for calculating neighbor set LIMA statistic can be
+    found in Rey (2016) [Rey2016]_ Equation (16).
+
+    Examples
+    --------
+    >>> import libpysal
+    >>> import libpysal.api as ps
+    >>> import numpy as np
+    >>> np.random.seed(10)
+    >>> f = libpysal.open(libpysal.examples.get_path("mexico.csv"))
+    >>> vnames = ["pcgdp%d"%dec for dec in range(1940, 2010, 10)]
+    >>> y = np.transpose(np.array([f.by_col[v] for v in vnames]))
+    >>> r = y / y.mean(axis=0)
+    >>> regime = np.array(f.by_col['esquivel99'])
+    >>> w = ps.block_weights(regime)
+    >>> res = Tau_Local_Neighbor(r[:,0], r[:,1], w, permutations=999)
+    >>> res.tau_ln
+    array([-0.2       ,  1.        ,  1.        ,  1.        ,  0.33333333,
+            0.6       ,  0.6       , -0.5       ,  1.        ,  1.        ,
+            0.2       ,  0.33333333,  0.33333333,  0.5       ,  1.        ,
+            1.        ,  1.        ,  0.        ,  0.6       , -0.33333333,
+           -0.33333333, -0.6       ,  1.        ,  0.2       ,  0.        ,
+            0.2       ,  1.        ,  0.6       ,  0.33333333,  0.5       ,
+            0.5       , -0.2       ])
+    >>> res.tau_ln_weights
+    array([ 0.03968254,  0.03968254,  0.03174603,  0.03174603,  0.02380952,
+            0.03968254,  0.03968254,  0.03174603,  0.00793651,  0.03968254,
+            0.03968254,  0.02380952,  0.02380952,  0.03174603,  0.00793651,
+            0.02380952,  0.02380952,  0.03174603,  0.03968254,  0.02380952,
+            0.02380952,  0.03968254,  0.03174603,  0.03968254,  0.03174603,
+            0.03968254,  0.03174603,  0.03968254,  0.02380952,  0.03174603,
+            0.03174603,  0.03968254])
+    >>> res.tau_ln_pvalues
+    array([ 0.541,  0.852,  0.668,  0.568,  0.11 ,  0.539,  0.609,  0.058,
+            1.   ,  0.255,  0.125,  0.087,  0.393,  0.433,  0.908,  0.657,
+            0.447,  0.128,  0.531,  0.033,  0.12 ,  0.271,  0.868,  0.234,
+            0.124,  0.387,  0.859,  0.697,  0.349,  0.664,  0.596,  0.041])
+    >>> res.sign
+    array([-1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
+            1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1])
+    >>> (res.tau_ln * res.tau_ln_weights).sum() #global spatial tau
+    0.39682539682539675
+    >>> res1 = SpatialTau(r[:,0],r[:,1],w,permutations=999)
+    >>> res1.tau_spatial
+    0.3968253968253968
+
+    """
+
+    def __init__(self, x, y, w, permutations=0):
+
+        x = np.asarray(x)
+        y = np.asarray(y)
+        self.n = len(x)
+
+        w.transform = 'b'
+        self.tau_ln, self.tau_ln_weights = self._calc(x, y, w)
+
+        concor_sign = np.ones(self.n)
+        concor_sign[self.tau_ln < 0] = -1
+        self.sign = concor_sign.astype(int)
+
+        if permutations > 0:
+            tau_ln_sim = np.zeros((self.n, permutations))
+            tau_ln_pvalues = np.zeros(self.n)
+            for i in xrange(self.n):
+                obs_i = self.tau_ln[i]  # observed value i LIMA statistic
+                yr = np.zeros_like(y)
+                xr = np.zeros_like(y)
+                rids = np.arange(self.n)
+                rids = np.delete(rids, i)
+                for j in xrange(permutations):
+                    pids = np.random.permutation(rids)
+                    xr[i] = x[i]
+                    xr[rids] = x[pids]
+                    yr[i] = y[i]
+                    yr[rids] = y[pids]
+                    tau_ln_sim[i, j] = self._calc(xr, yr, w, i)
+                larger = (tau_ln_sim[i] >= obs_i).sum()
+                smaller = (tau_ln_sim[i] <= obs_i).sum()
+                tau_ln_pvalues[i] = (np.min([larger, smaller])+1.)/(
+                    1+permutations)
+            self.tau_ln_sim = tau_ln_sim
+            self.tau_ln_pvalues = tau_ln_pvalues
+
+    def _calc_r(self, xi, yi, xj, yj, w):
+        dx = xi - xj
+        dy = yi - yj
+        dxdy = dx * dy
+        if dxdy != 0:
+            if dxdy > 0.0:
+                return 1
+            else:
+                return -1
+        else:
+            return 0
+
+    def _calc(self, x, y, w, i=None):
+        if i is not None:
+            iS_local = 0
+            for j in w.neighbors[i]:
+                iS_local += self._calc_r(x[i], y[i], x[j], y[j], w)
+            tau_ln = iS_local * 1.0 / w.cardinalities[i]
+            return tau_ln
+        else:
+            tau_ln = np.zeros(self.n)
+            tau_ln_weights = np.zeros(self.n)
+            for i in w.id_order:
+                iS_local = 0
+                for j in w.neighbors[i]:
+                    iS_local += self._calc_r(x[i], y[i], x[j], y[j], w)
+                tau_ln[i] = iS_local * 1.0 / w.cardinalities[i]
+                tau_ln_weights[i] = w.cardinalities[i]*1.0/w.s0
+            return tau_ln, tau_ln_weights
+
+
+class Tau_Local_Neighborhood:
+    """
+    Neighborhood set LIMA.
+
+    An extension of neighbor set LIMA. Consider local concordance
+    relationships for a subset of states, defined as the focal state
+    and its neighbors.
+
+    Parameters
+    ----------
+    x                  : array
+                         (n, ), first variable.
+    y                  : array
+                         (n, ), second variable.
+    w                  : W
+                         spatial weights object.
+    permutations       : int
+                         number of random spatial permutations for
+                         computationally based inference.
+
+    Attributes
+    ----------
+    n                  : int
+                         number of observations.
+    tau_local          : array
+                         (n, ), local concordance (local version of the
+                         classic tau).
+    S                  : array
+                         (n ,n), concordance matrix, s_{i,j}=1 if
+                         observation i and j are concordant, s_{i,
+                         j}=-1 if observation i and j are discordant,
+                         and s_{i,j}=0 otherwise.
+    tau_lnhood         : array
+                         (n, ), observed neighborhood set LIMA values.
+    tau_lnhood_sim     : array
+                         (n, permutations), neighborhood set LIMA
+                         values for permuted samples (if
+                         permutations>0).
+    tau_lnhood_pvalues : array
+                         (n, 1), one-sided pseudo p-values for observed
+                         neighborhood set LIMA values under the null
+                         that the concordance relationships for a
+                         subset of states, defined as the focal state
+                         and its neighbors, is different from what
+                         would be expected from randomly distributed
+                         rank changes.
+    sign              :  array
+                         (n, ), values indicate concordant or
+                         disconcordant: 1 concordant, -1 disconcordant
+
+    Notes
+    -----
+    The equation for calculating neighborhood set LIMA statistic can
+    be found in Rey (2016) [Rey2016]_ Equation (22).
+
+    Examples
+    --------
+    >>> import libpysal
+    >>> import libpysal.api as ps
+    >>> import numpy as np
+    >>> np.random.seed(10)
+    >>> f = libpysal.open(libpysal.examples.get_path("mexico.csv"))
+    >>> vnames = ["pcgdp%d"%dec for dec in range(1940, 2010, 10)]
+    >>> y = np.transpose(np.array([f.by_col[v] for v in vnames]))
+    >>> r = y / y.mean(axis=0)
+    >>> regime = np.array(f.by_col['esquivel99'])
+    >>> w = ps.block_weights(regime)
+    >>> res = Tau_Local_Neighborhood(r[:,0],r[:,1],w,permutations=999)
+    >>> res.tau_lnhood
+    array([ 0.06666667,  0.6       ,  0.2       ,  0.8       ,  0.33333333,
+            0.6       ,  0.6       ,  0.2       ,  1.        ,  0.06666667,
+            0.06666667,  0.33333333,  0.33333333,  0.2       ,  1.        ,
+            0.33333333,  0.33333333,  0.2       ,  0.6       ,  0.33333333,
+            0.33333333,  0.06666667,  0.8       ,  0.06666667,  0.2       ,
+            0.6       ,  0.8       ,  0.6       ,  0.33333333,  0.8       ,
+            0.8       ,  0.06666667])
+    >>> res.tau_lnhood_pvalues
+    array([ 0.106,  0.33 ,  0.107,  0.535,  0.137,  0.414,  0.432,  0.169,
+            1.   ,  0.03 ,  0.019,  0.146,  0.249,  0.1  ,  0.908,  0.225,
+            0.311,  0.125,  0.399,  0.215,  0.334,  0.115,  0.669,  0.045,
+            0.11 ,  0.525,  0.655,  0.466,  0.236,  0.413,  0.504,  0.038])
+    >>> res.sign
+    array([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+           1, 1, 1, 1, 1, 1, 1, 1, 1])
+
+    """
+
+    def __init__(self, x, y, w, permutations=0):
+
+        x = np.asarray(x)
+        y = np.asarray(y)
+        res = Tau_Local(x, y)
+        self.n = res.n
+        self.S = res.S
+        self.tau_local = res.tau_local
+
+        w.transform = 'b'
+        tau_lnhood = np.zeros(self.n)
+        for i in xrange(self.n):
+            neighbors_i = [i]
+            neighbors_i.extend(w.neighbors[i])
+            n_i = len(neighbors_i)
+            sh_i = self.S[neighbors_i, :][:, neighbors_i]
+            # Neighborhood set LIMA
+            tau_lnhood[i] = sh_i.sum()*1./(n_i*(n_i-1))
+        self.tau_lnhood = tau_lnhood
+
+        concor_sign = np.ones(self.n)
+        concor_sign[self.tau_lnhood < 0] = -1
+        self.sign = concor_sign.astype(int)
+
+        if permutations > 0:
+            tau_lnhood_sim = np.zeros((self.n, permutations))
+            tau_lnhood_pvalues = np.zeros(self.n)
+            for i in xrange(self.n):
+                obs_i = self.tau_lnhood[i]
+                rids = range(self.n)
+                rids.remove(i)
+                larger = 0
+                for j in xrange(permutations):
+                    np.random.shuffle(rids)
+                    neighbors_i = [i]
+                    neighbors_i.extend(rids[:len(w.neighbors[i])])
+                    n_i = len(neighbors_i)
+                    neighbors_i_second = neighbors_i
+                    sh_i = self.S[neighbors_i, :][:, neighbors_i_second]
+                    tau_lnhood_sim[i, j] = sh_i.sum()*1./(n_i*(n_i-1))
+
+                larger = (tau_lnhood_sim[i] >= obs_i).sum()
+                smaller = (tau_lnhood_sim[i] <= obs_i).sum()
+                tau_lnhood_pvalues[i] = (np.min([larger, smaller]) +
+                                         1.) / (1 + permutations)
+
+            self.tau_lnhood_sim = tau_lnhood_sim
+            self.tau_lnhood_pvalues = tau_lnhood_pvalues
+
+
+class Tau_Regional:
+    """
+    Inter and intraregional decomposition of the classic Tau.
+
+    Parameters
+    ----------
+    x               : array
+                      (n, ), first variable.
+    y               : array
+                      (n, ), second variable.
+    regimes         : array
+                      (n, ), ids of which regime an observation belongs to.
+    permutations    : int
+                      number of random spatial permutations for
+                      computationally based inference.
+                      
+    Attributes
+    ----------
+    n               : int
+                      number of observations.
+    S               : array
+                      (n ,n), concordance matrix, s_{i,j}=1 if
+                      observation i and j are concordant, s_{i,
+                      j}=-1 if observation i and j are discordant,
+                      and s_{i,j}=0 otherwise.
+    tau_reg         : array
+                      (k, k), observed concordance matrix with
+                      diagonal elements measuring concordance
+                      between units within a regime and the
+                      off-diagonal elements denoting concordance
+                      between observations from a specific
+                      pair of different regimes.
+    tau_reg_sim     : array
+                      (permutations, k, k), concordance matrices for
+                      permuted samples (if permutations>0).
+    tau_reg_pvalues : array
+                      (k, k), one-sided pseudo p-values for observed
+                      concordance matrix under the null that income
+                      mobility were random in its spatial distribution.
+
+    Notes
+    -----
+    The equation for calculating inter and intraregional Tau
+    statistic can be found in Rey (2016) [Rey2014]_ Equation (27).
+
+    Examples
+    --------
+    >>> import libpysal
+    >>> import numpy as np
+    >>> np.random.seed(10)
+    >>> f = libpysal.open(libpysal.examples.get_path("mexico.csv"))
+    >>> vnames = ["pcgdp%d"%dec for dec in range(1940, 2010, 10)]
+    >>> y = np.transpose(np.array([f.by_col[v] for v in vnames]))
+    >>> r = y / y.mean(axis=0)
+    >>> regime = np.array(f.by_col['esquivel99'])
+    >>> res = Tau_Regional(y[:,0],y[:,-1],regime,permutations=999)
+    >>> res.tau_reg
+    array([[ 1.        ,  0.25      ,  0.5       ,  0.6       ,  0.83333333,
+             0.6       ,  1.        ],
+           [ 0.25      ,  0.33333333,  0.5       ,  0.3       ,  0.91666667,
+             0.4       ,  0.75      ],
+           [ 0.5       ,  0.5       ,  0.6       ,  0.4       ,  0.38888889,
+             0.53333333,  0.83333333],
+           [ 0.6       ,  0.3       ,  0.4       ,  0.2       ,  0.4       ,
+             0.28      ,  0.8       ],
+           [ 0.83333333,  0.91666667,  0.38888889,  0.4       ,  0.6       ,
+             0.73333333,  1.        ],
+           [ 0.6       ,  0.4       ,  0.53333333,  0.28      ,  0.73333333,
+             0.8       ,  0.8       ],
+           [ 1.        ,  0.75      ,  0.83333333,  0.8       ,  1.        ,
+             0.8       ,  0.33333333]])
+    >>> res.tau_reg_pvalues
+    array([[ 0.782,  0.227,  0.464,  0.638,  0.294,  0.627,  0.201],
+           [ 0.227,  0.352,  0.391,  0.14 ,  0.048,  0.252,  0.327],
+           [ 0.464,  0.391,  0.587,  0.198,  0.107,  0.423,  0.124],
+           [ 0.638,  0.14 ,  0.198,  0.141,  0.184,  0.089,  0.217],
+           [ 0.294,  0.048,  0.107,  0.184,  0.583,  0.25 ,  0.005],
+           [ 0.627,  0.252,  0.423,  0.089,  0.25 ,  0.38 ,  0.227],
+           [ 0.201,  0.327,  0.124,  0.217,  0.005,  0.227,  0.322]])
+
+    """
+
+    def __init__(self, x, y, regime, permutations=0):
+
+        x = np.asarray(x)
+        y = np.asarray(y)
+        res = Tau_Local(x, y)
+        self.n = res.n
+        self.S = res.S
+
+        reg = np.array(regime).flatten()
+        ur = np.unique(reg).tolist()
+        k = len(ur)
+        P = np.zeros((k, self.n))
+        for i, r in enumerate(reg):
+            P[ur.index(r), i] = 1  # construct P matrix
+
+        w = ps.block_weights(regime)
+        w.transform = 'b'
+        W = w.full()[0]
+        WH = np.ones((self.n, self.n)) - np.eye(self.n) - W
+
+        # inter and intraregional decomposition of Tau for the observed value
+
+        self.tau_reg = self._calc(W, WH, P, self.S)
+
+        if permutations > 0:
+            tau_reg_sim = np.zeros((permutations, k, k))
+            larger = np.zeros((k, k))
+            smaller = np.zeros((k, k))
+            rids = np.arange(len(x))
+            for i in xrange(permutations):
+                np.random.shuffle(rids)
+                res = Tau_Local(x[rids], y[rids])
+                tau_reg_sim[i] = self._calc(W, WH, P, res.S)
+                larger += np.greater_equal(tau_reg_sim[i], self.tau_reg)
+                smaller += np.less_equal(tau_reg_sim[i], self.tau_reg)
+
+            m = np.less(smaller, larger)
+            pvalues = (1 + m * smaller + (1-m) * larger) / (1. + permutations)
+            self.tau_reg_sim = tau_reg_sim
+            self.tau_reg_pvalues = pvalues
+
+    def _calc(self, W, WH, P, S):
+
+        nomi = np.dot(P, np.dot(S, P.T))
+        denomi = np.dot(P, np.dot(W, P.T)) + np.dot(P, np.dot(WH, P.T))
+        T = nomi/denomi
+
+        return T
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
