@@ -1008,6 +1008,7 @@ class LISA_Markov(Markov):
 
         Examples
         --------
+        >>> import libpysal
         >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
         >>> years = range(1929, 2010)
         >>> pci = np.array([f.by_col[str(y)] for y in years]).transpose()
@@ -1077,7 +1078,7 @@ class LISA_Markov(Markov):
                                 g1.add_edge(neighbor, nn, 1.0)
                 components1 = g1.connected_components(op=gt)
                 components1 = [list(c.nodes) for c in components1]
-                g2 = pysal.region.components.Graph(undirected=True)
+                g2 = Graph(undirected=True)
                 for i in s2:
                     for neighbor in neighbors[i2id[i]]:
                         g2.add_edge(i2id[i], neighbor, 1.0)
