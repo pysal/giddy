@@ -25,11 +25,11 @@ class Theta:
 
     Parameters
     ----------
-    y            : array 
-                   (n, k) with k>=2, successive columns of y are later moments 
+    y            : array
+                   (n, k) with k>=2, successive columns of y are later moments
                    in time (years, months, etc).
-    regime       : array 
-                   (n, ), values corresponding to which regime each observation 
+    regime       : array
+                   (n, ), values corresponding to which regime each observation
                    belongs to.
     permutations : int
                    number of random spatial permutations to generate for
@@ -41,13 +41,13 @@ class Theta:
                    ranks of the original y array (by columns).
     regimes      : array
                    the original regimes array.
-    total        : array 
-                   (k-1, ), the total number of rank changes for each of the 
+    total        : array
+                   (k-1, ), the total number of rank changes for each of the
                    k periods.
     max_total    : int
                    the theoretical maximum number of rank changes for n
                    observations.
-    theta        : array 
+    theta        : array
                    (k-1,), the theta statistic for each of the k-1 intervals.
     permutations : int
                    the number of permutations.
@@ -57,7 +57,7 @@ class Theta:
     pvalue_right : float
                    p-value for test that observed theta is significantly
                    greater than its expectation under complete spatial randomness.
-                   
+
     Examples
     --------
     >>> import libpysal as ps
@@ -117,9 +117,9 @@ class Tau:
 
     Parameters
     ----------
-    x            : array 
+    x            : array
                    (n, ), first variable.
-    y            : array 
+    y            : array
                    (n, ), second variable.
 
     Attributes
@@ -149,9 +149,11 @@ class Tau:
     -0.47140452079103173
     >>> kt.tau_p
     0.24821309157521476
-    >>> skt = kendalltau(x1,x2)
-    >>> skt
-    KendalltauResult(correlation=-0.47140452079103162, pvalue=0.28274545993277478)
+    >>> tau, p = kendalltau(x1,x2)
+    >>> tau
+    -0.47140452079103162
+    >>> p
+    0.28274545993277478
 
     """
 
@@ -269,9 +271,9 @@ class SpatialTau(object):
 
     Parameters
     ----------
-    x             : array 
+    x             : array
                     (n, ), first variable.
-    y             : array 
+    y             : array
                     (n, ), second variable.
     w             : W
                     spatial weights object.
@@ -285,9 +287,9 @@ class SpatialTau(object):
                          The classic Tau statistic.
     tau_spatial        : float
                          Value of Tau for pairs that are spatial neighbors.
-    taus               : array 
-                         (permtuations, 1), values of simulated tau_spatial values 
-                         under random spatial permutations in both periods. (Same 
+    taus               : array
+                         (permtuations, 1), values of simulated tau_spatial values
+                         under random spatial permutations in both periods. (Same
                          permutation used for start and ending period).
     pairs_spatial      : int
                          Number of spatial pairs.
@@ -307,7 +309,7 @@ class SpatialTau(object):
                          spatial tau values for permuted samples (if permutations>0).
     tau_spatial_psim   : float
                          one-sided pseudo p-value for observed tau_spatial under the null
-                         of spatial randomness (if permutations>0).
+                         of spatial randomness of rank exchanges (if permutations>0).
 
     Notes
     -----
