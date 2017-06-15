@@ -7,7 +7,7 @@ Space–time analytics that consider the role of space in the evolution of distr
 
 Features
 --------
-
+- Directional LISA, inference and visualization as rose diagram
 - Spatially explicit Markov methods:
     - Spatial Markov and inference
     - LISA Markov and inference
@@ -22,14 +22,13 @@ Features
 Examples
 --------
 
+* [Directional LISA](notebooks/directional.ipynb)
 * [Markov based methods](notebooks/Markov%20Based%20Methods.ipynb)
 * [Rank based methods](notebooks/Rank%20based%20Methods.ipynb)
 * [Mobility measures](notebooks/Mobility%20measures.ipynb)
 
 Installation
 ------------
-
-**Note: giddy is not yet available on pypi**
 
 Install giddy by running:
 
