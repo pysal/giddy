@@ -1,18 +1,30 @@
+"""GIDDY: GeospatIal Distribution DYnamics
+
+Giddy is an open-source python library for the analysis of dynamics of
+longitudinal spatial data. Originating from the spatial dynamics module
+in PySAL (Python Spatial Analysis Library), it is under active development
+for the inclusion of many newly proposed analytics that consider the
+role of space in the evolution of distributions over time and has
+several new features including inter- and intra-regional decomposition
+of mobility association and local measures of exchange mobility in
+addition to space-time LISA and spatial markov methods. Give
+giddy a try if you are interested in space-time analysis!
+
+"""
+
+DOCLINES = __doc__.split("\n")
+
 from setuptools import setup
-import os.path
 
 try:
     from distutils.command.build_py import build_py_2to3 as build_py
 except ImportError:
     from distutils.command.build_py import build_py
 
-pth = os.path.dirname(os.path.abspath(__file__))+ '/requirements.txt'
-
-REQUIREMENTS = [i.strip() for i in open(pth).readlines()]
-
 setup(name='giddy', #name of package
       version='1.0.0',
-      description='Methods and Functions for the analysis of dynamics of longitudinal spatial data (GIDDY = GeospatIal Distribution DYnamics)', #short <80chr description
+      description=DOCLINES[0],
+      long_description="\n".join(DOCLINES[2:]),
       url='https://github.com/pysal/giddy',
       maintainer='Wei Kang',
       maintainer_email='weikang9009@gmail.com',
@@ -35,6 +47,6 @@ setup(name='giddy', #name of package
         ],
       license='3-Clause BSD',
       packages=['giddy'],
-      install_requires=REQUIREMENTS,
+      install_requires=['mapclassify', 'esda'],
       zip_safe=False,
       cmdclass = {'build.py':build_py})

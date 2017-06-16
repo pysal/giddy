@@ -7,25 +7,28 @@ Space–time analytics that consider the role of space in the evolution of distr
 
 Features
 --------
-
+- Directional LISA, inference and visualization as rose diagram
 - Spatially explicit Markov methods:
     - Spatial Markov and inference
     - LISA Markov and inference
-- Spatilly explicit rank-based methods:
-    - Spatial decomposition of exchange mobility measure
+- Spatial decomposition of exchange mobility measure (rank methods):
+    - Global indicator of mobility association (GIMA) and inference
+    - Inter- and intra-regional decomposition of mobility association and inference
+    - Local indicator of mobility association (LIMA)
+        - Neighbor set LIMA and inference
+        - Neighborhood set LIMA and inference
 - Income mobility measures
 
 Examples
 --------
 
+* [Directional LISA](notebooks/directional.ipynb)
 * [Markov based methods](notebooks/Markov%20Based%20Methods.ipynb)
 * [Rank based methods](notebooks/Rank%20based%20Methods.ipynb)
 * [Mobility measures](notebooks/Mobility%20measures.ipynb)
 
 Installation
 ------------
-
-**Note: giddy is not yet available on pypi**
 
 Install giddy by running:
 
