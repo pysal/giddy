@@ -9,9 +9,9 @@ __all__ = ["Markov", "LISA_Markov", "Spatial_Markov", "kullback",
            "prais", "homogeneity"]
 
 import numpy as np
-from ergodic import fmpt
-from ergodic import steady_state as STEADY_STATE
-from components import Graph
+from .ergodic import fmpt
+from .ergodic import steady_state as STEADY_STATE
+from .components import Graph
 from scipy import stats
 from operator import gt
 import libpysal.api as ps

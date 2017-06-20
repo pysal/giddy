@@ -5,9 +5,18 @@ GeospatIal Distribution DYnamics (giddy) in PySAL
 
 Space–time analytics that consider the role of space in the evolution of distributions over time.
 
+*Blow are six choropleth maps of US state incomes from 1929 to 2004 at a fifteen-year interval.*
+
+![us_qunitile_maps](figs/us_qunitile_maps.png)
+
 Features
 --------
 - Directional LISA, inference and visualization as rose diagram
+
+[![rose_conditional](figs/rose_conditional.png)](notebooks/directional.ipynb)
+
+*Above shows the rose diagram (directional LISAs) for US states incomes across 1969-2009 conditional on relative incomes in 1969.*
+
 - Spatially explicit Markov methods:
     - Spatial Markov and inference
     - LISA Markov and inference
@@ -17,6 +26,9 @@ Features
     - Local indicator of mobility association (LIMA)
         - Neighbor set LIMA and inference
         - Neighborhood set LIMA and inference
+
+[![us_neigborsetLIMA](figs/us_neigborsetLIMA.png)](notebooks/Rank%20based%20Methods.ipynb)
+
 - Income mobility measures
 
 Examples
