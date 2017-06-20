@@ -5,7 +5,7 @@ GeospatIal Distribution DYnamics (giddy) in PySAL
 
 Space–time analytics that consider the role of space in the evolution of distributions over time.
 
-*Blow are six choropleth maps of US state incomes from 1929 to 2004 at a five-year interval.*
+*Blow are six choropleth maps of US state incomes from 1929 to 2004 at a fifteen-year interval.*
 
 ![us_qunitile_maps](figs/us_qunitile_maps.png)
 
