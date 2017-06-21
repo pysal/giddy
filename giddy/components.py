@@ -8,7 +8,6 @@ __all__ = ["check_contiguity"]
 
 from operator import lt
 
-
 def is_component(w, ids):
     """Check if the set of ids form a single connected component
 
@@ -123,7 +122,7 @@ class Graph(object):
         if not self.undirected:
             warn = "Warning, connected _components not "
             warn += "defined for a directed graph"
-            print warn
+            print(warn)
             return None
         else:
             nodes = set(self.nodes)
