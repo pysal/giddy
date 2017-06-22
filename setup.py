@@ -22,7 +22,7 @@ except ImportError:
     from distutils.command.build_py import build_py
 
 setup(name='giddy', #name of package
-      version='1.0.0',
+      version='1.0.2',
       description=DOCLINES[0],
       long_description="\n".join(DOCLINES[2:]),
       url='https://github.com/pysal/giddy',
