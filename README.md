@@ -73,4 +73,7 @@ License
 
 The project is licensed under the [BSD license](https://github.com/pysal/giddy/blob/master/LICENSE.txt).
 
+Funding
+-------
 
+<img src="figs/nsf_logo.jpg" width="50"> Award #1421935 [New Approaches to Spatial Distribution Dynamics](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1421935)
