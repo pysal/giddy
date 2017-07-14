@@ -11,8 +11,8 @@ class Rose_Tester(unittest.TestCase):
         f.close()
         lines = [line.strip().split(",") for line in lines]
         names = [line[2] for line in lines[1:-5]]
-        data = np.array([map(int, line[3:]) for line in lines[1:-5]])
-        sids = range(60)
+        data = np.array([list(map(int, line[3:])) for line in lines[1:-5]])
+        sids = list(range(60))
         out = ['"United States 3/"',
                '"Alaska 3/"',
                '"District of Columbia"',
@@ -44,7 +44,7 @@ class Rose_Tester(unittest.TestCase):
         obs = list(r4.cuts)
         for i in range(k + 1):
             self.assertAlmostEqual(exp[i], obs[i])
-        self.assertEquals(list(r4.counts), [32, 5, 9, 2])
+        self.assertEqual(list(r4.counts), [32, 5, 9, 2])
 
 
 suite = unittest.TestSuite()

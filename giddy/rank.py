@@ -83,7 +83,7 @@ class Theta:
         ranks = rankdata(y, axis=0)
         self.ranks = ranks
         n, k = y.shape
-        ranks_d = ranks[:, range(1, k)] - ranks[:, range(k - 1)]
+        ranks_d = ranks[:, list(range(1, k))] - ranks[:, list(range(k - 1))]
         self.ranks_d = ranks_d
         regimes = sp.unique(regime)
         self.regimes = regimes
@@ -95,7 +95,7 @@ class Theta:
         if permutations:
             np.perm = np.random.permutation
             sim = np.array([self._calc(
-                np.perm(regime)) for i in xrange(permutations)])
+                np.perm(regime)) for i in range(permutations)])
             self.theta.shape = (1, len(self.theta))
             sim = np.concatenate((self.theta, sim))
             self.sim = sim
@@ -175,7 +175,7 @@ class Tau:
         x = np.array(x)
         y = np.array(y)
         n = len(y)
-        perm = range(n)
+        perm = list(range(n))
         perm.sort(key=lambda a: (x[a], y[a]))
         vals = y[perm]
         ExtraY = 0
@@ -364,7 +364,7 @@ class SpatialTau(object):
         if permutations > 0:
             taus = np.zeros(permutations)
             ids = np.arange(self.n)
-            for r in xrange(permutations):
+            for r in range(permutations):
                 rids = np.random.permutation(ids)
                 taus[r] = self._calc(x[rids], y[rids], w)[0]
             self.taus = taus
@@ -602,13 +602,13 @@ class Tau_Local_Neighbor:
         if permutations > 0:
             tau_ln_sim = np.zeros((self.n, permutations))
             tau_ln_pvalues = np.zeros(self.n)
-            for i in xrange(self.n):
+            for i in range(self.n):
                 obs_i = self.tau_ln[i]  # observed value i LIMA statistic
                 yr = np.zeros_like(y)
                 xr = np.zeros_like(y)
                 rids = np.arange(self.n)
                 rids = np.delete(rids, i)
-                for j in xrange(permutations):
+                for j in range(permutations):
                     pids = np.random.permutation(rids)
                     xr[i] = x[i]
                     xr[rids] = x[pids]
@@ -751,7 +751,7 @@ class Tau_Local_Neighborhood:
 
         w.transform = 'b'
         tau_lnhood = np.zeros(self.n)
-        for i in xrange(self.n):
+        for i in range(self.n):
             neighbors_i = [i]
             neighbors_i.extend(w.neighbors[i])
             n_i = len(neighbors_i)
@@ -767,12 +767,12 @@ class Tau_Local_Neighborhood:
         if permutations > 0:
             tau_lnhood_sim = np.zeros((self.n, permutations))
             tau_lnhood_pvalues = np.zeros(self.n)
-            for i in xrange(self.n):
+            for i in range(self.n):
                 obs_i = self.tau_lnhood[i]
-                rids = range(self.n)
+                rids = list(range(self.n))
                 rids.remove(i)
                 larger = 0
-                for j in xrange(permutations):
+                for j in range(permutations):
                     np.random.shuffle(rids)
                     neighbors_i = [i]
                     neighbors_i.extend(rids[:len(w.neighbors[i])])
@@ -901,7 +901,7 @@ class Tau_Regional:
             larger = np.zeros((k, k))
             smaller = np.zeros((k, k))
             rids = np.arange(len(x))
-            for i in xrange(permutations):
+            for i in range(permutations):
                 np.random.shuffle(rids)
                 res = Tau_Local(x[rids], y[rids])
                 tau_reg_sim[i] = self._calc(W, WH, P, res.S)

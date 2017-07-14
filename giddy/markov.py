@@ -1,4 +1,4 @@
-from __future__ import print_function
+
 
 """
 Markov based methods for spatial dynamics.
@@ -148,7 +148,7 @@ class Markov(object):
 
         n, t = class_ids.shape
         k = len(self.classes)
-        js = range(t - 1)
+        js = list(range(t - 1))
 
         classIds = self.classes.tolist()
         transitions = np.zeros((k, k))
@@ -552,7 +552,7 @@ class Spatial_Markov(object):
         """
         n, t = self.y.shape
         n0, n1, n2 = self.T.shape
-        rn = range(n0)
+        rn = list(range(n0))
         mat = [self._ssmnp_test(
             self.s, self.S[i], self.T[i].sum()) for i in rn]
         return mat
@@ -595,7 +595,7 @@ class Spatial_Markov(object):
         """
         n, t = self.y.shape
         n0, n1, n2 = self.T.shape
-        rn = range(n0)
+        rn = list(range(n0))
         mat = [chi2(self.T[i], self.transitions) for i in rn]
         return mat
 
@@ -1056,7 +1056,7 @@ class LISA_Markov(Markov):
             spill_over = np.zeros((n, k - 1))
             components = np.zeros((n, k))
             i2id = {}  # handle string keys
-            for key in self.w.neighbors.keys():
+            for key in list(self.w.neighbors.keys()):
                 idx = self.w.id2i[key]
                 i2id[idx] = key
             sig_lisas = (self.q == quadrant) \
@@ -1393,7 +1393,7 @@ class Homogeneity_Results:
             regime_names = self.regime_names
         cols = ["P(%s)" % str(regime) for regime in regime_names]
         if not self.class_names:
-            self.class_names = range(self.k)
+            self.class_names = list(range(self.k))
 
         max_col = max([len(col) for col in cols])
         col_width = max([5, max_col])  # probabilities have 5 chars
@@ -1426,7 +1426,7 @@ class Homogeneity_Results:
 
         cols = ["P(%s)" % str(regime) for regime in self.regime_names]
         if not self.class_names:
-            self.class_names = range(self.k)
+            self.class_names = list(range(self.k))
         cols.extend(["%s" % str(cname) for cname in self.class_names])
 
         max_col = max([len(col) for col in cols])
