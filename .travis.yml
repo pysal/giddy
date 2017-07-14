@@ -20,7 +20,7 @@ before_install:
 install:
   - conda install --yes pip
   - conda install --yes --file requirements.txt;
-  - conda install nose
+  - conda install --yes nose
   - pip install libpysal esda mapclassify
 
 script:
