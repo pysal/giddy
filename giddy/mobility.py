@@ -1,5 +1,5 @@
 """
-Income mobility measures. 
+Income mobility measures.
 """
 
 __author__ = "Wei Kang <weikang9009@gmail.com>, Sergio J. Rey <sjsrey@gmail.com>"
@@ -11,26 +11,26 @@ import numpy.linalg as la
 
 def markov_mobility(p, measure="P",ini=None):
     """
-    Markov-based mobility indice.
+    Markov-based mobility index.
 
     Parameters
     ----------
     p       : array
               (k, k), Markov transition probability matrix.
     measure : string
-              If measure = "P", 
+              If measure = "P",
               :math:`M_{P} = \frac{m-\sum_{i=1}^m P_{ii}}{m-1}`;
-              if measure = "D", 
+              if measure = "D",
               :math:`M_{D} = 1 - |\det(P)|`,
               where :math:`\det(P)` is the determinant of :math:`P`;
-              if measure = "L2", 
+              if measure = "L2",
               :math:`M_{L2} = 1  - |\lambda_2|`,
               where :math:`\lambda_2` is the second largest eigenvalue of
               :math:`P`;
-              if measure = "B1", 
-              :math:`M_{B1} = \frac{m-m \sum_{i=1}^m \pi_i P_{ii}}{m-1}`, 
+              if measure = "B1",
+              :math:`M_{B1} = \frac{m-m \sum_{i=1}^m \pi_i P_{ii}}{m-1}`,
               where :math:`\pi` is the initial income distribution;
-              if measure == "B2", 
+              if measure == "B2",
               :math:`M_{Bartholomew2} = \frac{1}{m-1} \sum_{i=1}^m \sum_{
               j=1}^m \pi_i P_{ij} |i-j|`,
               where :math:`\pi` is the initial income distribution.
@@ -39,17 +39,17 @@ def markov_mobility(p, measure="P",ini=None):
               measure = "B1" or "B2". If not,
               the initial distribution would be treated as a uniform
               distribution.
-              
+
     Returns
     -------
     mobi    : float
               Mobility value.
-              
+
     Examples
     --------
     >>> import numpy as np
     >>> import libpysal
-    >>> import giddy.markov 
+    >>> import giddy.markov
     >>> import mapclassify.api as mc
     >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])

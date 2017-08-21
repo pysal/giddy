@@ -298,7 +298,7 @@ class Rose(object):
             P = NEG * L + (1-NEG) * S
             self.p = P
         else:
-            print('Bad option for alternative: %s.' % alternative)
+            print(('Bad option for alternative: %s.' % alternative))
 
     def _calc(self, Y, w, k):
         wY = lag_spatial(w, Y)
