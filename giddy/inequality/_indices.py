@@ -674,7 +674,7 @@ if __name__=='__main__':
     res = [(f_i.__name__, f_i(x)) for f_i in ids]
     print('\nIndices')
     for r in res:
-        print(r[1], '\t', r[0])
+        print((r[1], '\t', r[0]))
 
     tau = np.random.random((x.shape[1], x.shape[1]))
     for i in range(tau.shape[0]):

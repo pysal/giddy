@@ -391,24 +391,17 @@ class Spatial_Markov(object):
 
 
     """
-    def __init__(self, y, w, k=4, permutations=0, fixed=False,
+    def __init__(self, y, w, k=4, permutations=0, fixed=False, discrete=False,
                  variable_name=None):
 
         self.y = y
         rows, cols = y.shape
         self.k = k
         self.cols = cols
-        npa = np.array
         self.fixed = fixed
+        self.discrete = discrete
         self.variable_name = variable_name
-        if fixed:
-            yf = y.flatten()
-            yb = mc.Quantiles(yf, k=k).yb
-            yb.shape = (rows, cols)
-            classes = yb
-        else:
-            classes = npa([mc.Quantiles(y[:, i], k=k)
-                           .yb for i in np.arange(cols)]).transpose()
+        classes, k = self._maybe_classify(y, fixed=self.fixed, discrete=self.discrete, k=k)
         classic = Markov(classes)
         self.classes = classes
         self.p = classic.p
@@ -521,15 +514,12 @@ class Spatial_Markov(object):
         return self._x2_dof
 
     def _calc(self, y, w, classes, k):
-        ly = ps.lag_spatial(w, y)
-        npa = np.array
-        if self.fixed:
-            l_classes = mc.Quantiles(ly.flatten(), k=k).yb
-            l_classes.shape = ly.shape
+        if self.discrete:
+            ly = ps.lag_categorical(w,y)
         else:
-            l_classes = npa([mc.Quantiles(
-                ly[:, i], k=k).yb for i in np.arange(self.cols)])
-            l_classes = l_classes.transpose()
+            ly = ps.lag_spatial(w, y)
+        l_classes, _ = self._maybe_classify(ly, k=k, 
+                                            fixed=self.fixed, discrete=self.discrete)
         T = np.zeros((k, k, k))
         n, t = y.shape
         for t1 in range(t - 1):
@@ -612,6 +602,20 @@ class Spatial_Markov(object):
         else:
             ht.summary(title=title)
 
+    def _maybe_classify(self, y, discrete, fixed, k=None):
+        rows,cols = y.shape
+        if discrete:
+            classes = y
+            k = len(np.unique(classes))
+        elif fixed:
+            yf = y.flatten()
+            yb = mc.Quantiles(yf, k=k).yb
+            yb.shape = (rows,cols)
+            classes = yb
+        else:
+            classes = np.array([mc.Quantiles(y[:,i], k=k).yb 
+                                for i in np.arange(cols)]).transpose()
+        return classes, k
 
 def chi2(T1, T2):
     """
@@ -1421,7 +1425,7 @@ class Homogeneity_Results:
         stat = "%7s %20.3f %20.3f" % ('p-value', self.LR_p_value,
                                       self.Q_p_value)
         contents.append(stat)
-        print("\n".join(contents))
+        print(("\n".join(contents)))
         print(lead)
 
         cols = ["P(%s)" % str(regime) for regime in self.regime_names]
@@ -1435,12 +1439,12 @@ class Homogeneity_Results:
         line0 = ['{s: <{w}}'.format(s="P(H0)", w=col_width)]
         line0.extend((['{s: >{w}}'.format(s=cname, w=col_width) for cname in
                        self.class_names]))
-        print("    ".join(line0))
+        print(("    ".join(line0)))
         p0.append("&".join(line0))
         for i, row in enumerate(self.p_h0):
             line = ["%*s" % (col_width, str(self.class_names[i]))]
             line.extend(["%*.3f" % (col_width, v) for v in row])
-            print("    ".join(line))
+            print(("    ".join(line)))
             p0.append("&".join(line))
         pmats = [p0]
 
@@ -1451,12 +1455,12 @@ class Homogeneity_Results:
                                         regime_names[r], w=col_width)]
             line0.extend((['{s: >{w}}'.format(s=cname, w=col_width) for cname
                            in self.class_names]))
-            print("    ".join(line0))
+            print(("    ".join(line0)))
             p0.append("&".join(line0))
             for i, row in enumerate(p1):
                 line = ["%*s" % (col_width, str(self.class_names[i]))]
                 line.extend(["%*.3f" % (col_width, v) for v in row])
-                print("    ".join(line))
+                print(("    ".join(line)))
                 p0.append("&".join(line))
             pmats.append(p0)
             print(lead)

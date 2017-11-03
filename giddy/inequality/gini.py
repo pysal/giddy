@@ -178,6 +178,6 @@ class Gini_Spatial:
 
     def _calc(self, x, w):
         sad_sum = 0.0
-        for i, js in w.neighbors.items():
+        for i, js in list(w.neighbors.items()):
             sad_sum += np.abs(x[i]-x[js]).sum()
         return sad_sum
