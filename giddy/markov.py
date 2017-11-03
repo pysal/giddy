@@ -605,8 +605,14 @@ class Spatial_Markov(object):
     def _maybe_classify(self, y, discrete, fixed, k=None):
         rows,cols = y.shape
         if discrete:
-            classes = y
-            k = len(np.unique(classes))
+            classes = y #would like to use sckikt.cluster.labelencoder here...
+            encoded = []
+            uniques = np.unique(classes).tolist()
+            for yt in classes.T:
+                encoded.append([uniques.index(yi) for yi in yt])
+            encoded = np.asarray(encoded).T
+            classes = encoded
+            k = len(np.unique(uniques))
         elif fixed:
             yf = y.flatten()
             yb = mc.Quantiles(yf, k=k).yb
