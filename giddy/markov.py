@@ -1431,7 +1431,7 @@ class Homogeneity_Results:
         stat = "%7s %20.3f %20.3f" % ('p-value', self.LR_p_value,
                                       self.Q_p_value)
         contents.append(stat)
-        print(("\n".join(contents)))
+        print("\n".join(contents))
         print(lead)
 
         cols = ["P(%s)" % str(regime) for regime in self.regime_names]
@@ -1445,12 +1445,12 @@ class Homogeneity_Results:
         line0 = ['{s: <{w}}'.format(s="P(H0)", w=col_width)]
         line0.extend((['{s: >{w}}'.format(s=cname, w=col_width) for cname in
                        self.class_names]))
-        print(("    ".join(line0)))
+        print("    ".join(line0))
         p0.append("&".join(line0))
         for i, row in enumerate(self.p_h0):
             line = ["%*s" % (col_width, str(self.class_names[i]))]
             line.extend(["%*.3f" % (col_width, v) for v in row])
-            print(("    ".join(line)))
+            print("    ".join(line))
             p0.append("&".join(line))
         pmats = [p0]
 
@@ -1461,12 +1461,12 @@ class Homogeneity_Results:
                                         regime_names[r], w=col_width)]
             line0.extend((['{s: >{w}}'.format(s=cname, w=col_width) for cname
                            in self.class_names]))
-            print(("    ".join(line0)))
+            print("    ".join(line0))
             p0.append("&".join(line0))
             for i, row in enumerate(p1):
                 line = ["%*s" % (col_width, str(self.class_names[i]))]
                 line.extend(["%*.3f" % (col_width, v) for v in row])
-                print(("    ".join(line)))
+                print("    ".join(line))
                 p0.append("&".join(line))
             pmats.append(p0)
             print(lead)
