@@ -40,15 +40,17 @@ class test_Markov(unittest.TestCase):
 
 
 class test_Spatial_Markov(unittest.TestCase):
-    def test___init__(self):
-        import libpysal as ps
+    def setUp(self):
         f = ps.open(ps.examples.get_path('usjoin.csv'))
         pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)])
         pci = pci.transpose()
-        rpci = pci / (pci.mean(axis=0))
-        w = ps.open(ps.examples.get_path("states48.gal")).read()
-        w.transform = 'r'
-        sm = Spatial_Markov(rpci, w, fixed=True, k=5)
+        self.rpci = pci / (pci.mean(axis=0))
+        self.discretized = (self.rpci * 100).astype(int) % 4
+        self.w = ps.open(ps.examples.get_path("states48.gal")).read()
+        self.w.transform = 'r'
+
+    def test___init__(self):
+        sm = Spatial_Markov(self.rpci, self.w, fixed=True, k=5)
         S = np.array([[0.43509425, 0.2635327, 0.20363044, 0.06841983,
                        0.02932278], [0.13391287, 0.33993305, 0.25153036,
                                      0.23343016, 0.04119356], [0.12124869,
@@ -61,6 +63,32 @@ class test_Spatial_Markov(unittest.TestCase):
                                      0.25524697, 0.3372434]])
         np.testing.assert_array_almost_equal(S, sm.S)
 
+    def test_discretized(self):
+        w = ps.weights.Contiguity.Queen.from_shapefile(ps.examples.get_path('us48.shp'))
+        np.random.seed(24788)
+        sm = Spatial_Markov(self.discretized, w, discrete=True)
+        answer = np.array([[[  92.,   88.,   75.,   95.],
+        [  50.,   55.,   52.,   35.],
+        [  45.,   48.,   58.,   48.],
+        [  45.,   32.,   39.,   51.]],
+
+       [[  54.,   43.,   40.,   51.],
+        [  92.,   97.,   91.,   89.],
+        [  44.,   49.,   56.,   55.],
+        [  40.,   35.,   75.,   50.]],
+
+       [[  67.,   51.,   43.,   58.],
+        [  41.,   58.,   56.,   35.],
+        [  86.,   88.,  140.,   89.],
+        [  42.,   56.,   61.,   73.]],
+
+       [[  56.,   51.,   39.,   38.],
+        [  50.,   49.,   50.,   45.],
+        [  41.,   61.,   55.,   46.],
+        [  93.,   77.,   87.,   89.]]])
+
+        np.testing.assert_array_equal(sm.T, answer)
+        
 
 class test_chi2(unittest.TestCase):
     def test_chi2(self):

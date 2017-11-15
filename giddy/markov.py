@@ -391,24 +391,17 @@ class Spatial_Markov(object):
 
 
     """
-    def __init__(self, y, w, k=4, permutations=0, fixed=False,
+    def __init__(self, y, w, k=4, permutations=0, fixed=False, discrete=False,
                  variable_name=None):
 
         self.y = y
         rows, cols = y.shape
         self.k = k
         self.cols = cols
-        npa = np.array
         self.fixed = fixed
+        self.discrete = discrete
         self.variable_name = variable_name
-        if fixed:
-            yf = y.flatten()
-            yb = mc.Quantiles(yf, k=k).yb
-            yb.shape = (rows, cols)
-            classes = yb
-        else:
-            classes = npa([mc.Quantiles(y[:, i], k=k)
-                           .yb for i in np.arange(cols)]).transpose()
+        classes, k = self._maybe_classify(y, fixed=self.fixed, discrete=self.discrete, k=k)
         classic = Markov(classes)
         self.classes = classes
         self.p = classic.p
@@ -521,15 +514,12 @@ class Spatial_Markov(object):
         return self._x2_dof
 
     def _calc(self, y, w, classes, k):
-        ly = ps.lag_spatial(w, y)
-        npa = np.array
-        if self.fixed:
-            l_classes = mc.Quantiles(ly.flatten(), k=k).yb
-            l_classes.shape = ly.shape
+        if self.discrete:
+            ly = ps.lag_categorical(w,y)
         else:
-            l_classes = npa([mc.Quantiles(
-                ly[:, i], k=k).yb for i in np.arange(self.cols)])
-            l_classes = l_classes.transpose()
+            ly = ps.lag_spatial(w, y)
+        l_classes, _ = self._maybe_classify(ly, k=k, 
+                                            fixed=self.fixed, discrete=self.discrete)
         T = np.zeros((k, k, k))
         n, t = y.shape
         for t1 in range(t - 1):
@@ -612,6 +602,26 @@ class Spatial_Markov(object):
         else:
             ht.summary(title=title)
 
+    def _maybe_classify(self, y, discrete, fixed, k=None):
+        rows,cols = y.shape
+        if discrete:
+            classes = y #would like to use sckikt.cluster.labelencoder here...
+            encoded = []
+            uniques = np.unique(classes).tolist()
+            for yt in classes.T:
+                encoded.append([uniques.index(yi) for yi in yt])
+            encoded = np.asarray(encoded).T
+            classes = encoded
+            k = len(np.unique(uniques))
+        elif fixed:
+            yf = y.flatten()
+            yb = mc.Quantiles(yf, k=k).yb
+            yb.shape = (rows,cols)
+            classes = yb
+        else:
+            classes = np.array([mc.Quantiles(y[:,i], k=k).yb 
+                                for i in np.arange(cols)]).transpose()
+        return classes, k
 
 def chi2(T1, T2):
     """
