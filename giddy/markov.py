@@ -1517,6 +1517,3 @@ class Homogeneity_Results:
                 s2 = "".join(c)
                 f.write(s1+s2)
 
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
