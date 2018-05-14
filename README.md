@@ -50,8 +50,6 @@ $ pip install giddy
 
 #### Requirements
 
-- scipy
-- numpy
 - libpysal
 - esda
 - mapclassify

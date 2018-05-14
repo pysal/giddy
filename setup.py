@@ -24,6 +24,8 @@ setup(name='giddy',  # name of package
       url='https://github.com/pysal/giddy',
       maintainer='Wei Kang',
       maintainer_email='weikang9009@gmail.com',
+      py_modules=['giddy'],
+      python_requires='>3.4',
       test_suite='nose.collector',
       tests_require=['nose'],
       keywords='spatial statistics, spatiotemporal analysis',
@@ -36,13 +38,11 @@ setup(name='giddy',  # name of package
         'Topic :: Scientific/Engineering :: GIS',
         'License :: OSI Approved :: BSD License',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6'
         ],
       license='3-Clause BSD',
       packages=['giddy'],
-      install_requires=['mapclassify', 'esda'],
+      install_requires=['libpysal', 'mapclassify', 'esda'],
       zip_safe=False,
       cmdclass={'build.py': build_py})
