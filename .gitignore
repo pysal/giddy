@@ -5,3 +5,6 @@
 notebooks/.ipynb_checkpoints/
 .DS_Store
 .ipynb_checkpoints/
+*.bak
+.eggs/
+*.egg-info/

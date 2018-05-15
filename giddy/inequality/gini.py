@@ -131,7 +131,7 @@ class Gini_Spatial:
     >>> np.random.seed(12345)
     >>> gs = Gini_Spatial(y[:,0],w)
     >>> gs.p_sim
-    0.040000000000000001
+    0.04
     >>> gs.wcg
     4353856.0
     >>> gs.e_wcg
@@ -178,6 +178,6 @@ class Gini_Spatial:
 
     def _calc(self, x, w):
         sad_sum = 0.0
-        for i, js in w.neighbors.items():
+        for i, js in list(w.neighbors.items()):
             sad_sum += np.abs(x[i]-x[js]).sum()
         return sad_sum
