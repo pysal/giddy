@@ -19,19 +19,10 @@ addition to space-time LISA and spatial markov methods.
 This package is part of a `refactoring of PySAL
 <https://github.com/pysal/pysal/wiki/PEP-13:-Refactor-PySAL-Using-Submodules>`_.
 
-.. Space–time analytics that consider the role of space in the evolution of
-distributions over time.
 
-.. Below are six choropleth maps of US state per-capita incomes from 1929
-to 2004 at a fifteen-year interval.
-
-.. .. figure:: figs/us_qunitile_maps.png
-   :alt: us\_qunitile\_maps
-
-..    us\_qunitile\_maps
-
+*************
 giddy modules
--------------
+*************
 
 - giddy.directional  Directional LISA, inference and visualization
 - giddy.markov  Spatially explicit Markov methods
@@ -42,9 +33,9 @@ Mimicking parts of the original PySAL api can be done with
 
 ``import giddy.api as ps``
 
-
+************
 Installation
-------------
+************
 
 Install giddy by running:
 
@@ -52,15 +43,9 @@ Install giddy by running:
 
     $ pip install giddy
 
-Requirements
-^^^^^^^^^^^^
-
--  libpysal
--  esda
--  mapclassify
-
+**********
 Contribute
-----------
+**********
 
 PySAL-giddy is under active development and contributors are welcome.
 
@@ -72,15 +57,16 @@ and open a `pull request <https://github.com/pysal/giddy>`__. Once your
 changes get merged, you’ll automatically be added to the `Contributors
 List <https://github.com/pysal/giddy/graphs/contributors>`__.
 
-
+*******
 License
--------
+*******
 
 The project is licensed under the `BSD
 license <https://github.com/pysal/giddy/blob/master/LICENSE.txt>`__.
 
+*******
 Funding
--------
+*******
 
 NSF Award #1421935 `New Approaches to Spatial Distribution
 Dynamics <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1421935>`__
