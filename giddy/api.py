@@ -4,5 +4,5 @@ from .markov import Markov, Spatial_Markov, LISA_Markov, prais, homogeneity
 from .mobility import markov_mobility
 from .rank import (Theta, Tau, SpatialTau, Tau_Local, Tau_Local_Neighbor,
                    Tau_Local_Neighborhood, Tau_Regional)
-from .inequality.theil import Theil, TheilD, TheilDSim
-from .inequality.gini import Gini, Gini_Spatial
+# from .inequality.theil import Theil, TheilD, TheilDSim
+# from .inequality.gini import Gini, Gini_Spatial
