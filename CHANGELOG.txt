@@ -1,4 +1,4 @@
-v<1.1.0>, 2018-05-17
+v<1.1.1>, 2018-05-17
 
 This release is the first tagged release of giddy on Github.
 Starting from this release, giddy supports python 3.5 and 3.6 only.
