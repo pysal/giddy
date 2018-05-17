@@ -17,8 +17,13 @@ DOCLINES = __doc__.split("\n")
 from setuptools import setup
 from distutils.command.build_py import build_py
 
+Major = 1
+Feature = 1
+Bug = 0
+VERSION = '%d.%d.%d' % (Major, Feature, Bug)
+
 setup(name='giddy',  # name of package
-      version='1.0.2',
+      version=VERSION,
       description=DOCLINES[0],
       long_description="\n".join(DOCLINES[2:]),
       url='https://github.com/pysal/giddy',
