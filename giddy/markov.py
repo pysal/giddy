@@ -196,6 +196,12 @@ class Spatial_Markov(object):
                       If true, quantiles are taken over the entire n*t
                       pooled series. If false, quantiles are taken each
                       time period over n.
+    discrete        : bool
+                      If true, categorical spatial lags which are most common
+                      categories of neighboring observations serve as the
+                      conditioning and fixed is ignored; if false, weighted
+                      averages of neighboring observations are used. Default is
+                      false.
     variable_name   : string
                       name of variable.
 

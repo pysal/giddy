@@ -1,4 +1,4 @@
-v<1.1.0>, 2018-05-17
+v<1.1.1>, 2018-05-17
 
 This release is the first tagged release of giddy on Github.
 Starting from this release, giddy supports python 3.5 and 3.6 only.
@@ -10,18 +10,18 @@ as well as neighborhood change. Here, the spatial lag (utilizing function
 in [libpysal](https://github.com/pysal/libpysal)) is defined as the most
 common category among neighbors.
 
-
 GitHub stats for 2017/07/21 - 2018/05/17
 
 These lists are automatically generated, and may be incomplete or contain duplicates.
 
 
-We closed a total of 18 issues, 7 pull requests and 11 regular issues;
+We closed a total of 20 issues, 8 pull requests and 12 regular issues;
 this is the full list (generated with the script 
 :file:`tools/github_stats.py`):
 
-Pull Requests (7):
+Pull Requests (8):
 
+* :ghpull:`36`: b'add changelog for the release 1.1.0'
 * :ghpull:`35`: b'prepare for release'
 * :ghpull:`34`: b'code 2to3'
 * :ghpull:`33`: b'chore: update for python 3+ only'
@@ -30,8 +30,9 @@ Pull Requests (7):
 * :ghpull:`25`: b'[WIP] prepare for full metapackage integration'
 * :ghpull:`27`: b'api module for giddy'
 
-Issues (11):
+Issues (12):
 
+* :ghissue:`36`: b'add changelog for the release 1.1.0'
 * :ghissue:`35`: b'prepare for release'
 * :ghissue:`34`: b'code 2to3'
 * :ghissue:`33`: b'chore: update for python 3+ only'

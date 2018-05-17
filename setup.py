@@ -23,7 +23,7 @@ from distutils.command.build_py import build_py
 
 Major = 1
 Feature = 1
-Bug = 0
+Bug = 1
 VERSION = '%d.%d.%d' % (Major, Feature, Bug)
 
 def setup_package():
