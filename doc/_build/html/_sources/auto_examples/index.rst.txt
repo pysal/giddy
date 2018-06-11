@@ -14,13 +14,13 @@ Miscellaneous and introductory examples for giddy.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="A comparison of different values for regularization parameter &#x27;alpha&#x27; on synthetic datasets. Th...">
+    <div class="sphx-glr-thumbcontainer" tooltip="">
 
 .. only:: html
 
-    .. figure:: /auto_examples/images/thumb/sphx_glr_plot_markov_thumb.png
+    .. figure:: /auto_examples/images/thumb/sphx_glr_plot_directional_thumb.png
 
-        :ref:`sphx_glr_auto_examples_plot_markov.py`
+        :ref:`sphx_glr_auto_examples_plot_directional.py`
 
 .. raw:: html
 
@@ -30,7 +30,47 @@ Miscellaneous and introductory examples for giddy.
 .. toctree::
    :hidden:
 
-   /auto_examples/plot_markov
+   /auto_examples/plot_directional
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This notebook introduces two classic nonparametric statistics of exchange mobility and their sp...">
+
+.. only:: html
+
+    .. figure:: /auto_examples/images/thumb/sphx_glr_plot_rank_based_methods_thumb.png
+
+        :ref:`sphx_glr_auto_examples_plot_rank_based_methods.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/plot_rank_based_methods
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Introduction    This notebook introduces Discrete Markov Chains (DMC) model and its two variant...">
+
+.. only:: html
+
+    .. figure:: /auto_examples/images/thumb/sphx_glr_plot_markov_based_methods_thumb.png
+
+        :ref:`sphx_glr_auto_examples_plot_markov_based_methods.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/plot_markov_based_methods
 .. raw:: html
 
     <div style='clear:both'></div>

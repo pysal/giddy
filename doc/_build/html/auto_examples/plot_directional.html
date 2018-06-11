@@ -1,0 +1,309 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Plot directional &#8212; giddy  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="plot-directional">
+<span id="sphx-glr-auto-examples-plot-directional-py"></span><h1>Plot directional<a class="headerlink" href="#plot-directional" title="Permalink to this headline">¶</a></h1>
+<img alt="../_images/sphx_glr_plot_directional_001.png" class="align-center" src="../_images/sphx_glr_plot_directional_001.png" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">libpysal</span> <span class="kn">as</span> <span class="nn">lps</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">giddy.directional</span> <span class="kn">import</span> <span class="n">Rose</span>
+
+<span class="c1"># In[2]:</span>
+
+
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">lps</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s1">&#39;spi_download.csv&#39;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+<span class="c1"># In[3]:</span>
+
+
+<span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">]</span>
+<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">5</span><span class="p">]]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">line</span><span class="p">[</span><span class="mi">3</span><span class="p">:]))</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">5</span><span class="p">]])</span>
+
+
+<span class="c1"># In[4]:</span>
+
+
+<span class="n">sids</span>  <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+<span class="n">out</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&quot;United States 3/&quot;&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;&quot;Alaska 3/&quot;&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;&quot;District of Columbia&quot;&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;&quot;Hawaii 3/&quot;&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;&quot;New England&quot;&#39;</span><span class="p">,</span><span class="s1">&#39;&quot;Mideast&quot;&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;&quot;Great Lakes&quot;&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;&quot;Plains&quot;&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;&quot;Southeast&quot;&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;&quot;Southwest&quot;&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;&quot;Rocky Mountain&quot;&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;&quot;Far West 3/&quot;&#39;</span><span class="p">]</span>
+
+
+<span class="c1"># In[5]:</span>
+
+
+<span class="n">snames</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">out</span><span class="p">]</span>
+
+
+<span class="c1"># In[6]:</span>
+
+
+<span class="n">sids</span> <span class="o">=</span> <span class="p">[</span><span class="n">names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">snames</span><span class="p">]</span>
+
+
+<span class="c1"># In[7]:</span>
+
+
+<span class="n">states</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">sids</span><span class="p">,:]</span>
+<span class="n">us</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">years</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1969</span><span class="p">,</span> <span class="mi">2009</span><span class="p">)</span>
+
+
+<span class="c1"># In[8]:</span>
+
+
+<span class="n">us</span>
+
+
+<span class="c1"># In[9]:</span>
+
+
+<span class="n">rel</span> <span class="o">=</span> <span class="n">states</span><span class="o">/</span><span class="p">(</span><span class="n">us</span><span class="o">*</span><span class="mf">1.</span><span class="p">)</span>
+
+
+<span class="c1"># In[10]:</span>
+
+
+<span class="n">rel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+
+<span class="c1"># In[11]:</span>
+
+
+<span class="n">rel</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+
+<span class="c1"># In[12]:</span>
+
+
+<span class="n">rel</span><span class="o">.</span><span class="n">shape</span>
+
+
+<span class="c1"># In[13]:</span>
+
+
+<span class="n">gal</span> <span class="o">=</span> <span class="n">lps</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">lps</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s1">&#39;states48.gal&#39;</span><span class="p">))</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">gal</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">w</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span>
+
+
+<span class="c1"># In[14]:</span>
+
+
+<span class="n">Y</span> <span class="o">=</span> <span class="n">rel</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+
+
+<span class="c1"># In[15]:</span>
+
+
+<span class="n">Y</span><span class="o">.</span><span class="n">shape</span>
+
+
+<span class="c1"># In[16]:</span>
+
+
+<span class="n">Y</span>
+
+
+<span class="c1"># In[17]:</span>
+
+
+<span class="n">r4</span> <span class="o">=</span> <span class="n">Rose</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+
+<span class="c1"># ## Visualization</span>
+
+<span class="c1"># In[18]:</span>
+
+
+<span class="n">r4</span><span class="o">.</span><span class="n">plot_vectors</span><span class="p">()</span> <span class="c1"># lisa vectors</span>
+
+
+<span class="c1"># In[19]:</span>
+
+
+<span class="n">r4</span><span class="o">.</span><span class="n">plot_origin</span><span class="p">()</span> <span class="c1"># origin standardized</span>
+
+
+<span class="c1"># In[20]:</span>
+
+
+<span class="n">r4</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span> <span class="c1"># Polar</span>
+
+
+<span class="c1"># In[21]:</span>
+
+
+<span class="n">r4</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="n">Y</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># condition on starting relative income</span>
+
+
+<span class="c1"># In[22]:</span>
+
+
+<span class="n">r4</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">attribute</span><span class="o">=</span><span class="n">r4</span><span class="o">.</span><span class="n">lag</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># condition on lag of starting relative income</span>
+
+
+<span class="c1"># ## Inference</span>
+<span class="c1">#</span>
+<span class="c1"># The Rose class contains methods to carry out inference on the circular distribution of the LISA vectors. The first approach is based on a two-sided alternative where the null is that the distribution of the vectors across the segments reflects independence in the movements of the focal unit and its spatial lag. Inference is based on random spatial permutations under the null.</span>
+
+<span class="c1"># In[23]:</span>
+
+
+<span class="n">r4</span><span class="o">.</span><span class="n">cuts</span>
+
+
+<span class="c1"># In[24]:</span>
+
+
+<span class="n">r4</span><span class="o">.</span><span class="n">counts</span>
+
+
+<span class="c1"># In[25]:</span>
+
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
+
+
+<span class="c1"># In[26]:</span>
+
+
+<span class="n">r4</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="n">permutations</span><span class="o">=</span><span class="mi">999</span><span class="p">)</span>
+
+
+<span class="c1"># In[27]:</span>
+
+
+<span class="n">r4</span><span class="o">.</span><span class="n">p</span>
+
+
+<span class="c1"># Here all the four sector counts are signficantly different from their expectation under the null.</span>
+
+<span class="c1"># A directional test can also be implemented. Here the direction of the departure from the null due to positive co-movement of a focal unit and its spatial lag over the time period results in two  two general cases. For sectors in the positive quadrants (I and III), the observed counts are considered extreme if they are larger than expectation, while for the negative quadrants (II, IV) the observed counts are considered extreme if they are small than the expected counts under the null.</span>
+
+<span class="c1"># In[28]:</span>
+
+
+<span class="n">r4</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="n">alternative</span><span class="o">=</span><span class="s1">&#39;positive&#39;</span><span class="p">,</span> <span class="n">permutations</span><span class="o">=</span><span class="mi">999</span><span class="p">)</span>
+<span class="n">r4</span><span class="o">.</span><span class="n">p</span>
+
+
+<span class="c1"># In[29]:</span>
+
+
+<span class="n">r4</span><span class="o">.</span><span class="n">expected_perm</span>
+
+
+<span class="c1"># Finally, a directional alternative reflecting negative association between the movement of the focal unit and its lag has the complimentary interpretation to the positive alternative: lower counts in I and III, and higher counts in II and IV relative to the null.</span>
+
+<span class="c1"># In[30]:</span>
+
+
+<span class="n">r4</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="n">alternative</span><span class="o">=</span><span class="s1">&#39;negative&#39;</span><span class="p">,</span> <span class="n">permutations</span><span class="o">=</span><span class="mi">999</span><span class="p">)</span>
+<span class="n">r4</span><span class="o">.</span><span class="n">p</span>
+</pre></div>
+</div>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  1.344 seconds)</p>
+<div class="sphx-glr-footer docutils container">
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" href="../_downloads/plot_directional.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_directional.py</span></code></a></div>
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" href="../_downloads/plot_directional.ipynb" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_directional.ipynb</span></code></a></div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Generated by Sphinx-Gallery</a></p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/auto_examples/plot_directional.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, pysal developers.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/auto_examples/plot_directional.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
