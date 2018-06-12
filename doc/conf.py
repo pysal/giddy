@@ -39,7 +39,6 @@ extensions = ['sphinx_gallery.gen_gallery',
               'sphinxcontrib.bibtex',
               'sphinx.ext.mathjax',
               'sphinx.ext.doctest',
-              'sphinx.ext.viewcode',
               'sphinx.ext.intersphinx',
               'sphinx.ext.napoleon']
 
