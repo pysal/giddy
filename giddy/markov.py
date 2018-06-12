@@ -75,6 +75,8 @@ class Markov(object):
 
     Examples
     --------
+    >>> import numpy as np
+    >>> from giddy.api import Markov
     >>> c = [['b','a','c'],['c','c','a'],['c','b','c']]
     >>> c.extend([['a','a','b'], ['a','b','c']])
     >>> c = np.array(c)
@@ -93,6 +95,7 @@ class Markov(object):
     US nominal per capita income 48 states 81 years 1929-2009
 
     >>> import libpysal
+    >>> import mapclassify.api as mc
     >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
 
@@ -266,13 +269,12 @@ class Spatial_Markov(object):
                       permutations.
     Q               : float
                       Chi-square test of homogeneity across lag classes based
-                      on Bickenbach and Bode (2003) [Bickenbach2003]_.
+                      on :cite:`Bickenbach2003`.
     Q_p_value       : float
                       p-value for Q.
     LR              : float
                       Likelihood ratio statistic for homogeneity across lag
-                      classes based on Bickenback and Bode (2003)
-                      [Bickenbach2003]_.
+                      classes based on :cite:`Bickenbach2003`.
     LR_p_value      : float
                       p-value for LR.
     dof_hom         : int
@@ -280,18 +282,18 @@ class Spatial_Markov(object):
 
     Notes
     -----
-    Based on  Rey (2001) [Rey2001]_.
+    Based on :cite:`Rey2001`.
 
     The shtest and chi2 tests should be used with caution as they are based on
     classic theory assuming random transitions. The x2 based test is
     preferable since it simulates the randomness under the null. It is an
     experimental test requiring further analysis.
 
-    This is new
-
     Examples
     --------
     >>> import libpysal
+    >>> from giddy.api import Spatial_Markov
+    >>> import numpy as np
     >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
     >>> pci = pci.transpose()
@@ -1143,7 +1145,7 @@ def kullback(F):
 
     Notes
     -----
-    Based on  Kullback, Kupperman and Ku (1962) [Kullback1962]_.
+    Based on :cite:`Kullback1962`.
     Example below is taken from Table 9.2 .
 
     Examples

@@ -34,6 +34,7 @@ def steady_state(P):
     is melting).
 
     >>> import numpy as np
+    >>> from giddy.api import steady_state
     >>> p=np.matrix([[.5, .25, .25],[.5,0,.5],[.25,.25,.5]])
     >>> steady_state(p)
     matrix([[0.4],
@@ -77,6 +78,7 @@ def fmpt(P):
     Examples
     --------
     >>> import numpy as np
+    >>> from giddy.api import fmpt
     >>> p=np.matrix([[.5, .25, .25],[.5,0,.5],[.25,.25,.5]])
     >>> fm=fmpt(p)
     >>> fm
@@ -93,7 +95,7 @@ def fmpt(P):
 
     Notes
     -----
-    Uses formulation (and examples on p. 218) in [Kemeny1967]_.
+    Uses formulation (and examples on p. 218) in :cite:`Kemeny1967`.
 
     """
     A = np.zeros_like(P)
@@ -132,6 +134,7 @@ def var_fmpt(P):
     Examples
     --------
     >>> import numpy as np
+    >>> from giddy.api import var_fmpt
     >>> p=np.matrix([[.5, .25, .25],[.5,0,.5],[.25,.25,.5]])
     >>> vfm=var_fmpt(p)
     >>> vfm
