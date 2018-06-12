@@ -1,0 +1,584 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Rank based Methods &#8212; giddy  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="rank-based-methods">
+<span id="sphx-glr-auto-examples-plot-rank-based-methods-py"></span><h1>Rank based Methods<a class="headerlink" href="#rank-based-methods" title="Permalink to this headline">¶</a></h1>
+<p>This notebook introduces two classic nonparametric statistics of exchange mobility and their spatial extensions. We will demonstrate the usage of these methods by an empirical study for understanding [regional exchange mobility pattern in US](#Regional-exchange-mobility-pattern-in-US-1929-2009). The dataset is the per capita incomes observed annually from 1929 to 2010 for the lower 48 US states.</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="first docutils">
+<dt>[Kendall’s $ au$](#Kendall’s-$       au$)</dt>
+<dd><ul class="first last">
+<li><dl class="first docutils">
+<dt>Classic measures:</dt>
+<dd><ul class="first last">
+<li>[Classic Kendall’s $ au$](#Classic-Kendall’s-$       au$)</li>
+<li>[Local Kendall’s $   au$](#Local-Kendall’s-$ au$)</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Spatial extensions:</dt>
+<dd><ul class="first last">
+<li>[Spatial Kendall’s $ au$](#Spatial-Kendall’s-$       au$)</li>
+<li>[Inter- and Intra-regional decomposition of Kendall’s $      au$](#Inter–and-Intra-regional-decomposition-of-Kendall’s-$    au$)</li>
+<li>[Local indicator of mobility association-LIMA](#Local-indicator-of-mobility-association-LIMA)</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>[$Theta$ statistic of exchange mobility](#$Theta$-statistic-of-exchange-mobility)</li>
+</ul>
+</div></blockquote>
+<ul class="sphx-glr-horizontal">
+<li><a class="first reference internal image-reference" href="../_images/sphx_glr_plot_rank_based_methods_001.png"><img alt="../_images/sphx_glr_plot_rank_based_methods_001.png" src="../_images/sphx_glr_plot_rank_based_methods_001.png" style="width: 705.0px; height: 329.0px;" /></a>
+</li>
+<li><a class="first reference internal image-reference" href="../_images/sphx_glr_plot_rank_based_methods_002.png"><img alt="../_images/sphx_glr_plot_rank_based_methods_002.png" src="../_images/sphx_glr_plot_rank_based_methods_002.png" style="width: 705.0px; height: 470.0px;" /></a>
+</li>
+<li><a class="first reference internal image-reference" href="../_images/sphx_glr_plot_rank_based_methods_003.png"><img alt="../_images/sphx_glr_plot_rank_based_methods_003.png" src="../_images/sphx_glr_plot_rank_based_methods_003.png" style="width: 705.0px; height: 470.0px;" /></a>
+</li>
+<li><a class="first reference internal image-reference" href="../_images/sphx_glr_plot_rank_based_methods_004.png"><img alt="../_images/sphx_glr_plot_rank_based_methods_004.png" src="../_images/sphx_glr_plot_rank_based_methods_004.png" style="width: 705.0px; height: 470.0px;" /></a>
+</li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ## Regional exchange mobility pattern in US 1929-2009</span>
+<span class="c1">#</span>
+<span class="c1"># Firstly we load in the US dataset:</span>
+
+<span class="c1"># In[1]:</span>
+
+
+<span class="kn">import</span> <span class="nn">libpysal</span>
+<span class="kn">import</span> <span class="nn">libpysal.api</span> <span class="kn">as</span> <span class="nn">ps</span>
+<span class="kn">import</span> <span class="nn">libpysal.io.geotable</span> <span class="kn">as</span> <span class="nn">pdio</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="n">rcParams</span>
+
+<span class="kn">import</span> <span class="nn">giddy</span>
+<span class="kn">from</span> <span class="nn">splot</span> <span class="kn">import</span> <span class="n">mapping</span> <span class="k">as</span> <span class="n">maps</span>
+
+<span class="n">shp_link</span> <span class="o">=</span> <span class="n">libpysal</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s1">&#39;us48.shp&#39;</span><span class="p">)</span>
+<span class="n">data_table</span> <span class="o">=</span> <span class="n">pdio</span><span class="o">.</span><span class="n">read_files</span><span class="p">(</span><span class="n">shp_link</span><span class="p">)</span>
+<span class="n">income_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">libpysal</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;usjoin.csv&quot;</span><span class="p">))</span>
+<span class="n">complete_table</span> <span class="o">=</span> <span class="n">data_table</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">income_table</span><span class="p">,</span><span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;STATE_NAME&#39;</span><span class="p">,</span><span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;Name&#39;</span><span class="p">)</span>
+<span class="n">complete_table</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+
+<span class="c1"># We will visualize the spatial distributions of per capita incomes in US states across 1929 to 2009 to obtain a first impression of the dynamics.</span>
+
+<span class="c1"># In[2]:</span>
+
+
+<span class="n">index_year</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1929</span><span class="p">,</span><span class="mi">2010</span><span class="p">,</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">maps</span><span class="o">.</span><span class="n">geoplot</span><span class="p">(</span><span class="n">complete_table</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">index_year</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mi">3</span><span class="o">+</span><span class="n">j</span><span class="p">]),</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span><span class="n">classi</span><span class="o">=</span><span class="s2">&quot;Quantiles&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Per Capita Income </span><span class="si">%s</span><span class="s1"> Quintiles&#39;</span><span class="o">%</span><span class="nb">str</span><span class="p">(</span><span class="n">index_year</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mi">3</span><span class="o">+</span><span class="n">j</span><span class="p">]))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+
+<span class="c1"># In[3]:</span>
+
+
+<span class="n">years</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1929</span><span class="p">,</span><span class="mi">2010</span><span class="p">)</span>
+<span class="n">names</span> <span class="o">=</span> <span class="n">income_table</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span>
+<span class="n">pci</span> <span class="o">=</span> <span class="n">income_table</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span><span class="s1">&#39;STATE_FIPS&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<span class="n">rpci</span><span class="o">=</span> <span class="p">(</span><span class="n">pci</span><span class="o">.</span><span class="n">T</span> <span class="o">/</span> <span class="n">pci</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+<span class="n">order1929</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">rpci</span><span class="p">[</span><span class="mi">0</span><span class="p">,:])</span>
+<span class="n">order2009</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">rpci</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,:])</span>
+<span class="n">names1929</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">order1929</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">names2009</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">order2009</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">first_last</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">names</span><span class="p">[</span><span class="n">order1929</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span><span class="n">names</span><span class="p">[</span><span class="n">order2009</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]]))</span>
+<span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span><span class="mi">10</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">years</span><span class="p">,</span><span class="n">rpci</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">48</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">1915</span><span class="p">,</span><span class="mf">1.91</span><span class="o">-</span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="mf">0.041</span><span class="p">),</span> <span class="n">names1929</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">2010.5</span><span class="p">,</span><span class="mf">1.91</span><span class="o">-</span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="mf">0.041</span><span class="p">),</span> <span class="n">names2009</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="n">years</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">years</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.94</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$y_{i,t}/\bar{y}_t$&quot;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Years&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Relative per capita incomes of 48 US states&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+
+
+<span class="c1"># The above figure displays the trajectories of relative per capita incomes of 48 US states. It is quite obvious that states were swapping positions across 1929-2009. We will demonstrate how to quantify the exchange mobility as well as how to assess the regional and local contribution to the overall exchange mobility. We will ultilize [BEA regions](https://www.bea.gov/regional/docs/regions.cfm) and base on it for constructing the block weight matrix.</span>
+<span class="c1">#</span>
+<span class="c1"># BEA regional scheme divide US states into 8 regions:</span>
+<span class="c1"># * New England Region</span>
+<span class="c1"># * Mideast Region</span>
+<span class="c1"># * Great Lakes Region</span>
+<span class="c1"># * Plains Region</span>
+<span class="c1"># * Southeast Region</span>
+<span class="c1"># * Southwest Region</span>
+<span class="c1"># * Rocky Mountain Region</span>
+<span class="c1"># * Far West Region</span>
+<span class="c1">#</span>
+<span class="c1"># As the dataset does not contain information regarding BEA regions, we manually input the regional information:</span>
+
+<span class="c1"># In[4]:</span>
+
+
+<span class="n">BEA_regions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;New England Region&quot;</span><span class="p">,</span><span class="s2">&quot;Mideast Region&quot;</span><span class="p">,</span><span class="s2">&quot;Great Lakes Region&quot;</span><span class="p">,</span><span class="s2">&quot;Plains Region&quot;</span><span class="p">,</span><span class="s2">&quot;Southeast Region&quot;</span><span class="p">,</span><span class="s2">&quot;Southwest Region&quot;</span><span class="p">,</span><span class="s2">&quot;Rocky Mountain Region&quot;</span><span class="p">,</span><span class="s2">&quot;Far West Region&quot;</span><span class="p">]</span>
+<span class="n">BEA_regions_abbr</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;NENG&quot;</span><span class="p">,</span><span class="s2">&quot;MEST&quot;</span><span class="p">,</span><span class="s2">&quot;GLAK&quot;</span><span class="p">,</span><span class="s2">&quot;PLNS&quot;</span><span class="p">,</span><span class="s2">&quot;SEST&quot;</span><span class="p">,</span><span class="s2">&quot;SWST&quot;</span><span class="p">,</span><span class="s2">&quot;RKMT&quot;</span><span class="p">,</span><span class="s2">&quot;FWST&quot;</span><span class="p">]</span>
+<span class="n">BEA</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span> <span class="s1">&#39;Region code&#39;</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;BEA region&#39;</span> <span class="p">:</span> <span class="n">BEA_regions</span><span class="p">,</span><span class="s1">&#39;BEA abbr&#39;</span><span class="p">:</span><span class="n">BEA_regions_abbr</span><span class="p">})</span>
+<span class="n">BEA</span>
+
+
+<span class="c1"># In[5]:</span>
+
+
+<span class="n">region_code</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">state_code</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;09&#39;</span><span class="p">,</span><span class="s1">&#39;23&#39;</span><span class="p">,</span><span class="s1">&#39;25&#39;</span><span class="p">,</span><span class="s1">&#39;33&#39;</span><span class="p">,</span><span class="s1">&#39;44&#39;</span><span class="p">,</span><span class="s1">&#39;50&#39;</span><span class="p">,</span><span class="s1">&#39;10&#39;</span><span class="p">,</span><span class="s1">&#39;11&#39;</span><span class="p">,</span><span class="s1">&#39;24&#39;</span><span class="p">,</span><span class="s1">&#39;34&#39;</span><span class="p">,</span><span class="s1">&#39;36&#39;</span><span class="p">,</span><span class="s1">&#39;42&#39;</span><span class="p">,</span><span class="s1">&#39;17&#39;</span><span class="p">,</span><span class="s1">&#39;18&#39;</span><span class="p">,</span><span class="s1">&#39;26&#39;</span><span class="p">,</span><span class="s1">&#39;39&#39;</span><span class="p">,</span><span class="s1">&#39;55&#39;</span><span class="p">,</span><span class="s1">&#39;19&#39;</span><span class="p">,</span><span class="s1">&#39;20&#39;</span><span class="p">,</span><span class="s1">&#39;27&#39;</span><span class="p">,</span><span class="s1">&#39;29&#39;</span><span class="p">,</span><span class="s1">&#39;31&#39;</span><span class="p">,</span><span class="s1">&#39;38&#39;</span><span class="p">,</span><span class="s1">&#39;46&#39;</span><span class="p">,</span><span class="s1">&#39;01&#39;</span><span class="p">,</span><span class="s1">&#39;05&#39;</span><span class="p">,</span><span class="s1">&#39;12&#39;</span><span class="p">,</span><span class="s1">&#39;13&#39;</span><span class="p">,</span><span class="s1">&#39;21&#39;</span><span class="p">,</span><span class="s1">&#39;22&#39;</span><span class="p">,</span><span class="s1">&#39;28&#39;</span><span class="p">,</span><span class="s1">&#39;37&#39;</span><span class="p">,</span><span class="s1">&#39;45&#39;</span><span class="p">,</span><span class="s1">&#39;47&#39;</span><span class="p">,</span><span class="s1">&#39;51&#39;</span><span class="p">,</span><span class="s1">&#39;54&#39;</span><span class="p">,</span><span class="s1">&#39;04&#39;</span><span class="p">,</span><span class="s1">&#39;35&#39;</span><span class="p">,</span><span class="s1">&#39;40&#39;</span><span class="p">,</span><span class="s1">&#39;48&#39;</span><span class="p">,</span><span class="s1">&#39;08&#39;</span><span class="p">,</span><span class="s1">&#39;16&#39;</span><span class="p">,</span><span class="s1">&#39;30&#39;</span><span class="p">,</span><span class="s1">&#39;49&#39;</span><span class="p">,</span><span class="s1">&#39;56&#39;</span><span class="p">,</span><span class="s1">&#39;02&#39;</span><span class="p">,</span><span class="s1">&#39;06&#39;</span><span class="p">,</span><span class="s1">&#39;15&#39;</span><span class="p">,</span><span class="s1">&#39;32&#39;</span><span class="p">,</span><span class="s1">&#39;41&#39;</span><span class="p">,</span><span class="s1">&#39;53&#39;</span><span class="p">]</span>
+<span class="n">state_region</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Region code&#39;</span><span class="p">:</span><span class="n">region_code</span><span class="p">,</span><span class="s2">&quot;State code&quot;</span><span class="p">:</span><span class="n">state_code</span><span class="p">})</span>
+<span class="n">state_region_all</span> <span class="o">=</span> <span class="n">state_region</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">BEA</span><span class="p">,</span><span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;Region code&#39;</span><span class="p">,</span><span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;Region code&#39;</span><span class="p">)</span>
+<span class="n">complete_table</span> <span class="o">=</span> <span class="n">complete_table</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">state_region_all</span><span class="p">,</span><span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;STATE_FIPS_x&#39;</span><span class="p">,</span><span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;State code&#39;</span><span class="p">)</span>
+<span class="n">complete_table</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+
+<span class="c1"># The BEA regions are visualized below:</span>
+
+<span class="c1"># In[6]:</span>
+
+
+<span class="n">maps</span><span class="o">.</span><span class="n">plot_choropleth</span><span class="p">(</span><span class="n">shp_link</span><span class="p">,</span> <span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;BEA region&quot;</span><span class="p">],</span> <span class="s2">&quot;unique_values&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;BEA Regions&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># ## Kendall&#39;s $\tau$</span>
+<span class="c1">#</span>
+<span class="c1"># Kendall’s $\tau$ statistic is based on a comparison of the number of pairs of $n$ observations that have concordant ranks between two variables. For measuring exchange mobility in **giddy**, the two variables in question are the values of an attribute measured at two points in time over $n$ spatial units. This classic measure of rank correlation indicates how much relative stability there has been in the map pattern over the two periods. Spatial decomposition of Kendall’s $\tau$ could be classified into three spatial scales: global spatial decomposition , inter- and intra-regional decomposition and local spatial decomposition. More details will be given latter.</span>
+
+<span class="c1"># ### Classic Kendall&#39;s $\tau$</span>
+<span class="c1">#</span>
+<span class="c1"># Kendall&#39;s $\tau$ statistic is a global measure of exchange mobility. For $n$ spatial units over two periods, it is formally defined as follows:</span>
+<span class="c1">#</span>
+<span class="c1"># $$\tau = \frac{c-d}{(n(n-1))/2}$$</span>
+<span class="c1">#</span>
+<span class="c1"># where $c$ is the number of concordant pairs (two spatial units which do not exchange ranks over two periods), and $d$ is the number of discordant pairs (two spatial units which exchange ranks over two periods). $-1 \leq \tau \leq 1$. Smaller $\tau$ indicates higher exchange mobility.</span>
+
+<span class="c1"># In giddy, class $Tau$ requires two inputs: a cross-section of income values at one period ($x$) and a cross-section of income values at another period ($y$):</span>
+<span class="c1">#</span>
+<span class="c1"># ```python</span>
+<span class="c1"># giddy.rank.Tau(self, x, y)</span>
+<span class="c1"># ```</span>
+<span class="c1">#</span>
+<span class="c1"># We will construct a $Tau$ instance by specifying the incomes in two periods. Here, we look at the global exchange mobility of US states between 1929 and 2009.</span>
+
+<span class="c1"># In[7]:</span>
+
+
+
+
+<span class="c1"># In[8]:</span>
+
+
+<span class="n">tau</span> <span class="o">=</span> <span class="n">giddy</span><span class="o">.</span><span class="n">rank</span><span class="o">.</span><span class="n">Tau</span><span class="p">(</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;1929&quot;</span><span class="p">],</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;2009&quot;</span><span class="p">])</span>
+<span class="n">tau</span>
+
+
+<span class="c1"># In[9]:</span>
+
+
+<span class="n">tau</span><span class="o">.</span><span class="n">concordant</span>
+
+
+<span class="c1"># In[10]:</span>
+
+
+<span class="n">tau</span><span class="o">.</span><span class="n">discordant</span>
+
+
+<span class="c1"># There are 856 concordant pairs of US states between 1929 and 2009, and 271 discordant pairs.</span>
+
+<span class="c1"># In[11]:</span>
+
+
+<span class="n">tau</span><span class="o">.</span><span class="n">tau</span>
+
+
+<span class="c1"># In[12]:</span>
+
+
+<span class="n">tau</span><span class="o">.</span><span class="n">tau_p</span>
+
+
+<span class="c1"># The observed Kendall&#39;s $\tau$ statistic is 0.519 and its p-value is $1.974 \times 10^{-7}$. Therefore, we will reject the null hypothesis of no assocation between 1929 and 2009 at the $5\%$ significance level.</span>
+
+<span class="c1"># ### Spatial Kendall&#39;s $\tau$</span>
+<span class="c1">#</span>
+<span class="c1"># The spatial Kendall&#39;s $\tau$ decomposes all pairs into those that are spatial neighbors and those that are not, and examines whether the rank correlation is different between the two sets (Rey, 2014).</span>
+<span class="c1">#</span>
+<span class="c1"># $$\tau_w = \frac{\iota&#39;(W\circ S)\iota}{\iota&#39;W \iota}$$</span>
+<span class="c1">#</span>
+<span class="c1"># $W$ is the spatial weight matrix, $S$ is the concordance matrix and $\iota$ is the $(n,1)$ unity vector. The null hypothesis is the spatial randomness of rank exchanges. The inference of $\tau_w$ could be conducted based on random spatial permutation of incomes at two periods.</span>
+
+<span class="c1"># ```python</span>
+<span class="c1"># giddy.rank.SpatialTau(self, x, y, w, permutations=0)</span>
+<span class="c1"># ```</span>
+<span class="c1"># For illustration, we turn back to the case of incomes in US states over 1929-2009:</span>
+
+<span class="c1"># In[13]:</span>
+
+
+
+
+<span class="c1"># In[14]:</span>
+
+
+<span class="n">w</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">block_weights</span><span class="p">(</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;BEA region&quot;</span><span class="p">])</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
+<span class="n">tau_w</span> <span class="o">=</span> <span class="n">giddy</span><span class="o">.</span><span class="n">rank</span><span class="o">.</span><span class="n">SpatialTau</span><span class="p">(</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;1929&quot;</span><span class="p">],</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;2009&quot;</span><span class="p">],</span><span class="n">w</span><span class="p">,</span><span class="mi">999</span><span class="p">)</span>
+
+
+<span class="c1"># In[15]:</span>
+
+
+<span class="n">tau_w</span><span class="o">.</span><span class="n">concordant</span>
+
+
+<span class="c1"># In[16]:</span>
+
+
+<span class="n">tau_w</span><span class="o">.</span><span class="n">concordant_spatial</span>
+
+
+<span class="c1"># In[17]:</span>
+
+
+<span class="n">tau_w</span><span class="o">.</span><span class="n">discordant</span>
+
+
+<span class="c1"># In[18]:</span>
+
+
+<span class="n">tau_w</span><span class="o">.</span><span class="n">discordant_spatial</span>
+
+
+<span class="c1"># Out of 856 concordant pairs of spatial units, 103 belong to the same region (and are considered neighbors); out of 271 discordant pairs of spatial units, 41 belong to the same region.</span>
+
+<span class="c1"># In[19]:</span>
+
+
+<span class="n">tau_w</span><span class="o">.</span><span class="n">tau_spatial</span>
+
+
+<span class="c1"># In[20]:</span>
+
+
+<span class="n">tau_w</span><span class="o">.</span><span class="n">tau_spatial_psim</span>
+
+
+<span class="c1"># The estimate of spatial Kendall&#39;s $\tau$ is 0.431 and its p-value is 0.001 which is much smaller than the significance level $0.05$. Therefore, we reject the null of spatial randomness of exchange mobility. The fact that $\tau_w=0.431$  is smaller than the global average $\tau=0.519$ implies that globally a significant number of rank exchanges happened between states within the same region though we do not know the specific region or regions hosting these rank exchanges. A more thorough decomposition of $\tau$ such as inter- and intra-regional indicators and local indicators will provide insights on this issue.</span>
+
+<span class="c1"># ### Inter- and Intra-regional decomposition of Kendall&#39;s $\tau$</span>
+<span class="c1">#</span>
+<span class="c1"># A meso-level view on the exchange mobility pattern is provided by inter- and intra-regional decomposition of Kendall&#39;s $\tau$. This decomposition can shed light on specific regions hosting most rank exchanges. More precisely, insteading of examining the concordance relationship between any two neighboring spatial units in the whole study area, for a specific region A, we examine the concordance relationship between any two spatial units within region A (neighbors), resulting in the intraregional concordance statistic for A; or we could examine the concordance relationship between any spatial unit in region A and any spatial unit in region B (nonneighbors), resulting in the interregional concordance statistic for A and B. If there are k regions, there will be k intraregional concordance statistics and $(k-1)^2$ interregional concordance statistics, we could organize them into a $(k,k)$ matrix where the diagonal elements are intraregional concordance statistics and nondiagnoal elements are interregional concordance statistics.</span>
+<span class="c1">#</span>
+<span class="c1"># Formally, this inter- and intra-regional concordance statistic matrix is defined as follows (Rey, 2016):</span>
+<span class="c1">#</span>
+<span class="c1"># $$T=\frac{P(H \circ S)P&#39;}{P H P&#39;}$$</span>
+<span class="c1">#</span>
+<span class="c1"># $P$ is a $(k,n)$ binary matrix where $p_{j,i}=1$ if spatial unit $i$ is in region $j$ and $p_{j,i}=0$ otherwise. $H$ is a $(n,n)$ matrix with 0 on diagnoal and 1 on other places. $\circ$ is the Hadamard product. Inference could be based on random spatial permutation of incomes at two periods, similar to spatial $\tau$.</span>
+
+<span class="c1"># To obtain an estimate for the inter- and intra-regional indicator matrix, we use the $Tau\_Regional$ class:</span>
+<span class="c1"># ```python</span>
+<span class="c1"># giddy.rank.Tau_Regional(self, x, y, regime, permutations=0)</span>
+<span class="c1"># ```</span>
+<span class="c1"># Here, $regime$ is an 1-dimensional array of size n. Each element is the id of which region an spatial unit belongs to.</span>
+
+<span class="c1"># In[21]:</span>
+
+
+
+
+<span class="c1"># Similar to before, we go back to the case of incomes in US states over 1929-2009:</span>
+
+<span class="c1"># In[22]:</span>
+
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
+<span class="n">tau_w</span> <span class="o">=</span> <span class="n">giddy</span><span class="o">.</span><span class="n">rank</span><span class="o">.</span><span class="n">Tau_Regional</span><span class="p">(</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;1929&quot;</span><span class="p">],</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;2009&quot;</span><span class="p">],</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;BEA region&quot;</span><span class="p">],</span><span class="mi">999</span><span class="p">)</span>
+<span class="n">tau_w</span>
+
+
+<span class="c1"># In[23]:</span>
+
+
+<span class="n">tau_w</span><span class="o">.</span><span class="n">tau_reg</span>
+
+
+<span class="c1"># The attribute $tau\_reg$ gives the inter- and intra-regional concordance statistic matrix. Higher values represents lower exchange mobility. Obviously there are some negative values indicating high exchange mobility. Attribute $tau\_reg\_pvalues$ gives pvalues for all inter- and intra-regional concordance statistics:</span>
+
+<span class="c1"># In[24]:</span>
+
+
+<span class="n">tau_w</span><span class="o">.</span><span class="n">tau_reg_pvalues</span>
+
+
+<span class="c1"># We can manipulate these two attribute to obtain significant inter- and intra-regional statistics only (at the $5\%$ significance level):</span>
+
+<span class="c1"># In[25]:</span>
+
+
+<span class="n">tau_w</span><span class="o">.</span><span class="n">tau_reg</span> <span class="o">*</span> <span class="p">(</span><span class="n">tau_w</span><span class="o">.</span><span class="n">tau_reg_pvalues</span><span class="o">&lt;</span><span class="mf">0.05</span><span class="p">)</span>
+
+
+<span class="c1"># The table below displays the inter- and intra-regional decomposition matrix of Kendall&#39;s $\tau$ for US states over 1929-2009 based on the 8 BEA regions. Bold numbers indicate significance at the $5\%$ significance level. The negative and significant intra-Southeast concordance statistic ($-0.486$) indicates that the rank exchanges within Southeast region is significantly more frequent than those between states within and out of Southeast region.</span>
+
+<span class="c1"># | Region        | New England| Mideast|Great Lakes|Plains|Southeast|Southwest|Rocky Mountain|Far West|</span>
+<span class="c1"># |:-------------:|:-------------:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|</span>
+<span class="c1"># | New England  | 0.667|  0.5 | 0.3|0.417|  0.2856|0.5 | 0.792|  0.875|</span>
+<span class="c1"># | Mideast      | 0.5 |  0.4|0.52|0.267| **-0.486**|0.52| 0.533| 0.6 |</span>
+<span class="c1"># | Great Lakes |  0.3 |  0.52 |  0  |  0.4 |  **0.886**| 0.76 | **0.933**|1.|</span>
+<span class="c1"># |Plains| 0.417| 0.267|  0.4 |  0.867|  0.476|**0.833**| **0.861**| **0.917**|</span>
+<span class="c1"># |Southeast|0.286|**-0.486**|**0.886**| 0.476| **-0.143**|0.429| 0.690| 0.143|</span>
+<span class="c1"># |Southwest| 0.5 |0.52 |0.76|**0.833**| 0.429|0.8|**0.067**|0.1|</span>
+<span class="c1"># |Rocky Mountain|0.792| 0.533| **0.933**|**0.861**| 0.69|**0.067**| 0.545|0.333|</span>
+<span class="c1"># |Far West|0.875|0.6| 1.| **0.917**|0.143|0.1 |0.333| 0|</span>
+
+<span class="c1"># ### Local Kendall&#39;s $\tau$</span>
+<span class="c1">#</span>
+<span class="c1"># Local Kendall&#39;s $\tau$ is a local decomposition of classic Kendall&#39;s $\tau$ which provides an indication of the contribution of spatial unit $r$’s rank changes to the overall level of exchange mobility (Rey, 2016). Focusing on spatial unit $r$, we formally define it as follows:</span>
+<span class="c1"># $$\tau_{r} = \frac{c_r - d_r}{n-1}$$</span>
+<span class="c1">#</span>
+<span class="c1"># where $c_r$ is the number of spatial units (except $r$) which are concordant with $r$ and $d_r$ is the number of spatial units which are discordant with $r$. Similar to classic Kendall&#39;s $\tau$, local $\tau$ takes values on $[-1,1]$. The larger the value, the lower the exchange mobility for $r$.</span>
+
+<span class="c1"># ```python</span>
+<span class="c1"># giddy.rank.Tau_Local(self, x, y)</span>
+<span class="c1"># ```</span>
+
+<span class="c1"># In[28]:</span>
+
+
+
+
+<span class="c1"># We create a $Tau\_Local$ instance for US dynamics 1929-2009:</span>
+
+<span class="c1"># In[29]:</span>
+
+
+<span class="n">tau_r</span> <span class="o">=</span> <span class="n">giddy</span><span class="o">.</span><span class="n">rank</span><span class="o">.</span><span class="n">Tau_Local</span><span class="p">(</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;1929&quot;</span><span class="p">],</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;2009&quot;</span><span class="p">])</span>
+<span class="n">tau_r</span>
+
+
+<span class="c1"># In[48]:</span>
+
+
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;STATE_NAME&quot;</span><span class="p">:</span><span class="n">complete_table</span><span class="p">[</span><span class="s1">&#39;STATE_NAME&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">tau_r$&quot;</span><span class="p">:</span><span class="n">tau_r</span><span class="o">.</span><span class="n">tau_local</span><span class="p">})</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+
+<span class="c1"># Therefore, local concordance measure produces a negative value for North Dakota (-0.0213) indicating that North Dakota exchanged ranks with a lot of states across 1929-2000. On the contrary, the local $\tau$ statistic is quite high for Washington (0.617) highlighting a high stability of Washington.</span>
+
+<span class="c1"># ### Local indicator of mobility association-LIMA</span>
+<span class="c1">#</span>
+<span class="c1"># To reveal of the role of space in shaping the exchange mobility pattern for each spatial unit, two spatial variants of local Kendall&#39;s $\tau$ could be utilized: neighbor set LIMA and neighborhood set LIMA (Rey, 2016). The latter is also the result of a decomposition of local Kendall&#39;s $\tau$ (into neighboring and nonneighboring parts) as well as a decompostion of spatial Kendall&#39;s $\tau$ (into its local components).</span>
+
+<span class="c1"># #### Neighbor set LIMA</span>
+<span class="c1">#</span>
+<span class="c1"># Instead of examining the concordance relationship between a focal spatial unit $r$ and all the other units as what local $\tau$ does, neighbor set LIMA focuses on the concordance relationship between a focal spatial unit $r$ and its neighbors only. It is formally defined as follows:</span>
+<span class="c1">#</span>
+<span class="c1"># $$\tilde{\tau}_{r} = \frac{\sum_b w_{r,b} s_{r,b}}{\sum_b w_{r,b}}$$</span>
+
+<span class="c1"># ```python</span>
+<span class="c1"># giddy.rank.Tau_Local_Neighbor(self, x, y, w, permutations=0)</span>
+<span class="c1"># ```</span>
+
+<span class="c1"># In[49]:</span>
+
+
+
+
+<span class="c1"># In[53]:</span>
+
+
+<span class="n">tau_wr</span> <span class="o">=</span> <span class="n">giddy</span><span class="o">.</span><span class="n">rank</span><span class="o">.</span><span class="n">Tau_Local_Neighbor</span><span class="p">(</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;1929&quot;</span><span class="p">],</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;2009&quot;</span><span class="p">],</span><span class="n">w</span><span class="p">,</span><span class="mi">999</span><span class="p">)</span>
+<span class="n">tau_wr</span>
+
+
+<span class="c1"># In[54]:</span>
+
+
+<span class="n">tau_wr</span><span class="o">.</span><span class="n">tau_ln</span>
+
+
+<span class="c1"># To visualize the spatial distribution of neighbor set LIMA:</span>
+
+<span class="c1"># In[72]:</span>
+
+
+<span class="n">maps</span><span class="o">.</span><span class="n">plot_choropleth</span><span class="p">(</span><span class="n">shp_link</span><span class="p">,</span> <span class="n">tau_wr</span><span class="o">.</span><span class="n">tau_ln</span><span class="p">,</span> <span class="s2">&quot;equal_interval&quot;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Neighbor set LIMA for US states 1929-2009&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># Therefore, Arizona, North Dakota, and Missouri exchanged ranks with most of their neighbors over 1929-2009 while California, Virginia etc. barely exchanged ranks with their neighbors.</span>
+
+<span class="c1"># Let see whether neighbor set LIMA statistics are siginificant for these &quot;extreme&quot; states:</span>
+
+<span class="c1"># In[55]:</span>
+
+
+<span class="n">tau_wr</span><span class="o">.</span><span class="n">tau_ln_pvalues</span>
+
+
+<span class="c1"># In[81]:</span>
+
+
+<span class="n">sig_wr</span> <span class="o">=</span> <span class="n">tau_wr</span><span class="o">.</span><span class="n">tau_ln</span> <span class="o">*</span> <span class="p">(</span><span class="n">tau_wr</span><span class="o">.</span><span class="n">tau_ln_pvalues</span><span class="o">&lt;</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">sig_wr</span>
+
+
+<span class="c1"># In[82]:</span>
+
+
+<span class="n">maps</span><span class="o">.</span><span class="n">plot_choropleth</span><span class="p">(</span><span class="n">shp_link</span><span class="p">,</span> <span class="n">sig_wr</span><span class="p">,</span> <span class="s2">&quot;unique_values&quot;</span><span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Significant Neighbor set LIMA for US states 1929-2009&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># Thus, Arizona and Missouri have significant and negative neighbor set LIMA values, and can be considered as hotspots of rank exchanges. This means that Arizona (or Missouri) tended to exchange ranks with its neighbors than with others over 1929-2009. On the contrary, Virgina has significant and large positive neighbor set LIMA value indicating that it tended to exchange ranks with its nonneighbors than with</span>
+
+<span class="c1"># #### Neighborhood set LIMA</span>
+<span class="c1">#</span>
+<span class="c1"># Neighborhood set LIMA extends neighbor set LIMA $\tilde{\tau}_{r}$ to consider the concordance relationships between any two spatial units in the subset which is composed of the focal unit $r$ and its neighbors.</span>
+
+<span class="c1"># ```python</span>
+<span class="c1"># giddy.rank.Tau_Local_Neighborhood(self, x, y, w, permutations=0)</span>
+<span class="c1"># ```</span>
+
+<span class="c1"># In[51]:</span>
+
+
+
+
+<span class="c1"># In[57]:</span>
+
+
+<span class="n">tau_wwr</span> <span class="o">=</span> <span class="n">giddy</span><span class="o">.</span><span class="n">rank</span><span class="o">.</span><span class="n">Tau_Local_Neighborhood</span><span class="p">(</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;1929&quot;</span><span class="p">],</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;2009&quot;</span><span class="p">],</span><span class="n">w</span><span class="p">,</span><span class="mi">999</span><span class="p">)</span>
+<span class="n">tau_wwr</span>
+
+
+<span class="c1"># In[58]:</span>
+
+
+<span class="n">tau_wwr</span><span class="o">.</span><span class="n">tau_lnhood</span>
+
+
+<span class="c1"># In[59]:</span>
+
+
+<span class="n">tau_wwr</span><span class="o">.</span><span class="n">tau_lnhood_pvalues</span>
+
+
+<span class="c1"># In[60]:</span>
+
+
+<span class="n">tau_wwr</span><span class="o">.</span><span class="n">tau_lnhood</span> <span class="o">*</span> <span class="p">(</span><span class="n">tau_wwr</span><span class="o">.</span><span class="n">tau_lnhood_pvalues</span><span class="o">&lt;</span><span class="mf">0.05</span><span class="p">)</span>
+
+
+<span class="c1"># ## $\Theta$ statistic of exchange mobility</span>
+
+<span class="c1"># ## Next steps</span>
+<span class="c1">#</span>
+<span class="c1"># * theta statistic</span>
+
+<span class="c1"># ## References</span>
+<span class="c1"># * Rey, Sergio J., and Myrna L. Sastré-Gutiérrez. 2010. “[Interregional Inequality Dynamics in Mexico](http://www.tandfonline.com/doi/abs/10.1080/17421772.2010.493955).” Spatial Economic Analysis 5 (3). Taylor &amp; Francis: 277–98.</span>
+<span class="c1"># * Rey, Sergio J. 2014. “[Fast Algorithms for a Space-Time Concordance Measure](https://link.springer.com/article/10.1007/s00180-013-0461-2).” Computational Statistics 29 (3-4). Springer: 799–811.</span>
+<span class="c1"># * Rey, Sergio J. 2016. “[Space--Time Patterns of Rank Concordance: Local Indicators of Mobility Association with Application to Spatial Income Inequality Dynamics](http://www.tandfonline.com/doi/abs/10.1080/24694452.2016.1151336?journalCode=raag21).” Annals of the Association of American Geographers. Association of American Geographers 106 (4): 788–803.</span>
+</pre></div>
+</div>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  7.895 seconds)</p>
+<div class="sphx-glr-footer docutils container">
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" href="../_downloads/plot_rank_based_methods.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_rank_based_methods.py</span></code></a></div>
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" href="../_downloads/plot_rank_based_methods.ipynb" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_rank_based_methods.ipynb</span></code></a></div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Generated by Sphinx-Gallery</a></p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/auto_examples/plot_rank_based_methods.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, pysal developers.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/auto_examples/plot_rank_based_methods.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
