@@ -28,8 +28,8 @@ script:
 notifications:
     email:
         recipients:
-            - weikang9009+travis@gmail.com
-            - sjsrey+travis@gmail.com
+            - weikang9009@gmail.com
+            - sjsrey@gmail.com
             - levi.john.wolf@gmail.com
         on_change: always
         on_failure: always
