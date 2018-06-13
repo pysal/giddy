@@ -14,7 +14,7 @@ import libpysal.api as ps
 
 class Theta:
     """
-    Regime mobility measure. [Rey2004a]_
+    Regime mobility measure. :cite:`Rey2004a`
 
     For sequence of time periods Theta measures the extent to which rank
     changes for a variable measured over n locations are in the same direction
@@ -61,6 +61,7 @@ class Theta:
     Examples
     --------
     >>> import libpysal as ps
+    >>> from giddy.api import Theta
     >>> f=ps.open(ps.examples.get_path("mexico.csv"))
     >>> vnames=["pcgdp%d"%dec for dec in range(1940,2010,10)]
     >>> y=np.transpose(np.array([f.by_col[v] for v in vnames]))
@@ -131,8 +132,8 @@ class Tau:
 
     Notes
     -----
-    Modification of algorithm suggested by Christensen (2005). [Christensen2005]_
-    PySAL implementation uses a list based representation of a binary tree for
+    Modification of algorithm suggested by :cite:`Christensen2005`.PySAL/giddy
+    implementation uses a list based representation of a binary tree for
     the accumulation of the concordance measures. Ties are handled by this
     implementation (in other words, if there are ties in either x, or y, or
     both, the calculation returns Tau_b, if no ties classic Tau is returned.)
@@ -142,6 +143,7 @@ class Tau:
     # from scipy example
 
     >>> from scipy.stats import kendalltau
+    >>> from giddy.api import Tau
     >>> x1 = [12, 2, 1, 12, 2]
     >>> x2 = [1, 4, 7, 1, 0]
     >>> kt = Tau(x1,x2)
@@ -314,17 +316,17 @@ class SpatialTau(object):
     Notes
     -----
     Algorithm has two stages. The first calculates classic Tau using a list
-    based implementation of the algorithm from Christensen
-    (2005) [Christensen2005]_. Second
+    based implementation of the algorithm from :cite:`Christensen2005`. Second
     stage calculates concordance measures for neighboring pairs of locations
-    using a modification of the algorithm from Press et al (2007) [Press2007]_. See Rey
-    (2014) [Rey2014]_ for details.
+    using a modification of the algorithm from :cite:`Press2007`. See
+    :cite:`Rey2014` for details.
 
     Examples
     --------
     >>> import libpysal
     >>> import libpysal.api as ps
     >>> import numpy as np
+    >>> from giddy.api import SpatialTau
     >>> f=libpysal.open(libpysal.examples.get_path("mexico.csv"))
     >>> vnames=["pcgdp%d"%dec for dec in range(1940,2010,10)]
     >>> y=np.transpose(np.array([f.by_col[v] for v in vnames]))
@@ -441,12 +443,13 @@ class Tau_Local:
     Notes
     -----
     The equation for calculating local concordance statistic can be
-    found in Rey (2016) [Rey2016]_ Equation (9).
+    found in :cite:`Rey2016` Equation (9).
 
     Examples
     --------
     >>> import libpysal
     >>> import numpy as np
+    >>> from giddy.api import Tau_Local,Tau
     >>> np.random.seed(10)
     >>> f = libpysal.open(libpysal.examples.get_path("mexico.csv"))
     >>> vnames = ["pcgdp%d"%dec for dec in range(1940, 2010, 10)]
