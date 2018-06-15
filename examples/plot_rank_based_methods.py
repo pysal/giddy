@@ -41,10 +41,10 @@ complete_table = data_table.merge(income_table,left_on='STATE_NAME',right_on='Na
 complete_table.head()
 
 
-# We will visualize the spatial distributions of per capita incomes in US states across 1929 to 2009 to obtain a first impression of the dynamics. 
+"""
+We will visualize the spatial distributions of per capita incomes in US states across 1929 to 2009 to obtain a first impression of the dynamics.
 
-# In[2]:
-
+"""
 
 index_year = range(1929,2010,15)
 fig, axes = plt.subplots(nrows=2, ncols=3,figsize = (15,7))

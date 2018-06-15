@@ -1,9 +1,10 @@
-.. _general_exampes:
+.. _general_examples:
 
-Examples
-========
+giddy Gallery
+=============
 
-Miscellaneous examples
-----------------
 
-Miscellaneous and introductory examples for giddy.
+These examples illustrate some of the functionality provided in giddy.
+
+Longer-form tutorials belong at XXX and can be submitted at XXX.
+
