@@ -114,7 +114,7 @@ r4.plot(attribute=Y[:,0]) # condition on starting relative income
 ##########################################
 #Conditional LISA Plot (Spatial Lag)
 #=================================== 
-#Here we condition on the relative starting income of the focal units: 
+#Here we condition on the relative starting income of the neighboring units: 
 
 
 
