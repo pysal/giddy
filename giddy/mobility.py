@@ -18,8 +18,8 @@ def markov_mobility(p, measure="P",ini=None):
     p       : array
               (k, k), Markov transition probability matrix.
     measure : string
-              If measure = "P",
-              :math:`M_{P} = \frac{m-\sum_{i=1}^m P_{ii}}{m-1}`;
+              If measure= "P",
+              :math:`M_{P} = \\frac{m-\sum_{i=1}^m P_{ii}}{m-1}`;
               if measure = "D",
               :math:`M_{D} = 1 - |\det(P)|`,
               where :math:`\det(P)` is the determinant of :math:`P`;
@@ -28,10 +28,10 @@ def markov_mobility(p, measure="P",ini=None):
               where :math:`\lambda_2` is the second largest eigenvalue of
               :math:`P`;
               if measure = "B1",
-              :math:`M_{B1} = \frac{m-m \sum_{i=1}^m \pi_i P_{ii}}{m-1}`,
+              :math:`M_{B1} = \\frac{m-m \sum_{i=1}^m \pi_i P_{ii}}{m-1}`,
               where :math:`\pi` is the initial income distribution;
               if measure == "B2",
-              :math:`M_{Bartholomew2} = \frac{1}{m-1} \sum_{i=1}^m \sum_{
+              :math:`M_{B2} = \\frac{1}{m-1} \sum_{i=1}^m \sum_{
               j=1}^m \pi_i P_{ij} |i-j|`,
               where :math:`\pi` is the initial income distribution.
     ini     : array
