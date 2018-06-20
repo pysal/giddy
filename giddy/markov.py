@@ -595,6 +595,14 @@ class Spatial_Markov(object):
         return mat
 
     def summary(self, file_name=None):
+        '''
+        A summary method to call the Markov homogeneity test to test for
+        temporally lagged spatial dependence.
+
+        To learn more about the properties of the tests, refer to
+        :cite:`Rey2016a` and :cite:`Kang2018`.
+        '''
+
         class_names = ["C%d" % i for i in range(self.k)]
         regime_names = ["LAG%d" % i for i in range(self.k)]
         ht = homogeneity(self.T, class_names=class_names,
@@ -636,9 +644,9 @@ def chi2(T1, T2):
 
     Parameters
     ----------
-    T1    : matrix
+    T1    : array
             (k, k), matrix of transitions (counts).
-    T2    : matrix
+    T2    : array
             (k, k), matrix of transitions (counts) to use to form the
             probabilities under the null.
 
@@ -1310,8 +1318,7 @@ class Homogeneity_Results:
 
     Notes
     -----
-    Degrees of freedom adjustment follow the approach in Bickenbach and Bode
-    (2003) [Bickenbach2003]_.
+    Degrees of freedom adjustment follow the approach in :cite:`Bickenbach2003`.
 
     Examples
     --------
@@ -1506,4 +1513,94 @@ class Homogeneity_Results:
                 s2 = "".join(c)
                 f.write(s1+s2)
 
-
+# class Joint_Markov(object):
+#
+#
+# def joint_dependence_test(y,w,k=4,fixed=False):
+#     """
+#     Joint test of spatial dependence for Markov chains.
+#
+#     Parameters
+#     ----------
+#     y               : array
+#                       (n,t), one row per observation, one column per state of
+#                       each observation, with as many columns as time periods.
+#     w               : W
+#                       spatial weights object.
+#     k               : integer
+#                       number of classes (quantiles).
+#     fixed           : bool
+#                       If true, quantiles are taken over the entire n*t
+#                       pooled series. If false, quantiles are taken each
+#                       time period over n.
+#
+#     Returns
+#     -------
+#                     : tuple
+#                       (chi2 value, pvalue, degrees of freedom).
+#     joint_null_trans: array
+#                       (k**2,k**2), joint transitions calculated by
+#                       multiplying own markov matrix by neighbor
+#                       markov matrix assuming spatial independence (null)
+#     joint_esti_trans: array
+#                       (k**2,k**2), joint transitions calculated from data
+#                     : array
+#                       (k,k), transition probability matrix of own Markov chain
+#                     : array
+#                       (k,k), transition probability matrix of neighbor Markov chain
+#     Examples
+#     --------
+#     >>> import libpysal
+#     >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
+#     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
+#     >>> pci = pci.transpose()
+#     >>> rpci = pci/(pci.mean(axis=0))
+#     >>> w = libpysal.open(libpysal.examples.get_path("states48.gal")).read()
+#     >>> w.transform = 'r'
+#
+#     """
+#
+#     y = np.asarray(y)
+#     rows, cols = y.shape
+#     ly = ps.lag_spatial(w, y) #spatial lag
+#     if fixed:
+#         classes_o = mc.Quantiles(y.flatten(), k=k).yb
+#         classes_o.shape = (rows, cols)
+#         classes_n = mc.Quantiles(ly.flatten(), k=k).yb
+#         classes_n.shape = (rows, cols)
+#     else:
+#         classes_o = np.array([mc.Quantiles(y[:, i], k=k).yb for i
+#                               in np.arange(cols)]).transpose()
+#         classes_n = np.array([mc.Quantiles(ly[:, i], k=k).yb for i
+#                               in np.arange(cols)]).transpose()
+#
+#     markov_o = Markov(classes_o)
+#     markov_n = Markov(classes_n)
+#
+#     joint_null = np.kron(markov_o.p, markov_n.p) #if own-chain and
+#     # neighbor-chain are independent (null)
+#
+#     joint_types = {} #state space {(own,lag),...} and assigned number
+#     c = 0
+#     for i in range(k):
+#         for j in range(k):
+#             joint_types[(i,j)] = c
+#             c += 1
+#
+#     move_types = {} #((own_t,lag_t),(own_t+1,lag_t+1))
+#     for i in joint_types.keys():
+#         for j in joint_types.keys():
+#             move_types[(i,j)] = (joint_types[i],joint_types[j])
+#
+#     joint_null = np.array(joint_null)
+#     joint_esti_trans = np.zeros_like(joint_null)
+#     for i in range(rows):
+#         for j in range(cols-1):
+#             loc = move_types[((classes_o[i,j],classes_n[i,j]),(classes_o[i,j+1],classes_n[i,j+1]))]
+#             joint_esti_trans[loc[0],loc[1]] += 1
+#
+#     trans = joint_esti_trans.sum(axis=1)
+#     joint_null_trans = np.dot(np.diag(trans),joint_null)
+#     #df = k**2 * (k**2-1) - 2*k*(k-1)
+#
+#     return chi2(joint_esti_trans, joint_null_trans),joint_null_trans,joint_esti_trans,markov_o.p,markov_n.p

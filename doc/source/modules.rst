@@ -1,7 +1,13 @@
-giddy
-=====
+#################
+Library Reference
+#################
 
 .. toctree::
-   :maxdepth: 4
+    :maxdepth: 1
 
-   giddy
+    markov
+    directional
+    rank
+    mobility
+    ergodic
+    util
