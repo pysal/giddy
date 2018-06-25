@@ -595,6 +595,14 @@ class Spatial_Markov(object):
         return mat
 
     def summary(self, file_name=None):
+        '''
+        A summary method to call the Markov homogeneity test to test for
+        temporally lagged spatial dependence.
+
+        To learn more about the properties of the tests, refer to
+        :cite:`Rey2016a` and :cite:`Kang2018`.
+        '''
+
         class_names = ["C%d" % i for i in range(self.k)]
         regime_names = ["LAG%d" % i for i in range(self.k)]
         ht = homogeneity(self.T, class_names=class_names,
@@ -636,9 +644,9 @@ def chi2(T1, T2):
 
     Parameters
     ----------
-    T1    : matrix
+    T1    : array
             (k, k), matrix of transitions (counts).
-    T2    : matrix
+    T2    : array
             (k, k), matrix of transitions (counts) to use to form the
             probabilities under the null.
 
@@ -1310,8 +1318,7 @@ class Homogeneity_Results:
 
     Notes
     -----
-    Degrees of freedom adjustment follow the approach in Bickenbach and Bode
-    (2003) [Bickenbach2003]_.
+    Degrees of freedom adjustment follow the approach in :cite:`Bickenbach2003`.
 
     Examples
     --------
@@ -1505,5 +1512,3 @@ class Homogeneity_Results:
                 c.append("\\end{tabular}")
                 s2 = "".join(c)
                 f.write(s1+s2)
-
-
