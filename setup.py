@@ -14,7 +14,7 @@ giddy a try if you are interested in space-time analysis!
 
 DOCLINES = __doc__.split("\n")
 
-with open('README.rst') as file:
+with open('README.rst', 'r', encoding='utf8') as file:
     long_description = file.read()
 
 
