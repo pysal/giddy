@@ -104,8 +104,9 @@ class Rose_Tester(unittest.TestCase):
         # plot
         fig, _ = rose.plot_vectors()
         plt.close(fig)
-        # customize plot TODO add arrow example when splot is released
-
+        # customize plot
+        fig, _ = rose.plot_vectors(arrows=False)
+        plt.close(fig)
 
 suite = unittest.TestSuite()
 test_classes = [Rose_Tester]

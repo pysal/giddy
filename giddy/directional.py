@@ -324,14 +324,61 @@ class Rose(object):
         results['dy'] = dy
         return results
 
-    def plot(self, attribute=None):
+    def plot(self, attribute=None, ax=None, **kwargs):
         """Plot the rose diagram.
 
         Parameters
         ----------
         attribute : (n,) ndarray, optional
             Variable to specify colors of the colorbars.
+        ax : Matplotlib Axes instance, optional
+            If given, the figure will be created inside this axis.
+            Default =None. Note, this axis should have a polar projection.
+        **kwargs : keyword arguments, optional
+            Keywords used for creating and designing the plot.
+            Note: 'c' and 'color' cannot be passed when attribute is not None
 
+        Returns
+        -------
+        fig : Matplotlib Figure instance
+            Moran scatterplot figure
+        ax : matplotlib Axes instance
+            Axes in which the figure is plotted
+        
+        Examples
+        --------
+        Imports
+        >>> import geopandas as gpd
+        >>> import pandas as pd
+        >>> import libpysal.api as lp
+        >>> from libpysal import examples
+        >>> import numpy as np
+        >>> import matplotlib.pyplot as plt
+        >>> from giddy.directional import Rose
+        get csv and shp files
+        >>> shp_link = examples.get_path('us48.shp')
+        >>> df = gpd.read_file(shp_link)
+        >>> income_table = pd.read_csv(examples.get_path("usjoin.csv"))
+        calculate relative values
+        >>> for year in range(1969, 2010):
+        ...     income_table[str(year) + '_rel'] = (
+        ...         income_table[str(year)] / income_table[str(year)].mean())  
+        merge to one gdf
+        >>> gdf = df.merge(income_table,left_on='STATE_NAME',right_on='Name')
+        retrieve spatial weights and data for two points in time
+        >>> w = lp.Queen.from_dataframe(gdf)
+        >>> w.transform = 'r'
+        >>> y1 = gdf['1969_rel'].values
+        >>> y2 = gdf['2000_rel'].values
+        calculate rose Object
+        >>> Y = np.array([y1, y2]).T
+        >>> rose = Rose(Y, w, k=5)
+        plot
+        >>> fig1, _ = rose.plot()
+        >>> plt.show()
+        customize plot
+        >>> fig, _ = rose.plot()(attribute=y1)
+        >>> plt.show()
         """
         use_splot = False
         try:
@@ -342,7 +389,8 @@ class Rose(object):
                           DeprecationWarning)
 
         if use_splot:
-            fig, ax = splot.giddy.dynamic_lisa_rose(self, attribute=attribute)
+            fig, ax = splot.giddy.dynamic_lisa_rose(self, attribute=attribute,
+                                                    ax=ax, **kwargs)
         else:
             # This can be removed if splot has been released with support for
             # giddy.directional TODO add **kwargs
@@ -372,7 +420,67 @@ class Rose(object):
         plt.xlim(xlim)
         plt.ylim(ylim)
 
-    def plot_vectors(self):  # TODO add attribute option to color vectors
+    def plot_vectors(self, arrows=True):  # TODO add attribute option to color vectors
+        """
+        Plot vectors of positional transition of LISA values
+        witin quadrant in scatterplot in a polar plot.
+
+        Parameters
+        ----------
+        attribute : (n,) ndarray, optional
+            Points will be colored by attribute values.
+            Variable to specify colors of the colorbars. Default =None
+        ax : Matplotlib Axes instance, optional
+            If given, the figure will be created inside this axis.
+            Default =None.
+        arrows : boolean, optional
+            If True show arrowheads of vectors. Default =True
+        **kwargs : keyword arguments, optional
+            Keywords used for creating and designing the plot.
+            Note: 'c' and 'color' cannot be passed when attribute is not None
+
+        Returns
+        -------
+        fig : Matplotlib Figure instance
+            Moran scatterplot figure
+        ax : matplotlib Axes instance
+            Axes in which the figure is plotted
+    
+        Examples
+        --------
+        Imports
+        >>> import geopandas as gpd
+        >>> import pandas as pd
+        >>> import libpysal.api as lp
+        >>> from libpysal import examples
+        >>> import numpy as np
+        >>> import matplotlib.pyplot as plt
+        >>> from giddy.directional import Rose
+        get csv and shp files
+        >>> shp_link = examples.get_path('us48.shp')
+        >>> df = gpd.read_file(shp_link)
+        >>> income_table = pd.read_csv(examples.get_path("usjoin.csv"))
+        calculate relative values
+        >>> for year in range(1969, 2010):
+        ...     income_table[str(year) + '_rel'] = (
+        ...         income_table[str(year)] / income_table[str(year)].mean())   
+        merge to one gdf
+        >>> gdf = df.merge(income_table,left_on='STATE_NAME',right_on='Name')
+        retrieve spatial weights and data for two points in time
+        >>> w = lp.Queen.from_dataframe(gdf)
+        >>> w.transform = 'r'
+        >>> y1 = gdf['1969_rel'].values
+        >>> y2 = gdf['2000_rel'].values
+        calculate rose Object
+        >>> Y = np.array([y1, y2]).T
+        >>> rose = Rose(Y, w, k=5)
+        plot
+        >>> fig, _ = rose.plot_vectors()
+        >>> plt.show()
+        customize plot
+        >>> fig, _ = rose.plot_vectors(arrows=False)
+        >>> plt.show()
+        """
         use_splot = False
         try:
             import splot.giddy
@@ -382,7 +490,7 @@ class Rose(object):
                           DeprecationWarning)
         
         if use_splot:
-            fig, ax = splot.giddy.dynamic_lisa_vectors(self)
+            fig, ax = splot.giddy.dynamic_lisa_vectors(self, arrows=arrows)
         else:
             # This can be removed if splot has been released with support for
             # giddy.directional TODO add **kwargs, arrow=True
@@ -395,8 +503,8 @@ class Rose(object):
                 xs = self.Y[i,:]
                 ys = self.wY[i,:]
                 ax.plot(xs,ys, '-b')  # TODO change this to scale with attribute
-            ax.axis('equal')
-            ax.xlim(xlim)
-            ax.ylim(ylim)
+            plt.axis('equal')
+            plt.xlim(xlim)
+            plt.ylim(ylim)
             fig = ax.get_figure()
         return fig, ax
