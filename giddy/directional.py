@@ -338,11 +338,11 @@ class Rose(object):
             import splot.giddy
             use_splot = True
         except ImportError:
-            warnings.warn('To get better results, please install the `splot` package',
-                          UserWarning)
+            warnings.warn('This method relies on importing `splot` in future',
+                          DeprecationWarning)
 
         if use_splot:
-            splot.giddy.dynamic_lisa_rose(self, attribute=attribute)
+            fig, ax = splot.giddy.dynamic_lisa_rose(self, attribute=attribute)
         else:
             # This can be removed if splot has been released with support for
             # giddy.directional TODO add **kwargs
@@ -355,6 +355,8 @@ class Rose(object):
             else:
                 c = ax.scatter(self.theta, self.r, c=attribute)
                 plt.colorbar(c)
+            fig = ax.get_figure()
+        return fig, ax
 
     def plot_origin(self):  # TODO add attribute option to color vectors
         import matplotlib.cm as cm
@@ -376,11 +378,11 @@ class Rose(object):
             import splot.giddy
             use_splot = True
         except ImportError:
-            warnings.warn('To get better results, please install the `splot` package',
-                          UserWarning)
+            warnings.warn('This method relies on importing `splot` in future',
+                          DeprecationWarning)
         
         if use_splot:
-            splot.giddy.dynamic_lisa_vectors(self, arrow=True)
+            fig, ax = splot.giddy.dynamic_lisa_vectors(self)
         else:
             # This can be removed if splot has been released with support for
             # giddy.directional TODO add **kwargs, arrow=True
@@ -392,8 +394,9 @@ class Rose(object):
             for i in range(len(self.Y)):
                 xs = self.Y[i,:]
                 ys = self.wY[i,:]
-                plt.plot(xs,ys, '-b')  # TODO change this to scale with attribute
-            plt.axis('equal')
-            plt.xlim(xlim)
-            plt.ylim(ylim)
-
+                ax.plot(xs,ys, '-b')  # TODO change this to scale with attribute
+            ax.axis('equal')
+            ax.xlim(xlim)
+            ax.ylim(ylim)
+            fig = ax.get_figure()
+        return fig, ax
