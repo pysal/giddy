@@ -21,6 +21,7 @@ install:
   - conda install --yes nose
   - pip install -r requirements.txt
   - pip install libpysal esda mapclassify
+  - pip install https://github.com/geopandas/geopandas/archive/master.zip
   - pip install https://github.com/pysal/splot/archive/master.zip
 
 script:
