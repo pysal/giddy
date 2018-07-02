@@ -3,7 +3,6 @@
 
 .. automodule:: giddy.mobility
     :members:
-    :undoc-members:
     :inherited-members:
 
 .. rubric:: References

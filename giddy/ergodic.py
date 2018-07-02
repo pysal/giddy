@@ -144,7 +144,7 @@ def var_fmpt(P):
 
     Notes
     -----
-    Uses formulation (and examples on p. 83) in [Kemeny1967]_.
+    Uses formulation (and examples on p. 83) in :cite:`Kemeny1967`.
 
 
     """

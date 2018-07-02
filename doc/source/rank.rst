@@ -3,7 +3,6 @@
 
 .. automodule:: giddy.rank
     :members:
-    :undoc-members:
     :inherited-members:
 
 .. rubric:: References

@@ -3,7 +3,6 @@
 
 .. automodule:: giddy.directional
     :members:
-    :undoc-members:
     :inherited-members:
 
 .. rubric:: References

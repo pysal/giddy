@@ -3,7 +3,6 @@
 
 .. automodule:: giddy.markov
     :members:
-    :undoc-members:
     :inherited-members:
 
 .. rubric:: References
