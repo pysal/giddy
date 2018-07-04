@@ -26,7 +26,7 @@ def steady_state(P):
 
     Examples
     --------
-    Taken from Kemeny and Snell.  Land of Oz example where the states are
+    Taken from :cite:`Kemeny1967`. Land of Oz example where the states are
     Rain, Nice and Snow, so there is 25 percent chance that if it
     rained in Oz today, it will snow tomorrow, while if it snowed today in
     Oz there is a 50 percent chance of snow again tomorrow and a 25

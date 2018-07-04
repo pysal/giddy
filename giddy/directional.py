@@ -92,7 +92,7 @@ class Rose(object):
 
         Notes
         -----
-        Based on [Rey2011]_ .
+        Based on :cite:`Rey2011`.
 
         Examples
         --------
@@ -103,6 +103,7 @@ class Rose(object):
         Load comma delimited data file in and convert to a numpy array
 
         >>> import libpysal
+        >>> from giddy.api import Rose
         >>> f=open(libpysal.examples.get_path("spi_download.csv"),'r')
         >>> lines=f.readlines()
         >>> f.close()
