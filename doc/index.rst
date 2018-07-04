@@ -16,18 +16,11 @@ of mobility association and local measures of exchange mobility in
 addition to space-time LISA and spatial markov methods.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
-   Examples <auto_examples/index>
-   Library Reference <source/modules>
+   Example Gallery <auto_examples/index>
+   API Reference <api>
+   Reference <reference>
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 
