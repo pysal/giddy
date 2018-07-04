@@ -7,6 +7,8 @@ __author__ = "Sergio J. Rey <sjsrey@gmail.com>"
 
 __all__ = ['Rose']
 
+import warnings
+
 import numpy as np
 from libpysal.api import lag_spatial
 
@@ -329,16 +331,30 @@ class Rose(object):
         ----------
         attribute : (n,) ndarray, optional
             Variable to specify colors of the colorbars.
+
         """
-        import matplotlib.cm as cm
-        import matplotlib.pyplot as plt
-        ax = plt.subplot(111, projection='polar')
-        ax.set_rlabel_position(315)
-        if attribute is None:
-            c = ax.scatter(self.theta, self.r)
+        use_splot = False
+        try:
+            import splot.giddy
+            use_splot = True
+        except ImportError:
+            warnings.warn('To get better results, please install the `splot` package',
+                          UserWarning)
+
+        if use_splot:
+            splot.giddy.dynamic_lisa_rose(self, attribute=attribute)
         else:
-            c = ax.scatter(self.theta, self.r, c=attribute)
-            plt.colorbar(c)
+            # This can be removed if splot has been released with support for
+            # giddy.directional TODO add **kwargs
+            import matplotlib.cm as cm
+            import matplotlib.pyplot as plt
+            ax = plt.subplot(111, projection='polar')
+            ax.set_rlabel_position(315)
+            if attribute is None:
+                c = ax.scatter(self.theta, self.r)
+            else:
+                c = ax.scatter(self.theta, self.r, c=attribute)
+                plt.colorbar(c)
 
     def plot_origin(self):  # TODO add attribute option to color vectors
         import matplotlib.cm as cm
@@ -355,16 +371,29 @@ class Rose(object):
         plt.ylim(ylim)
 
     def plot_vectors(self):  # TODO add attribute option to color vectors
-        import matplotlib.cm as cm
-        import matplotlib.pyplot as plt
-        ax = plt.subplot(111 )
-        xlim = [self.Y.min(), self.Y.max()]
-        ylim = [self.wY.min(), self.wY.max()]
-        for i in range(len(self.Y)):
-            xs = self.Y[i,:]
-            ys = self.wY[i,:]
-            plt.plot(xs,ys, '-b')  # TODO change this to scale with attribute
-        plt.axis('equal')
-        plt.xlim(xlim)
-        plt.ylim(ylim)
+        use_splot = False
+        try:
+            import splot.giddy
+            use_splot = True
+        except ImportError:
+            warnings.warn('To get better results, please install the `splot` package',
+                          UserWarning)
+        
+        if use_splot:
+            splot.giddy.dynamic_lisa_vectors(self, arrow=True)
+        else:
+            # This can be removed if splot has been released with support for
+            # giddy.directional TODO add **kwargs, arrow=True
+            import matplotlib.cm as cm
+            import matplotlib.pyplot as plt
+            ax = plt.subplot(111 )
+            xlim = [self.Y.min(), self.Y.max()]
+            ylim = [self.wY.min(), self.wY.max()]
+            for i in range(len(self.Y)):
+                xs = self.Y[i,:]
+                ys = self.wY[i,:]
+                plt.plot(xs,ys, '-b')  # TODO change this to scale with attribute
+            plt.axis('equal')
+            plt.xlim(xlim)
+            plt.ylim(ylim)
 
