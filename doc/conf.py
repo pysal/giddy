@@ -108,6 +108,14 @@ html_theme = 'bootstrap'
 html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
 html_title = "%s v%s Manual" % (project, version)
 
+# (Optional) Logo. Should be small enough to fit the navbar (ideally 24x24).
+# Path should be relative to the ``_static`` files directory.
+#html_logo = "_static/images/CGS_logo.jpg"
+#html_logo = "_static/images/CGS_logo_green.png"
+#html_logo = "_static/images/pysal_logo_small.jpg"
+html_favicon = "_static/images/pysal_favicon.ico"
+
+
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
