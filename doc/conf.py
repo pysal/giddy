@@ -18,8 +18,6 @@
 #
 import sys, os
 import sphinx_bootstrap_theme
-import matplotlib as mpl
-mpl.use("Agg")
 
 
 sys.path.insert(0, os.path.abspath('../../'))
