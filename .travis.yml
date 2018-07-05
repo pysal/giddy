@@ -18,9 +18,8 @@ before_install:
 
 install:
   - conda install --yes pip
-  - conda install --yes --file requirements.txt;
   - conda install --yes nose
-  - pip install libpysal esda mapclassify
+  - pip install -r requirements.txt
 
 script:
   - nosetests --verbose giddy;

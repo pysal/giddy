@@ -1,10 +1,5 @@
-nose
-nose-progressive
-nose-exclude
-coverage
 sphinx>=1.4.3
 sphinxcontrib-napoleon
-coveralls
 sphinx_gallery
 sphinxcontrib-bibtex
 sphinx_bootstrap_theme
