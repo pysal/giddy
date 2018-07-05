@@ -11,7 +11,7 @@ Markov Methods
 --------------
 
 .. autosummary::
-   :toctree: source/
+   :toctree: generated/
 
     giddy.markov.Markov
     giddy.markov.Spatial_Markov
@@ -30,7 +30,7 @@ Directional LISA
 ----------------
 
 .. autosummary::
-   :toctree: source/
+   :toctree: generated/
 
     giddy.directional.Rose
 
@@ -40,7 +40,7 @@ Directional LISA
 Economic Mobility Indices
 -------------------------
 .. autosummary::
-   :toctree: source/
+   :toctree: generated/
 
     giddy.mobility.markov_mobility
 
@@ -49,7 +49,7 @@ Economic Mobility Indices
 Exchange Mobility Methods
 -------------------------
 .. autosummary::
-   :toctree: source/
+   :toctree: generated/
 
     giddy.rank.Theta
     giddy.rank.Tau

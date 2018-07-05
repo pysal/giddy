@@ -178,7 +178,7 @@ html_theme_options = {
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['source']
+html_static_path = ['_static']
 
 # Custom sidebar templates, maps document names to template names.
 #html_sidebars = {}
@@ -254,7 +254,7 @@ numpydoc_show_class_members = False
 numpydoc_use_plots = True
 
 def setup(app):
-    app.add_stylesheet("source/_static/style.css")
+    app.add_stylesheet("_static/style.css")
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'https://docs.python.org/3.6/': None}
