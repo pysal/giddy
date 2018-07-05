@@ -22,8 +22,9 @@ import matplotlib as mpl
 mpl.use("Agg")
 
 
-sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('../..'))
+sys.path.insert(0, os.path.abspath('../../'))
+
+import giddy
 
 
 # -- General configuration ------------------------------------------------
@@ -77,7 +78,6 @@ author = 'pysal developers'
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
-import giddy
 # The full version.
 version = giddy.__version__
 release = giddy.__version__
