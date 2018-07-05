@@ -48,13 +48,13 @@ extensions = ['sphinx_gallery.gen_gallery',
               #"sphinx.ext.napoleon"]
 
 
-sphinx_gallery_conf = {
-     # path to your examples scripts
-     'examples_dirs': '../examples',
-     # path where to save gallery generated examples
-     'gallery_dirs': 'auto_examples',
-     'backreferences_dir': False,
-}
+# sphinx_gallery_conf = {
+#      # path to your examples scripts
+#      'examples_dirs': '../examples',
+#      # path where to save gallery generated examples
+#      'gallery_dirs': 'auto_examples',
+#      'backreferences_dir': False,
+# }
 
 
 # Add any paths that contain templates here, relative to this directory.
@@ -169,7 +169,7 @@ html_theme_options = {
     'bootstrap_version': "3",
 
     'navbar_links': [
-                     ("Gallery", "auto_examples/index"),
+                     #("Gallery", "auto_examples/index"),
                      # ("Tutorial", "tutorial"),
                      ("API", "api"),
                      ("Reference", "reference"),
