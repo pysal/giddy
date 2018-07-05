@@ -114,10 +114,6 @@ html_title = "%s v%s Manual" % (project, version)
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-# Theme options are theme-specific and customize the look and feel of a theme
-# further.  For a list of options available for each theme, see the
-# documentation.
-#
 html_theme_options = {
 
     # Navigation bar title. (Default: ``project`` value)
@@ -261,3 +257,6 @@ numpydoc_use_plots = True
 
 def setup(app):
     app.add_stylesheet("source/_static/style.css")
+
+# Example configuration for intersphinx: refer to the Python standard library.
+intersphinx_mapping = {'https://docs.python.org/3.6/': None}
