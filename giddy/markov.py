@@ -659,6 +659,8 @@ def chi2(T1, T2):
     Examples
     --------
     >>> import libpysal
+    >>> from giddy.api import Spatial_Markov
+    >>> from giddy.markov import chi2
     >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
     >>> years = list(range(1929, 2010))
     >>> pci = np.array([f.by_col[str(y)] for y in years]).transpose()
@@ -854,6 +856,7 @@ class LISA_Markov(Markov):
     --------
     >>> import libpysal
     >>> import numpy as np
+    >>> from giddy.api import LISA_Markov
     >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
     >>> years = list(range(1929, 2010))
     >>> pci = np.array([f.by_col[str(y)] for y in years]).transpose()
@@ -1022,6 +1025,7 @@ class LISA_Markov(Markov):
         Examples
         --------
         >>> import libpysal
+        >>> from giddy.api import LISA_Markov
         >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
         >>> years = list(range(1929, 2010))
         >>> pci = np.array([f.by_col[str(y)] for y in years]).transpose()
@@ -1159,6 +1163,8 @@ def kullback(F):
 
     Examples
     --------
+    >>> import numpy as np
+    >>> from giddy.api import kullback
     >>> s1 = np.array([
     ...         [ 22, 11, 24,  2,  2,  7],
     ...         [ 5, 23, 15,  3, 42,  6],
@@ -1244,6 +1250,7 @@ def prais(pmat):
     --------
     >>> import numpy as np
     >>> import libpysal
+    >>> from giddy.api import prais
     >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
     >>> q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()

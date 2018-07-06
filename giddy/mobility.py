@@ -53,13 +53,12 @@ def markov_mobility(p, measure="P",ini=None):
     --------
     >>> import numpy as np
     >>> import libpysal
-    >>> import giddy.markov
     >>> import mapclassify.api as mc
-    >>> from giddy.api import markov_mobility
+    >>> from giddy.api import Markov, markov_mobility
     >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
     >>> q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
-    >>> m = giddy.markov.Markov(q5)
+    >>> m = Markov(q5)
     >>> m.p
     matrix([[0.91011236, 0.0886392 , 0.00124844, 0.        , 0.        ],
             [0.09972299, 0.78531856, 0.11080332, 0.00415512, 0.        ],
