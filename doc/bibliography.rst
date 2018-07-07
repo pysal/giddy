@@ -1,7 +1,7 @@
 .. bibliography
 
-References
-==========
+Bibliography
+============
 
 .. bibliography:: _static/references.bib
    :style: alpha
