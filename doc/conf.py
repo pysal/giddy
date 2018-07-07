@@ -176,9 +176,9 @@ html_theme_options = {
 
     'navbar_links': [
                      #("Gallery", "auto_examples/index"),
-                     # ("Tutorial", "tutorial"),
+                     ("Installation", "installation"),
                      ("API", "api"),
-                     ("Reference", "reference"),
+                     ("Bibliography", "bibliography"),
                      ],
 
 }
@@ -262,7 +262,7 @@ numpydoc_show_class_members = False
 numpydoc_use_plots = True
 
 def setup(app):
-    app.add_stylesheet("_static/style.css")
+    app.add_stylesheet("pysal-styles.css")
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'https://docs.python.org/3.6/': None}

@@ -15,12 +15,55 @@ several new features including inter- and intra-regional decomposition
 of mobility association and local measures of exchange mobility in
 addition to space-time LISA and spatial markov methods.
 
+
+.. raw:: html
+
+    <div class="container-fluid">
+      <div class="row equal-height">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <a href="https://github.com/pysal/giddy/blob/master/notebooks/directional.ipynb" class="thumbnail">
+                <img src="_static/images/rose_conditional.png" class="img-responsive center-block">
+                <div class="caption text-center">
+                <h6>Rose diagram (directional LISAs)</h6>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <a href="http://nbviewer.jupyter.org/gist/darribas/9943372" class="thumbnail">
+                <img src="_static/images2/isp_corr.png" class="img-responsive center-block">
+                <div class="caption text-center">
+                <h6>Interactive spatial autocorrelation</h6>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <a href="http://nbviewer.ipython.org/urls/gist.githubusercontent.com/darribas/657e0568df7a63362762/raw/pysal_lisa_maps.ipynb" class="thumbnail">
+                <img src="_static/images2/lisa_maps.jpg" class="img-responsive center-block">
+                <div class="caption text-center">
+                <h6>Local Indicators of Spatial Association</h6>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <a href="http://nbviewer.jupyter.org/github/pysal/pysal/blob/master/pysal/contrib/viz/taz_example.ipynb?create=1" class="thumbnail">
+                <img src="_static/images2/tazs.png" class="img-responsive center-block">
+                <div class="caption text-center">
+                <h6>Regionalization</h6>
+                </div>
+            </a>
+        </div>
+      </div>
+    </div>
+
+
 .. toctree::
+   :hidden:
    :maxdepth: 3
    :caption: Contents:
 
-   Example Gallery <auto_examples/index>
-   API Reference <api>
-   Reference <reference>
+   Installation <installation>
+   API <api>
+   Bibliography <bibliography>
 
 
