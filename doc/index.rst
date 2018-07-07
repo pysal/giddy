@@ -20,7 +20,9 @@ addition to space-time LISA and spatial markov methods.
 
     <div class="container-fluid">
       <div class="row equal-height">
-        <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="col-sm-1 col-xs-hidden">
+        </div>
+        <div class="col-md-3 col-xs-12">
             <a href="https://github.com/pysal/giddy/blob/master/notebooks/directional.ipynb" class="thumbnail">
                 <img src="_static/images/rose_conditional.png" class="img-responsive center-block">
                 <div class="caption text-center">
@@ -28,7 +30,7 @@ addition to space-time LISA and spatial markov methods.
                 </div>
             </a>
         </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="col-sm-3 col-xs-12">
             <a href="https://github.com/pysal/giddy/blob/master/notebooks/Markov%20Based%20Methods.ipynb" class="thumbnail">
                 <img src="_static/images/spatial_markov_us.png" class="img-responsive center-block">
                 <div class="caption text-center">
@@ -36,8 +38,7 @@ addition to space-time LISA and spatial markov methods.
                 </div>
             </a>
         </div>
-
-        <div class="col-md-4 col-sm-12 col-xs-12">
+        <div class="col-sm-3 col-xs-12">
             <a href="https://github.com/pysal/giddy/blob/master/notebooks/Rank%20based%20Methods.ipynb" class="thumbnail">
                 <img src="_static/images/neighboorsetLIMA_US.png"
                 class="img-responsive center-block">
@@ -46,6 +47,8 @@ addition to space-time LISA and spatial markov methods.
                 </h6>
                 </div>
             </a>
+        </div>
+        <div class="col-sm-2 col-xs-hidden">
         </div>
       </div>
     </div>
