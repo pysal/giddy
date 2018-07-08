@@ -61,7 +61,7 @@ addition to space-time LISA and spatial markov methods.
 
    Installation <installation>
    API <api>
-   Bibliography <bibliography>
+   References <references>
 
 
 .. _PySAL: https://github.com/pysal/pysal

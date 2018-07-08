@@ -1,8 +1,7 @@
 .. reference for the docs
 
-Bibliography
-============
+References
+==========
 
 .. bibliography:: _static/references.bib
-   :style: alpha
    :cited:
