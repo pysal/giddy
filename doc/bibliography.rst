@@ -1,4 +1,4 @@
-.. bibliography
+.. reference for the docs
 
 Bibliography
 ============
