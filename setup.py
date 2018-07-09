@@ -26,7 +26,28 @@ Feature = 1
 Bug = 1
 VERSION = '%d.%d.%d' % (Major, Feature, Bug)
 
+def _get_requirements_from_files(groups_files):
+    groups_reqlist = {}
+
+    for k,v in groups_files.items():
+        with open(v, 'r') as f:
+            pkg_list = f.read().splitlines()
+        groups_reqlist[k] = pkg_list
+
+    return groups_reqlist
+
 def setup_package():
+
+    _groups_files = {
+        'base': 'requirements.txt',
+        'tests': 'requirements_tests.txt',
+        'docs': 'requirements_docs.txt'
+    }
+
+    reqs = _get_requirements_from_files(_groups_files)
+    install_reqs = reqs.pop('base')
+    extras_reqs = reqs
+
     setup(name='giddy',  # name of package
           version=VERSION,
           description=DOCLINES[0],
@@ -54,7 +75,8 @@ def setup_package():
             ],
           license='3-Clause BSD',
           packages=['giddy'],
-          install_requires=['libpysal', 'mapclassify', 'esda'],
+          install_requires=install_reqs,
+          extras_require=extras_reqs,
           zip_safe=False,
           cmdclass={'build.py': build_py})
 

@@ -62,6 +62,7 @@ class Theta:
     --------
     >>> import libpysal as ps
     >>> from giddy.api import Theta
+    >>> import numpy as np
     >>> f=ps.open(ps.examples.get_path("mexico.csv"))
     >>> vnames=["pcgdp%d"%dec for dec in range(1940,2010,10)]
     >>> y=np.transpose(np.array([f.by_col[v] for v in vnames]))
@@ -549,6 +550,7 @@ class Tau_Local_Neighbor:
     >>> import libpysal
     >>> import libpysal.api as ps
     >>> import numpy as np
+    >>> from giddy.api import Tau_Local_Neighbor, SpatialTau
     >>> np.random.seed(10)
     >>> f = libpysal.open(libpysal.examples.get_path("mexico.csv"))
     >>> vnames = ["pcgdp%d"%dec for dec in range(1940, 2010, 10)]
@@ -715,6 +717,7 @@ class Tau_Local_Neighborhood:
     --------
     >>> import libpysal
     >>> import libpysal.api as ps
+    >>> from giddy.api import Tau_Local_Neighborhood
     >>> import numpy as np
     >>> np.random.seed(10)
     >>> f = libpysal.open(libpysal.examples.get_path("mexico.csv"))
@@ -842,6 +845,7 @@ class Tau_Regional:
     --------
     >>> import libpysal
     >>> import numpy as np
+    >>> from giddy.api import Tau_Regional
     >>> np.random.seed(10)
     >>> f = libpysal.open(libpysal.examples.get_path("mexico.csv"))
     >>> vnames = ["pcgdp%d"%dec for dec in range(1940, 2010, 10)]

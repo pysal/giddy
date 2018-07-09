@@ -50,7 +50,7 @@ Y = rel[:, [0, -1]]
 
 ###############################################################################
 # Spatial Weights
-# =====================
+# ---------------
 #
 # We will use a simple contiguity structure to define neighbors. The file
 # states48.gal encodes the adjacency structure of the 48 states. We read this in
@@ -62,7 +62,8 @@ w.transform = 'r'
 
 ##########################################
 # Visualization
-#============== 
+# ==============
+#
 # The Rose class creates a circular histogram that can be used to examine the distribution
 # of LISA Vectors across segments of the histogram:
 
@@ -73,8 +74,9 @@ r4 = Rose(Y, w, k=4)
 
 
 ##########################################
-#LISA Vectors
-#============= 
+# LISA Vectors
+# ------------
+#
 # The Rose class contains methods to carry out inference on the circular distribution of the LISA vectors. The first approach is based on a two-sided alternative where the null is that the distribution of the vectors across the segments reflects independence in the movements of the focal unit and its spatial lag. Inference is based on random spatial permutations under the null.
 
 
@@ -85,8 +87,9 @@ r4.plot_vectors() # lisa vectors
 
 
 ##########################################
-#LISA Vectors Origin Standardized
-#================================ 
+# LISA Vectors Origin Standardized
+# ================================
+#
 # As the LISA vectors combine the locations of a give LISA statistic in two different time periods, it can be useful
 # to standardize the vectors to look for directional biases in the movements:
 
@@ -95,8 +98,9 @@ r4.plot_origin() # origin standardized
 
 
 ##########################################
-#LISA Plot
-#========= 
+# LISA Plot
+# =========
+#
 # The Rose class contains methods to carry out inference on the circular distribution of the LISA vectors. The first approach is based on a two-sided alternative where the null is that the distribution of the vectors across the segments reflects independence in the movements of the focal unit and its spatial lag. Inference is based on random spatial permutations under the null.
 
 
@@ -104,17 +108,20 @@ r4.plot_origin() # origin standardized
 r4.plot() # Polar
 
 ##########################################
-#Conditional LISA Plot (Focal)
-#============================= 
-#Here we condition on the relative starting income of the focal units: 
+# Conditional LISA Plot (Focal)
+# =============================
+#
+# Here we condition on the relative starting income of the focal units:
 
 
 r4.plot(attribute=Y[:,0]) # condition on starting relative income
 
 ##########################################
-#Conditional LISA Plot (Spatial Lag)
-#=================================== 
-#Here we condition on the relative starting income of the neighboring units: 
+# Conditional LISA Plot (Spatial Lag)
+# ===================================
+#
+# Here we condition on the relative starting income of the
+# neighboring units:
 
 
 
@@ -122,7 +129,8 @@ r4.plot(attribute=r4.lag[:,0]) # condition on lag of starting relative income
 
 ##########################################
 # Inference
-#========== 
+# ==========
+#
 # The Rose class contains methods to carry out inference on the circular distribution of the LISA vectors. The first approach is based on a two-sided alternative where the null is that the distribution of the vectors across the segments reflects independence in the movements of the focal unit and its spatial lag. Inference is based on random spatial permutations under the null.
 
 
