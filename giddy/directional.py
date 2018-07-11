@@ -427,9 +427,6 @@ class Rose(object):
 
         Parameters
         ----------
-        attribute : (n,) ndarray, optional
-            Points will be colored by attribute values.
-            Variable to specify colors of the colorbars. Default =None
         ax : Matplotlib Axes instance, optional
             If given, the figure will be created inside this axis.
             Default =None.
