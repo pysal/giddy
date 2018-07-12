@@ -387,6 +387,7 @@ class Rose(object):
         except ImportError:
             warnings.warn('This method relies on importing `splot` in future',
                           DeprecationWarning)
+            use_splot = False
 
         if use_splot:
             fig, ax = splot.giddy.dynamic_lisa_rose(self, attribute=attribute,
@@ -420,7 +421,7 @@ class Rose(object):
         plt.xlim(xlim)
         plt.ylim(ylim)
 
-    def plot_vectors(self, arrows=True):  # TODO add attribute option to color vectors
+    def plot_vectors(self, arrows=True):
         """
         Plot vectors of positional transition of LISA values
         witin quadrant in scatterplot in a polar plot.
@@ -485,6 +486,7 @@ class Rose(object):
         except ImportError:
             warnings.warn('This method relies on importing `splot` in future',
                           DeprecationWarning)
+            use_splot = False
         
         if use_splot:
             fig, ax = splot.giddy.dynamic_lisa_vectors(self, arrows=arrows)
