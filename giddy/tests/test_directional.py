@@ -47,6 +47,67 @@ class Rose_Tester(unittest.TestCase):
         self.assertEqual(list(r4.counts), [32, 5, 9, 2])
 
 
+    def test_plot(self):
+        import geopandas as gpd
+        import pandas as pd
+        import libpysal.api as lp
+        from libpysal import examples
+        import numpy as np
+        import matplotlib.pyplot as plt
+        from giddy.directional import Rose
+        # get data, calc mean, merge
+        shp_link = examples.get_path('us48.shp')
+        df = gpd.read_file(shp_link)
+        income_table = pd.read_csv(examples.get_path("usjoin.csv"))
+        for year in range(1969, 2010):
+            income_table[str(year) + '_rel'] = (
+                income_table[str(year)] / income_table[str(year)].mean())
+        gdf = df.merge(income_table,left_on='STATE_NAME',right_on='Name')
+        # statistical analysis
+        w = lp.Queen.from_dataframe(gdf)
+        w.transform = 'r'
+        y1 = gdf['1969_rel'].values
+        y2 = gdf['2000_rel'].values
+        Y = np.array([y1, y2]).T
+        rose = Rose(Y, w, k=5)
+        # plot
+        fig, _ = rose.plot()
+        plt.close(fig)
+        # plot with atribute coloring
+        fig, _ = rose.plot(attribute=y1)
+        plt.close(fig)
+
+
+    def test_plot_vectors(self):
+        import geopandas as gpd
+        import pandas as pd
+        import libpysal.api as lp
+        from libpysal import examples
+        import numpy as np
+        import matplotlib.pyplot as plt
+        from giddy.directional import Rose
+        # get data, calc mean, merge
+        shp_link = examples.get_path('us48.shp')
+        df = gpd.read_file(shp_link)
+        income_table = pd.read_csv(examples.get_path("usjoin.csv"))
+        for year in range(1969, 2010):
+            income_table[str(year) + '_rel'] = (
+                income_table[str(year)] / income_table[str(year)].mean())
+        gdf = df.merge(income_table,left_on='STATE_NAME',right_on='Name')
+        # statistical analysis
+        w = lp.Queen.from_dataframe(gdf)
+        w.transform = 'r'
+        y1 = gdf['1969_rel'].values
+        y2 = gdf['2000_rel'].values
+        Y = np.array([y1, y2]).T
+        rose = Rose(Y, w, k=5)
+        # plot
+        fig, _ = rose.plot_vectors()
+        plt.close(fig)
+        # customize plot
+        fig, _ = rose.plot_vectors(arrows=False)
+        plt.close(fig)
+
 suite = unittest.TestSuite()
 test_classes = [Rose_Tester]
 for i in test_classes:

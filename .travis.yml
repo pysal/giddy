@@ -7,6 +7,9 @@ python:
   - "3.5"
   - "3.6"
 
+env:
+  - MPLBACKEND='pdf'
+
 before_install:
   - wget https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
   - chmod +x miniconda.sh
@@ -20,6 +23,9 @@ install:
   - conda install --yes pip
   - conda install --yes nose
   - pip install -r requirements.txt
+  - pip install libpysal esda mapclassify
+  - pip install https://github.com/geopandas/geopandas/archive/master.zip
+  - pip install https://github.com/pysal/splot/archive/master.zip
 
 script:
   - nosetests --verbose giddy;
