@@ -258,7 +258,7 @@ texinfo_documents = [
 
 # Generate the API documentation when building
 autosummary_generate = True
-numpydoc_show_class_members = False
+numpydoc_show_class_members = True
 numpydoc_use_plots = True
 
 def setup(app):

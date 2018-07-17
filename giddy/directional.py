@@ -347,39 +347,57 @@ class Rose(object):
         
         Examples
         --------
-        Imports
-        >>> import geopandas as gpd
-        >>> import pandas as pd
-        >>> import libpysal.api as lp
-        >>> from libpysal import examples
-        >>> import numpy as np
-        >>> import matplotlib.pyplot as plt
-        >>> from giddy.directional import Rose
-        get csv and shp files
-        >>> shp_link = examples.get_path('us48.shp')
-        >>> df = gpd.read_file(shp_link)
-        >>> income_table = pd.read_csv(examples.get_path("usjoin.csv"))
-        calculate relative values
-        >>> for year in range(1969, 2010):
-        ...     income_table[str(year) + '_rel'] = (
-        ...         income_table[str(year)] / income_table[str(year)].mean())  
-        merge to one gdf
-        >>> gdf = df.merge(income_table,left_on='STATE_NAME',right_on='Name')
-        retrieve spatial weights and data for two points in time
-        >>> w = lp.Queen.from_dataframe(gdf)
-        >>> w.transform = 'r'
-        >>> y1 = gdf['1969_rel'].values
-        >>> y2 = gdf['2000_rel'].values
-        calculate rose Object
-        >>> Y = np.array([y1, y2]).T
-        >>> rose = Rose(Y, w, k=5)
-        plot
-        >>> fig1, _ = rose.plot()
-        >>> plt.show()
-        customize plot
-        >>> fig, _ = rose.plot()(attribute=y1)
-        >>> plt.show()
+        .. plot::
+            Imports
+            >>> import geopandas as gpd
+            >>> import pandas as pd
+            >>> import libpysal.api as lp
+            >>> from libpysal import examples
+            >>> import numpy as np
+            >>> import matplotlib.pyplot as plt
+            >>> from giddy.directional import Rose
+
+            get csv and shp files
+
+            >>> shp_link = examples.get_path('us48.shp')
+            >>> df = gpd.read_file(shp_link)
+            >>> income_table = pd.read_csv(examples.get_path("usjoin.csv"))
+
+            calculate relative values
+
+            >>> for year in range(1969, 2010):
+            ...     income_table[str(year) + '_rel'] = (
+            ...         income_table[str(year)] / income_table[str(year)].mean())
+
+            merge to one gdf
+
+            >>> gdf = df.merge(income_table,left_on='STATE_NAME',right_on='Name')
+
+            retrieve spatial weights and data for two points in time
+
+            >>> w = lp.Queen.from_dataframe(gdf)
+            >>> w.transform = 'r'
+            >>> y1 = gdf['1969_rel'].values
+            >>> y2 = gdf['2000_rel'].values
+
+            calculate rose Object
+
+            >>> Y = np.array([y1, y2]).T
+            >>> rose = Rose(Y, w, k=5)
+
+            plot
+
+            >>> fig1, _ = rose.plot()
+            >>> plt.show(fig1)
+            >>> plt.close(fig1)
+
+            customize plot
+
+            >>> fig, _ = rose.plot(attribute=y1)
+            >>> plt.show(fig)
+            >>> plt.close(fig)
         """
+
         use_splot = False
         try:
             import splot.giddy
@@ -446,38 +464,55 @@ class Rose(object):
     
         Examples
         --------
-        Imports
-        >>> import geopandas as gpd
-        >>> import pandas as pd
-        >>> import libpysal.api as lp
-        >>> from libpysal import examples
-        >>> import numpy as np
-        >>> import matplotlib.pyplot as plt
-        >>> from giddy.directional import Rose
-        get csv and shp files
-        >>> shp_link = examples.get_path('us48.shp')
-        >>> df = gpd.read_file(shp_link)
-        >>> income_table = pd.read_csv(examples.get_path("usjoin.csv"))
-        calculate relative values
-        >>> for year in range(1969, 2010):
-        ...     income_table[str(year) + '_rel'] = (
-        ...         income_table[str(year)] / income_table[str(year)].mean())   
-        merge to one gdf
-        >>> gdf = df.merge(income_table,left_on='STATE_NAME',right_on='Name')
-        retrieve spatial weights and data for two points in time
-        >>> w = lp.Queen.from_dataframe(gdf)
-        >>> w.transform = 'r'
-        >>> y1 = gdf['1969_rel'].values
-        >>> y2 = gdf['2000_rel'].values
-        calculate rose Object
-        >>> Y = np.array([y1, y2]).T
-        >>> rose = Rose(Y, w, k=5)
-        plot
-        >>> fig, _ = rose.plot_vectors()
-        >>> plt.show()
-        customize plot
-        >>> fig, _ = rose.plot_vectors(arrows=False)
-        >>> plt.show()
+        .. plot::
+            Imports
+            >>> import geopandas as gpd
+            >>> import pandas as pd
+            >>> import libpysal.api as lp
+            >>> from libpysal import examples
+            >>> import numpy as np
+            >>> import matplotlib.pyplot as plt
+            >>> from giddy.directional import Rose
+
+            get csv and shp files
+
+            >>> shp_link = examples.get_path('us48.shp')
+            >>> df = gpd.read_file(shp_link)
+            >>> income_table = pd.read_csv(examples.get_path("usjoin.csv"))
+
+            calculate relative values
+
+            >>> for year in range(1969, 2010):
+            ...     income_table[str(year) + '_rel'] = (
+            ...         income_table[str(year)] / income_table[str(year)].mean())
+
+            merge to one gdf
+
+            >>> gdf = df.merge(income_table,left_on='STATE_NAME',right_on='Name')
+
+            retrieve spatial weights and data for two points in time
+
+            >>> w = lp.Queen.from_dataframe(gdf)
+            >>> w.transform = 'r'
+            >>> y1 = gdf['1969_rel'].values
+            >>> y2 = gdf['2000_rel'].values
+
+            calculate rose Object
+
+            >>> Y = np.array([y1, y2]).T
+            >>> rose = Rose(Y, w, k=5)
+
+            plot
+
+            >>> fig, _ = rose.plot_vectors()
+            >>> plt.show(fig)
+            >>> plt.close(fig)
+
+            customize plot
+
+            >>> fig, _ = rose.plot_vectors(arrows=False)
+            >>> plt.show(fig)
+            >>> plt.close(fig)
         """
         use_splot = False
         try:

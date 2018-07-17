@@ -18,13 +18,19 @@ with open('README.rst', 'r', encoding='utf8') as file:
     long_description = file.read()
 
 
-from setuptools import setup
+from setuptools import setup, find_packages
 from distutils.command.build_py import build_py
+import os
 
 Major = 1
 Feature = 1
-Bug = 1
+Bug = 2
 VERSION = '%d.%d.%d' % (Major, Feature, Bug)
+
+# BEFORE importing distutils, remove MANIFEST. distutils doesn't properly
+# update it when the contents of directories change.
+if os.path.exists('MANIFEST'):
+    os.remove('MANIFEST')
 
 def _get_requirements_from_files(groups_files):
     groups_reqlist = {}
@@ -37,7 +43,6 @@ def _get_requirements_from_files(groups_files):
     return groups_reqlist
 
 def setup_package():
-
     _groups_files = {
         'base': 'requirements.txt',
         'tests': 'requirements_tests.txt',
@@ -74,7 +79,8 @@ def setup_package():
             'Programming Language :: Python :: 3.6'
             ],
           license='3-Clause BSD',
-          packages=['giddy'],
+          packages=find_packages(),
+          # packages=['giddy','giddy.tests'],
           install_requires=install_reqs,
           extras_require=extras_reqs,
           zip_safe=False,
