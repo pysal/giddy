@@ -1,9 +1,8 @@
 python:
     version: 3.5
+    setup_py_install: true
     pip_install: true
     extra_requirements:
         - tests
         - docs
-        
-install:
-  - pip install https://github.com/pysal/splot/archive/master.zip
+        - https://github.com/pysal/splot/archive/master.zip
