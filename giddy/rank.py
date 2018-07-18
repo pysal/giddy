@@ -172,7 +172,7 @@ class Tau:
     def _calc(self, x, y):
         """
         List based implementation of binary tree algorithm for concordance
-        measure after Christensen (2005).
+        measure after :cite:`Christensen2005`.
 
         """
         x = np.array(x)
@@ -543,7 +543,7 @@ class Tau_Local_Neighbor:
     Notes
     -----
     The equation for calculating neighbor set LIMA statistic can be
-    found in Rey (2016) [Rey2016]_ Equation (16).
+    found in :cite:`Rey2016` Equation (16).
 
     Examples
     --------
@@ -711,7 +711,7 @@ class Tau_Local_Neighborhood:
     Notes
     -----
     The equation for calculating neighborhood set LIMA statistic can
-    be found in Rey (2016) [Rey2016]_ Equation (22).
+    be found in :cite:`Rey2016` Equation (22).
 
     Examples
     --------
@@ -839,7 +839,7 @@ class Tau_Regional:
     Notes
     -----
     The equation for calculating inter and intraregional Tau
-    statistic can be found in Rey (2016) [Rey2014]_ Equation (27).
+    statistic can be found in :cite:`Rey2016` Equation (27).
 
     Examples
     --------

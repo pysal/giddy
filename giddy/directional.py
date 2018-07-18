@@ -19,7 +19,8 @@ _NEG4 = 1 - _POS4
 
 
 class Rose(object):
-    """ Rose diagram based inference for directional LISAs.
+    """
+    Rose diagram based inference for directional LISAs.
 
     For n units with LISA values at two points in time, the Rose class provides
     the LISA vectors, their visualization, and computationally based inference.
@@ -60,21 +61,6 @@ class Rose(object):
     smaller_perm : (k, 1) ndarray
         Number of times realized counts are as small as observed sector count.
 
-
-    Methods
-    -------
-    permute(permutations=99)
-        Carry out random spatial permutations and generate psuedo p-values for vector segments
-
-    plot(attribute=None)
-        Plot rose diagram with LISA vectors
-
-    plot_origin
-        Plot origin standardized LISA vectors
-
-    plot_vectors
-        Plot unstandardized LISA vectors
-
     """
 
     def __init__(self, Y, w, k=8):
@@ -98,122 +84,130 @@ class Rose(object):
 
         Examples
         --------
-        Constructing data for illustration of directional LISA analytics.
-        Data is for the 48 lower US states over the period 1969-2009 and
-        includes per capita income normalized to the national average.
+        .. plot::
 
-        Load comma delimited data file in and convert to a numpy array
+           Constructing data for illustration of directional LISA analytics.
+           Data is for the 48 lower US states over the period 1969-2009 and
+           includes per capita income normalized to the national average.
 
-        >>> import libpysal
-        >>> from giddy.api import Rose
-        >>> f=open(libpysal.examples.get_path("spi_download.csv"),'r')
-        >>> lines=f.readlines()
-        >>> f.close()
-        >>> lines=[line.strip().split(",") for line in lines]
-        >>> names=[line[2] for line in lines[1:-5]]
-        >>> data=np.array([list(map(int,line[3:])) for line in lines[1:-5]])
+           Load comma delimited data file in and convert to a numpy array
 
-        Bottom of the file has regional data which we don't need for this
-        example so we will subset only those records that match a state name
+           >>> import libpysal
+           >>> from giddy.api import Rose
+           >>> import matplotlib.pyplot as plt
+           >>> f=open(libpysal.examples.get_path("spi_download.csv"),'r')
+           >>> lines=f.readlines()
+           >>> f.close()
+           >>> lines=[line.strip().split(",") for line in lines]
+           >>> names=[line[2] for line in lines[1:-5]]
+           >>> data=np.array([list(map(int,line[3:])) for line in lines[1:-5]])
 
-        >>> sids=list(range(60))
-        >>> out=['"United States 3/"',
-        ...      '"Alaska 3/"',
-        ...      '"District of Columbia"',
-        ...      '"Hawaii 3/"',
-        ...      '"New England"',
-        ...      '"Mideast"',
-        ...      '"Great Lakes"',
-        ...      '"Plains"',
-        ...      '"Southeast"',
-        ...      '"Southwest"',
-        ...      '"Rocky Mountain"',
-        ...      '"Far West 3/"']
-        >>> snames=[name for name in names if name not in out]
-        >>> sids=[names.index(name) for name in snames]
-        >>> states=data[sids,:]
-        >>> us=data[0]
-        >>> years=np.arange(1969,2009)
+           Bottom of the file has regional data which we don't need for this
+           example so we will subset only those records that match a state name
 
-        Now we convert state incomes to express them relative to the national
-        average
+           >>> sids=list(range(60))
+           >>> out=['"United States 3/"',
+           ...      '"Alaska 3/"',
+           ...      '"District of Columbia"',
+           ...      '"Hawaii 3/"',
+           ...      '"New England"',
+           ...      '"Mideast"',
+           ...      '"Great Lakes"',
+           ...      '"Plains"',
+           ...      '"Southeast"',
+           ...      '"Southwest"',
+           ...      '"Rocky Mountain"',
+           ...      '"Far West 3/"']
+           >>> snames=[name for name in names if name not in out]
+           >>> sids=[names.index(name) for name in snames]
+           >>> states=data[sids,:]
+           >>> us=data[0]
+           >>> years=np.arange(1969,2009)
 
-        >>> rel=states/(us*1.)
+           Now we convert state incomes to express them relative to the national
+           average
 
-        Create our contiguity matrix from an external GAL file and row
-        standardize the resulting weights
+           >>> rel=states/(us*1.)
 
-        >>> gal=libpysal.open(libpysal.examples.get_path('states48.gal'))
-        >>> w=gal.read()
-        >>> w.transform='r'
+           Create our contiguity matrix from an external GAL file and row
+           standardize the resulting weights
 
-        Take the first and last year of our income data as the interval to do
-        the directional directional analysis
+           >>> gal=libpysal.open(libpysal.examples.get_path('states48.gal'))
+           >>> w=gal.read()
+           >>> w.transform='r'
 
-        >>> Y=rel[:,[0,-1]]
+           Take the first and last year of our income data as the interval to do
+           the directional directional analysis
 
-        Set the random seed generator which is used in the permutation based
-        inference for the rose diagram so that we can replicate our example
-        results
+           >>> Y=rel[:,[0,-1]]
 
-        >>> np.random.seed(100)
+           Set the random seed generator which is used in the permutation based
+           inference for the rose diagram so that we can replicate our example
+           results
 
-        Call the rose function to construct the directional histogram for the
-        dynamic LISA statistics. We will use four circular sectors for our
-        histogram
+           >>> np.random.seed(100)
 
-        >>> r4=Rose(Y,w,k=4)
+           Call the rose function to construct the directional histogram for the
+           dynamic LISA statistics. We will use four circular sectors for our
+           histogram
 
-        What are the cut-offs for our histogram - in radians
+           >>> r4=Rose(Y,w,k=4)
 
-        >>> r4.cuts
-        array([0.        , 1.57079633, 3.14159265, 4.71238898, 6.28318531])
+           What are the cut-offs for our histogram - in radians
 
-        How many vectors fell in each sector
+           >>> r4.cuts
+           array([0.        , 1.57079633, 3.14159265, 4.71238898, 6.28318531])
 
-        >>> r4.counts
-        array([32,  5,  9,  2])
+           How many vectors fell in each sector
 
-        We can test whether these counts are different than what would be
-        expected if there was no association between the movement of the focal
-        unit and its spatial lag.
+           >>> r4.counts
+           array([32,  5,  9,  2])
 
-        To do so we call the `permute` method of the object
+           We can test whether these counts are different than what would be
+           expected if there was no association between the movement of the
+           focal unit and its spatial lag.
 
-        >>> r4.permute()
+           To do so we call the `permute` method of the object
 
-        and then inspect the `p` attibute:
+           >>> r4.permute()
 
-        >>> r4.p
-        array([0.04, 0.  , 0.02, 0.  ])
+           and then inspect the `p` attibute:
 
-        Repeat the exercise but now for 8 rather than 4 sectors
+           >>> r4.p
+           array([0.04, 0.  , 0.02, 0.  ])
 
-        >>> r8 = Rose(Y, w, k=8)
-        >>> r8.counts
-        array([19, 13,  3,  2,  7,  2,  1,  1])
-        >>> r8.permute()
-        >>> r8.p
-        array([0.86, 0.08, 0.16, 0.  , 0.02, 0.2 , 0.56, 0.  ])
+           Repeat the exercise but now for 8 rather than 4 sectors
 
-        The default is a two-sided alternative. There is an option for a
-        directional alternative reflecting positive co-movement of the focal
-        series with its spatial lag. In this case the number of vectors in
-        quadrants I and III should be much larger than expected, while the
-        counts of vectors falling in quadrants II and IV should be much lower
-        than expected.
+           >>> r8 = Rose(Y, w, k=8)
+           >>> r8.counts
+           array([19, 13,  3,  2,  7,  2,  1,  1])
+           >>> r8.permute()
+           >>> r8.p
+           array([0.86, 0.08, 0.16, 0.  , 0.02, 0.2 , 0.56, 0.  ])
 
-        >>> r8.permute(alternative='positive')
-        >>> r8.p
-        array([0.51, 0.04, 0.28, 0.02, 0.01, 0.14, 0.57, 0.03])
+           The default is a two-sided alternative. There is an option for a
+           directional alternative reflecting positive co-movement of the focal
+           series with its spatial lag. In this case the number of vectors in
+           quadrants I and III should be much larger than expected, while the
+           counts of vectors falling in quadrants II and IV should be much lower
+           than expected.
 
-        Finally, there is a second directional alternative for examining the
-        hypothesis that the focal unit and its lag move in opposite directions.
+           >>> r8.permute(alternative='positive')
+           >>> r8.p
+           array([0.51, 0.04, 0.28, 0.02, 0.01, 0.14, 0.57, 0.03])
 
-        >>> r8.permute(alternative='negative')
-        >>> r8.p
-        array([0.69, 0.99, 0.92, 1.  , 1.  , 0.97, 0.74, 1.  ])
+           Finally, there is a second directional alternative for examining the
+           hypothesis that the focal unit and its lag move in opposite directions.
 
+           >>> r8.permute(alternative='negative')
+           >>> r8.p
+           array([0.69, 0.99, 0.92, 1.  , 1.  , 0.97, 0.74, 1.  ])
+
+           We can call the plot method to visualize directional LISAs as a
+           rose diagram conditional on the starting relative income:
+
+           >>> fig1, _ = r8.plot(attribute=Y[:,0])
+           >>> plt.show(fig1)
         """
 
         self.Y = Y
@@ -232,7 +226,8 @@ class Rose(object):
         self._dy = observed['dy']
 
     def permute(self, permutations=99, alternative='two.sided'):
-        """Generate ransom spatial permutations for inference on LISA vectors.
+        """
+        Generate ransom spatial permutations for inference on LISA vectors.
 
         Parameters
         ----------
@@ -325,7 +320,8 @@ class Rose(object):
         return results
 
     def plot(self, attribute=None, ax=None, **kwargs):
-        """Plot the rose diagram.
+        """
+        Plot the rose diagram.
 
         Parameters
         ----------
@@ -344,58 +340,7 @@ class Rose(object):
             Moran scatterplot figure
         ax : matplotlib Axes instance
             Axes in which the figure is plotted
-        
-        Examples
-        --------
-        .. plot::
-            Imports
-            >>> import geopandas as gpd
-            >>> import pandas as pd
-            >>> import libpysal.api as lp
-            >>> from libpysal import examples
-            >>> import numpy as np
-            >>> import matplotlib.pyplot as plt
-            >>> from giddy.directional import Rose
 
-            get csv and shp files
-
-            >>> shp_link = examples.get_path('us48.shp')
-            >>> df = gpd.read_file(shp_link)
-            >>> income_table = pd.read_csv(examples.get_path("usjoin.csv"))
-
-            calculate relative values
-
-            >>> for year in range(1969, 2010):
-            ...     income_table[str(year) + '_rel'] = (
-            ...         income_table[str(year)] / income_table[str(year)].mean())
-
-            merge to one gdf
-
-            >>> gdf = df.merge(income_table,left_on='STATE_NAME',right_on='Name')
-
-            retrieve spatial weights and data for two points in time
-
-            >>> w = lp.Queen.from_dataframe(gdf)
-            >>> w.transform = 'r'
-            >>> y1 = gdf['1969_rel'].values
-            >>> y2 = gdf['2000_rel'].values
-
-            calculate rose Object
-
-            >>> Y = np.array([y1, y2]).T
-            >>> rose = Rose(Y, w, k=5)
-
-            plot
-
-            >>> fig1, _ = rose.plot()
-            >>> plt.show(fig1)
-            >>> plt.close(fig1)
-
-            customize plot
-
-            >>> fig, _ = rose.plot(attribute=y1)
-            >>> plt.show(fig)
-            >>> plt.close(fig)
         """
 
         use_splot = False
@@ -426,6 +371,10 @@ class Rose(object):
         return fig, ax
 
     def plot_origin(self):  # TODO add attribute option to color vectors
+        """
+        Plot vectors of positional transition of LISA values starting
+        from the same origin.
+        """
         import matplotlib.cm as cm
         import matplotlib.pyplot as plt
         ax = plt.subplot(111 )
@@ -442,7 +391,7 @@ class Rose(object):
     def plot_vectors(self, arrows=True):
         """
         Plot vectors of positional transition of LISA values
-        witin quadrant in scatterplot in a polar plot.
+        within quadrant in scatterplot in a polar plot.
 
         Parameters
         ----------
@@ -461,58 +410,7 @@ class Rose(object):
             Moran scatterplot figure
         ax : matplotlib Axes instance
             Axes in which the figure is plotted
-    
-        Examples
-        --------
-        .. plot::
-            Imports
-            >>> import geopandas as gpd
-            >>> import pandas as pd
-            >>> import libpysal.api as lp
-            >>> from libpysal import examples
-            >>> import numpy as np
-            >>> import matplotlib.pyplot as plt
-            >>> from giddy.directional import Rose
 
-            get csv and shp files
-
-            >>> shp_link = examples.get_path('us48.shp')
-            >>> df = gpd.read_file(shp_link)
-            >>> income_table = pd.read_csv(examples.get_path("usjoin.csv"))
-
-            calculate relative values
-
-            >>> for year in range(1969, 2010):
-            ...     income_table[str(year) + '_rel'] = (
-            ...         income_table[str(year)] / income_table[str(year)].mean())
-
-            merge to one gdf
-
-            >>> gdf = df.merge(income_table,left_on='STATE_NAME',right_on='Name')
-
-            retrieve spatial weights and data for two points in time
-
-            >>> w = lp.Queen.from_dataframe(gdf)
-            >>> w.transform = 'r'
-            >>> y1 = gdf['1969_rel'].values
-            >>> y2 = gdf['2000_rel'].values
-
-            calculate rose Object
-
-            >>> Y = np.array([y1, y2]).T
-            >>> rose = Rose(Y, w, k=5)
-
-            plot
-
-            >>> fig, _ = rose.plot_vectors()
-            >>> plt.show(fig)
-            >>> plt.close(fig)
-
-            customize plot
-
-            >>> fig, _ = rose.plot_vectors(arrows=False)
-            >>> plt.show(fig)
-            >>> plt.close(fig)
         """
         use_splot = False
         try:

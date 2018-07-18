@@ -5,3 +5,6 @@ python:
     extra_requirements:
         - tests
         - docs
+        
+install:
+  - pip install https://github.com/pysal/splot/archive/master.zip
