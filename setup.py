@@ -23,8 +23,8 @@ from distutils.command.build_py import build_py
 import os
 
 Major = 1
-Feature = 2
-Bug = 0
+Feature = 1
+Bug = 1
 VERSION = '%d.%d.%d' % (Major, Feature, Bug)
 
 # BEFORE importing distutils, remove MANIFEST. distutils doesn't properly
