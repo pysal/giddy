@@ -41,9 +41,10 @@ extensions = [#'sphinx_gallery.gen_gallery',
               'sphinx.ext.mathjax',
               'sphinx.ext.doctest',
               'sphinx.ext.intersphinx',
-              'numpydoc',]
-              #'matplotlib.sphinxext.plot_directive']
-              #"sphinx.ext.napoleon"]
+              'numpydoc',
+              #'sphinx.ext.napoleon',
+              'matplotlib.sphinxext.plot_directive']
+
 
 
 # sphinx_gallery_conf = {
@@ -256,13 +257,23 @@ texinfo_documents = [
 #
 # napoleon_use_ivar = True
 
+# -----------------------------------------------------------------------------
+# Autosummary
+# -----------------------------------------------------------------------------
+
 # Generate the API documentation when building
 autosummary_generate = True
 numpydoc_show_class_members = True
+class_members_toctree = True
+numpydoc_show_inherited_class_members = True
 numpydoc_use_plots = True
+
+# display the source code for Plot directive
+plot_include_source = True
 
 def setup(app):
     app.add_stylesheet("pysal-styles.css")
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'https://docs.python.org/3.6/': None}
+

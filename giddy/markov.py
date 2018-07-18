@@ -1,5 +1,3 @@
-
-
 """
 Markov based methods for spatial dynamics.
 """
@@ -595,13 +593,13 @@ class Spatial_Markov(object):
         return mat
 
     def summary(self, file_name=None):
-        '''
+        """
         A summary method to call the Markov homogeneity test to test for
         temporally lagged spatial dependence.
 
         To learn more about the properties of the tests, refer to
         :cite:`Rey2016a` and :cite:`Kang2018`.
-        '''
+        """
 
         class_names = ["C%d" % i for i in range(self.k)]
         regime_names = ["LAG%d" % i for i in range(self.k)]

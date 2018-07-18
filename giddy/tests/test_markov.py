@@ -92,7 +92,6 @@ class test_Spatial_Markov(unittest.TestCase):
 
 class test_chi2(unittest.TestCase):
     def test_chi2(self):
-        import libpysal as ps
         f = ps.open(ps.examples.get_path('usjoin.csv'))
         pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)])
         pci = pci.transpose()
@@ -120,7 +119,6 @@ class test_chi2(unittest.TestCase):
 
 class test_LISA_Markov(unittest.TestCase):
     def test___init__(self):
-        import numpy as np
         f = ps.open(ps.examples.get_path('usjoin.csv'))
         pci = np.array(
             [f.by_col[str(y)] for y in range(1929, 2010)]).transpose()
@@ -164,7 +162,6 @@ class test_LISA_Markov(unittest.TestCase):
 
 class test_kullback(unittest.TestCase):
     def test___init__(self):
-        import numpy as np
         s1 = np.array([
                       [22, 11, 24, 2, 2, 7],
                       [5, 23, 15, 3, 42, 6],
@@ -193,7 +190,6 @@ class test_kullback(unittest.TestCase):
 
 class test_prais(unittest.TestCase):
     def test___init__(self):
-        import numpy as np
         f = ps.open(ps.examples.get_path('usjoin.csv'))
         pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)])
         q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()

@@ -24,7 +24,7 @@ import os
 
 Major = 1
 Feature = 1
-Bug = 2
+Bug = 1
 VERSION = '%d.%d.%d' % (Major, Feature, Bug)
 
 # BEFORE importing distutils, remove MANIFEST. distutils doesn't properly
