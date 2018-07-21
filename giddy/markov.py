@@ -198,21 +198,13 @@ class Spatial_Markov(object):
                       pooled series. If false, quantiles are taken each
                       time period over n.
     lag             : str or obj
-<<<<<<< HEAD
                       If 'categorical', categorical spatial lags which are most
                       common categories of neighboring observations serve as
                       the conditioning and fixed is ignored; if 'continuous',
                       weighted averages of neighboring observations are used.
                       If a numpy array is passed, the values are assumed to be 
                       user-defined lag values. Default is continuous.
-=======
-                      If 'categorical', categorical spatial lags which are most common
-                      categories of neighboring observations serve as the
-                      conditioning and fixed is ignored; if 'continuous', weighted
-                      averages of neighboring observations are used. If a numpy
-                      array is passed, the values will be used directly.
-                      Default is continuous.
->>>>>>> aec3c11c18c2fedf959e5de3a5003ccae3c20211
+
     variable_name   : string
                       name of variable.
 
