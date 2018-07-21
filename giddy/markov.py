@@ -198,12 +198,21 @@ class Spatial_Markov(object):
                       pooled series. If false, quantiles are taken each
                       time period over n.
     lag             : str or obj
+<<<<<<< HEAD
                       If 'categorical', categorical spatial lags which are most
                       common categories of neighboring observations serve as
                       the conditioning and fixed is ignored; if 'continuous',
                       weighted averages of neighboring observations are used.
                       If a numpy array is passed, the values are assumed to be 
                       user-defined lag values. Default is continuous.
+=======
+                      If 'categorical', categorical spatial lags which are most common
+                      categories of neighboring observations serve as the
+                      conditioning and fixed is ignored; if 'continuous', weighted
+                      averages of neighboring observations are used. If a numpy
+                      array is passed, the values will be used directly.
+                      Default is continuous.
+>>>>>>> aec3c11c18c2fedf959e5de3a5003ccae3c20211
     variable_name   : string
                       name of variable.
 
@@ -526,9 +535,8 @@ class Spatial_Markov(object):
         elif self.lag=='continuous':
             ly = ps.lag_spatial(w, y)
         else:
-            assert(type(self.lag)==np.ndarray, "`lag` parameter must be either `continuous`, `discrete`, or an N*T array of values")
-            assert(isinstance(self.lag, np.ndarray), "`lag` parameter must be either `continuous`, `discrete`, or an N*T array of values")
-            assert(self.lag.shape[0] == self.W, "`lag` parameter must be either `continuous`, `discrete`, or an N*T array of values")
+            assert isinstance(self.lag, np.ndarray), "`lag` parameter must be either `continuous`, `discrete`, or an N*T array of values"
+            assert self.lag.shape == self.y.shape, "`lag` parameter must be either `continuous`, `discrete`, or an N*T array of values"
             ly = self.lag
         l_classes, _ = self._maybe_classify(ly)
         T = np.zeros((self.k, self.k, self.k))
