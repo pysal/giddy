@@ -741,7 +741,7 @@ class Spatial_Markov(object):
 
         '''
         if self.discrete:
-            #np.random.seed(12345)
+            #np.random.seed(24788)
             self.lclass_ids = ps.lag_categorical(w, self.class_ids,
                                                  ties="tryself")
         else:
