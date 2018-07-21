@@ -197,12 +197,13 @@ class Spatial_Markov(object):
                       If true, quantiles are taken over the entire n*t
                       pooled series. If false, quantiles are taken each
                       time period over n.
-    discrete        : bool
-                      If true, categorical spatial lags which are most common
+    lag             : str or obj
+                      If 'categorical', categorical spatial lags which are most common
                       categories of neighboring observations serve as the
-                      conditioning and fixed is ignored; if false, weighted
-                      averages of neighboring observations are used. Default is
-                      false.
+                      conditioning and fixed is ignored; if 'continuous', weighted
+                      averages of neighboring observations are used. If a numpy
+                      array is passed, the values will be used directly.
+                      Default is continuous.
     variable_name   : string
                       name of variable.
 
@@ -400,14 +401,14 @@ class Spatial_Markov(object):
 
 
     """
-    def __init__(self, y, w, k=4, permutations=0, fixed=False, discrete=False,
+    def __init__(self, y, w, k=4, permutations=0, fixed=False, lag='continuous',
                  variable_name=None):
 
         self.y = y
         rows, cols = y.shape
         self.cols = cols
         self.fixed = fixed
-        self.discrete = discrete
+        self.lag = lag
         self.variable_name = variable_name
         self.k = k
         self.classes, self.k = self._maybe_classify(y)
@@ -520,10 +521,13 @@ class Spatial_Markov(object):
         return self._x2_dof
 
     def _calc(self, y, w):
-        if self.discrete:
+        if self.lag =='discrete':
             ly = ps.lag_categorical(w, y)
-        else:
+        elif self.lag=='continuous':
             ly = ps.lag_spatial(w, y)
+        else:
+            assert(type(self.lag)==np.ndarray, "`lag` parameter must be either `continuous`, `discrete`, or an N*T array of values")
+            ly = self.lag
         l_classes, _ = self._maybe_classify(ly)
         T = np.zeros((self.k, self.k, self.k))
         n, t = y.shape
@@ -615,7 +619,7 @@ class Spatial_Markov(object):
 
     def _maybe_classify(self, y):
         rows,cols = y.shape
-        if self.discrete:
+        if self.lag=='discrete':
             classes = y #would like to use sckikt.cluster.labelencoder here...
             encoded = []
             uniques = np.unique(classes).tolist()
