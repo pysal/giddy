@@ -331,9 +331,11 @@ class Spatial_Markov(object):
 
     (1) Global quintiles to discretize the income data (k=5), and global
     quintiles to discretize the spatial lags of incomes (m=5).
+
     >>> sm = Spatial_Markov(rpci, w, fixed=True, k=5, m=5, variable_name='rpci')
 
     We can examine the cutoffs for the incomes and cutoffs for the spatial lags
+
     >>> sm.cutoffs
     array([0.83999133, 0.94707545, 1.03242697, 1.14911154])
     >>> sm.lag_cutoffs
@@ -343,6 +345,7 @@ class Spatial_Markov(object):
 
     We now look at the estimated spatially lag conditioned transition
     probability matrices.
+
     >>> for p in sm.P:
     ...     print(p)
     [[0.96341463 0.0304878  0.00609756 0.         0.        ]
@@ -379,6 +382,7 @@ class Spatial_Markov(object):
     neighbors are in the 4th quintile this drops to 0.903.
 
     The global transition probability matrix is estimated:
+
     >>> print(sm.p)
     [[0.91461837 0.07503234 0.00905563 0.00129366 0.        ]
      [0.06570302 0.82654402 0.10512484 0.00131406 0.00131406]
@@ -451,10 +455,12 @@ class Spatial_Markov(object):
 
     (2) Global quintiles to discretize the income data (k=5), and global
     quartiles to discretize the spatial lags of incomes (m=4).
+
     >>> sm = Spatial_Markov(rpci, w, fixed=True, k=5, m=4, variable_name='rpci')
 
     We can also examine the cutoffs for the incomes and cutoffs for the spatial
     lags:
+
     >>> sm.cutoffs
     array([0.83999133, 0.94707545, 1.03242697, 1.14911154])
     >>> sm.lag_cutoffs
@@ -462,6 +468,7 @@ class Spatial_Markov(object):
 
     We now look at the estimated spatially lag conditioned transition
     probability matrices.
+
     >>> for p in sm.P:
     ...     print(p)
     [[0.95708955 0.03544776 0.00746269 0.         0.        ]
@@ -488,7 +495,8 @@ class Spatial_Markov(object):
     We now obtain 4 5*5 spatial lag conditioned transition probability
     matrices instead of 5 as in case (1).
 
-    The Q and likelihood ratio statistics are still both significant .
+    The Q and likelihood ratio statistics are still both significant.
+
     >>> "%.3f"%sm.LR
     '172.105'
     >>> "%.3f"%sm.Q
@@ -500,8 +508,8 @@ class Spatial_Markov(object):
     >>> sm.dof_hom
     45
 
-    (2) We can also set the cutoffs for relative incomes and their spatial
-    lags manually.
+    (3) We can also set the cutoffs for relative incomes and their
+    spatial lags manually.
     For example, we want the defining cutoffs to be [0.8, 0.9, 1, 1.2],
     meaning that relative incomes:
     2.1 smaller than 0.8 : class 0
@@ -548,7 +556,7 @@ class Spatial_Markov(object):
      [0.         0.         0.05660377 0.90566038 0.03773585]
      [0.         0.         0.         0.03932584 0.96067416]]
 
-    (3) Spatial_Markov also accept discrete time series and calculate
+    (4) Spatial_Markov also accept discrete time series and calculate
     categorical spatial lags on which several transition probability matrices
     are conditioned.
     Let's still use the US state income time series to demonstrate. We first
