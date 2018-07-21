@@ -50,7 +50,7 @@ class test_Spatial_Markov(unittest.TestCase):
         self.w.transform = 'r'
 
     def test___init__(self):
-        sm = Spatial_Markov(self.rpci, self.w, fixed=True, k=5)
+        sm = Spatial_Markov(self.rpci, self.w, fixed=True, k=5, m=5)
         S = np.array([[0.43509425, 0.2635327, 0.20363044, 0.06841983,
                        0.02932278], [0.13391287, 0.33993305, 0.25153036,
                                      0.23343016, 0.04119356], [0.12124869,
@@ -98,7 +98,7 @@ class test_chi2(unittest.TestCase):
         rpci = pci / (pci.mean(axis=0))
         w = ps.open(ps.examples.get_path("states48.gal")).read()
         w.transform = 'r'
-        sm = Spatial_Markov(rpci, w, fixed=True, k=5)
+        sm = Spatial_Markov(rpci, w, fixed=True, k=5, m=5)
         chi = np.matrix([[4.05598541e+01, 6.44644317e-04, 1.60000000e+01],
                          [5.54751974e+01, 2.97033748e-06, 1.60000000e+01],
                          [1.77528996e+01, 3.38563882e-01, 1.60000000e+01],

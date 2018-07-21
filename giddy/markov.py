@@ -15,6 +15,7 @@ from operator import gt
 import libpysal.api as ps
 from esda.moran import Moran_Local
 import mapclassify.api as mc
+from sklearn import preprocessing
 
 # TT predefine LISA transitions
 # TT[i,j] is the transition type from i to j
@@ -188,21 +189,38 @@ class Spatial_Markov(object):
                       each observation, with as many columns as time periods.
     w               : W
                       spatial weights object.
-    k               : integer
-                      number of classes (quantiles).
+    k               : integer, optional
+                      number of classes (quantiles) for input time series y.
+                      Default is 4. If discrete=True, k is determined
+                      endogenously.
+    m               : integer, optional
+                      number of classes (quantiles) for the spatial lags of
+                      regional time series. Default is 4. If discrete=True,
+                      m is determined endogenously.
     permutations    : int, optional
                       number of permutations for use in randomization based
                       inference (the default is 0).
-    fixed           : bool
-                      If true, quantiles are taken over the entire n*t
-                      pooled series. If false, quantiles are taken each
-                      time period over n.
-    discrete        : bool
+    fixed           : bool, optional
+                      If true, discretization are taken over the entire n*t
+                      pooled series and cutoffs can be user-defined. If
+                      cutoffs and lag_cutoffs are not given, quantiles are
+                      used. If false, quantiles are taken each time period
+                      over n. Default is True.
+    discrete        : bool, optional
                       If true, categorical spatial lags which are most common
                       categories of neighboring observations serve as the
                       conditioning and fixed is ignored; if false, weighted
                       averages of neighboring observations are used. Default is
                       false.
+    cutoffs         : array, optional
+                      users can specify the discretization cutoffs for
+                      continuous time series. Default is None, meaning that
+                      quantiles will be used for the discretization.
+    lag_cutoffs     : array, optional
+                      users can specify the discretization cutoffs for the
+                      spatial lags of continuous time series. Default is
+                      None, meaning that quantiles will be used for the
+                      discretization.
     variable_name   : string
                       name of variable.
 
@@ -298,10 +316,28 @@ class Spatial_Markov(object):
     >>> rpci = pci/(pci.mean(axis=0))
     >>> w = libpysal.open(libpysal.examples.get_path("states48.gal")).read()
     >>> w.transform = 'r'
-    >>> sm = Spatial_Markov(rpci, w, fixed=True, k=5, variable_name='rpci')
+
+    Now we create a `Spatial_Markov` instance for the continuous relative per
+    capita income time series for 48 US lower states 1929-2009. The current
+    implementation allows users to classify the continuous incomes in a more
+    flexible way.
+
+    (1) Global quintiles to discretize the income data (k=5), and global
+    quintiles to discretize the spatial lags of incomes (m=5).
+    >>> sm = Spatial_Markov(rpci, w, fixed=True, k=5, m=5, variable_name='rpci')
+
+    We can examine the cutoffs for the incomes and cutoffs for the spatial lags
+    >>> sm.cutoffs
+    array([0.83999133, 0.94707545, 1.03242697, 1.14911154])
+    >>> sm.lag_cutoffs
+    array([0.88973386, 0.95891917, 1.01469758, 1.1183566 ])
+
+    Obviously, they are slightly different.
+
+    We now look at the estimated spatially lag conditioned transition
+    probability matrices.
     >>> for p in sm.P:
     ...     print(p)
-    ...
     [[0.96341463 0.0304878  0.00609756 0.         0.        ]
      [0.06040268 0.83221477 0.10738255 0.         0.        ]
      [0.         0.14       0.74       0.12       0.        ]
@@ -335,7 +371,15 @@ class Spatial_Markov(object):
     rich is 0.976 if their neighbors are in the 5th quintile, but if their
     neighbors are in the 4th quintile this drops to 0.903.
 
-    The Q  and likelihood ratio statistics are both significant indicating
+    The global transition probability matrix is estimated:
+    >>> print(sm.p)
+    [[0.91461837 0.07503234 0.00905563 0.00129366 0.        ]
+     [0.06570302 0.82654402 0.10512484 0.00131406 0.00131406]
+     [0.00520833 0.10286458 0.79427083 0.09505208 0.00260417]
+     [0.         0.00913838 0.09399478 0.84856397 0.04830287]
+     [0.         0.         0.         0.06217617 0.93782383]]
+
+    The Q and likelihood ratio statistics are both significant indicating
     the dynamics are not homogeneous across the lag classes:
 
     >>> "%.3f"%sm.LR
@@ -398,19 +442,172 @@ class Spatial_Markov(object):
      [127.1407767   48.74107143  33.29605263   3.91777427  83.52173913]
      [169.6407767   91.24107143  75.79605263  42.5          2.96521739]]
 
+    (2) Global quintiles to discretize the income data (k=5), and global
+    quartiles to discretize the spatial lags of incomes (m=4).
+    >>> sm = Spatial_Markov(rpci, w, fixed=True, k=5, m=4, variable_name='rpci')
+
+    We can also examine the cutoffs for the incomes and cutoffs for the spatial
+    lags:
+    >>> sm.cutoffs
+    array([0.83999133, 0.94707545, 1.03242697, 1.14911154])
+    >>> sm.lag_cutoffs
+    array([0.91440247, 0.98583079, 1.08698351])
+
+    We now look at the estimated spatially lag conditioned transition
+    probability matrices.
+    >>> for p in sm.P:
+    ...     print(p)
+    [[0.95708955 0.03544776 0.00746269 0.         0.        ]
+     [0.05825243 0.83980583 0.10194175 0.         0.        ]
+     [0.         0.1294964  0.76258993 0.10791367 0.        ]
+     [0.         0.01538462 0.18461538 0.72307692 0.07692308]
+     [0.         0.         0.         0.14285714 0.85714286]]
+    [[0.7421875  0.234375   0.0234375  0.         0.        ]
+     [0.08550186 0.85130112 0.06319703 0.         0.        ]
+     [0.00865801 0.06926407 0.86147186 0.05627706 0.004329  ]
+     [0.         0.         0.05363985 0.92337165 0.02298851]
+     [0.         0.         0.         0.13432836 0.86567164]]
+    [[0.95145631 0.04854369 0.         0.         0.        ]
+     [0.06       0.79       0.145      0.         0.005     ]
+     [0.00358423 0.10394265 0.7921147  0.09677419 0.00358423]
+     [0.         0.01630435 0.13586957 0.75543478 0.0923913 ]
+     [0.         0.         0.         0.10204082 0.89795918]]
+    [[0.16666667 0.66666667 0.         0.16666667 0.        ]
+     [0.03488372 0.80232558 0.15116279 0.01162791 0.        ]
+     [0.00840336 0.13445378 0.70588235 0.1512605  0.        ]
+     [0.         0.01171875 0.08203125 0.87109375 0.03515625]
+     [0.         0.         0.         0.03434343 0.96565657]]
+
+    We now obtain 4 5*5 spatial lag conditioned transition probability
+    matrices instead of 5 as in case (1).
+
+    The Q and likelihood ratio statistics are still both significant .
+    >>> "%.3f"%sm.LR
+    '172.105'
+    >>> "%.3f"%sm.Q
+    '321.128'
+    >>> "%.3f"%sm.LR_p_value
+    '0.000'
+    >>> "%.3f"%sm.Q_p_value
+    '0.000'
+    >>> sm.dof_hom
+    45
+
+    (2) We can also set the cutoffs for relative incomes and their spatial
+    lags manually.
+    For example, we want the defining cutoffs to be [0.8, 0.9, 1, 1.2],
+    meaning that relative incomes:
+    2.1 smaller than 0.8 : class 0
+    2.2 between 0.8 and 0.9: class 1
+    2.3 between 0.9 and 1.0 : class 2
+    2.4 between 1.0 and 1.2: class 3
+    2.5 larger than 1.2: class 4
+
+    >>> cc = np.array([0.8, 0.9, 1, 1.2])
+    >>> sm = Spatial_Markov(rpci, w, cutoffs=cc, lag_cutoffs=cc, variable_name='rpci')
+    >>> sm.cutoffs
+    array([0.8, 0.9, 1. , 1.2])
+    >>> sm.k
+    5
+    >>> sm.lag_cutoffs
+    array([0.8, 0.9, 1. , 1.2])
+    >>> sm.m
+    5
+    >>> for p in sm.P:
+    ...     print(p)
+    [[0.96703297 0.03296703 0.         0.         0.        ]
+     [0.10638298 0.68085106 0.21276596 0.         0.        ]
+     [0.         0.14285714 0.7755102  0.08163265 0.        ]
+     [0.         0.         0.5        0.5        0.        ]
+     [0.         0.         0.         0.         0.        ]]
+    [[0.88636364 0.10606061 0.00757576 0.         0.        ]
+     [0.04402516 0.89308176 0.06289308 0.         0.        ]
+     [0.         0.05882353 0.8627451  0.07843137 0.        ]
+     [0.         0.         0.13846154 0.86153846 0.        ]
+     [0.         0.         0.         0.         1.        ]]
+    [[0.78082192 0.17808219 0.02739726 0.01369863 0.        ]
+     [0.03488372 0.90406977 0.05813953 0.00290698 0.        ]
+     [0.         0.05919003 0.84735202 0.09034268 0.00311526]
+     [0.         0.         0.05811623 0.92985972 0.01202405]
+     [0.         0.         0.         0.14285714 0.85714286]]
+    [[0.82692308 0.15384615 0.         0.01923077 0.        ]
+     [0.0703125  0.7890625  0.125      0.015625   0.        ]
+     [0.00295858 0.06213018 0.82248521 0.10946746 0.00295858]
+     [0.         0.00185529 0.07606679 0.88497217 0.03710575]
+     [0.         0.         0.         0.07803468 0.92196532]]
+    [[0.         0.         0.         0.         0.        ]
+     [0.         0.         0.         0.         0.        ]
+     [0.         0.06666667 0.9        0.03333333 0.        ]
+     [0.         0.         0.05660377 0.90566038 0.03773585]
+     [0.         0.         0.         0.03932584 0.96067416]]
+
+    (3) Spatial_Markov also accept discrete time series and calculate
+    categorical spatial lags on which several transition probability matrices
+    are conditioned.
+    Let's still use the US state income time series to demonstrate. We first
+    discretize them into categories and then pass them to Spatial_Markov.
+
+    >>> import mapclassify.api as mc
+    >>> y = mc.Quantiles(rpci.flatten(), k=5).yb.reshape(rpci.shape)
+    >>> np.random.seed(5)
+    >>> sm = Spatial_Markov(y, w, discrete=True, variable_name='discretized rpci')
+    >>> sm.k
+    5
+    >>> sm.m
+    5
+    >>> for p in sm.P:
+    ...     print(p)
+    [[0.94787645 0.04440154 0.00772201 0.         0.        ]
+     [0.08333333 0.81060606 0.10606061 0.         0.        ]
+     [0.         0.12765957 0.79787234 0.07446809 0.        ]
+     [0.         0.02777778 0.22222222 0.66666667 0.08333333]
+     [0.         0.         0.         0.33333333 0.66666667]]
+    [[0.888      0.096      0.016      0.         0.        ]
+     [0.06049822 0.84341637 0.09608541 0.         0.        ]
+     [0.00666667 0.10666667 0.81333333 0.07333333 0.        ]
+     [0.         0.         0.08527132 0.86821705 0.04651163]
+     [0.         0.         0.         0.10204082 0.89795918]]
+    [[0.65217391 0.32608696 0.02173913 0.         0.        ]
+     [0.07446809 0.80851064 0.11170213 0.         0.00531915]
+     [0.01071429 0.1        0.76428571 0.11785714 0.00714286]
+     [0.         0.00552486 0.09392265 0.86187845 0.03867403]
+     [0.         0.         0.         0.13157895 0.86842105]]
+    [[0.91935484 0.06451613 0.         0.01612903 0.        ]
+     [0.06796117 0.90291262 0.02912621 0.         0.        ]
+     [0.         0.05755396 0.87769784 0.0647482  0.        ]
+     [0.         0.02150538 0.10752688 0.80107527 0.06989247]
+     [0.         0.         0.         0.08064516 0.91935484]]
+    [[0.81818182 0.18181818 0.         0.         0.        ]
+     [0.01754386 0.70175439 0.26315789 0.01754386 0.        ]
+     [0.         0.14285714 0.73333333 0.12380952 0.        ]
+     [0.         0.0042735  0.06837607 0.89316239 0.03418803]
+     [0.         0.         0.         0.03891051 0.96108949]]
 
     """
-    def __init__(self, y, w, k=4, permutations=0, fixed=False, discrete=False,
+    def __init__(self, y, w, k=4, m=4, permutations=0, fixed=True,
+                 discrete=False, cutoffs=None, lag_cutoffs=None,
                  variable_name=None):
 
-        self.y = y
-        rows, cols = y.shape
-        self.cols = cols
+        y = np.asarray(y)
         self.fixed = fixed
         self.discrete = discrete
+        self.cutoffs = cutoffs
+        self.m = m
+        self.lag_cutoffs = lag_cutoffs
         self.variable_name = variable_name
-        self.k = k
-        self.classes, self.k = self._maybe_classify(y)
+
+        if discrete:
+            y_pool = y.flatten()
+            le = preprocessing.LabelEncoder()
+            le.fit(y_pool)
+            self.k = len(le.classes_)
+            self.m = self.k
+            y_pool_int = le.transform(y_pool)
+            self.classes = y_pool_int.reshape(y.shape)
+        else:
+            self.classes, self.cutoffs, self.k = self._maybe_classify(y, k=k,
+                                                                     cutoffs=self.cutoffs)
+
         classic = Markov(self.classes)
         self.p = classic.p
         self.transitions = classic.transitions
@@ -520,17 +717,24 @@ class Spatial_Markov(object):
         return self._x2_dof
 
     def _calc(self, y, w):
+        '''Helper to estimate spatial lag conditioned Markov transition
+        probability matrices based on maximum likelihood techniques.
+
+        '''
         if self.discrete:
-            ly = ps.lag_categorical(w, y)
+            self.l_classes = ps.lag_categorical(w, self.classes)
         else:
             ly = ps.lag_spatial(w, y)
-        l_classes, _ = self._maybe_classify(ly)
-        T = np.zeros((self.k, self.k, self.k))
+            self.l_classes, self.lag_cutoffs,self.m = self._maybe_classify(
+                ly, self.m, self.lag_cutoffs)
+
+        T = np.zeros((self.m, self.k, self.k))
         n, t = y.shape
         for t1 in range(t - 1):
             t2 = t1 + 1
             for i in range(n):
-                T[l_classes[i, t1], self.classes[i, t1], self.classes[i, t2]] += 1
+                T[self.l_classes[i, t1], self.classes[i, t1], self.classes[i,
+                                                                       t2]] += 1
 
         P = np.zeros_like(T)
         for i, mat in enumerate(T):
@@ -613,28 +817,32 @@ class Spatial_Markov(object):
         else:
             ht.summary(title=title)
 
-    def _maybe_classify(self, y):
+    def _maybe_classify(self, y, k, cutoffs):
+        '''Helper method for classifying continuous data.
+
+        '''
+
         rows,cols = y.shape
-        if self.discrete:
-            classes = y #would like to use sckikt.cluster.labelencoder here...
-            encoded = []
-            uniques = np.unique(classes).tolist()
-            for yt in classes.T:
-                encoded.append([uniques.index(yi) for yi in yt])
-            encoded = np.asarray(encoded).T
-            classes = encoded
-            k = len(np.unique(uniques))
-        elif self.fixed:
-            k = self.k
-            yf = y.flatten()
-            yb = mc.Quantiles(yf, k=k).yb
-            yb.shape = (rows,cols)
-            classes = yb
+        if cutoffs is None:
+            if self.fixed:
+            #if cutoffs is None:
+                mcyb = mc.Quantiles(y.flatten(), k=k)
+                yb = mcyb.yb.reshape(y.shape)
+                cutoffs = mcyb.bins
+                k = len(cutoffs)
+                return yb, cutoffs[:-1], k
+            else:
+                yb = np.array([mc.Quantiles(y[:, i], k=k).yb for i in
+                               np.arange(cols)]).transpose()
+                return yb, None, k
         else:
-            k = self.k
-            classes = np.array([mc.Quantiles(y[:,i], k=k).yb
-                                for i in np.arange(cols)]).transpose()
-        return classes, k
+            cutoffs = list(cutoffs) + [np.inf]
+            cutoffs = np.array(cutoffs)
+            yb = mc.User_Defined(y.flatten(), np.array(cutoffs)).yb.reshape(
+                y.shape)
+            k = len(cutoffs)
+            return yb, cutoffs[:-1], k
+
 
 def chi2(T1, T2):
     """

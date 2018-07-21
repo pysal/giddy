@@ -127,7 +127,7 @@ class test_Spatial_Markov(unittest.TestCase):
         rpci = pci / (pci.mean(axis=0))
         w = libpysal.open(libpysal.examples.get_path("states48.gal")).read()
         w.transform = 'r'
-        sm = gapi.Spatial_Markov(rpci, w, fixed=True, k=5)
+        sm = gapi.Spatial_Markov(rpci, w, fixed=True, k=5,m=5)
         S = np.array([[0.43509425, 0.2635327, 0.20363044, 0.06841983,
                        0.02932278], [0.13391287, 0.33993305, 0.25153036,
                                      0.23343016, 0.04119356], [0.12124869,
