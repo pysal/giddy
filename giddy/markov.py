@@ -15,7 +15,7 @@ from operator import gt
 import libpysal.api as ps
 from esda.moran import Moran_Local
 import mapclassify.api as mc
-from sklearn import preprocessing
+import itertools
 
 # TT predefine LISA transitions
 # TT[i,j] is the transition type from i to j
@@ -226,9 +226,16 @@ class Spatial_Markov(object):
 
     Attributes
     ----------
-    classes         : matrix
+    class_ids       : matrix
                       (n, t), discretized series if y is continuous. Otherwise
                       it is identical to y.
+    classes         : array
+                      (k, 1), all different classes (bins).
+    lclass_ids      : matrix
+                      (n, t), spatial lag series.
+    lclasses        : array
+                      (k, 1), all different classes (bins) for
+                      spatial lags.
     p               : matrix
                       (k, k), transition probability matrix for a-spatial
                       Markov.
@@ -557,31 +564,31 @@ class Spatial_Markov(object):
     5
     >>> for p in sm.P:
     ...     print(p)
-    [[0.94787645 0.04440154 0.00772201 0.         0.        ]
-     [0.08333333 0.81060606 0.10606061 0.         0.        ]
-     [0.         0.12765957 0.79787234 0.07446809 0.        ]
-     [0.         0.02777778 0.22222222 0.66666667 0.08333333]
-     [0.         0.         0.         0.33333333 0.66666667]]
-    [[0.888      0.096      0.016      0.         0.        ]
-     [0.06049822 0.84341637 0.09608541 0.         0.        ]
-     [0.00666667 0.10666667 0.81333333 0.07333333 0.        ]
-     [0.         0.         0.08527132 0.86821705 0.04651163]
-     [0.         0.         0.         0.10204082 0.89795918]]
-    [[0.65217391 0.32608696 0.02173913 0.         0.        ]
-     [0.07446809 0.80851064 0.11170213 0.         0.00531915]
-     [0.01071429 0.1        0.76428571 0.11785714 0.00714286]
-     [0.         0.00552486 0.09392265 0.86187845 0.03867403]
-     [0.         0.         0.         0.13157895 0.86842105]]
-    [[0.91935484 0.06451613 0.         0.01612903 0.        ]
-     [0.06796117 0.90291262 0.02912621 0.         0.        ]
-     [0.         0.05755396 0.87769784 0.0647482  0.        ]
-     [0.         0.02150538 0.10752688 0.80107527 0.06989247]
-     [0.         0.         0.         0.08064516 0.91935484]]
-    [[0.81818182 0.18181818 0.         0.         0.        ]
-     [0.01754386 0.70175439 0.26315789 0.01754386 0.        ]
-     [0.         0.14285714 0.73333333 0.12380952 0.        ]
-     [0.         0.0042735  0.06837607 0.89316239 0.03418803]
-     [0.         0.         0.         0.03891051 0.96108949]]
+    [[0.94891945 0.043222   0.00785855 0.         0.        ]
+     [0.05853659 0.84390244 0.09756098 0.         0.        ]
+     [0.         0.11333333 0.79333333 0.09333333 0.        ]
+     [0.         0.01111111 0.12222222 0.74444444 0.12222222]
+     [0.         0.         0.         0.171875   0.828125  ]]
+    [[0.86896552 0.11724138 0.0137931  0.         0.        ]
+     [0.07920792 0.82673267 0.09405941 0.         0.        ]
+     [0.0052356  0.10471204 0.82198953 0.06282723 0.0052356 ]
+     [0.         0.         0.05963303 0.90366972 0.03669725]
+     [0.         0.         0.         0.10638298 0.89361702]]
+    [[0.66666667 0.31111111 0.02222222 0.         0.        ]
+     [0.06849315 0.81278539 0.11415525 0.         0.00456621]
+     [0.01463415 0.10243902 0.75609756 0.12195122 0.00487805]
+     [0.         0.01219512 0.11585366 0.83536585 0.03658537]
+     [0.         0.         0.         0.05072464 0.94927536]]
+    [[0.92592593 0.05555556 0.         0.01851852 0.        ]
+     [0.06896552 0.89655172 0.03448276 0.         0.        ]
+     [0.         0.05426357 0.87596899 0.06976744 0.        ]
+     [0.         0.04285714 0.2        0.68571429 0.07142857]
+     [0.         0.         0.         0.07096774 0.92903226]]
+    [[0.9        0.1        0.         0.         0.        ]
+     [0.02083333 0.6875     0.27083333 0.02083333 0.        ]
+     [0.         0.15053763 0.70967742 0.13978495 0.        ]
+     [0.         0.00446429 0.06696429 0.89732143 0.03125   ]
+     [0.         0.         0.         0.02803738 0.97196262]]
 
     """
     def __init__(self, y, w, k=4, m=4, permutations=0, fixed=True,
@@ -597,18 +604,30 @@ class Spatial_Markov(object):
         self.variable_name = variable_name
 
         if discrete:
-            y_pool = y.flatten()
-            le = preprocessing.LabelEncoder()
-            le.fit(y_pool)
-            self.k = len(le.classes_)
+            merged = list(itertools.chain.from_iterable(y))
+            classes = np.unique(merged)
+            self.classes = classes
+            self.k = len(classes)
             self.m = self.k
-            y_pool_int = le.transform(y_pool)
-            self.classes = y_pool_int.reshape(y.shape)
-        else:
-            self.classes, self.cutoffs, self.k = self._maybe_classify(y, k=k,
-                                                                     cutoffs=self.cutoffs)
+            label_dict = dict(zip(classes, range(self.k)))
+            y_int = []
+            for yi in y:
+                y_int.append(list(map(label_dict.get, yi)))
+            self.class_ids = np.array(y_int)
+            self.lclass_ids = self.class_ids
 
-        classic = Markov(self.classes)
+            # le = preprocessing.LabelEncoder()
+            # le.fit(y_pool)
+            # self.k = len(le.classes_)
+            # self.m = self.k
+            # y_pool_int = le.transform(y_pool)
+            # self.classes = y_int.reshape(y.shape)
+        else:
+            self.class_ids, self.cutoffs, self.k = self._maybe_classify(y, k=k,
+                                                                     cutoffs=self.cutoffs)
+            self.classes = np.arange(self.k)
+
+        classic = Markov(self.class_ids)
         self.p = classic.p
         self.transitions = classic.transitions
         self.T, self.P = self._calc(y, w)
@@ -722,18 +741,21 @@ class Spatial_Markov(object):
 
         '''
         if self.discrete:
-            self.l_classes = ps.lag_categorical(w, self.classes)
+            #np.random.seed(12345)
+            self.lclass_ids = ps.lag_categorical(w, self.class_ids,
+                                                 ties="tryself")
         else:
             ly = ps.lag_spatial(w, y)
-            self.l_classes, self.lag_cutoffs,self.m = self._maybe_classify(
+            self.lclass_ids, self.lag_cutoffs,self.m = self._maybe_classify(
                 ly, self.m, self.lag_cutoffs)
+            self.lclasses = np.arange(self.m)
 
         T = np.zeros((self.m, self.k, self.k))
         n, t = y.shape
         for t1 in range(t - 1):
             t2 = t1 + 1
             for i in range(n):
-                T[self.l_classes[i, t1], self.classes[i, t1], self.classes[i,
+                T[self.lclass_ids[i, t1], self.class_ids[i, t1], self.class_ids[i,
                                                                        t2]] += 1
 
         P = np.zeros_like(T)
