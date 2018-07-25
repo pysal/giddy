@@ -8,8 +8,8 @@ python:
   - "3.6"
 
 env:
-  - PYSAL_PYPI=true MPLBACKEND='pdf'
-  - PYSAL_PYPI=false MPLBACKEND='pdf'
+  - PYSAL_PYPI=true
+  - PYSAL_PYPI=false
 
 matrix:
   allow_failures:
@@ -36,6 +36,10 @@ install:
         echo 'testing pypi libpysal' && pip install libpysal;
         else echo 'testing git libpysal'; git clone https://github.com/pysal/libpysal.git; cd libpysal; pip install .; cd ../;
     fi;
+  # We need the Agg backend to use Matplotlib on TravisCI, otherwise
+  # we get an error "DISPLAY variable not set"
+  - cp testing/matplotlibrc .
+
 
 script:
   - python setup.py sdist >/dev/null
