@@ -8,9 +8,8 @@ python:
   - "3.6"
 
 env:
-  - MPLBACKEND='pdf'
-  - PYSAL_PYPI=true
-  - PYSAL_PYPI=false
+  - PYSAL_PYPI=true BACKEND=agg DOCTESTS=true
+  - PYSAL_PYPI=false BACKEND=agg DOCTESTS=true
 
 matrix:
   allow_failures:
