@@ -8,7 +8,15 @@ python:
   - "3.6"
 
 env:
-  - MPLBACKEND='pdf'
+  - PYSAL_PYPI=true
+  - PYSAL_PYPI=false
+
+matrix:
+  allow_failures:
+      - python: 3.5
+        env: PYSAL_PYPI=false
+      - python: 3.6
+        env: PYSAL_PYPI=false
 
 before_install:
   - wget https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
@@ -21,12 +29,20 @@ before_install:
 
 install:
   - conda install --yes pip
-  - conda install --yes nose
   - pip install -r requirements.txt
+  - pip install -r requirements_tests.txt
   - pip install https://github.com/pysal/splot/archive/master.zip
+  - pip uninstall libpysal
+  - if "$PYSAL_PYPI"; then
+        echo 'testing pypi libpysal' && pip install libpysal;
+        else echo 'testing git libpysal'; git clone https://github.com/pysal/libpysal.git; cd libpysal; pip install .; cd ../;
+    fi;
 
 script:
-  - nosetests --verbose giddy;
+  - python setup.py sdist >/dev/null
+  - python setup.py install
+  - nosetests --verbose --with-coverage --cover-package=giddy
+#  - nosetests --verbose giddy;
 
 notifications:
     email:
@@ -34,5 +50,7 @@ notifications:
             - weikang9009@gmail.com
             - sjsrey@gmail.com
             - levi.john.wolf@gmail.com
-        on_change: always
-        on_failure: always
+        on_change: change
+        on_failure: change
+after_success:
+  - coveralls
