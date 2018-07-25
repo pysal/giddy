@@ -8,6 +8,7 @@ python:
   - "3.6"
 
 env:
+  - MPLBACKEND='pdf'
   - PYSAL_PYPI=true
   - PYSAL_PYPI=false
 
