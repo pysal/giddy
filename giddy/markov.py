@@ -65,11 +65,11 @@ class Markov(object):
 
     Attributes
     ----------
-    p            : matrix
+    p            : array
                    (k, k), transition probability matrix.
-    steady_state : matrix
-                   (k, 1), ergodic distribution.
-    transitions  : matrix
+    steady_state : array
+                   (k, ), ergodic distribution.
+    transitions  : array
                    (k, k), count of transitions between each state i and j.
 
     Examples
@@ -83,13 +83,11 @@ class Markov(object):
     >>> m.classes.tolist()
     ['a', 'b', 'c']
     >>> m.p
-    matrix([[0.25      , 0.5       , 0.25      ],
-            [0.33333333, 0.        , 0.66666667],
-            [0.33333333, 0.33333333, 0.33333333]])
+    array([[0.25      , 0.5       , 0.25      ],
+           [0.33333333, 0.        , 0.66666667],
+           [0.33333333, 0.33333333, 0.33333333]])
     >>> m.steady_state
-    matrix([[0.30769231],
-            [0.28846154],
-            [0.40384615]])
+    array([0.30769231, 0.28846154, 0.40384615])
 
     US nominal per capita income 48 states 81 years 1929-2009
 
@@ -109,24 +107,19 @@ class Markov(object):
            [  0.,   3.,  86., 573.,  56.],
            [  0.,   0.,   1.,  57., 741.]])
     >>> m.p
-    matrix([[0.91011236, 0.0886392 , 0.00124844, 0.        , 0.        ],
-            [0.09972299, 0.78531856, 0.11080332, 0.00415512, 0.        ],
-            [0.        , 0.10125   , 0.78875   , 0.1075    , 0.0025    ],
-            [0.        , 0.00417827, 0.11977716, 0.79805014, 0.07799443],
-            [0.        , 0.        , 0.00125156, 0.07133917, 0.92740926]])
+    array([[0.91011236, 0.0886392 , 0.00124844, 0.        , 0.        ],
+           [0.09972299, 0.78531856, 0.11080332, 0.00415512, 0.        ],
+           [0.        , 0.10125   , 0.78875   , 0.1075    , 0.0025    ],
+           [0.        , 0.00417827, 0.11977716, 0.79805014, 0.07799443],
+           [0.        , 0.        , 0.00125156, 0.07133917, 0.92740926]])
     >>> m.steady_state
-    matrix([[0.20774716],
-            [0.18725774],
-            [0.20740537],
-            [0.18821787],
-            [0.20937187]])
+    array([0.20774716, 0.18725774, 0.20740537, 0.18821787, 0.20937187])
 
     Relative incomes
 
     >>> pci = pci.transpose()
     >>> rpci = pci/(pci.mean(axis=0))
-    >>> rq = mc.Quantiles(rpci.flatten()).yb
-    >>> rq.shape = (48,81)
+    >>> rq = mc.Quantiles(rpci.flatten()).yb.reshape(pci.shape)
     >>> mq = Markov(rq)
     >>> mq.transitions
     array([[707.,  58.,   7.,   1.,   0.],
@@ -135,11 +128,7 @@ class Markov(object):
            [  0.,   7.,  72., 650.,  37.],
            [  0.,   0.,   0.,  48., 724.]])
     >>> mq.steady_state
-    matrix([[0.17957376],
-            [0.21631443],
-            [0.21499942],
-            [0.21134662],
-            [0.17776576]])
+    array([0.17957376, 0.21631443, 0.21499942, 0.21134662, 0.17776576])
 
     """
     def __init__(self, class_ids, classes=None):
@@ -168,8 +157,7 @@ class Markov(object):
                     transitions[row, col] += sum(ending == j)
         self.transitions = transitions
         row_sum = transitions.sum(axis=1)
-        p = np.dot(np.diag(1 / (row_sum + (row_sum == 0))), transitions)
-        self.p = np.matrix(p)
+        self.p = np.dot(np.diag(1 / (row_sum + (row_sum == 0))), transitions)
 
     @property
     def steady_state(self):
@@ -226,36 +214,36 @@ class Spatial_Markov(object):
 
     Attributes
     ----------
-    class_ids       : matrix
+    class_ids       : array
                       (n, t), discretized series if y is continuous. Otherwise
                       it is identical to y.
     classes         : array
                       (k, 1), all different classes (bins).
-    lclass_ids      : matrix
+    lclass_ids      : array
                       (n, t), spatial lag series.
     lclasses        : array
                       (k, 1), all different classes (bins) for
                       spatial lags.
-    p               : matrix
+    p               : array
                       (k, k), transition probability matrix for a-spatial
                       Markov.
-    s               : matrix
+    s               : array
                       (k, 1), ergodic distribution for a-spatial Markov.
-    transitions     : matrix
+    transitions     : array
                       (k, k), counts of transitions between each state i and j
                       for a-spatial Markov.
-    T               : matrix
+    T               : array
                       (k, k, k), counts of transitions for each conditional
                       Markov.  T[0] is the matrix of transitions for
                       observations with lags in the 0th quantile; T[k-1] is the
                       transitions for the observations with lags in the k-1th.
-    P               : matrix
+    P               : array
                       (k, k, k), transition probability matrix for spatial
                       Markov first dimension is the conditioned on the lag.
-    S               : matrix
+    S               : array
                       (k, k), steady state distributions for spatial Markov.
                       Each row is a conditional steady_state.
-    F               : matrix
+    F               : array
                       (k, k, k),first mean passage times.
                       First dimension is conditioned on the lag.
     shtest          : list
@@ -572,31 +560,31 @@ class Spatial_Markov(object):
     5
     >>> for p in sm.P:
     ...     print(p)
-    [[0.94891945 0.043222   0.00785855 0.         0.        ]
-     [0.05853659 0.84390244 0.09756098 0.         0.        ]
-     [0.         0.11333333 0.79333333 0.09333333 0.        ]
-     [0.         0.01111111 0.12222222 0.74444444 0.12222222]
-     [0.         0.         0.         0.171875   0.828125  ]]
-    [[0.86896552 0.11724138 0.0137931  0.         0.        ]
-     [0.07920792 0.82673267 0.09405941 0.         0.        ]
-     [0.0052356  0.10471204 0.82198953 0.06282723 0.0052356 ]
-     [0.         0.         0.05963303 0.90366972 0.03669725]
-     [0.         0.         0.         0.10638298 0.89361702]]
-    [[0.66666667 0.31111111 0.02222222 0.         0.        ]
-     [0.06849315 0.81278539 0.11415525 0.         0.00456621]
-     [0.01463415 0.10243902 0.75609756 0.12195122 0.00487805]
-     [0.         0.01219512 0.11585366 0.83536585 0.03658537]
-     [0.         0.         0.         0.05072464 0.94927536]]
-    [[0.92592593 0.05555556 0.         0.01851852 0.        ]
-     [0.06896552 0.89655172 0.03448276 0.         0.        ]
-     [0.         0.05426357 0.87596899 0.06976744 0.        ]
-     [0.         0.04285714 0.2        0.68571429 0.07142857]
-     [0.         0.         0.         0.07096774 0.92903226]]
-    [[0.9        0.1        0.         0.         0.        ]
-     [0.02083333 0.6875     0.27083333 0.02083333 0.        ]
-     [0.         0.15053763 0.70967742 0.13978495 0.        ]
-     [0.         0.00446429 0.06696429 0.89732143 0.03125   ]
-     [0.         0.         0.         0.02803738 0.97196262]]
+    [[0.94787645 0.04440154 0.00772201 0.         0.        ]
+     [0.08333333 0.81060606 0.10606061 0.         0.        ]
+     [0.         0.12765957 0.79787234 0.07446809 0.        ]
+     [0.         0.02777778 0.22222222 0.66666667 0.08333333]
+     [0.         0.         0.         0.33333333 0.66666667]]
+    [[0.888      0.096      0.016      0.         0.        ]
+     [0.06049822 0.84341637 0.09608541 0.         0.        ]
+     [0.00666667 0.10666667 0.81333333 0.07333333 0.        ]
+     [0.         0.         0.08527132 0.86821705 0.04651163]
+     [0.         0.         0.         0.10204082 0.89795918]]
+    [[0.65217391 0.32608696 0.02173913 0.         0.        ]
+     [0.07446809 0.80851064 0.11170213 0.         0.00531915]
+     [0.01071429 0.1        0.76428571 0.11785714 0.00714286]
+     [0.         0.00552486 0.09392265 0.86187845 0.03867403]
+     [0.         0.         0.         0.13157895 0.86842105]]
+    [[0.91935484 0.06451613 0.         0.01612903 0.        ]
+     [0.06796117 0.90291262 0.02912621 0.         0.        ]
+     [0.         0.05755396 0.87769784 0.0647482  0.        ]
+     [0.         0.02150538 0.10752688 0.80107527 0.06989247]
+     [0.         0.         0.         0.08064516 0.91935484]]
+    [[0.81818182 0.18181818 0.         0.         0.        ]
+     [0.01754386 0.70175439 0.26315789 0.01754386 0.        ]
+     [0.         0.14285714 0.73333333 0.12380952 0.        ]
+     [0.         0.0042735  0.06837607 0.89316239 0.03418803]
+     [0.         0.         0.         0.03891051 0.96108949]]
 
     """
     def __init__(self, y, w, k=4, m=4, permutations=0, fixed=True,
@@ -1016,7 +1004,7 @@ class LISA_Markov(Markov):
                    4   4      16
                    ==  ==     =========
 
-    p            : matrix
+    p            : array
                    (k, k), transition probability matrix.
     p_values     : matrix
                    (n, t), LISA p-values for each end point (if permutations >
@@ -1079,9 +1067,9 @@ class LISA_Markov(Markov):
                         4  4   0   0   64
                         == ==  ==  ==  =========
 
-    steady_state : matrix
-                   (k, 1), ergodic distribution.
-    transitions  : matrix
+    steady_state : array
+                   (k, ), ergodic distribution.
+    transitions  : array
                    (4, 4), count of transitions between each state i and j.
     spillover    : array
                    (n, 1) binary array, locations that were not part of a
@@ -1101,20 +1089,17 @@ class LISA_Markov(Markov):
     >>> lm.classes
     array([1, 2, 3, 4])
     >>> lm.steady_state
-    matrix([[0.28561505],
-            [0.14190226],
-            [0.40493672],
-            [0.16754598]])
+    array([0.28561505, 0.14190226, 0.40493672, 0.16754598])
     >>> lm.transitions
     array([[1.087e+03, 4.400e+01, 4.000e+00, 3.400e+01],
            [4.100e+01, 4.700e+02, 3.600e+01, 1.000e+00],
            [5.000e+00, 3.400e+01, 1.422e+03, 3.900e+01],
            [3.000e+01, 1.000e+00, 4.000e+01, 5.520e+02]])
     >>> lm.p
-    matrix([[0.92985458, 0.03763901, 0.00342173, 0.02908469],
-            [0.07481752, 0.85766423, 0.06569343, 0.00182482],
-            [0.00333333, 0.02266667, 0.948     , 0.026     ],
-            [0.04815409, 0.00160514, 0.06420546, 0.88603531]])
+    array([[0.92985458, 0.03763901, 0.00342173, 0.02908469],
+           [0.07481752, 0.85766423, 0.06569343, 0.00182482],
+           [0.00333333, 0.02266667, 0.948     , 0.026     ],
+           [0.04815409, 0.00160514, 0.06420546, 0.88603531]])
     >>> lm.move_types[0,:3]
     array([11, 11, 11])
     >>> lm.move_types[0,-3:]
@@ -1498,16 +1483,17 @@ def prais(pmat):
            [  0.,   3.,  86., 573.,  56.],
            [  0.,   0.,   1.,  57., 741.]])
     >>> m.p
-    matrix([[0.91011236, 0.0886392 , 0.00124844, 0.        , 0.        ],
-            [0.09972299, 0.78531856, 0.11080332, 0.00415512, 0.        ],
-            [0.        , 0.10125   , 0.78875   , 0.1075    , 0.0025    ],
-            [0.        , 0.00417827, 0.11977716, 0.79805014, 0.07799443],
-            [0.        , 0.        , 0.00125156, 0.07133917, 0.92740926]])
+    array([[0.91011236, 0.0886392 , 0.00124844, 0.        , 0.        ],
+           [0.09972299, 0.78531856, 0.11080332, 0.00415512, 0.        ],
+           [0.        , 0.10125   , 0.78875   , 0.1075    , 0.0025    ],
+           [0.        , 0.00417827, 0.11977716, 0.79805014, 0.07799443],
+           [0.        , 0.        , 0.00125156, 0.07133917, 0.92740926]])
     >>> prais(m.p)
-    matrix([[0.08988764, 0.21468144, 0.21125   , 0.20194986, 0.07259074]])
+    array([0.08988764, 0.21468144, 0.21125   , 0.20194986, 0.07259074])
 
     """
-    pr = (pmat.sum(axis=1) - np.diag(pmat))[0]
+    pmat = np.array(pmat)
+    pr = 1 - np.diag(pmat)
     return pr
 
 def homogeneity(transition_matrices, regime_names=[], class_names=[],
