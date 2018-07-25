@@ -166,7 +166,7 @@ class test_Spatial_Markov(unittest.TestCase):
         np.testing.assert_array_almost_equal(P, sm.P)
 
         #discrete case
-        discretized = (self.rpci * 100).astype(int) % 4
+        discretized = (rpci * 100).astype(int) % 4
         w = libpysal.weights.Contiguity.Queen.from_shapefile(
             libpysal.examples.get_path('us48.shp'))
         np.random.seed(24788)

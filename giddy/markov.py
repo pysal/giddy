@@ -780,9 +780,9 @@ class Spatial_Markov(object):
         Arguments
         ---------
         p1       :  array
-                    (k, 1), first steady state probability distribution.
+                    (k, ), first steady state probability distribution.
         p1       :  array
-                    (k, 1), second steady state probability distribution.
+                    (k, ), second steady state probability distribution.
         nt       :  int
                     number of transitions to base the test on.
 
@@ -793,16 +793,14 @@ class Spatial_Markov(object):
                    (chi2 value, pvalue, degrees of freedom)
 
         """
-        p1 = np.array(p1)
-        k, c = p1.shape
-        p1.shape = (k, )
+
         o = nt * p2
         e = nt * p1
         d = np.multiply((o - e), (o - e))
         d = d / e
         chi2 = d.sum()
-        pvalue = 1 - stats.chi2.cdf(chi2, k - 1)
-        return (chi2, pvalue, k - 1)
+        pvalue = 1 - stats.chi2.cdf(chi2, self.k - 1)
+        return (chi2, pvalue, self.k - 1)
 
     def _chi2_test(self):
         """
