@@ -20,6 +20,9 @@ addition to space-time LISA and spatial markov methods.
    :target: https://giddy.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
 
+.. image:: https://zenodo.org/badge/91390088.svg
+   :target: https://zenodo.org/badge/latestdoi/91390088
+
 This package is part of a `refactoring of PySAL
 <https://github.com/pysal/pysal/wiki/PEP-13:-Refactor-PySAL-Using-Submodules>`_.
 
