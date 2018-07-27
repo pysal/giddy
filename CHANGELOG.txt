@@ -2,9 +2,7 @@
 v<1.2.0>, 2018-07-27
 
 This release features:
-* a more flexible specification for the [spatial Markov
-chains model](https://github.com/pysal/giddy/blob/master/giddy/markov.py#L169).
-More specifically, for continuous time series input:
+* a more flexible specification for the [spatial Markov chains model](https://github.com/pysal/giddy/blob/master/giddy/markov.py#L169).More specifically, for continuous time series input:
     * both the numbers of classifications for input continuous time series (k) and spatial lags (m) can be specified and allowed to be different
     * user-defined classifications (cutoffs) for input continuous time series and spatial lags are allowed
 * new visualization tools:
@@ -107,4 +105,3 @@ Issues (12):
 * :ghissue:`25`: b'[WIP] prepare for full metapackage integration'
 * :ghissue:`27`: b'api module for giddy'
 * :ghissue:`12`: b'Publish on PyPi'
-
