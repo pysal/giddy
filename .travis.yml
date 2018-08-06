@@ -53,7 +53,7 @@ notifications:
             - weikang9009@gmail.com
             - sjsrey@gmail.com
             - levi.john.wolf@gmail.com
-        on_change: change
-        on_failure: change
+        on_success: change
+        on_failure: always
 after_success:
   - coveralls
