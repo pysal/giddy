@@ -12,7 +12,8 @@ from .ergodic import steady_state as STEADY_STATE
 from .components import Graph
 from scipy import stats
 from operator import gt
-import libpysal.api as ps
+from libpysal.weights.spatial_lag import lag_spatial
+from libpysal.weights.spatial_lag import lag_categorical
 from esda.moran import Moran_Local
 import mapclassify.api as mc
 import itertools
@@ -738,10 +739,10 @@ class Spatial_Markov(object):
         '''
         if self.discrete:
             #np.random.seed(24788)
-            self.lclass_ids = ps.lag_categorical(w, self.class_ids,
+            self.lclass_ids = lag_categorical(w, self.class_ids,
                                                  ties="tryself")
         else:
-            ly = ps.lag_spatial(w, y)
+            ly = lag_spatial(w, y)
             self.lclass_ids, self.lag_cutoffs,self.m = self._maybe_classify(
                 ly, self.m, self.lag_cutoffs)
             self.lclasses = np.arange(self.m)
@@ -1194,7 +1195,7 @@ class LISA_Markov(Markov):
 
         ybar = y.mean(axis=0)
         r = y / ybar
-        ylag = np.array([ps.lag_spatial(w, yt) for yt in y])
+        ylag = np.array([lag_spatial(w, yt) for yt in y])
         rlag = ylag / ybar
         rc = r < 1.
         rlagc = rlag < 1.

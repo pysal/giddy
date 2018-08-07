@@ -10,7 +10,7 @@ __all__ = ['Rose']
 import warnings
 
 import numpy as np
-from libpysal.api import lag_spatial
+from libpysal.weights.spatial_lag import lag_spatial
 
 _POS8 = np.array([1, 1, 0, 0, 1, 1, 0, 0])
 _POS4 = np.array([1, 0, 1, 0])
