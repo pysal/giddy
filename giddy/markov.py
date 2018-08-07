@@ -15,7 +15,7 @@ from operator import gt
 from libpysal.weights.spatial_lag import lag_spatial
 from libpysal.weights.spatial_lag import lag_categorical
 from esda.moran import Moran_Local
-import mapclassify.api as mc
+import mapclassify as mc
 import itertools
 
 # TT predefine LISA transitions
@@ -93,7 +93,7 @@ class Markov(object):
     US nominal per capita income 48 states 81 years 1929-2009
 
     >>> import libpysal
-    >>> import mapclassify.api as mc
+    >>> import mapclassify as mc
     >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
 
@@ -551,7 +551,7 @@ class Spatial_Markov(object):
     Let's still use the US state income time series to demonstrate. We first
     discretize them into categories and then pass them to Spatial_Markov.
 
-    >>> import mapclassify.api as mc
+    >>> import mapclassify as mc
     >>> y = mc.Quantiles(rpci.flatten(), k=5).yb.reshape(rpci.shape)
     >>> np.random.seed(5)
     >>> sm = Spatial_Markov(y, w, discrete=True, variable_name='discretized rpci')
