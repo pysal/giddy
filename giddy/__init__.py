@@ -1,3 +1,6 @@
+__version__ = "1.2.0"
+# __version__ has to be defined in the first line
+
 """
 :mod:`giddy` --- Spatial Dynamics and Mobility
 ==============================================
@@ -11,4 +14,3 @@ from . import mobility
 from . import rank
 from . import util
 from . import api
-from .version import version as __version__

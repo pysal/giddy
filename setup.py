@@ -22,10 +22,10 @@ from setuptools import setup, find_packages
 from distutils.command.build_py import build_py
 import os
 
-Major = 1
-Feature = 2
-Bug = 0
-VERSION = '%d.%d.%d' % (Major, Feature, Bug)
+# Get __version__ from giddy/__init__.py without importing the package
+# __version__ has to be defined in the first line
+with open('giddy/__init__.py', 'r') as f:
+    exec(f.readline())
 
 # BEFORE importing distutils, remove MANIFEST. distutils doesn't properly
 # update it when the contents of directories change.
@@ -54,7 +54,7 @@ def setup_package():
     extras_reqs = reqs
 
     setup(name='giddy',  # name of package
-          version=VERSION,
+          version=__version__,
           description=DOCLINES[0],
           #long_description="\n".join(DOCLINES[2:]),
           long_description = long_description,
