@@ -34,7 +34,7 @@ def steady_state(P):
     is melting).
 
     >>> import numpy as np
-    >>> from giddy.api import steady_state
+    >>> from giddy.ergodic import steady_state
     >>> p=np.array([[.5, .25, .25],[.5,0,.5],[.25,.25,.5]])
     >>> steady_state(p)
     array([0.4, 0.2, 0.4])
@@ -79,7 +79,7 @@ def fmpt(P):
     Examples
     --------
     >>> import numpy as np
-    >>> from giddy.api import fmpt
+    >>> from giddy.ergodic import fmpt
     >>> p=np.array([[.5, .25, .25],[.5,0,.5],[.25,.25,.5]])
     >>> fm=fmpt(p)
     >>> fm
@@ -137,7 +137,7 @@ def var_fmpt(P):
     Examples
     --------
     >>> import numpy as np
-    >>> from giddy.api import var_fmpt
+    >>> from giddy.ergodic import var_fmpt
     >>> p=np.array([[.5, .25, .25],[.5,0,.5],[.25,.25,.5]])
     >>> vfm=var_fmpt(p)
     >>> vfm

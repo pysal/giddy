@@ -1,5 +1,5 @@
 import unittest
-import giddy.ergodic as ergodic
+from .. import ergodic
 import numpy as np
 
 

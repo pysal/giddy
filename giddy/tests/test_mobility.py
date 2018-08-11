@@ -1,15 +1,15 @@
 import unittest
 import libpysal as ps
 import numpy as np
-import mapclassify.api as mc
-from giddy.markov import Markov
-from giddy.mobility import markov_mobility
+import mapclassify as mc
+from ..markov import Markov
+from ..mobility import markov_mobility
 
 
 class test_shorrock(unittest.TestCase):
     def test___init__(self):
         import numpy as np
-        f = ps.open(ps.examples.get_path('usjoin.csv'))
+        f = ps.io.open(ps.examples.get_path('usjoin.csv'))
         pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)])
         q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
         m = Markov(q5)
@@ -19,7 +19,7 @@ class test_shorrock(unittest.TestCase):
 class test_markovMobility(unittest.TestCase):
     def test___init__(self):
         pi = np.array([0.1, 0.2, 0.2, 0.4, 0.1])
-        f = ps.open(ps.examples.get_path('usjoin.csv'))
+        f = ps.io.open(ps.examples.get_path('usjoin.csv'))
         pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)])
         q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
         m = Markov(q5)

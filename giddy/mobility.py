@@ -53,9 +53,10 @@ def markov_mobility(p, measure="P",ini=None):
     --------
     >>> import numpy as np
     >>> import libpysal
-    >>> import mapclassify.api as mc
-    >>> from giddy.api import Markov, markov_mobility
-    >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
+    >>> import mapclassify as mc
+    >>> from giddy.markov import Markov
+    >>> from giddy.mobility import markov_mobility
+    >>> f = libpysal.io.open(libpysal.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
     >>> q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
     >>> m = Markov(q5)
@@ -68,32 +69,37 @@ def markov_mobility(p, measure="P",ini=None):
 
     (1) Estimate Shorrock1 mobility index:
 
-    >>> markov_mobility(m.p, measure="P")
-    0.19758992000997844
+    >>> mobi_1 = markov_mobility(m.p, measure="P")
+    >>> print("{:.5f}".format(mobi_1))
+    0.19759
 
     (2) Estimate Shorrock2 mobility index:
 
-    >>> markov_mobility(m.p, measure="D")
-    0.6068485462369559
+    >>> mobi_2 = markov_mobility(m.p, measure="D")
+    >>> print("{:.5f}".format(mobi_2))
+    0.60685
 
     (3) Estimate Sommers and Conlisk mobility index:
 
-    >>> markov_mobility(m.p, measure="L2")
-    0.03978200230815965
+    >>> mobi_3 = markov_mobility(m.p, measure="L2")
+    >>> print("{:.5f}".format(mobi_3))
+    0.03978
 
     (4) Estimate Bartholomew1 mobility index (note that the initial
     distribution should be given):
 
     >>> ini = np.array([0.1,0.2,0.2,0.4,0.1])
-    >>> markov_mobility(m.p, measure = "B1", ini=ini)
-    0.2277675878319787
+    >>> mobi_4 = markov_mobility(m.p, measure = "B1", ini=ini)
+    >>> print("{:.5f}".format(mobi_4))
+    0.22777
 
     (5) Estimate Bartholomew2 mobility index (note that the initial
     distribution should be given):
 
     >>> ini = np.array([0.1,0.2,0.2,0.4,0.1])
-    >>> markov_mobility(m.p, measure = "B2", ini=ini)
-    0.04636660119478926
+    >>> mobi_5 = markov_mobility(m.p, measure = "B2", ini=ini)
+    >>> print("{:.5f}".format(mobi_5))
+    0.04637
 
     """
 

@@ -10,7 +10,7 @@ __all__ = ['Rose']
 import warnings
 
 import numpy as np
-from libpysal.weights.spatial_lag import lag_spatial
+from libpysal import weights
 
 _POS8 = np.array([1, 1, 0, 0, 1, 1, 0, 0])
 _POS4 = np.array([1, 0, 1, 0])
@@ -93,9 +93,10 @@ class Rose(object):
            Load comma delimited data file in and convert to a numpy array
 
            >>> import libpysal
-           >>> from giddy.api import Rose
+           >>> from giddy.directional import Rose
            >>> import matplotlib.pyplot as plt
-           >>> f=open(libpysal.examples.get_path("spi_download.csv"),'r')
+           >>> file_path = libpysal.examples.get_path("spi_download.csv")
+           >>> f=open(file_path,'r')
            >>> lines=f.readlines()
            >>> f.close()
            >>> lines=[line.strip().split(",") for line in lines]
@@ -132,7 +133,7 @@ class Rose(object):
            Create our contiguity matrix from an external GAL file and row
            standardize the resulting weights
 
-           >>> gal=libpysal.open(libpysal.examples.get_path('states48.gal'))
+           >>> gal=libpysal.io.open(libpysal.examples.get_path('states48.gal'))
            >>> w=gal.read()
            >>> w.transform='r'
 
@@ -299,7 +300,7 @@ class Rose(object):
             print(('Bad option for alternative: %s.' % alternative))
 
     def _calc(self, Y, w, k):
-        wY = lag_spatial(w, Y)
+        wY = weights.lag_spatial(w, Y)
         dx = Y[:, -1] - Y[:,0]
         dy = wY[:, -1] - wY[:, 0]
         self.wY = wY
@@ -343,7 +344,6 @@ class Rose(object):
 
         """
 
-        use_splot = False
         try:
             import splot.giddy
             use_splot = True
@@ -412,7 +412,7 @@ class Rose(object):
             Axes in which the figure is plotted
 
         """
-        use_splot = False
+
         try:
             import splot.giddy
             use_splot = True

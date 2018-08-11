@@ -1,10 +1,8 @@
 import unittest
 import libpysal as ps
 import numpy as np
-import mapclassify.api as mc
-from giddy.markov import Markov, kullback, prais
-from giddy.markov import Spatial_Markov, LISA_Markov
-
+import mapclassify as mc
+from ..markov import Markov, kullback, prais, Spatial_Markov, LISA_Markov
 
 RTOL = 0.00001
 
@@ -12,7 +10,7 @@ RTOL = 0.00001
 class test_Markov(unittest.TestCase):
     def test___init__(self):
         # markov = Markov(class_ids, classes)
-        f = ps.open(ps.examples.get_path('usjoin.csv'))
+        f = ps.io.open(ps.examples.get_path('usjoin.csv'))
         pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)])
         q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
         m = Markov(q5)
@@ -38,12 +36,12 @@ class test_Markov(unittest.TestCase):
 
 class test_Spatial_Markov(unittest.TestCase):
     def setUp(self):
-        f = ps.open(ps.examples.get_path('usjoin.csv'))
+        f = ps.io.open(ps.examples.get_path('usjoin.csv'))
         pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)])
         pci = pci.transpose()
         self.rpci = pci / (pci.mean(axis=0))
         self.discretized = (self.rpci * 100).astype(int) % 4
-        self.w = ps.open(ps.examples.get_path("states48.gal")).read()
+        self.w = ps.io.open(ps.examples.get_path("states48.gal")).read()
         self.w.transform = 'r'
 
     def test___init__(self):
@@ -95,7 +93,8 @@ class test_Spatial_Markov(unittest.TestCase):
         np.testing.assert_array_almost_equal(P, sm.P)
 
     def test_discretized(self):
-        w = ps.weights.Contiguity.Queen.from_shapefile(ps.examples.get_path('us48.shp'))
+        w = ps.weights.Contiguity.Queen.from_shapefile(
+            ps.examples.get_path('us48.shp'))
         np.random.seed(24788)
         sm = Spatial_Markov(self.discretized, w, discrete=True)
         answer = np.array([[[  92.,   88.,   75.,   95.],
@@ -123,11 +122,11 @@ class test_Spatial_Markov(unittest.TestCase):
 
 class test_chi2(unittest.TestCase):
     def test_chi2(self):
-        f = ps.open(ps.examples.get_path('usjoin.csv'))
+        f = ps.io.open(ps.examples.get_path('usjoin.csv'))
         pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)])
         pci = pci.transpose()
         rpci = pci / (pci.mean(axis=0))
-        w = ps.open(ps.examples.get_path("states48.gal")).read()
+        w = ps.io.open(ps.examples.get_path("states48.gal")).read()
         w.transform = 'r'
         sm = Spatial_Markov(rpci, w, fixed=True, k=5, m=5)
         chi = np.array([[4.05598541e+01, 6.44644317e-04, 1.60000000e+01],
@@ -149,10 +148,10 @@ class test_chi2(unittest.TestCase):
 
 class test_LISA_Markov(unittest.TestCase):
     def test___init__(self):
-        f = ps.open(ps.examples.get_path('usjoin.csv'))
+        f = ps.io.open(ps.examples.get_path('usjoin.csv'))
         pci = np.array(
             [f.by_col[str(y)] for y in range(1929, 2010)]).transpose()
-        w = ps.open(ps.examples.get_path("states48.gal")).read()
+        w = ps.io.open(ps.examples.get_path("states48.gal")).read()
         lm = LISA_Markov(pci, w)
         obs = np.array([1, 2, 3, 4])
         np.testing.assert_array_almost_equal(obs, lm.classes)
@@ -219,7 +218,7 @@ class test_kullback(unittest.TestCase):
 
 class test_prais(unittest.TestCase):
     def test___init__(self):
-        f = ps.open(ps.examples.get_path('usjoin.csv'))
+        f = ps.io.open(ps.examples.get_path('usjoin.csv'))
         pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)])
         q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
         m = Markov(q5)
