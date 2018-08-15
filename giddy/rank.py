@@ -10,7 +10,7 @@ from scipy.stats.mstats import rankdata
 from scipy.special import erfc
 import numpy as np
 import scipy as sp
-import libpysal.api as ps
+from libpysal import weights
 
 class Theta:
     """
@@ -61,9 +61,9 @@ class Theta:
     Examples
     --------
     >>> import libpysal as ps
-    >>> from giddy.api import Theta
+    >>> from giddy.rank import Theta
     >>> import numpy as np
-    >>> f=ps.open(ps.examples.get_path("mexico.csv"))
+    >>> f=ps.io.open(ps.examples.get_path("mexico.csv"))
     >>> vnames=["pcgdp%d"%dec for dec in range(1940,2010,10)]
     >>> y=np.transpose(np.array([f.by_col[v] for v in vnames]))
     >>> regime=np.array(f.by_col['esquivel99'])
@@ -144,7 +144,7 @@ class Tau:
     # from scipy example
 
     >>> from scipy.stats import kendalltau
-    >>> from giddy.api import Tau
+    >>> from giddy.rank import Tau
     >>> x1 = [12, 2, 1, 12, 2]
     >>> x2 = [1, 4, 7, 1, 0]
     >>> kt = Tau(x1,x2)
@@ -324,15 +324,14 @@ class SpatialTau(object):
 
     Examples
     --------
-    >>> import libpysal
-    >>> import libpysal.api as ps
+    >>> import libpysal as ps
     >>> import numpy as np
-    >>> from giddy.api import SpatialTau
-    >>> f=libpysal.open(libpysal.examples.get_path("mexico.csv"))
+    >>> from giddy.rank import SpatialTau
+    >>> f=ps.io.open(ps.examples.get_path("mexico.csv"))
     >>> vnames=["pcgdp%d"%dec for dec in range(1940,2010,10)]
     >>> y=np.transpose(np.array([f.by_col[v] for v in vnames]))
     >>> regime=np.array(f.by_col['esquivel99'])
-    >>> w=ps.block_weights(regime)
+    >>> w=ps.weights.block_weights(regime)
     >>> np.random.seed(12345)
     >>> res=[SpatialTau(y[:,i],y[:,i+1],w,99) for i in range(6)]
     >>> for r in res:
@@ -448,11 +447,11 @@ class Tau_Local:
 
     Examples
     --------
-    >>> import libpysal
+    >>> import libpysal as ps
     >>> import numpy as np
-    >>> from giddy.api import Tau_Local,Tau
+    >>> from giddy.rank import Tau_Local,Tau
     >>> np.random.seed(10)
-    >>> f = libpysal.open(libpysal.examples.get_path("mexico.csv"))
+    >>> f = ps.io.open(ps.examples.get_path("mexico.csv"))
     >>> vnames = ["pcgdp%d"%dec for dec in range(1940, 2010, 10)]
     >>> y = np.transpose(np.array([f.by_col[v] for v in vnames]))
     >>> r = y / y.mean(axis=0)
@@ -547,17 +546,16 @@ class Tau_Local_Neighbor:
 
     Examples
     --------
-    >>> import libpysal
-    >>> import libpysal.api as ps
+    >>> import libpysal as ps
     >>> import numpy as np
-    >>> from giddy.api import Tau_Local_Neighbor, SpatialTau
+    >>> from giddy.rank import Tau_Local_Neighbor, SpatialTau
     >>> np.random.seed(10)
-    >>> f = libpysal.open(libpysal.examples.get_path("mexico.csv"))
+    >>> f = ps.io.open(ps.examples.get_path("mexico.csv"))
     >>> vnames = ["pcgdp%d"%dec for dec in range(1940, 2010, 10)]
     >>> y = np.transpose(np.array([f.by_col[v] for v in vnames]))
     >>> r = y / y.mean(axis=0)
     >>> regime = np.array(f.by_col['esquivel99'])
-    >>> w = ps.block_weights(regime)
+    >>> w = ps.weights.block_weights(regime)
     >>> res = Tau_Local_Neighbor(r[:,0], r[:,1], w, permutations=999)
     >>> res.tau_ln
     array([-0.2       ,  1.        ,  1.        ,  1.        ,  0.33333333,
@@ -715,17 +713,16 @@ class Tau_Local_Neighborhood:
 
     Examples
     --------
-    >>> import libpysal
-    >>> import libpysal.api as ps
-    >>> from giddy.api import Tau_Local_Neighborhood
+    >>> import libpysal as ps
+    >>> from giddy.rank import Tau_Local_Neighborhood
     >>> import numpy as np
     >>> np.random.seed(10)
-    >>> f = libpysal.open(libpysal.examples.get_path("mexico.csv"))
+    >>> f = ps.io.open(ps.examples.get_path("mexico.csv"))
     >>> vnames = ["pcgdp%d"%dec for dec in range(1940, 2010, 10)]
     >>> y = np.transpose(np.array([f.by_col[v] for v in vnames]))
     >>> r = y / y.mean(axis=0)
     >>> regime = np.array(f.by_col['esquivel99'])
-    >>> w = ps.block_weights(regime)
+    >>> w = ps.weights.block_weights(regime)
     >>> res = Tau_Local_Neighborhood(r[:,0],r[:,1],w,permutations=999)
     >>> res.tau_lnhood
     array([0.06666667, 0.6       , 0.2       , 0.8       , 0.33333333,
@@ -843,11 +840,11 @@ class Tau_Regional:
 
     Examples
     --------
-    >>> import libpysal
+    >>> import libpysal as ps
     >>> import numpy as np
-    >>> from giddy.api import Tau_Regional
+    >>> from giddy.rank import Tau_Regional
     >>> np.random.seed(10)
-    >>> f = libpysal.open(libpysal.examples.get_path("mexico.csv"))
+    >>> f = ps.io.open(ps.examples.get_path("mexico.csv"))
     >>> vnames = ["pcgdp%d"%dec for dec in range(1940, 2010, 10)]
     >>> y = np.transpose(np.array([f.by_col[v] for v in vnames]))
     >>> r = y / y.mean(axis=0)
@@ -894,7 +891,7 @@ class Tau_Regional:
         for i, r in enumerate(reg):
             P[ur.index(r), i] = 1  # construct P matrix
 
-        w = ps.block_weights(regime)
+        w = weights.block_weights(regime)
         w.transform = 'b'
         W = w.full()[0]
         WH = np.ones((self.n, self.n)) - np.eye(self.n) - W

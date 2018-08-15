@@ -12,9 +12,9 @@ from .ergodic import steady_state as STEADY_STATE
 from .components import Graph
 from scipy import stats
 from operator import gt
-import libpysal.api as ps
+from libpysal import weights
 from esda.moran import Moran_Local
-import mapclassify.api as mc
+import mapclassify as mc
 import itertools
 
 # TT predefine LISA transitions
@@ -75,7 +75,7 @@ class Markov(object):
     Examples
     --------
     >>> import numpy as np
-    >>> from giddy.api import Markov
+    >>> from giddy.markov import Markov
     >>> c = [['b','a','c'],['c','c','a'],['c','b','c']]
     >>> c.extend([['a','a','b'], ['a','b','c']])
     >>> c = np.array(c)
@@ -92,8 +92,8 @@ class Markov(object):
     US nominal per capita income 48 states 81 years 1929-2009
 
     >>> import libpysal
-    >>> import mapclassify.api as mc
-    >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
+    >>> import mapclassify as mc
+    >>> f = libpysal.io.open(libpysal.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
 
     set classes to quintiles for each year
@@ -303,13 +303,13 @@ class Spatial_Markov(object):
     Examples
     --------
     >>> import libpysal
-    >>> from giddy.api import Spatial_Markov
+    >>> from giddy.markov import Spatial_Markov
     >>> import numpy as np
-    >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
+    >>> f = libpysal.io.open(libpysal.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
     >>> pci = pci.transpose()
     >>> rpci = pci/(pci.mean(axis=0))
-    >>> w = libpysal.open(libpysal.examples.get_path("states48.gal")).read()
+    >>> w = libpysal.io.open(libpysal.examples.get_path("states48.gal")).read()
     >>> w.transform = 'r'
 
     Now we create a `Spatial_Markov` instance for the continuous relative per
@@ -550,7 +550,7 @@ class Spatial_Markov(object):
     Let's still use the US state income time series to demonstrate. We first
     discretize them into categories and then pass them to Spatial_Markov.
 
-    >>> import mapclassify.api as mc
+    >>> import mapclassify as mc
     >>> y = mc.Quantiles(rpci.flatten(), k=5).yb.reshape(rpci.shape)
     >>> np.random.seed(5)
     >>> sm = Spatial_Markov(y, w, discrete=True, variable_name='discretized rpci')
@@ -738,10 +738,10 @@ class Spatial_Markov(object):
         '''
         if self.discrete:
             #np.random.seed(24788)
-            self.lclass_ids = ps.lag_categorical(w, self.class_ids,
+            self.lclass_ids = weights.lag_categorical(w, self.class_ids,
                                                  ties="tryself")
         else:
-            ly = ps.lag_spatial(w, y)
+            ly = weights.lag_spatial(w, y)
             self.lclass_ids, self.lag_cutoffs,self.m = self._maybe_classify(
                 ly, self.m, self.lag_cutoffs)
             self.lclasses = np.arange(self.m)
@@ -881,13 +881,12 @@ def chi2(T1, T2):
     Examples
     --------
     >>> import libpysal
-    >>> from giddy.api import Spatial_Markov
-    >>> from giddy.markov import chi2
-    >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
+    >>> from giddy.markov import Spatial_Markov, chi2
+    >>> f = libpysal.io.open(libpysal.examples.get_path("usjoin.csv"))
     >>> years = list(range(1929, 2010))
     >>> pci = np.array([f.by_col[str(y)] for y in years]).transpose()
     >>> rpci = pci/(pci.mean(axis=0))
-    >>> w = libpysal.open(libpysal.examples.get_path("states48.gal")).read()
+    >>> w = libpysal.io.open(libpysal.examples.get_path("states48.gal")).read()
     >>> w.transform='r'
     >>> sm = Spatial_Markov(rpci, w, fixed=True)
     >>> T1 = sm.T[0]
@@ -1078,11 +1077,11 @@ class LISA_Markov(Markov):
     --------
     >>> import libpysal
     >>> import numpy as np
-    >>> from giddy.api import LISA_Markov
-    >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
+    >>> from giddy.markov import LISA_Markov
+    >>> f = libpysal.io.open(libpysal.examples.get_path("usjoin.csv"))
     >>> years = list(range(1929, 2010))
     >>> pci = np.array([f.by_col[str(y)] for y in years]).transpose()
-    >>> w = libpysal.open(libpysal.examples.get_path("states48.gal")).read()
+    >>> w = libpysal.io.open(libpysal.examples.get_path("states48.gal")).read()
     >>> lm = LISA_Markov(pci,w)
     >>> lm.classes
     array([1, 2, 3, 4])
@@ -1194,7 +1193,7 @@ class LISA_Markov(Markov):
 
         ybar = y.mean(axis=0)
         r = y / ybar
-        ylag = np.array([ps.lag_spatial(w, yt) for yt in y])
+        ylag = np.array([weights.lag_spatial(w, yt) for yt in y])
         rlag = ylag / ybar
         rc = r < 1.
         rlagc = rlag < 1.
@@ -1244,11 +1243,11 @@ class LISA_Markov(Markov):
         Examples
         --------
         >>> import libpysal
-        >>> from giddy.api import LISA_Markov
-        >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
+        >>> from giddy.markov import LISA_Markov
+        >>> f = libpysal.io.open(libpysal.examples.get_path("usjoin.csv"))
         >>> years = list(range(1929, 2010))
         >>> pci = np.array([f.by_col[str(y)] for y in years]).transpose()
-        >>> w = libpysal.open(libpysal.examples.get_path("states48.gal")).read()
+        >>> w = libpysal.io.open(libpysal.examples.get_path("states48.gal")).read()
         >>> np.random.seed(10)
         >>> lm_random = LISA_Markov(pci, w, permutations=99)
         >>> r = lm_random.spillover()
@@ -1383,7 +1382,7 @@ def kullback(F):
     Examples
     --------
     >>> import numpy as np
-    >>> from giddy.api import kullback
+    >>> from giddy.markov import kullback
     >>> s1 = np.array([
     ...         [ 22, 11, 24,  2,  2,  7],
     ...         [ 5, 23, 15,  3, 42,  6],
@@ -1469,8 +1468,8 @@ def prais(pmat):
     --------
     >>> import numpy as np
     >>> import libpysal
-    >>> from giddy.api import prais
-    >>> f = libpysal.open(libpysal.examples.get_path("usjoin.csv"))
+    >>> from giddy.markov import Markov,prais
+    >>> f = libpysal.io.open(libpysal.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
     >>> q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
     >>> m = Markov(q5)

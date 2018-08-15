@@ -8,7 +8,7 @@ python:
   - 3.6
 
 env:
-  - PYSAL_PYPI=true
+  - PYSAL_PYPI=true #testing on dependencies libpysal, esda, mapcalssify on pypi
   - PYSAL_PYPI=false
 
 matrix:
@@ -33,8 +33,12 @@ install:
   - pip install -r requirements_tests.txt
   - pip install https://github.com/pysal/splot/archive/master.zip
   - if "$PYSAL_PYPI"; then
-        echo 'testing pypi libpysal' && pip install libpysal;
-        else echo 'testing git libpysal'; git clone https://github.com/pysal/libpysal.git; cd libpysal; pip install .; cd ../;
+        echo 'testing pypi libpysal esda mapclassify' && pip install libpysal esda mapclassify;
+    else
+        echo 'testing git libpysal esda mapclassify';
+        git clone https://github.com/pysal/libpysal.git; cd libpysal; pip install .; cd ../;
+        git clone https://github.com/pysal/mapclassify.git; cd mapclassify; pip install .; cd ../;
+        git clone https://github.com/pysal/esda.git; cd esda; pip install .; cd ../;
     fi;
   # We need the Agg backend to use Matplotlib on TravisCI, otherwise
   # we get an error "DISPLAY variable not set"
