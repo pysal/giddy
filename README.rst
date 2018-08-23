@@ -36,10 +36,6 @@ giddy modules
 - giddy.mobility  Mobility indices
 - giddy.rank  Spatial decomposition of exchange mobility measure
 
-Mimicking parts of the original PySAL api can be done with
-
-``import giddy.api as ps``
-
 ************
 Installation
 ************
