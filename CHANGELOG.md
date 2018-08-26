@@ -1,3 +1,44 @@
+Version 2.0.0 (2018-08-26)
+
+This release does not add any new functionality to `giddy`, but
+instead features api changes in `giddy` and its
+pysal submodule dependencies `mapclassify`, `libpysal`, and `esda`. More
+specifically, the `giddy.api` module which was originally designed to
+ facilitate a smoother transition from the old metapackage pysal to the
+ refactored submodule structure (see [here](http://pysal.org/about.html#migrating-to-pysal-2-0)
+ for details) was removed as we are moving away from the
+refactoring stage and looking at the future development.
+
+We closed a total of 20 issues (enhancements and bug fixes) through 9 pull requests, since our last release on 2018-07-27.
+
+## Issues Closed
+  - remove giddy.api in README.rst (#66)
+  -  chore: update for libpysal lower case module name changes (#65)
+  - remove api.py (#62)
+  - set up travis dual testing against mapclassify and  esda (#63)
+  - replace `libpysal.api` imports with new imports in `markov.py` and `d… (#61)
+  - Remove api.py and account for changes in (incoming) API of mapclassify, esda, and libpysal (#64)
+  - version giddy only in giddy/__ini__.py (#60)
+  - remove duplicate makefile for sphinx build (#59)
+  - add zenodo doi badge to README (#58)
+  - add changelog for the release 1.2.0 (#57)
+  - prepare for release 1.2.0 (#56)
+
+## Pull Requests
+  - remove giddy.api in README.rst (#66)
+  -  chore: update for libpysal lower case module name changes (#65)
+  - replace `libpysal.api` imports with new imports in `markov.py` and `d… (#61)
+  - Remove api.py and account for changes in (incoming) API of mapclassify, esda, and libpysal (#64)
+  - version giddy only in giddy/__ini__.py (#60)
+  - remove duplicate makefile for sphinx build (#59)
+  - add zenodo doi badge to README (#58)
+  - add changelog for the release 1.2.0 (#57)
+  - prepare for release 1.2.0 (#56)
+
+The following individuals contributed to this release:
+
+  - Wei Kang
+  - Stefanie Lumnitz
 
 v<1.2.0>, 2018-07-27
 
