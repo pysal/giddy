@@ -26,6 +26,11 @@ addition to space-time LISA and spatial markov methods.
 This package is part of a `refactoring of PySAL
 <https://github.com/pysal/pysal/wiki/PEP-13:-Refactor-PySAL-Using-Submodules>`_.
 
+*************
+Documentation
+*************
+
+Online documentation is available `here <https://giddy.readthedocs.io>`_.
 
 *************
 giddy modules
@@ -67,10 +72,34 @@ License
 The project is licensed under the `BSD
 license <https://github.com/pysal/giddy/blob/master/LICENSE.txt>`__.
 
+***************
+BibTeX Citation
+***************
+
+.. code-block::
+    @misc{giddy_2018_1403906,
+      author       = {Sergio Rey and
+                      Wei Kang and
+                      Philip Stephens and
+                      Nicholas Malizia and
+                      Levi John Wolf and
+                      Stefanie Lumnitz and
+                      Jay Laura and
+                      Charles Schmidt and
+                      Eli knaap and
+                      Andy Eschbacher},
+      title        = {pysal/giddy: giddy 2.0.0},
+      month        = Aug,
+      year         = 2018,
+      doi          = {10.5281/zenodo.1403906},
+      url          = {https://doi.org/10.5281/zenodo.1403906}
+    }
+
 *******
 Funding
 *******
 
 NSF Award #1421935 `New Approaches to Spatial Distribution
 Dynamics <https://www.nsf.gov/awardsearch/showAward?AWD_ID=1421935>`__
+
 
