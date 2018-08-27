@@ -16,6 +16,12 @@ role of space in the evolution of distributions over time.
 
 ![us_qunitile_maps](figs/us_qunitile_maps.png)
 
+Documentation
+-------------
+
+Online documentation is available [here](https://giddy.readthedocs.io).
+
+
 Features
 --------
 - Directional LISA, inference and visualization as rose diagram
@@ -61,7 +67,6 @@ Install the development version on [pysal/giddy](https://github.com/pysal/giddy)
 pip install https://github.com/pysal/giddy/archive/master.zip
 ```
 
-
 #### Requirements
 
 - libpysal
@@ -84,6 +89,30 @@ License
 -------
 
 The project is licensed under the [BSD license](https://github.com/pysal/giddy/blob/master/LICENSE.txt).
+
+
+BibTeX Citation
+---------------
+
+```
+@misc{giddy_2018_1403906,
+  author       = {Sergio Rey and
+                  Wei Kang and
+                  Philip Stephens and
+                  Nicholas Malizia and
+                  Levi John Wolf and
+                  Stefanie Lumnitz and
+                  Jay Laura and
+                  Charles Schmidt and
+                  Eli knaap and
+                  Andy Eschbacher},
+  title        = {pysal/giddy: giddy 2.0.0},
+  month        = Aug,
+  year         = 2018,
+  doi          = {10.5281/zenodo.1403906},
+  url          = {https://doi.org/10.5281/zenodo.1403906}
+}
+```
 
 Funding
 -------
