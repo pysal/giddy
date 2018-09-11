@@ -16,9 +16,11 @@ Markov Methods
     giddy.markov.Markov
     giddy.markov.Spatial_Markov
     giddy.markov.LISA_Markov
+    giddy.markov.FullRank_Markov
     giddy.markov.kullback
     giddy.markov.prais
     giddy.markov.homogeneity
+    giddy.markov.sojourn_time
     giddy.ergodic.steady_state
     giddy.ergodic.fmpt
     giddy.ergodic.var_fmpt
