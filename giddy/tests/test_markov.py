@@ -3,7 +3,7 @@ import libpysal as ps
 import numpy as np
 import mapclassify as mc
 from ..markov import Markov, kullback, prais, Spatial_Markov, LISA_Markov, \
-    FullRank_Markov, sojourn_time
+    FullRank_Markov, sojourn_time, GeoRank_Markov
 
 RTOL = 0.00001
 
@@ -213,7 +213,7 @@ class test_prais(unittest.TestCase):
         np.testing.assert_array_almost_equal(prais(m.p), res)
 
 
-class test_FullRank_Markov(unittest.TestCase):
+class FullRank_Markov_Tester(unittest.TestCase):
     def test___init__(self):
         f = ps.io.open(ps.examples.get_path("usjoin.csv"))
         pci = np.array([f.by_col[str(y)] for y in range(1929,
@@ -266,9 +266,32 @@ class test_FullRank_Markov(unittest.TestCase):
                              1.25, 1.14285714, 1.33333333, 1.26984127,
                              1.25, 1.37931034, 1.42857143, 1.31147541,
                              1.26984127, 1.25, 1.31147541, 1.25,
-                             1.19402985, 1.25,  1.53846154, 1.6, 1.86046512,
+                             1.19402985, 1.25, 1.53846154, 1.6, 1.86046512,
                              2., 3.07692308, 26.66666667])
         np.testing.assert_array_almost_equal(m.sojourn_time, expected)
+
+
+class GeoRank_Markov_Tester(unittest.TestCase):
+    def test___init__(self):
+        f = ps.io.open(ps.examples.get_path("usjoin.csv"))
+        pci = np.array([f.by_col[str(y)] for y in range(1929,
+                                                        2010)]).transpose()
+        gm = GeoRank_Markov(pci)
+        expected = np.array([38., 0., 6., 0., 0., 0., 0., 0., 0., 3.])
+        np.testing.assert_array_almost_equal(gm.transitions[:10, 0], expected)
+        expected = np.array([0.475, 0.1875, 0.55, 0.425, 0.1375, 0.7375,
+                             0.4125, 0.2, 0.2375, 0.1])
+        np.testing.assert_array_almost_equal(gm.p.diagonal()[:10], expected)
+        expected = np.array([48., 108.25928005, 76.96801786,
+                             122.39954444, 116.18226087, 126.19058109,
+                             122.35062239, 111.70536817, 103.91572935,
+                             99.71598303])
+        np.testing.assert_array_almost_equal(gm.fmpt[:10, 0], expected)
+        expected = np.array([1.9047619, 1.23076923, 2.22222222, 1.73913043,
+                             1.15942029, 3.80952381, 1.70212766, 1.25,
+                             1.31147541, 1.11111111])
+        np.testing.assert_array_almost_equal(gm.sojourn_time[:10], expected)
+
 
 class Sojourn_time_Tester(unittest.TestCase):
     def setUp(self):
@@ -278,6 +301,7 @@ class Sojourn_time_Tester(unittest.TestCase):
         obs = sojourn_time(self.p)
         exp = np.array([2., 1., 2.])
         np.testing.assert_array_almost_equal(exp, obs)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -17,6 +17,7 @@ Markov Methods
     giddy.markov.Spatial_Markov
     giddy.markov.LISA_Markov
     giddy.markov.FullRank_Markov
+    giddy.markov.GeoRank_Markov
     giddy.markov.kullback
     giddy.markov.prais
     giddy.markov.homogeneity

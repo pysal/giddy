@@ -4,7 +4,8 @@ Markov based methods for spatial dynamics.
 __author__ = "Sergio J. Rey <sjsrey@gmail.com>, Wei Kang <weikang9009@gmail.com>"
 
 __all__ = ["Markov", "LISA_Markov", "Spatial_Markov", "kullback",
-           "prais", "homogeneity", "FullRank_Markov", "sojourn_time"]
+           "prais", "homogeneity", "FullRank_Markov", "sojourn_time",
+           "GeoRank_Markov"]
 
 import numpy as np
 from .ergodic import fmpt
@@ -1747,7 +1748,7 @@ class FullRank_Markov:
     ----------
     y            : array
                    (n, t) with t>>n, one row per observation (n total),
-                   one column recording the state of each observation,
+                   one column recording the value of each observation,
                    with as many columns as time periods.
 
     Attributes
@@ -1756,12 +1757,12 @@ class FullRank_Markov:
                    ranks of the original y array (by columns): higher values
                    rank higher, e.g. the largest value in a column ranks 1.
     p            : array
-                   (n, n), transition probability matrix for Full Rank Markov
-                   Markov.
+                   (n, n), transition probability matrix for Full
+                   Rank Markov.
     steady_state : array
                    (n, ), ergodic distribution.
     transitions  : array
-                   (n, n), count of transitions between each state/rank i and j
+                   (n, n), count of transitions between each rank i and j
     fmpt         : array
                    (n, n), first mean passage times.
     sojourn_time : array
@@ -1771,7 +1772,7 @@ class FullRank_Markov:
     -----
     Refer to :cite:`Rey2014a` Equation (11) for details. Ties are resolved by
     assigning distinct ranks, corresponding to the order that the values occur
-    in each cross secion.
+    in each cross section.
 
     Examples
     --------
@@ -1901,3 +1902,126 @@ def sojourn_time(p):
     if not (1 - pii).all():
         print("Sojourn times are infinite for absorbing states!")
     return 1 / (1 - pii)
+
+
+class GeoRank_Markov:
+    """
+    Geographic Rank Markov.
+    Geographic units are considered as Markov states.
+
+    Parameters
+    ----------
+    y              : array
+                     (n, t) with t>>n, one row per observation (n total),
+                     one column recording the value of each observation,
+                     with as many columns as time periods.
+
+    Attributes
+    ----------
+    p            : array
+                   (n, n), transition probability matrix for
+                   geographic rank Markov.
+    steady_state : array
+                   (n, ), ergodic distribution.
+    transitions  : array
+                   (n, n), count of rank transitions between each
+                   geographic unit i and j.
+    fmpt         : array
+                   (n, n), first mean passage times.
+    sojourn_time : array
+                   (n, ), sojourn times.
+
+    Notes
+    -----
+    Refer to :cite:`Rey2014a` Equation (13)-(16) for details. Ties are
+    resolved by assigning distinct ranks, corresponding to the order
+    that the values occur in each cross section.
+
+    Examples
+    --------
+    US nominal per capita income 48 states 81 years 1929-2009
+
+    >>> from giddy.markov import GeoRank_Markov
+    >>> import libpysal as ps
+    >>> import numpy as np
+    >>> f = ps.io.open(ps.examples.get_path("usjoin.csv"))
+    >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)]).transpose()
+    >>> m = GeoRank_Markov(pci)
+    >>> m.transitions
+    array([[38.,  0.,  8., ...,  0.,  0.,  0.],
+           [ 0., 15.,  0., ...,  0.,  1.,  0.],
+           [ 6.,  0., 44., ...,  5.,  0.,  0.],
+           ...,
+           [ 2.,  0.,  5., ..., 34.,  0.,  0.],
+           [ 0.,  0.,  0., ...,  0., 18.,  2.],
+           [ 0.,  0.,  0., ...,  0.,  3., 14.]])
+    >>> m.p
+    array([[0.475 , 0.    , 0.1   , ..., 0.    , 0.    , 0.    ],
+           [0.    , 0.1875, 0.    , ..., 0.    , 0.0125, 0.    ],
+           [0.075 , 0.    , 0.55  , ..., 0.0625, 0.    , 0.    ],
+           ...,
+           [0.025 , 0.    , 0.0625, ..., 0.425 , 0.    , 0.    ],
+           [0.    , 0.    , 0.    , ..., 0.    , 0.225 , 0.025 ],
+           [0.    , 0.    , 0.    , ..., 0.    , 0.0375, 0.175 ]])
+    >>> m.fmpt
+    array([[ 48.        ,  63.35532038,  92.75274652, ...,  82.47515731,
+             71.01114491,  68.65737127],
+           [108.25928005,  48.        , 127.99032986, ...,  92.03098299,
+             63.36652935,  61.82733039],
+           [ 76.96801786,  64.7713783 ,  48.        , ...,  73.84595169,
+             72.24682723,  69.77497173],
+           ...,
+           [ 93.3107474 ,  62.47670463, 105.80634118, ...,  48.        ,
+             69.30121319,  67.08838421],
+           [113.65278078,  61.1987031 , 133.57991745, ...,  96.0103924 ,
+             48.        ,  56.74165107],
+           [114.71894813,  63.4019776 , 134.73381719, ...,  97.287895  ,
+             61.45565054,  48.        ]])
+    >>> m.sojourn_time
+    array([ 1.9047619 ,  1.23076923,  2.22222222,  1.73913043,  1.15942029,
+            3.80952381,  1.70212766,  1.25      ,  1.31147541,  1.11111111,
+            1.73913043,  1.37931034,  1.17647059,  1.21212121,  1.33333333,
+            1.37931034,  1.09589041,  2.10526316,  2.        ,  1.45454545,
+            1.26984127, 26.66666667,  1.19402985,  1.23076923,  1.09589041,
+            1.56862745,  1.26984127,  2.42424242,  1.50943396,  2.        ,
+            1.29032258,  1.09589041,  1.6       ,  1.42857143,  1.25      ,
+            1.45454545,  1.29032258,  1.6       ,  1.17647059,  1.56862745,
+            1.25      ,  1.37931034,  1.45454545,  1.42857143,  1.29032258,
+            1.73913043,  1.29032258,  1.21212121])
+
+    """
+
+    def __init__(self, y):
+        y = np.asarray(y)
+        n = y.shape[0]
+        # resolve ties: All values are given a distinct rank, corresponding
+        # to the order that the values occur in each cross section.
+        ranks = np.array([rankdata(col, method='ordinal') for col in y.T]).T
+        geo_ranks = np.argsort(ranks, axis=0) + 1
+        grm = Markov(geo_ranks)
+        self.p = grm.p
+        self.transitions = grm.transitions
+
+    @property
+    def steady_state(self):
+        if not hasattr(self, '_steady_state'):
+            self._steady_state = STEADY_STATE(self.p)
+        return self._steady_state
+
+
+    @property
+    def fmpt(self):
+        if not hasattr(self, '_fmpt'):
+            self._fmpt = fmpt(self.p)
+        return self._fmpt
+
+
+    @property
+    def sojourn_time(self):
+        if not hasattr(self, '_st'):
+            self._st = sojourn_time(self.p)
+        return self._st
+
+
+
+
