@@ -43,7 +43,8 @@ extensions = [#'sphinx_gallery.gen_gallery',
               'sphinx.ext.intersphinx',
               'numpydoc',
               #'sphinx.ext.napoleon',
-              'matplotlib.sphinxext.plot_directive']
+              'matplotlib.sphinxext.plot_directive',
+              'nbsphinx']
 
 
 
@@ -176,8 +177,8 @@ html_theme_options = {
     'bootstrap_version': "3",
 
     'navbar_links': [
-                     #("Gallery", "auto_examples/index"),
                      ("Installation", "installation"),
+                     ("Tutorial", "tutorial"),
                      ("API", "api"),
                      ("References", "references"),
                      ],

@@ -60,6 +60,7 @@ addition to space-time LISA and spatial markov methods.
    :caption: Contents:
 
    Installation <installation>
+   Tutorial <tutorial>
    API <api>
    References <references>
 
