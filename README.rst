@@ -13,6 +13,9 @@ addition to space-time LISA and spatial markov methods.
 .. image:: https://api.travis-ci.org/pysal/giddy.svg
    :target: https://travis-ci.org/pysal/giddy
 
+.. image:: https://coveralls.io/repos/github/pysal/giddy/badge.svg?branch=master
+   :target: https://coveralls.io/github/pysal/giddy?branch=master
+
 .. image:: https://badges.gitter.im/pysal/giddy.svg
    :target: https://gitter.im/pysal/giddy
 
