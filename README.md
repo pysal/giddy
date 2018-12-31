@@ -2,6 +2,7 @@ GeospatIal Distribution DYnamics (giddy) in PySAL
 =================================================
 
 [![Build Status](https://travis-ci.org/pysal/giddy.svg?branch=master)](https://travis-ci.org/pysal/giddy)
+[![Coverage Status](https://coveralls.io/repos/github/weikang9009/giddy/badge.svg?branch=master)](https://coveralls.io/github/weikang9009/giddy?branch=master)
 [![Gitter room](https://badges.gitter.im/pysal/giddy.svg)](https://gitter.im/pysal/giddy)
 [![Documentation Status](https://readthedocs.org/projects/giddy/badge/?version=latest)](https://giddy.readthedocs.io/en/latest/?badge=latest)
 [![PyPI version](https://badge.fury.io/py/giddy.svg)](https://badge.fury.io/py/giddy)
