@@ -10,6 +10,7 @@ __all__ = ['Rose']
 import warnings
 import numpy as np
 from libpysal import weights
+from libpysal.common import requires as _requires
 
 _POS8 = np.array([1, 1, 0, 0, 1, 1, 0, 0])
 _POS4 = np.array([1, 0, 1, 0])
@@ -319,6 +320,7 @@ class Rose(object):
         results['dy'] = dy
         return results
 
+    @_requires('splot')
     def plot(self, attribute=None, ax=None, **kwargs):
         """
         Plot the rose diagram.
@@ -343,30 +345,9 @@ class Rose(object):
 
         """
 
-        try:
-            import splot.giddy
-            use_splot = True
-        except ImportError:
-            warnings.warn('This method relies on importing `splot` in future',
-                          DeprecationWarning)
-            use_splot = False
-
-        if use_splot:
-            fig, ax = splot.giddy.dynamic_lisa_rose(self, attribute=attribute,
-                                                    ax=ax, **kwargs)
-        else:
-            # This can be removed if splot has been released with support for
-            # giddy.directional TODO add **kwargs
-            import matplotlib.cm as cm
-            import matplotlib.pyplot as plt
-            ax = plt.subplot(111, projection='polar')
-            ax.set_rlabel_position(315)
-            if attribute is None:
-                c = ax.scatter(self.theta, self.r)
-            else:
-                c = ax.scatter(self.theta, self.r, c=attribute)
-                plt.colorbar(c)
-            fig = ax.get_figure()
+        from splot.giddy import dynamic_lisa_rose
+        fig, ax = dynamic_lisa_rose(self, attribute=attribute,
+                                    ax=ax, **kwargs)
         return fig, ax
 
     def plot_origin(self):  # TODO add attribute option to color vectors
@@ -387,6 +368,7 @@ class Rose(object):
         plt.xlim(xlim)
         plt.ylim(ylim)
 
+    @_requires('splot')
     def plot_vectors(self, arrows=True):
         """
         Plot vectors of positional transition of LISA values
@@ -412,31 +394,7 @@ class Rose(object):
 
         """
 
-        try:
-            import splot.giddy
-            use_splot = True
-        except ImportError:
-            warnings.warn('This method relies on importing `splot` in future',
-                          DeprecationWarning)
-            use_splot = False
+        from splot.giddy import dynamic_lisa_vectors
 
-        if use_splot:
-            fig, ax = splot.giddy.dynamic_lisa_vectors(self, arrows=arrows)
-        else:
-            # This can be removed if splot has been released with support for
-            # giddy.directional TODO add **kwargs, arrow=True
-            import matplotlib.cm as cm
-            import matplotlib.pyplot as plt
-            ax = plt.subplot(111)
-            xlim = [self.Y.min(), self.Y.max()]
-            ylim = [self.wY.min(), self.wY.max()]
-            for i in range(len(self.Y)):
-                xs = self.Y[i, :]
-                ys = self.wY[i, :]
-                # TODO change this to scale with attribute
-                ax.plot(xs, ys, '-b')
-            plt.axis('equal')
-            plt.xlim(xlim)
-            plt.ylim(ylim)
-            fig = ax.get_figure()
+        fig, ax = dynamic_lisa_vectors(self, arrows=arrows)
         return fig, ax

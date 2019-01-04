@@ -31,14 +31,14 @@ install:
   - conda install --yes pip
   - pip install -r requirements.txt
   - pip install -r requirements_tests.txt
-  - pip install https://github.com/pysal/splot/archive/master.zip
   - if "$PYSAL_PYPI"; then
-        echo 'testing pypi libpysal esda mapclassify';
+        echo 'testing pypi libpysal esda mapclassify splot';
     else
-        echo 'testing git libpysal esda mapclassify';
+        echo 'testing git libpysal esda mapclassify splot';
         git clone https://github.com/pysal/libpysal.git; cd libpysal; pip install .; cd ../;
         git clone https://github.com/pysal/mapclassify.git; cd mapclassify; pip install .; cd ../;
         git clone https://github.com/pysal/esda.git; cd esda; pip install .; cd ../;
+        git clone https://github.com/pysal/splot.git; cd splot; pip install .; cd ../;
     fi;
   # We need the Agg backend to use Matplotlib on TravisCI, otherwise
   # we get an error "DISPLAY variable not set"
