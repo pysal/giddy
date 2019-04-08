@@ -2,10 +2,11 @@ GeospatIal Distribution DYnamics (giddy) in PySAL
 =================================================
 
 [![Build Status](https://travis-ci.org/pysal/giddy.svg?branch=master)](https://travis-ci.org/pysal/giddy)
-[![Coverage Status](https://coveralls.io/repos/github/pysal/giddy/badge.svg?branch=master)](https://coveralls.io/github/pysal/giddy?branch=master)[![Gitter room](https://badges.gitter.im/pysal/giddy.svg)](https://gitter.im/pysal/giddy)
+[![Coverage Status](https://coveralls.io/repos/github/pysal/giddy/badge.svg?branch=master)](https://coveralls.io/github/pysal/giddy?branch=master)
+[![Gitter room](https://badges.gitter.im/pysal/giddy.svg)](https://gitter.im/pysal/giddy)
 [![Documentation Status](https://readthedocs.org/projects/giddy/badge/?version=latest)](https://giddy.readthedocs.io/en/latest/?badge=latest)
-[![PyPI version](https://badge.fury.io/py/giddy.svg)](https://badge.fury.io/py/giddy)
-[![DOI](https://zenodo.org/badge/91390088.svg)](https://zenodo.org/badge/latestdoi/91390088)
+[![PyPI version](https://badge.fury.io/py/pypi.svg)](https://badge.fury.io/py/pypi)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2633309.svg)](https://doi.org/10.5281/zenodo.2633309)
 
 Giddy is an open-source python library for the analysis of dynamics of
 longitudinal spatial data. Originating from the spatial dynamics module
