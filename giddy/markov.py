@@ -212,6 +212,9 @@ class Spatial_Markov(object):
                       spatial lags of continuous time series. Default is
                       None, meaning that quantiles will be used for the
                       discretization.
+    manual_lag      : array, optional
+                      users can provide a series of manually specified spatial
+                      lag values, e.g. using a model-based approach
     variable_name   : string
                       name of variable.
 
@@ -593,7 +596,7 @@ class Spatial_Markov(object):
 
     def __init__(self, y, w, k=4, m=4, permutations=0, fixed=True,
                  discrete=False, cutoffs=None, lag_cutoffs=None,
-                 variable_name=None):
+                 variable_name=None, manual_lag=False):
 
         y = np.asarray(y)
         self.fixed = fixed
@@ -602,6 +605,7 @@ class Spatial_Markov(object):
         self.m = m
         self.lag_cutoffs = lag_cutoffs
         self.variable_name = variable_name
+        self.manual_lag = manual_lag
 
         if discrete:
             merged = list(itertools.chain.from_iterable(y))
@@ -615,6 +619,20 @@ class Spatial_Markov(object):
                 y_int.append(list(map(label_dict.get, yi)))
             self.class_ids = np.array(y_int)
             self.lclass_ids = self.class_ids
+        elif manual_lag is not False: 
+            assert len(self.manual_lag) == len(y), "`lags must be the same length as the observation data"
+            merged = list(itertools.chain.from_iterable(y))
+            classes = np.unique(merged)
+            self.classes = classes
+            self.k = len(classes)
+            self.m = self.k
+            label_dict = dict(zip(classes, range(self.k)))
+            y_int = []
+            for yi in y:
+                y_int.append(list(map(label_dict.get, yi)))
+            self.class_ids = np.array(y_int)
+            self.lclass_ids = np.unique(self.manual_lag)
+            self.k = len(np.unique(self.manual_lag))
         else:
             self.class_ids, self.cutoffs, self.k = self._maybe_classify(
                 y, k=k, cutoffs=self.cutoffs)
@@ -1981,7 +1999,3 @@ class GeoRank_Markov:
         if not hasattr(self, '_st'):
             self._st = sojourn_time(self.p)
         return self._st
-
-
-
-
