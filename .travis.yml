@@ -1,11 +1,12 @@
 language: python
-sudo: false
+dist: xenial
+sudo: true
 branches:
   only:
     - master
 python:
-  - 3.5
   - 3.6
+  - 3.7
 
 env:
   - PYSAL_PYPI=true #testing on dependencies libpysal, esda, mapcalssify on pypi
@@ -13,9 +14,9 @@ env:
 
 matrix:
   allow_failures:
-      - python: 3.5
-        env: PYSAL_PYPI=false
       - python: 3.6
+        env: PYSAL_PYPI=false
+      - python: 3.7
         env: PYSAL_PYPI=false
 
 before_install:
