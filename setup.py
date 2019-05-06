@@ -63,7 +63,7 @@ def setup_package():
           maintainer='Wei Kang',
           maintainer_email='weikang9009@gmail.com',
           py_modules=['giddy'],
-          python_requires='>3.4',
+          python_requires='>3.5',
           test_suite='nose.collector',
           tests_require=['nose'],
           keywords='spatial statistics, spatiotemporal analysis',
@@ -76,8 +76,8 @@ def setup_package():
             'Topic :: Scientific/Engineering :: GIS',
             'License :: OSI Approved :: BSD License',
             'Programming Language :: Python',
-            'Programming Language :: Python :: 3.5',
-            'Programming Language :: Python :: 3.6'
+            'Programming Language :: Python :: 3.6',
+            'Programming Language :: Python :: 3.7'
             ],
           license='3-Clause BSD',
           packages=find_packages(),
