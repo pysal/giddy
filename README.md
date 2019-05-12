@@ -106,7 +106,7 @@ BibTeX Citation
                   Stefanie Lumnitz and
                   Jay Laura and
                   Charles Schmidt and
-                  Eli knaap and
+                  Eli Knaap and
                   Andy Eschbacher},
   title        = {pysal/giddy: giddy 2.0.0},
   month        = Aug,
