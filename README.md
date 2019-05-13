@@ -57,7 +57,7 @@ Examples
 Installation
 ------------
 
-Install the stable version released on the [Python Package Index](http://pypi.python.org/pypi/pysal) from the command line:
+Install the stable version released on the [Python Package Index](https://pypi.org/project/giddy/) from the command line:
 
 ```
 pip install giddy
@@ -106,7 +106,7 @@ BibTeX Citation
                   Stefanie Lumnitz and
                   Jay Laura and
                   Charles Schmidt and
-                  Eli knaap and
+                  Eli Knaap and
                   Andy Eschbacher},
   title        = {pysal/giddy: giddy 2.0.0},
   month        = Aug,
