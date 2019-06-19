@@ -14,7 +14,7 @@ giddy a try if you are interested in space-time analysis!
 
 DOCLINES = __doc__.split("\n")
 
-with open('README.rst', 'r', encoding='utf8') as file:
+with open('README.md', 'r', encoding='utf8') as file:
     long_description = file.read()
 
 
@@ -58,7 +58,7 @@ def setup_package():
           description=DOCLINES[0],
           #long_description="\n".join(DOCLINES[2:]),
           long_description = long_description,
-          long_description_content_type = 'text/x-rst',
+          # long_description_content_type = 'text/x-rst',
           url='https://github.com/pysal/giddy',
           maintainer='Wei Kang',
           maintainer_email='weikang9009@gmail.com',
