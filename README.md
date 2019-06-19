@@ -97,22 +97,23 @@ BibTeX Citation
 ---------------
 
 ```
-@misc{giddy_2018_1403906,
-  author       = {Sergio Rey and
-                  Wei Kang and
+@misc{giddy_2019_2633309,
+  author       = {Wei Kang and
+                  Sergio Rey and
                   Philip Stephens and
                   Nicholas Malizia and
                   Levi John Wolf and
                   Stefanie Lumnitz and
-                  Jay Laura and
+                  jlaura and
                   Charles Schmidt and
-                  Eli Knaap and
+                  eli knaap and
+                  James Gaboardi and
                   Andy Eschbacher},
-  title        = {pysal/giddy: giddy 2.0.0},
-  month        = Aug,
-  year         = 2018,
-  doi          = {10.5281/zenodo.1403906},
-  url          = {https://doi.org/10.5281/zenodo.1403906}
+  title        = {pysal/giddy: giddy 2.1.0},
+  month        = apr,
+  year         = 2019,
+  doi          = {10.5281/zenodo.2633309},
+  url          = {https://doi.org/10.5281/zenodo.2633309}
 }
 ```
 

@@ -83,7 +83,7 @@ BibTeX Citation
 ***************
 
 .. code-block::
-    @misc{wei_kang_2019_2633309,
+    @misc{giddy_2019_2633309,
       author       = {Wei Kang and
                       Sergio Rey and
                       Philip Stephens and
@@ -99,7 +99,7 @@ BibTeX Citation
       month        = apr,
       year         = 2019,
       doi          = {10.5281/zenodo.2633309},
-      url          = {https://doi.org/10.5281/zenodo.1322825}
+      url          = {https://doi.org/10.5281/zenodo.2633309}
     }
 
 *******
