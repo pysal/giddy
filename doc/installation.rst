@@ -21,6 +21,11 @@ Type::
 
   pip install .
 
+You may also install the latest stable giddy via `conda-forge`_ channel by
+running::
+
+  $ conda install --channel conda-forge giddy
+
 Installing development version
 ------------------------------
 
@@ -41,3 +46,4 @@ contribute to the giddy development.
 .. _Python Package Index: https://pypi.org/project/giddy/
 .. _pysal/giddy: https://github.com/pysal/giddy
 .. _fork: https://help.github.com/articles/fork-a-repo/
+.. _conda-forge: https://github.com/conda-forge/giddy-feedstock
