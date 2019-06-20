@@ -1,3 +1,41 @@
+# Version 2.2.0 (2019-06-20)
+
+We closed a total of 25 issues (enhancements and bug fixes) through 11 pull requests, since our last release on 2019-04-08.
+
+## Issues Closed
+  - (docs) update installation instructions (#98)
+  - (docs) change the css to accommodate new versions of sphinx and sphinx bootstrap theme  (#97)
+  - PyPi page configuration (#96)
+  - pip install github master.zip of pysal dependencies (#95)
+  - update README.md (#93)
+  - Update readme (#94)
+  - migrate from readthedocs configuration file v1 to v2 (#92)
+  - updating supported python versions (3.6 and 3.7) in setup.py (#91)
+  - Move testing off of 3.5 and add 3.7 (#90)
+  - release on conda-forge (#89)
+  - allow user specified lag and check shape (#53)
+  - Update zenodo doi and pypi badge for version 2.1.0 (new release) (#87)
+  - (bug) format readme.rst as long_description for pypi display (#86)
+  - Prepare for release 2.1.0 (#85)
+
+## Pull Requests
+  - (docs) update installation instructions (#98)
+  - (docs) change the css to accommodate new versions of sphinx and sphinx bootstrap theme  (#97)
+  - PyPi page configuration (#96)
+  - pip install github master.zip of pysal dependencies (#95)
+  - Update readme (#94)
+  - migrate from readthedocs configuration file v1 to v2 (#92)
+  - updating supported python versions (3.6 and 3.7) in setup.py (#91)
+  - Move testing off of 3.5 and add 3.7 (#90)
+  - Update zenodo doi and pypi badge for version 2.1.0 (new release) (#87)
+  - (bug) format readme.rst as long_description for pypi display (#86)
+  - Prepare for release 2.1.0 (#85)
+
+The following individuals contributed to this release:
+
+  - Wei Kang
+  - James Gaboardi
+  
 # Version 2.1.0 (2019-04-08)
 
 We closed a total of 36 issues (enhancements and bug fixes) through 16 pull requests, since our last release on 2018-08-26.
