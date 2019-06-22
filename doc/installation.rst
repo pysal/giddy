@@ -3,8 +3,8 @@
 Installation
 ============
 
-giddy supports python `3.5`_ and `3.6`_ only. Please make sure that you are
-operating in a python 3 environment.
+From version 2.2.0, giddy supports python `3.6`_ and `3.7`_ only.
+Please make sure that you are operating in a python 3 environment.
 
 Installing released version
 ---------------------------
@@ -21,6 +21,11 @@ Type::
 
   pip install .
 
+You may also install the latest stable giddy via `conda-forge`_ channel by
+running::
+
+  $ conda install --channel conda-forge giddy
+
 Installing development version
 ------------------------------
 
@@ -36,8 +41,9 @@ your fork. By making changes
 to your local clone and submitting a pull request to `pysal/giddy`_, you can
 contribute to the giddy development.
 
-.. _3.5: https://docs.python.org/3.5/
 .. _3.6: https://docs.python.org/3.6/
+.. _3.7: https://docs.python.org/3.7/
 .. _Python Package Index: https://pypi.org/project/giddy/
 .. _pysal/giddy: https://github.com/pysal/giddy
 .. _fork: https://help.github.com/articles/fork-a-repo/
+.. _conda-forge: https://github.com/conda-forge/giddy-feedstock

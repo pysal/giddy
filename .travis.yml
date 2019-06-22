@@ -1,11 +1,12 @@
 language: python
-sudo: false
+dist: xenial
+sudo: true
 branches:
   only:
     - master
 python:
-  - 3.5
   - 3.6
+  - 3.7
 
 env:
   - PYSAL_PYPI=true #testing on dependencies libpysal, esda, mapcalssify on pypi
@@ -13,13 +14,13 @@ env:
 
 matrix:
   allow_failures:
-      - python: 3.5
-        env: PYSAL_PYPI=false
       - python: 3.6
+        env: PYSAL_PYPI=false
+      - python: 3.7
         env: PYSAL_PYPI=false
 
 before_install:
-  - wget https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
+  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
   - chmod +x miniconda.sh
   - ./miniconda.sh -b -p ./miniconda
   - export PATH=`pwd`/miniconda/bin:$PATH
@@ -31,14 +32,14 @@ install:
   - conda install --yes pip
   - pip install -r requirements.txt
   - pip install -r requirements_tests.txt
-  - pip install https://github.com/pysal/splot/archive/master.zip
   - if "$PYSAL_PYPI"; then
-        echo 'testing pypi libpysal esda mapclassify';
+        echo 'testing pypi libpysal esda mapclassify splot';
     else
-        echo 'testing git libpysal esda mapclassify';
-        git clone https://github.com/pysal/libpysal.git; cd libpysal; pip install .; cd ../;
-        git clone https://github.com/pysal/mapclassify.git; cd mapclassify; pip install .; cd ../;
-        git clone https://github.com/pysal/esda.git; cd esda; pip install .; cd ../;
+        echo 'testing git libpysal esda mapclassify splot';
+        pip install https://github.com/pysal/libpysal/archive/master.zip;
+        pip install https://github.com/pysal/esda/archive/master.zip;
+        pip install https://github.com/pysal/mapclassify/archive/master.zip;
+        pip install https://github.com/pysal/splot/archive/master.zip;
     fi;
   # We need the Agg backend to use Matplotlib on TravisCI, otherwise
   # we get an error "DISPLAY variable not set"
@@ -48,7 +49,7 @@ install:
 script:
   - python setup.py sdist >/dev/null
   - python setup.py install
-  - nosetests --verbose --with-coverage --cover-package=giddy
+  - nosetests --verbose --with-doctest --with-coverage --cover-package=giddy
 #  - nosetests --verbose giddy;
 
 notifications:
@@ -59,5 +60,6 @@ notifications:
             - levi.john.wolf@gmail.com
         on_success: change
         on_failure: always
+
 after_success:
   - coveralls

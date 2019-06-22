@@ -5,3 +5,5 @@ coverage
 coveralls
 matplotlib
 pandas
+ipywidgets
+splot

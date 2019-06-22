@@ -142,8 +142,6 @@ class Tau:
 
     Examples
     --------
-    # from scipy example
-
     >>> from scipy.stats import kendalltau
     >>> from giddy.rank import Tau
     >>> x1 = [12, 2, 1, 12, 2]

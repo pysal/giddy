@@ -14,7 +14,7 @@ giddy a try if you are interested in space-time analysis!
 
 DOCLINES = __doc__.split("\n")
 
-with open('README.rst', 'r', encoding='utf8') as file:
+with open('README.md', 'r', encoding='utf8') as file:
     long_description = file.read()
 
 
@@ -58,11 +58,12 @@ def setup_package():
           description=DOCLINES[0],
           #long_description="\n".join(DOCLINES[2:]),
           long_description = long_description,
+          long_description_content_type = 'text/markdown',
           url='https://github.com/pysal/giddy',
           maintainer='Wei Kang',
           maintainer_email='weikang9009@gmail.com',
           py_modules=['giddy'],
-          python_requires='>3.4',
+          python_requires='>3.5',
           test_suite='nose.collector',
           tests_require=['nose'],
           keywords='spatial statistics, spatiotemporal analysis',
@@ -75,8 +76,8 @@ def setup_package():
             'Topic :: Scientific/Engineering :: GIS',
             'License :: OSI Approved :: BSD License',
             'Programming Language :: Python',
-            'Programming Language :: Python :: 3.5',
-            'Programming Language :: Python :: 3.6'
+            'Programming Language :: Python :: 3.6',
+            'Programming Language :: Python :: 3.7'
             ],
           license='3-Clause BSD',
           packages=find_packages(),

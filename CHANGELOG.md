@@ -1,4 +1,92 @@
-Version 2.0.0 (2018-08-26)
+# Version 2.2.0 (2019-06-20)
+
+We closed a total of 25 issues (enhancements and bug fixes) through 11 pull requests, since our last release on 2019-04-08.
+
+## Issues Closed
+  - (docs) update installation instructions (#98)
+  - (docs) change the css to accommodate new versions of sphinx and sphinx bootstrap theme  (#97)
+  - PyPi page configuration (#96)
+  - pip install github master.zip of pysal dependencies (#95)
+  - update README.md (#93)
+  - Update readme (#94)
+  - migrate from readthedocs configuration file v1 to v2 (#92)
+  - updating supported python versions (3.6 and 3.7) in setup.py (#91)
+  - Move testing off of 3.5 and add 3.7 (#90)
+  - release on conda-forge (#89)
+  - allow user specified lag and check shape (#53)
+  - Update zenodo doi and pypi badge for version 2.1.0 (new release) (#87)
+  - (bug) format readme.rst as long_description for pypi display (#86)
+  - Prepare for release 2.1.0 (#85)
+
+## Pull Requests
+  - (docs) update installation instructions (#98)
+  - (docs) change the css to accommodate new versions of sphinx and sphinx bootstrap theme  (#97)
+  - PyPi page configuration (#96)
+  - pip install github master.zip of pysal dependencies (#95)
+  - Update readme (#94)
+  - migrate from readthedocs configuration file v1 to v2 (#92)
+  - updating supported python versions (3.6 and 3.7) in setup.py (#91)
+  - Move testing off of 3.5 and add 3.7 (#90)
+  - Update zenodo doi and pypi badge for version 2.1.0 (new release) (#87)
+  - (bug) format readme.rst as long_description for pypi display (#86)
+  - Prepare for release 2.1.0 (#85)
+
+The following individuals contributed to this release:
+
+  - Wei Kang
+  - James Gaboardi
+  
+# Version 2.1.0 (2019-04-08)
+
+We closed a total of 36 issues (enhancements and bug fixes) through 16 pull requests, since our last release on 2018-08-26.
+
+## Issues Closed
+  - Add splot as a soft dependency for giddy  (#84)
+  - .travis built on archaic Miniconda (#82)
+  - explicitly specifying Miniconda3 in .travis.yml (#83)
+  - configure doctest and coverage testing (#81)
+  - remove plot directive and indents (#80)
+  - reference labels are missing from rendered docs (#77)
+  - fix missing reference labels in rendered docs  (#79)
+  - (ENH) Full rank and geographic rank Markov methods (#73)
+  - (BUG) update directional notebook to accommodate changes in libpysal (#78)
+  - (BUG) fix notebooks (#76)
+  - remove redundant installation in travis.yml (#75)
+  - add pypi badge to README (#74)
+  - (BUG) remove libpysal.api in Rank notebook (#72)
+  - update required versions of dependencies (#71)
+  - Update issue templates (#70)
+  - conform to PEP8 style guide (#69)
+  - Singular matrix when computing ergodic values (#32)
+  - build notebooks for documentation (#6)
+  - update README with new doi and doc website (#68)
+  - REL: 2.0.0 (#67)
+
+## Pull Requests
+  - Add splot as a soft dependency for giddy  (#84)
+  - explicitly specifying Miniconda3 in .travis.yml (#83)
+  - configure doctest and coverage testing (#81)
+  - remove plot directive and indents (#80)
+  - fix missing reference labels in rendered docs  (#79)
+  - (ENH) Full rank and geographic rank Markov methods (#73)
+  - (BUG) update directional notebook to accommodate changes in libpysal (#78)
+  - (BUG) fix notebooks (#76)
+  - remove redundant installation in travis.yml (#75)
+  - add pypi badge to README (#74)
+  - (BUG) remove libpysal.api in Rank notebook (#72)
+  - update required versions of dependencies (#71)
+  - Update issue templates (#70)
+  - conform to PEP8 style guide (#69)
+  - update README with new doi and doc website (#68)
+  - REL: 2.0.0 (#67)
+
+The following individuals contributed to this release:
+
+  - Wei Kang
+  - James Gaboardi
+  - Serge Rey
+  
+# Version 2.0.0 (2018-08-26)
 
 This release does not add any new functionality to `giddy`, but
 instead features api changes in `giddy` and its
@@ -40,7 +128,7 @@ The following individuals contributed to this release:
   - Wei Kang
   - Stefanie Lumnitz
 
-v<1.2.0>, 2018-07-27
+# Version 1.2.0 (2018-07-27)
 
 This release features:
 * a more flexible specification for the [spatial Markov chains model](https://github.com/pysal/giddy/blob/master/giddy/markov.py#L169).More specifically, for continuous time series input:
@@ -59,7 +147,7 @@ We closed a total of 34 issues, 16 pull requests and 18 regular issues;
 this is the full list (generated with the script
 :file:`tools/github_stats.py`):
 
-Pull Requests (16):
+## Pull Requests (16):
 
 * :ghpull:`56`: b'prepare for release 1.2.0'
 * :ghpull:`55`: b'set up dual travis tests for libpysal (pip and github)'
@@ -78,7 +166,7 @@ Pull Requests (16):
 * :ghpull:`40`: b'typo - email notifications'
 * :ghpull:`38`: b'fix for python 3'
 
-Issues (18):
+## Issues (18):
 
 * :ghissue:`56`: b'prepare for release 1.2.0'
 * :ghissue:`55`: b'set up dual travis tests for libpysal (pip and github)'
@@ -99,8 +187,7 @@ Issues (18):
 * :ghissue:`38`: b'fix for python 3'
 * :ghissue:`39`: b'first draft of sphinx gallery'
 
-
-v<1.1.1>, 2018-05-17
+# Version 1.1.1 (2018-05-17)
 
 This release is the first tagged release of giddy on Github.
 Starting from this release, giddy supports python 3.5 and 3.6 only.
@@ -121,7 +208,7 @@ We closed a total of 20 issues, 8 pull requests and 12 regular issues;
 this is the full list (generated with the script 
 :file:`tools/github_stats.py`):
 
-Pull Requests (8):
+## Pull Requests (8):
 
 * :ghpull:`36`: b'add changelog for the release 1.1.0'
 * :ghpull:`35`: b'prepare for release'
@@ -132,7 +219,7 @@ Pull Requests (8):
 * :ghpull:`25`: b'[WIP] prepare for full metapackage integration'
 * :ghpull:`27`: b'api module for giddy'
 
-Issues (12):
+## Issues (12):
 
 * :ghissue:`36`: b'add changelog for the release 1.1.0'
 * :ghissue:`35`: b'prepare for release'
