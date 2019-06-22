@@ -62,3 +62,10 @@ Exchange Mobility Methods
     giddy.rank.Tau_Local_Neighborhood
     giddy.rank.Tau_Regional
 
+Alignment-based Sequence Methods
+--------------------------------
+
+.. autosummary::
+   :toctree: generated/
+
+    giddy.sequence.Sequence
