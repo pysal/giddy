@@ -125,10 +125,10 @@ def test_Sequence_equal():
 
     # "tran"
     seq_tran = Sequence(seqs, dist_type="tran")
-    seq_dis_mat = np.array([[  0., 220.,  25., 230., 228.],
-                            [220.,   0., 241., 112., 117.],
-                            [ 25., 241.,   0., 241., 241.],
-                            [230., 112., 241.,   0.,  72.],
-                            [228., 117., 241.,  72.,   0.]])
+    seq_dis_mat = np.array([[ 0., 23.,  8., 10., 30.],
+                            [23.,  0., 17., 20., 33.],
+                            [ 8., 17.,  0.,  6., 24.],
+                            [10., 20.,  6.,  0., 27.],
+                            [30., 33., 24., 27.,  0.]])
     np.testing.assert_allclose(seq_tran.seq_dis_mat, seq_dis_mat)
 
