@@ -26,8 +26,8 @@ addition to space-time LISA and spatial markov methods.
 .. image:: https://badge.fury.io/py/pypi.svg
     :target: https://badge.fury.io/py/pypi
 
-.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.2633309.svg
-   :target: https://doi.org/10.5281/zenodo.2633309
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3251137.svg
+   :target: https://doi.org/10.5281/zenodo.3251137
 
 This package is part of a `refactoring of PySAL
 <https://github.com/pysal/pysal/wiki/PEP-13:-Refactor-PySAL-Using-Submodules>`_.
@@ -83,23 +83,23 @@ BibTeX Citation
 ***************
 
 .. code-block::
-    @misc{giddy_2019_2633309,
+    @misc{wei_kang_2019_3251137,
       author       = {Wei Kang and
                       Sergio Rey and
                       Philip Stephens and
                       Nicholas Malizia and
                       Levi John Wolf and
                       Stefanie Lumnitz and
+                      James Gaboardi and
                       jlaura and
                       Charles Schmidt and
                       eli knaap and
-                      James Gaboardi and
                       Andy Eschbacher},
-      title        = {pysal/giddy: giddy 2.1.0},
-      month        = apr,
+      title        = {pysal/giddy: giddy 2.2.0},
+      month        = jun,
       year         = 2019,
-      doi          = {10.5281/zenodo.2633309},
-      url          = {https://doi.org/10.5281/zenodo.2633309}
+      doi          = {10.5281/zenodo.3251137},
+      url          = {https://doi.org/10.5281/zenodo.3251137}
     }
 
 *******
