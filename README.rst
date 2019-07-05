@@ -23,8 +23,8 @@ addition to space-time LISA and spatial markov methods.
    :target: https://giddy.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
 
-.. image:: https://badge.fury.io/py/pypi.svg
-    :target: https://badge.fury.io/py/pypi
+.. image:: https://badge.fury.io/py/giddy.svg
+    :target: https://badge.fury.io/py/giddy
 
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3251137.svg
    :target: https://doi.org/10.5281/zenodo.3251137
