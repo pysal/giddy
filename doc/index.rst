@@ -53,6 +53,32 @@ addition to space-time LISA and spatial markov methods.
       </div>
     </div>
 
+Citing `giddy`
+--------------
+
+If you use PySAL-giddy in a scientific publication, we would appreciate using the following citation:
+
+Bibtex entry::
+
+   @misc{wei_kang_2019_3251137,
+     author       = {Wei Kang and
+                     Sergio Rey and
+                     Philip Stephens and
+                     Nicholas Malizia and
+                     Levi John Wolf and
+                     Stefanie Lumnitz and
+                     James Gaboardi and
+                     jlaura and
+                     Charles Schmidt and
+                     eli knaap and
+                     Andy Eschbacher},
+     title        = {pysal/giddy: giddy 2.2.0},
+     month        = jun,
+     year         = 2019,
+     doi          = {10.5281/zenodo.3251137},
+     url          = {https://doi.org/10.5281/zenodo.3251137}
+   }
+
 
 .. toctree::
    :hidden:

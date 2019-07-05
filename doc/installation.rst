@@ -24,7 +24,7 @@ Type::
 You may also install the latest stable giddy via `conda-forge`_ channel by
 running::
 
-  $ conda install --channel conda-forge giddy
+  conda install --channel conda-forge giddy
 
 Installing development version
 ------------------------------
