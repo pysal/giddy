@@ -876,7 +876,7 @@ class Spatial_Markov(object):
         else:
             cutoffs = list(cutoffs) + [np.inf]
             cutoffs = np.array(cutoffs)
-            yb = mc.User_Defined(y.flatten(), np.array(cutoffs)).yb.reshape(
+            yb = mc.UserDefined(y.flatten(), np.array(cutoffs)).yb.reshape(
                 y.shape)
             k = len(cutoffs)
             return yb, cutoffs[:-1], k
