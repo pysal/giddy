@@ -8,8 +8,7 @@ __all__ = ["Markov", "LISA_Markov", "Spatial_Markov", "kullback",
            "GeoRank_Markov"]
 
 import numpy as np
-from .ergodic import fmpt
-from .ergodic import steady_state as STEADY_STATE
+from .ergodic import steady_state_general, fmpt_general
 from .components import Graph
 from scipy import stats
 from scipy.stats import rankdata
@@ -174,32 +173,19 @@ class Markov(object):
         self.p = np.dot(np.diag(1 / (row_sum + (row_sum == 0))), transitions)
         mc = qe.MarkovChain(self.p)
         self.num_cclasses = mc.num_communication_classes
-        if self.num_cclasses == 1:
-            self.steady_state = mc.stationary_distributions[0]
-        else:
-            self.steady_state = mc.stationary_distributions
         self.i_cclasses = mc.communication_classes_indices
 
     @property
     def fmpt(self):
-        if self.num_cclasses == 1:
-            return fmpt(self.p)
-        else:
-            fmpt_all = np.full((self.k, self.k), np.inf)
-            for cclass in self.i_cclasses:
-                rows = cclass[:, np.newaxis]
-                p_temp = self.p[rows, cclass]
-                fmpt_all[rows, cclass] = fmpt(p_temp)
-            return fmpt_all
+        if not hasattr(self, '_fmpt'):
+            self._fmpt = fmpt_general(self.p)
+        return self._fmpt
 
-
-
-
-    # @property
-    # def steady_state(self):
-    #     if not hasattr(self, '_steady_state'):
-    #         self._steady_state = STEADY_STATE(self.p)
-    #     return self._steady_state
+    @property
+    def steady_state(self):
+        if not hasattr(self, '_steady_state'):
+            self._steady_state = steady_state_general(self.p)
+        return self._steady_state
 
 
 class Spatial_Markov(object):
@@ -264,7 +250,9 @@ class Spatial_Markov(object):
                       (k, k), transition probability matrix for a-spatial
                       Markov.
     s               : array
-                      (k, 1), ergodic distribution for a-spatial Markov.
+                      (k, ), steady state distribution for a-spatial Markov.
+    f               : array
+                      (k, k), first mean passage times for a-spatial Markov.
     transitions     : array
                       (k, k), counts of transitions between each state i and j
                       for a-spatial Markov.
@@ -278,10 +266,10 @@ class Spatial_Markov(object):
                       Markov first dimension is the conditioned on the lag.
     S               : array
                       (k, k), steady state distributions for spatial Markov.
-                      Each row is a conditional steady_state.
+                      Each row is a conditional steady state distribution.
     F               : array
                       (k, k, k),first mean passage times.
-                      First dimension is conditioned on the lag.
+                      First dimension is conditioned on the spatial lag.
     shtest          : list
                       (k elements), each element of the list is a tuple for a
                       multinomial difference test between the steady state
@@ -675,7 +663,7 @@ class Spatial_Markov(object):
     @property
     def s(self):
         if not hasattr(self, '_s'):
-            self._s = STEADY_STATE(self.p)
+            self._s = steady_state_general(self.p)
         return self._s
 
     @property
@@ -683,16 +671,22 @@ class Spatial_Markov(object):
         if not hasattr(self, '_S'):
             S = np.zeros_like(self.p)
             for i, p in enumerate(self.P):
-                S[i] = STEADY_STATE(p)
+                S[i] = steady_state_general(p)
             self._S = np.asarray(S)
         return self._S
+
+    @property
+    def f(self):
+        if not hasattr(self, '_f'):
+            self._f = fmpt_general(self.p)
+        return self._f
 
     @property
     def F(self):
         if not hasattr(self, '_F'):
             F = np.zeros_like(self.P)
             for i, p in enumerate(self.P):
-                F[i] = fmpt(np.asmatrix(p))
+                F[i] = fmpt_general(np.asarray(p))
             self._F = np.asarray(F)
         return self._F
 
@@ -1844,13 +1838,13 @@ class FullRank_Markov:
     @property
     def steady_state(self):
         if not hasattr(self, '_steady_state'):
-            self._steady_state = STEADY_STATE(self.p)
+            self._steady_state = steady_state_general(self.p)
         return self._steady_state
 
     @property
     def fmpt(self):
         if not hasattr(self, '_fmpt'):
-            self._fmpt = fmpt(self.p)
+            self._fmpt = fmpt_general(self.p)
         return self._fmpt
 
     @property
@@ -1998,14 +1992,14 @@ class GeoRank_Markov:
     @property
     def steady_state(self):
         if not hasattr(self, '_steady_state'):
-            self._steady_state = STEADY_STATE(self.p)
+            self._steady_state = steady_state_general(self.p)
         return self._steady_state
 
 
     @property
     def fmpt(self):
         if not hasattr(self, '_fmpt'):
-            self._fmpt = fmpt(self.p)
+            self._fmpt = fmpt_general(self.p)
         return self._fmpt
 
 
