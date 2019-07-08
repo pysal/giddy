@@ -5,8 +5,9 @@ GeospatIal Distribution DYnamics (giddy) in PySAL
 [![Coverage Status](https://coveralls.io/repos/github/pysal/giddy/badge.svg?branch=master)](https://coveralls.io/github/pysal/giddy?branch=master)
 [![Gitter room](https://badges.gitter.im/pysal/giddy.svg)](https://gitter.im/pysal/giddy)
 [![Documentation Status](https://readthedocs.org/projects/giddy/badge/?version=latest)](https://giddy.readthedocs.io/en/latest/?badge=latest)
-[![PyPI version](https://badge.fury.io/py/pypi.svg)](https://badge.fury.io/py/pypi)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2633309.svg)](https://doi.org/10.5281/zenodo.2633309)
+[![PyPI version](https://badge.fury.io/py/giddy.svg)](https://badge.fury.io/py/giddy)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3251137.svg)](https://doi.org/10.5281/zenodo.3251137)
+
 
 Giddy is an open-source python library for the analysis of dynamics of
 longitudinal spatial data. Originating from the spatial dynamics module
@@ -97,23 +98,23 @@ BibTeX Citation
 ---------------
 
 ```
-@misc{giddy_2019_2633309,
+@misc{wei_kang_2019_3251137,
   author       = {Wei Kang and
                   Sergio Rey and
                   Philip Stephens and
                   Nicholas Malizia and
                   Levi John Wolf and
                   Stefanie Lumnitz and
+                  James Gaboardi and
                   jlaura and
                   Charles Schmidt and
                   eli knaap and
-                  James Gaboardi and
                   Andy Eschbacher},
-  title        = {pysal/giddy: giddy 2.1.0},
-  month        = apr,
+  title        = {pysal/giddy: giddy 2.2.0},
+  month        = jun,
   year         = 2019,
-  doi          = {10.5281/zenodo.2633309},
-  url          = {https://doi.org/10.5281/zenodo.2633309}
+  doi          = {10.5281/zenodo.3251137},
+  url          = {https://doi.org/10.5281/zenodo.3251137}
 }
 ```
 
