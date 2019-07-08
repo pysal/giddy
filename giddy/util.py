@@ -2,7 +2,7 @@
 Utilities for the spatial dynamics module.
 """
 
-__all__ = ['shuffle_matrix', 'get_lower']
+__all__ = ['shuffle_matrix', 'get_lower', 'fill_diag3', 'fill_diag2']
 
 import numpy as np
 
@@ -81,3 +81,63 @@ def get_lower(matrix):
     return lowvec
 
 
+def fill_diag2(p):
+    """
+    Assign 0 to diagonal elements which fall in rows full of 0s to ensure
+    the transition probability matrix is a stochastic one.
+
+    Parameters
+    ----------
+    p        : array
+               (k, k), an ergodic/non-ergodic Markov transition probability
+               matrix.
+
+    Returns
+    -------
+    p_temp   : array
+               Matrix without rows full of 0 transition probabilities.
+               (stochastic matrix)
+
+    """
+    p_temp = np.asarray(p)
+    if len(p_temp.shape) == 3:
+        raise ValueError('Please use function `fill_diag3` for '
+                         'a three-dimensional matrix!')
+    p0 = (p_temp.sum(axis=1) == 0)
+    if p0.sum()>0:
+        row_zero_i = np.where(p0)
+        for row in row_zero_i:
+            p_temp[row, row] = 1
+    return p_temp
+
+
+def fill_diag3(p):
+    """
+    Assign 0 to diagonal elements which fall in rows full of 0s to ensure
+    the conditional transition probability matrices is are stochastic matrices.
+
+    Parameters
+    ----------
+    p        : array
+               (m, k, k), m ergodic/non-ergodic Markov transition probability
+               matrices.
+
+    Returns
+    -------
+    p_temp   : array
+               Matrices without rows full of 0 transition probabilities.
+               (stochastic matrices)
+    """
+    p = np.asarray(p)
+    if len(p.shape) == 2:
+        raise ValueError('Please use function `fill_diag2` for '
+                         'a two-dimensional matrix!')
+
+    p0 = (p.sum(axis=2) == 0)
+    if p0.sum()>0:
+        rows, cols = np.where(p0)
+        row_zero_i = list(zip(rows, cols))
+        for row in row_zero_i:
+            i, j = row
+            p[i, j, j] = 1
+    return p

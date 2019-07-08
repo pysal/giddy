@@ -9,6 +9,7 @@ __all__ = ['steady_state', 'fmpt', 'var_fmpt',
 import numpy as np
 import numpy.linalg as la
 import quantecon as qe
+from .util import fill_diag3, fill_diag2
 
 
 def steady_state(P):
@@ -60,7 +61,7 @@ def steady_state(P):
     # normalize eigenvector corresponding to the eigenvalue 1
     return row / sum(row)
 
-def steady_state_general(P):
+def steady_state_general(P, fill_diag=True):
     """
     Generalized function for calculating the steady state distribution
     for a regular or reducible Markov transition matrix P.
@@ -70,6 +71,10 @@ def steady_state_general(P):
     P        : array
                (k, k), an ergodic or non-ergodic Markov transition probability
                matrix.
+    fill_diag: bool
+               If True, assign 0 to diagonal elements which fall in rows full
+               of 0s to ensure the transition probability matrix is a
+               stochastic one.
 
     Returns
     -------
@@ -102,8 +107,18 @@ def steady_state_general(P):
     >>> steady_state_general(p)
     array([[0.28571429, 0.71428571, 0.        ],
            [0.        , 0.        , 1.        ]])
+
+    # reducible Markov chain: two communicating classes
+    >>> p = np.array([[.5, .5, 0],[.2,0.8,0],[0,0,0]])
+    >>> steady_state_general(p, fill_diag =True)
+    array([[0.28571429, 0.71428571, 0.        ],
+           [0.        , 0.        , 1.        ]])
     """
 
+    P = np.asarray(P)
+    if fill_diag:
+        if (P.sum(axis=1) == 0).sum() > 0:
+            P = fill_diag2(P)
     mc = qe.MarkovChain(P)
     num_classes = mc.num_communication_classes
     if num_classes == 1:
@@ -169,23 +184,27 @@ def fmpt(P):
     M = (I - Z + E * Zdg) * D
     return np.array(M)
 
-def fmpt_general(P):
+def fmpt_general(P, fill_diag=False):
     """
     Generalized function for calculating first mean passage times for an
     ergodic or non-ergodic transition probability matrix.
 
     Parameters
     ----------
-    P       : array
-             (k, k), an ergodic/non-ergodic Markov transition probability
-             matrix.
+    P        : array
+               (k, k), an ergodic/non-ergodic Markov transition probability
+               matrix.
+    fill_diag: bool
+               If True, assign 0 to diagonal elements which fall in rows full
+               of 0s to ensure the transition probability matrix is a
+               stochastic one.
 
     Returns
     -------
-    fmpt_all: array
-              (k, k), elements are the expected value for the number of
-              intervals required for a chain starting in state i to first
-              enter state j. If i=j then this is the recurrence time.
+    fmpt_all : array
+               (k, k), elements are the expected value for the number of
+               intervals required for a chain starting in state i to first
+               enter state j. If i=j then this is the recurrence time.
 
     Examples
     --------
@@ -219,9 +238,19 @@ def fmpt_general(P):
     We can expect another rainy day in 3.5 days. If it is nice today in Oz,
     we should expect a rainy day in 5 days.
 
+
+    >>> p = np.array([[.5, .5, 0],[.2,0.8,0],[0,0,0]])
+    >>> fmpt_general(p, fill_diag=True)
+    array([[3.5, 2. , inf],
+           [5. , 1.4, inf],
+           [inf, inf, 1. ]])
+
     """
 
     P = np.asarray(P)
+    if fill_diag:
+        if (P.sum(axis=1) == 0).sum() > 0:
+            P = fill_diag2(P)
     mc = qe.MarkovChain(P)
     num_classes = mc.num_communication_classes
     if num_classes == 1:

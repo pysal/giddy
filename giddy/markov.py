@@ -9,6 +9,7 @@ __all__ = ["Markov", "LISA_Markov", "Spatial_Markov", "kullback",
 
 import numpy as np
 from .ergodic import steady_state_general, fmpt_general
+from .util import fill_diag3, fill_diag2
 from .components import Graph
 from scipy import stats
 from scipy.stats import rankdata
@@ -143,7 +144,7 @@ class Markov(object):
 
     """
 
-    def __init__(self, class_ids, classes=None):
+    def __init__(self, class_ids, classes=None, fill_diag=False):
         if classes is not None:
             self.classes = classes
         else:
@@ -171,20 +172,27 @@ class Markov(object):
         self.transitions = transitions
         row_sum = transitions.sum(axis=1)
         self.p = np.dot(np.diag(1 / (row_sum + (row_sum == 0))), transitions)
-        mc = qe.MarkovChain(self.p)
+
+        if fill_diag:
+            self.p = fill_diag2(self.p)
+
+        p_temp = self.p
+        if (p_temp.sum(axis=1) == 0).sum()>0:
+            p_temp = fill_diagonal2(p_temp)
+        mc = qe.MarkovChain(p_temp)
         self.num_cclasses = mc.num_communication_classes
         self.i_cclasses = mc.communication_classes_indices
 
     @property
     def fmpt(self):
         if not hasattr(self, '_fmpt'):
-            self._fmpt = fmpt_general(self.p)
+            self._fmpt = fmpt_general(self.p, fill_diag=True)
         return self._fmpt
 
     @property
     def steady_state(self):
         if not hasattr(self, '_steady_state'):
-            self._steady_state = steady_state_general(self.p)
+            self._steady_state = steady_state_general(self.p, fill_diag=True)
         return self._steady_state
 
 
@@ -614,7 +622,7 @@ class Spatial_Markov(object):
 
     def __init__(self, y, w, k=4, m=4, permutations=0, fixed=True,
                  discrete=False, cutoffs=None, lag_cutoffs=None,
-                 variable_name=None):
+                 variable_name=None, fill_diagonal=False):
 
         y = np.asarray(y)
         self.fixed = fixed
@@ -644,7 +652,7 @@ class Spatial_Markov(object):
         classic = Markov(self.class_ids)
         self.p = classic.p
         self.transitions = classic.transitions
-        self.T, self.P = self._calc(y, w)
+        self.T, self.P = self._calc(y, w, fill_diagonal=fill_diagonal)
 
         if permutations:
             nrp = np.random.permutation
@@ -755,7 +763,7 @@ class Spatial_Markov(object):
             self._x2_dof = k * (k - 1) * (k - 1)
         return self._x2_dof
 
-    def _calc(self, y, w):
+    def _calc(self, y, w, fill_diagonal=False):
         '''Helper to estimate spatial lag conditioned Markov transition
         probability matrices based on maximum likelihood techniques.
 
@@ -783,6 +791,9 @@ class Spatial_Markov(object):
             row_sum = row_sum + (row_sum == 0)
             p_i = np.matrix(np.diag(1. / row_sum) * np.matrix(mat))
             P[i] = p_i
+
+        if fill_diagonal:
+            P = fill_diagonal3(P)
         return T, P
 
     def _mn_test(self):
@@ -2008,7 +2019,6 @@ class GeoRank_Markov:
         if not hasattr(self, '_st'):
             self._st = sojourn_time(self.p)
         return self._st
-
 
 
 
