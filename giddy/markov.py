@@ -18,6 +18,7 @@ from libpysal import weights
 from esda.moran import Moran_Local
 import mapclassify as mc
 import itertools
+import quantecon as qe
 
 # TT predefine LISA transitions
 # TT[i,j] is the transition type from i to j
@@ -67,10 +68,19 @@ class Markov(object):
 
     Attributes
     ----------
+    k            : int
+                   Number of Markov states.
     p            : array
                    (k, k), transition probability matrix.
+    num_cclasses : int
+                   Number of communicating classes.
     steady_state : array
-                   (k, ), ergodic distribution.
+                   If num_cclasses=1, steady_state is of (k, ) dimension.
+                   If num_cclasses>1, the Markov Chain is not ergodic
+                   and there will be (num_cclasses) distributions towards
+                   which the Markov Chain will converge in the long run.
+    i_cclasses   : list
+                   List of indices within each communicating classes.
     transitions  : array
                    (k, k), count of transitions between each state i and j.
 
@@ -142,6 +152,7 @@ class Markov(object):
 
         n, t = class_ids.shape
         k = len(self.classes)
+        self.k = k
         js = list(range(t - 1))
 
         classIds = self.classes.tolist()
@@ -161,12 +172,34 @@ class Markov(object):
         self.transitions = transitions
         row_sum = transitions.sum(axis=1)
         self.p = np.dot(np.diag(1 / (row_sum + (row_sum == 0))), transitions)
+        mc = qe.MarkovChain(self.p)
+        self.num_cclasses = mc.num_communication_classes
+        if self.num_cclasses == 1:
+            self.steady_state = mc.stationary_distributions[0]
+        else:
+            self.steady_state = mc.stationary_distributions
+        self.i_cclasses = mc.communication_classes_indices
 
     @property
-    def steady_state(self):
-        if not hasattr(self, '_steady_state'):
-            self._steady_state = STEADY_STATE(self.p)
-        return self._steady_state
+    def fmpt(self):
+        if self.num_cclasses == 1:
+            return fmpt(self.p)
+        else:
+            fmpt_all = np.full((self.k, self.k), np.inf)
+            for cclass in self.i_cclasses:
+                rows = cclass[:, np.newaxis]
+                p_temp = self.p[rows, cclass]
+                fmpt_all[rows, cclass] = fmpt(p_temp)
+            return fmpt_all
+
+
+
+
+    # @property
+    # def steady_state(self):
+    #     if not hasattr(self, '_steady_state'):
+    #         self._steady_state = STEADY_STATE(self.p)
+    #     return self._steady_state
 
 
 class Spatial_Markov(object):
