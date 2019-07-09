@@ -65,7 +65,10 @@ class Markov(object):
                    periods.
     classes      : array
                    (k, 1), all different classes (bins) of the matrix.
-
+    fill_diag    : bool
+                   If True, assign 1 to diagonal elements which fall in rows
+                   full of 0s to ensure p is a stochastic transition
+                   probability matrix (each row sums up to 1).
     Attributes
     ----------
     k            : int
@@ -195,6 +198,12 @@ class Markov(object):
             self._steady_state = steady_state_general(self.p, fill_diag=True)
         return self._steady_state
 
+    @property
+    def sojourn_time(self):
+        if not hasattr(self, '_st'):
+            self._st = sojourn_time(self.p)
+        return self._st
+
 
 class Spatial_Markov(object):
     """
@@ -241,6 +250,11 @@ class Spatial_Markov(object):
                       discretization.
     variable_name   : string
                       name of variable.
+    fill_diag       : bool
+                      If True, assign 1 to diagonal elements which fall in rows
+                      full of 0s to ensure each conditional transition
+                      probability matrix is a stochastic matrix (each row
+                      sums up to 1).
 
     Attributes
     ----------
@@ -1763,7 +1777,7 @@ class Homogeneity_Results:
                 f.write(s1 + s2)
 
 
-class FullRank_Markov:
+class FullRank_Markov(Markov):
     """
     Full Rank Markov in which ranks are considered as Markov states rather
     than quantiles or other discretized classes. This is one way to avoid
@@ -1775,6 +1789,10 @@ class FullRank_Markov:
                    (n, t) with t>>n, one row per observation (n total),
                    one column recording the value of each observation,
                    with as many columns as time periods.
+    fill_diag    : bool
+                   If True, assign 1 to diagonal elements which fall in rows
+                   full of 0s to ensure p is a stochastic transition
+                   probability matrix (each row sums up to 1).
 
     Attributes
     ----------
@@ -1842,27 +1860,28 @@ class FullRank_Markov:
         r_asc = np.array([rankdata(col, method='ordinal') for col in y.T]).T
         # ranks by high (1) to low (n)
         self.ranks = r_asc.shape[0] - r_asc + 1
-        frm = Markov(self.ranks)
-        self.p = frm.p
-        self.transitions = frm.transitions
+        super(FullRank_Markov, self).__init__(self.ranks)
+        # frm = Markov(self.ranks)
+        # self.p = frm.p
+        # self.transitions = frm.transitions
 
-    @property
-    def steady_state(self):
-        if not hasattr(self, '_steady_state'):
-            self._steady_state = steady_state_general(self.p)
-        return self._steady_state
-
-    @property
-    def fmpt(self):
-        if not hasattr(self, '_fmpt'):
-            self._fmpt = fmpt_general(self.p)
-        return self._fmpt
-
-    @property
-    def sojourn_time(self):
-        if not hasattr(self, '_st'):
-            self._st = sojourn_time(self.p)
-        return self._st
+    # @property
+    # def steady_state(self):
+    #     if not hasattr(self, '_steady_state'):
+    #         self._steady_state = steady_state_general(self.p)
+    #     return self._steady_state
+    #
+    # @property
+    # def fmpt(self):
+    #     if not hasattr(self, '_fmpt'):
+    #         self._fmpt = fmpt_general(self.p)
+    #     return self._fmpt
+    #
+    # @property
+    # def sojourn_time(self):
+    #     if not hasattr(self, '_st'):
+    #         self._st = sojourn_time(self.p)
+    #     return self._st
 
 
 def sojourn_time(p):
@@ -1902,7 +1921,7 @@ def sojourn_time(p):
     return 1 / (1 - pii)
 
 
-class GeoRank_Markov:
+class GeoRank_Markov(Markov):
     """
     Geographic Rank Markov.
     Geographic units are considered as Markov states.
@@ -1996,29 +2015,30 @@ class GeoRank_Markov:
         # to the order that the values occur in each cross section.
         ranks = np.array([rankdata(col, method='ordinal') for col in y.T]).T
         geo_ranks = np.argsort(ranks, axis=0) + 1
-        grm = Markov(geo_ranks)
-        self.p = grm.p
-        self.transitions = grm.transitions
-
-    @property
-    def steady_state(self):
-        if not hasattr(self, '_steady_state'):
-            self._steady_state = steady_state_general(self.p)
-        return self._steady_state
-
-
-    @property
-    def fmpt(self):
-        if not hasattr(self, '_fmpt'):
-            self._fmpt = fmpt_general(self.p)
-        return self._fmpt
-
-
-    @property
-    def sojourn_time(self):
-        if not hasattr(self, '_st'):
-            self._st = sojourn_time(self.p)
-        return self._st
+        super(GeoRank_Markov, self).__init__(geo_ranks)
+    #     grm = Markov(geo_ranks)
+    #     self.p = grm.p
+    #     self.transitions = grm.transitions
+    #
+    # @property
+    # def steady_state(self):
+    #     if not hasattr(self, '_steady_state'):
+    #         self._steady_state = steady_state_general(self.p)
+    #     return self._steady_state
+    #
+    #
+    # @property
+    # def fmpt(self):
+    #     if not hasattr(self, '_fmpt'):
+    #         self._fmpt = fmpt_general(self.p)
+    #     return self._fmpt
+    #
+    #
+    # @property
+    # def sojourn_time(self):
+    #     if not hasattr(self, '_st'):
+    #         self._st = sojourn_time(self.p)
+    #     return self._st
 
 
 
