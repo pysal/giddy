@@ -254,7 +254,8 @@ class Spatial_Markov(object):
                       If True, assign 1 to diagonal elements which fall in rows
                       full of 0s to ensure each conditional transition
                       probability matrix is a stochastic matrix (each row
-                      sums up to 1).
+                      sums up to 1). In other words, the probablity of
+                      staying at that state is 1.
 
     Attributes
     ----------
@@ -279,18 +280,22 @@ class Spatial_Markov(object):
                       (k, k), counts of transitions between each state i and j
                       for a-spatial Markov.
     T               : array
-                      (k, k, k), counts of transitions for each conditional
+                      (m, k, k), counts of transitions for each conditional
                       Markov.  T[0] is the matrix of transitions for
-                      observations with lags in the 0th quantile; T[k-1] is the
-                      transitions for the observations with lags in the k-1th.
+                      observations with lags in the 0th quantile; T[m-1] is the
+                      transitions for the observations with lags in the m-1th.
     P               : array
-                      (k, k, k), transition probability matrix for spatial
+                      (m, k, k), transition probability matrix for spatial
                       Markov first dimension is the conditioned on the lag.
-    S               : array
-                      (k, k), steady state distributions for spatial Markov.
+    S               : arraylike
+                      (m, k), steady state distributions for spatial Markov.
                       Each row is a conditional steady state distribution.
+                      If one (or more) spatially conditional Markov chain is
+                      reducible (having more than 1 steady state distribution),
+                      this attribute is an array of m arrays of varying
+                      dimensions.
     F               : array
-                      (k, k, k),first mean passage times.
+                      (m, k, k),first mean passage times.
                       First dimension is conditioned on the spatial lag.
     shtest          : list
                       (k elements), each element of the list is a tuple for a
@@ -460,7 +465,6 @@ class Spatial_Markov(object):
 
     >>> for f in sm.F:
     ...     print(f)
-    ...
     [[  2.29835259  28.95614035  46.14285714  80.80952381 279.42857143]
      [ 33.86549708   3.79459555  22.57142857  57.23809524 255.85714286]
      [ 43.60233918   9.73684211   4.91085714  34.66666667 233.28571429]
@@ -590,6 +594,45 @@ class Spatial_Markov(object):
      [0.         0.         0.05660377 0.90566038 0.03773585]
      [0.         0.         0.         0.03932584 0.96067416]]
 
+    (3.1) As we can see from the above estimated conditional transition
+    probability matrix, some rows are full of zeros which violate the
+    requirement of a transition probability matrix that every row sums to 1.
+    We can easily adjust this assigning fill_diag = True when initializing
+    Spatial_Markov.
+    >>> sm = Spatial_Markov(rpci, w, cutoffs=cc, lag_cutoffs=cc, fill_diag=True)
+    >>> for p in sm.P:
+    ...     print(p)
+    [[0.96703297 0.03296703 0.         0.         0.        ]
+     [0.10638298 0.68085106 0.21276596 0.         0.        ]
+     [0.         0.14285714 0.7755102  0.08163265 0.        ]
+     [0.         0.         0.5        0.5        0.        ]
+     [0.         0.         0.         0.         1.        ]]
+    [[0.88636364 0.10606061 0.00757576 0.         0.        ]
+     [0.04402516 0.89308176 0.06289308 0.         0.        ]
+     [0.         0.05882353 0.8627451  0.07843137 0.        ]
+     [0.         0.         0.13846154 0.86153846 0.        ]
+     [0.         0.         0.         0.         1.        ]]
+    [[0.78082192 0.17808219 0.02739726 0.01369863 0.        ]
+     [0.03488372 0.90406977 0.05813953 0.00290698 0.        ]
+     [0.         0.05919003 0.84735202 0.09034268 0.00311526]
+     [0.         0.         0.05811623 0.92985972 0.01202405]
+     [0.         0.         0.         0.14285714 0.85714286]]
+    [[0.82692308 0.15384615 0.         0.01923077 0.        ]
+     [0.0703125  0.7890625  0.125      0.015625   0.        ]
+     [0.00295858 0.06213018 0.82248521 0.10946746 0.00295858]
+     [0.         0.00185529 0.07606679 0.88497217 0.03710575]
+     [0.         0.         0.         0.07803468 0.92196532]]
+    [[1.         0.         0.         0.         0.        ]
+     [0.         1.         0.         0.         0.        ]
+     [0.         0.06666667 0.9        0.03333333 0.        ]
+     [0.         0.         0.05660377 0.90566038 0.03773585]
+     [0.         0.         0.         0.03932584 0.96067416]]
+    >>> sm.S[0]
+    array([[0.54148249, 0.16780007, 0.24991499, 0.04080245, 0.        ],
+           [0.        , 0.        , 0.        , 0.        , 1.        ]])
+    >>> sm.S[2]
+    array([0.03607655, 0.22667277, 0.25883041, 0.43607249, 0.04234777])
+
     (4) Spatial_Markov also accept discrete time series and calculate
     categorical spatial lags on which several transition probability matrices
     are conditioned.
@@ -663,7 +706,7 @@ class Spatial_Markov(object):
                 y, k=k, cutoffs=self.cutoffs)
             self.classes = np.arange(self.k)
 
-        classic = Markov(self.class_ids)
+        classic = Markov(self.class_ids, fill_diag=fill_diag)
         self.p = classic.p
         self.transitions = classic.transitions
         self.T, self.P = self._calc(y, w, fill_diag=fill_diag)
@@ -691,10 +734,11 @@ class Spatial_Markov(object):
     @property
     def S(self):
         if not hasattr(self, '_S'):
-            S = np.zeros_like(self.p)
+            _S = []
             for i, p in enumerate(self.P):
-                S[i] = steady_state_general(p)
-            self._S = np.asarray(S)
+                _S.append(steady_state_general(p))
+            # if np.array(_S).dtype is np.dtype('O'):
+            self._S = np.asarray(_S)
         return self._S
 
     @property
