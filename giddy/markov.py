@@ -810,8 +810,8 @@ class Spatial_Markov(object):
             p_i = np.matrix(np.diag(1. / row_sum) * np.matrix(mat))
             P[i] = p_i
 
-        if fill_diagonal:
-            P = fill_diagonal3(P)
+        if fill_diag:
+            P = fill_diag3(P)
         return T, P
 
     def _mn_test(self):
