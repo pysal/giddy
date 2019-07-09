@@ -1921,7 +1921,7 @@ def sojourn_time(p):
     pii = p.diagonal()
 
     if not (1 - pii).all():
-        print("Sojourn times are infinite for absorbing states!")
+        raise ValueError("Sojourn times are infinite for absorbing states!")
     return 1 / (1 - pii)
 
 

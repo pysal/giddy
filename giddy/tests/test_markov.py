@@ -34,6 +34,48 @@ class test_Markov(unittest.TestCase):
                              0.20937187])
         np.testing.assert_array_almost_equal(m.steady_state, expected)
 
+        expected = np.array([[  4.81354357,  11.50292712,  29.60921231,
+                              53.38594954, 103.59816743],
+                             [ 42.04774505,   5.34023324,  18.74455332,
+                               42.50023268, 92.71316899],
+                             [ 69.25849753,  27.21075248,   4.82147603,
+                               25.27184624, 75.43305672],
+                             [ 84.90689329,  42.85914824,  17.18082642,
+                               5.31299186, 51.60953369],
+                             [ 98.41295543,  56.36521038,  30.66046735,
+                               14.21158356, 4.77619083]])
+        np.testing.assert_array_almost_equal(m.fmpt, expected)
+
+        expected = np.array([11.125     ,  4.65806452,  4.73372781,
+                           4.95172414, 13.77586207])
+        np.testing.assert_array_almost_equal(m.sojourn_time, expected)
+
+        m = Markov(q5[:, :2])
+        expected = np.array([[10.,  0.,  0.,  0.,  0.],
+                             [ 0.,  8.,  1.,  0.,  0.],
+                             [ 0.,  1.,  9.,  1.,  0.],
+                             [ 0.,  0.,  0.,  8.,  0.],
+                             [ 0.,  0.,  0.,  1.,  9.]])
+        np.testing.assert_array_equal(m.transitions, expected)
+        expected = np.array([[1.        , 0.        , 0.        , 0., 0.  ],
+       [0.        , 0.88888889, 0.11111111, 0.        , 0.        ],
+       [0.        , 0.09090909, 0.81818182, 0.09090909, 0.        ],
+       [0.        , 0.        , 0.        , 1.        , 0.        ],
+       [0.        , 0.        , 0.        , 0.1       , 0.9       ]])
+        np.testing.assert_array_almost_equal(m.p, expected)
+        expected = np.array([[1., 0., 0., 0., 0.], [0., 0., 0., 1., 0.]])
+        np.testing.assert_array_almost_equal(m.steady_state, expected)
+
+        expected = np.array([[1.        ,  np.inf, np.inf,np.inf,np.inf],
+       [ np.inf, 1.78305684, 8.65447755,    np.inf,     np.inf],
+       [ np.inf, 7.393034  , 2.2770465 ,     np.inf,     np.inf],
+       [  np.inf,   np.inf,   np.inf, 1.        ,     np.inf],
+       [  np.inf,      np.inf,   np.inf,      np.inf, 1.        ]])
+        np.testing.assert_array_almost_equal(m.fmpt, expected)
+
+        with self.assertRaises(ValueError):
+            obs = m.sojourn_time
+
 
 class test_Spatial_Markov(unittest.TestCase):
     def setUp(self):
