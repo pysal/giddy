@@ -23,7 +23,9 @@ Markov Methods
     giddy.markov.homogeneity
     giddy.markov.sojourn_time
     giddy.ergodic.steady_state
+    giddy.ergodic.steady_state_general
     giddy.ergodic.fmpt
+    giddy.ergodic.fmpt_general
     giddy.ergodic.var_fmpt
 
 
