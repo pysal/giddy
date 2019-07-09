@@ -28,6 +28,29 @@ class GetLower_Tester(unittest.TestCase):
         for i in range(6):
             self.assertEqual(exp[i], obs[i])
 
+class FillDiagonal_Tester(unittest.TestCase):
+    def setUp(self):
+        self.p3 = np.array([[.5, .5, 0], [.3, .7, 0], [0, 0, 0]])
+        self.p23 =np.array([[[.5, .5, 0], [.3, .7, 0], [0, 0, 0]],
+                            [[0, 0, 0], [.3, .7, 0], [0, 0, 0]]])
+
+
+    def test_fill_diag2(self):
+        obs = util.fill_diag2(self.p3)
+        exp = np.array([[0.5, 0.5, 0. ], [0.3, 0.7, 0. ], [0. , 0. , 1. ]])
+        np.testing.assert_array_almost_equal(exp, obs)
+
+        with self.assertRaises(ValueError):
+            obs = util.fill_diag2(self.p23)
+
+    def test_fill_diag3(self):
+        obs = util.fill_diag3(self.p23)
+        exp = np.array([[[0.5, 0.5, 0. ], [0.3, 0.7, 0. ], [0. , 0. , 1. ]],
+                        [[1. , 0. , 0. ], [0.3, 0.7, 0. ], [0. , 0. , 1. ]]])
+        np.testing.assert_array_almost_equal(exp, obs)
+
+        with self.assertRaises(ValueError):
+            obs = util.fill_diag3(self.p3)
 
 suite = unittest.TestSuite()
 test_classes = [ShuffleMatrix_Tester, GetLower_Tester]
