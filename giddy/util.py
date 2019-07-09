@@ -150,16 +150,16 @@ def fill_diag3(p):
            [0.3, 0.7, 0. ],
            [0. , 0. , 1. ]])
     """
-    p = np.asarray(p)
-    if len(p.shape) == 2:
+    p_temp = np.asarray(p)
+    if len(p_temp.shape) == 2:
         raise ValueError('Please use function `fill_diag2` for '
                          'a two-dimensional matrix!')
 
-    p0 = (p.sum(axis=2) == 0)
+    p0 = (p_temp.sum(axis=2) == 0)
     if p0.sum()>0:
         rows, cols = np.where(p0)
         row_zero_i = list(zip(rows, cols))
         for row in row_zero_i:
             i, j = row
-            p[i, j, j] = 1
-    return p
+            p_temp[i, j, j] = 1
+    return p_temp
