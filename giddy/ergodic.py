@@ -72,7 +72,7 @@ def steady_state_general(P, fill_diag=True):
                (k, k), an ergodic or non-ergodic Markov transition probability
                matrix.
     fill_diag: bool
-               If True, assign 0 to diagonal elements which fall in rows full
+               If True, assign 1 to diagonal elements which fall in rows full
                of 0s to ensure the transition probability matrix is a
                stochastic one.
 
@@ -195,7 +195,7 @@ def fmpt_general(P, fill_diag=False):
                (k, k), an ergodic/non-ergodic Markov transition probability
                matrix.
     fill_diag: bool
-               If True, assign 0 to diagonal elements which fall in rows full
+               If True, assign 1 to diagonal elements which fall in rows full
                of 0s to ensure the transition probability matrix is a
                stochastic one.
 

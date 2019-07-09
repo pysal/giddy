@@ -636,7 +636,7 @@ class Spatial_Markov(object):
 
     def __init__(self, y, w, k=4, m=4, permutations=0, fixed=True,
                  discrete=False, cutoffs=None, lag_cutoffs=None,
-                 variable_name=None, fill_diagonal=False):
+                 variable_name=None, fill_diag=False):
 
         y = np.asarray(y)
         self.fixed = fixed
@@ -666,7 +666,7 @@ class Spatial_Markov(object):
         classic = Markov(self.class_ids)
         self.p = classic.p
         self.transitions = classic.transitions
-        self.T, self.P = self._calc(y, w, fill_diagonal=fill_diagonal)
+        self.T, self.P = self._calc(y, w, fill_diag=fill_diag)
 
         if permutations:
             nrp = np.random.permutation
@@ -777,9 +777,13 @@ class Spatial_Markov(object):
             self._x2_dof = k * (k - 1) * (k - 1)
         return self._x2_dof
 
-    def _calc(self, y, w, fill_diagonal=False):
+    def _calc(self, y, w, fill_diag=False):
         '''Helper to estimate spatial lag conditioned Markov transition
         probability matrices based on maximum likelihood techniques.
+
+        If fill_diag=True, assign 1 to diagonal elements which fall in rows
+        full of 0s to ensure each conditional transition probability matrix
+        is a stochastic matrix (each row sums up to 1).
 
         '''
         if self.discrete:
