@@ -73,9 +73,8 @@ class test_Markov(unittest.TestCase):
        [  np.inf,      np.inf,   np.inf,      np.inf, 1.        ]])
         np.testing.assert_array_almost_equal(m.fmpt, expected)
 
-        with self.assertRaises(ValueError):
-            obs = m.sojourn_time
-
+        expected = np.array([np.inf,  9. ,  5.5, np.inf, 10. ])
+        np.testing.assert_array_almost_equal(m.sojourn_time, expected)
 
 class test_Spatial_Markov(unittest.TestCase):
     def setUp(self):
@@ -389,11 +388,15 @@ class GeoRank_Markov_Tester(unittest.TestCase):
 class Sojourn_time_Tester(unittest.TestCase):
     def setUp(self):
         self.p = np.array([[.5, .25, .25], [.5, 0, .5], [.25, .25, .5]])
+        self.p2 = np.array([[.5, .5, 0], [.3, .7, 0], [0, 0, 1]])
 
-    def test_steady_state(self):
+    def test_sojourn_time(self):
         obs = sojourn_time(self.p)
         exp = np.array([2., 1., 2.])
         np.testing.assert_array_almost_equal(exp, obs)
+
+        exp = np.array([2.        , 3.33333333, np.inf])
+        np.testing.assert_array_almost_equal(exp, sojourn_time(self.p2))
 
 
 if __name__ == '__main__':

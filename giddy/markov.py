@@ -1940,12 +1940,21 @@ def sojourn_time(p):
     array([2., 1., 2.])
 
     """
+
     p = np.asarray(p)
     pii = p.diagonal()
 
     if not (1 - pii).all():
-        raise ValueError("Sojourn times are infinite for absorbing states!")
-    return 1 / (1 - pii)
+        absorbing_states = np.where(pii == 1)[0]
+        non_absorbing_states = np.where(pii != 1)[0]
+        st = np.full(len(pii), np.inf)
+        print("Sojourn times are infinite for absorbing states! In this "
+               "Markov Chain, states {} are absorbing states.".format(
+                list(absorbing_states)))
+        st[non_absorbing_states] = 1 / (1 - pii[non_absorbing_states])
+    else:
+        st = 1 / (1 - pii)
+    return st
 
 
 class GeoRank_Markov(Markov):
