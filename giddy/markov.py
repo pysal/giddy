@@ -181,7 +181,7 @@ class Markov(object):
 
         p_temp = self.p
         if (p_temp.sum(axis=1) == 0).sum()>0:
-            p_temp = fill_diagonal2(p_temp)
+            p_temp = fill_diag2(p_temp)
         mc = qe.MarkovChain(p_temp)
         self.num_cclasses = mc.num_communication_classes
         self.i_cclasses = mc.communication_classes_indices
@@ -1909,27 +1909,6 @@ class FullRank_Markov(Markov):
         # ranks by high (1) to low (n)
         self.ranks = r_asc.shape[0] - r_asc + 1
         super(FullRank_Markov, self).__init__(self.ranks)
-        # frm = Markov(self.ranks)
-        # self.p = frm.p
-        # self.transitions = frm.transitions
-
-    # @property
-    # def steady_state(self):
-    #     if not hasattr(self, '_steady_state'):
-    #         self._steady_state = steady_state_general(self.p)
-    #     return self._steady_state
-    #
-    # @property
-    # def fmpt(self):
-    #     if not hasattr(self, '_fmpt'):
-    #         self._fmpt = fmpt_general(self.p)
-    #     return self._fmpt
-    #
-    # @property
-    # def sojourn_time(self):
-    #     if not hasattr(self, '_st'):
-    #         self._st = sojourn_time(self.p)
-    #     return self._st
 
 
 def sojourn_time(p):
@@ -2064,29 +2043,4 @@ class GeoRank_Markov(Markov):
         ranks = np.array([rankdata(col, method='ordinal') for col in y.T]).T
         geo_ranks = np.argsort(ranks, axis=0) + 1
         super(GeoRank_Markov, self).__init__(geo_ranks)
-    #     grm = Markov(geo_ranks)
-    #     self.p = grm.p
-    #     self.transitions = grm.transitions
-    #
-    # @property
-    # def steady_state(self):
-    #     if not hasattr(self, '_steady_state'):
-    #         self._steady_state = steady_state_general(self.p)
-    #     return self._steady_state
-    #
-    #
-    # @property
-    # def fmpt(self):
-    #     if not hasattr(self, '_fmpt'):
-    #         self._fmpt = fmpt_general(self.p)
-    #     return self._fmpt
-    #
-    #
-    # @property
-    # def sojourn_time(self):
-    #     if not hasattr(self, '_st'):
-    #         self._st = sojourn_time(self.p)
-    #     return self._st
-
-
 
