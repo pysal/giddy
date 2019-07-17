@@ -91,11 +91,13 @@ class Markov(object):
     astates_indices  : list
                        List of indices of absorbing states.
     steady_state : array
-                   Steady state distributions. If num_cclasses=1, steady_state
-                   is of (k, ) dimension; if the Markov chain is an absorbing Markov chain
-                   If num_cclasses>1, the Markov Chain is not ergodic
-                   and there will be (num_cclasses) distributions towards
-                   which the Markov Chain will converge in the long run.
+                   Steady state distributions. If the Markov chain only has
+                   one recurrent class (num_rclasses=1), it will converge to
+                   an unique distribution in the long run, and thus steady_state
+                   is of (k, ) dimension; if the Markov chain has multiple
+                   recurrent classes (num_rclasses>1), there will be
+                   (num_rclasses) steady state distributions and steady_state
+                   will be of (num_rclasses, k) dimension.
     transitions  : array
                    (k, k), count of transitions between each state i and j.
 

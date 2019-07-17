@@ -84,12 +84,13 @@ def steady_state_general(P, fill_diag=True):
                steady state distribution towards which the system is
                converging in the long run. Then steady_state_general is the
                same as steady_state (k, ).
-               If the Markov chain is reducible, meaning that there are
-               more than one communicating class (e.g. `num_classes` = 3),
-               the system could be trapped in any one of these communicating
-               classes. Then, there will be `num_classes` steady state
-               distributions. The returned array will of (num_classes,
-               k) dimension.
+               If the Markov chain is reducible, but only has 1 recurrent
+               class, there will be one steady state distribution as well.
+               If the Markov chain is reducible and there are multiple
+               recurrent classes (num_rclasses), the system could be trapped
+               in any one of  these recurrent classes. Then, there will be
+               `num_rclasses` steady state distributions. The returned array
+               will of (num_rclasses, k) dimension.
 
     Examples
     --------
