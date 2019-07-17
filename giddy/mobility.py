@@ -61,6 +61,11 @@ def markov_mobility(p, measure="P", ini=None):
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
     >>> q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
     >>> m = Markov(q5)
+    The Markov Chain is irreducible and is composed by:
+    1 Recurrent class (indices):
+    [0 1 2 3 4]
+    0 Transient class.
+    The Markov Chain has 0 absorbing state.
     >>> m.p
     array([[0.91011236, 0.0886392 , 0.00124844, 0.        , 0.        ],
            [0.09972299, 0.78531856, 0.11080332, 0.00415512, 0.        ],

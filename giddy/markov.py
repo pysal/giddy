@@ -80,13 +80,22 @@ class Markov(object):
                    (k, k), transition probability matrix.
     num_cclasses : int
                    Number of communicating classes.
+    cclasses_indices : list
+                       List of indices within each communicating classes.
+    num_rclasses : int
+                   Number of recurrent classes.
+    rclasses_indices : list
+                       List of indices within each recurrent classes.
+    num_astates  : int
+                   Number of absorbing states.
+    astates_indices  : list
+                       List of indices of absorbing states.
     steady_state : array
-                   If num_cclasses=1, steady_state is of (k, ) dimension.
+                   Steady state distributions. If num_cclasses=1, steady_state
+                   is of (k, ) dimension; if the Markov chain is an absorbing Markov chain
                    If num_cclasses>1, the Markov Chain is not ergodic
                    and there will be (num_cclasses) distributions towards
                    which the Markov Chain will converge in the long run.
-    communication_classes   : list
-                   List of indices within each communicating classes.
     transitions  : array
                    (k, k), count of transitions between each state i and j.
 
@@ -98,6 +107,11 @@ class Markov(object):
     >>> c.extend([['a','a','b'], ['a','b','c']])
     >>> c = np.array(c)
     >>> m = Markov(c)
+    The Markov Chain is irreducible and is composed by:
+    1 Recurrent class (indices):
+    [0 1 2]
+    0 Transient class.
+    The Markov Chain has 0 absorbing state.
     >>> m.classes.tolist()
     ['a', 'b', 'c']
     >>> m.p
@@ -106,6 +120,17 @@ class Markov(object):
            [0.33333333, 0.33333333, 0.33333333]])
     >>> m.steady_state
     array([0.30769231, 0.28846154, 0.40384615])
+
+    Reducible Markov chain
+    >>> c = [['b','a','a'],['c','c','a'],['c','b','c']]
+    >>> m = Markov(c)
+    The Markov Chain is reducible and is composed by:
+    1 Recurrent class (indices):
+    [0]
+    1 Transient class (indices):
+    [1 2]
+    The Markov Chain has 1 absorbing state:
+    0
 
     US nominal per capita income 48 states 81 years 1929-2009
 
@@ -118,6 +143,11 @@ class Markov(object):
 
     >>> q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
     >>> m = Markov(q5)
+    The Markov Chain is irreducible and is composed by:
+    1 Recurrent class (indices):
+    [0 1 2 3 4]
+    0 Transient class.
+    The Markov Chain has 0 absorbing state.
     >>> m.transitions
     array([[729.,  71.,   1.,   0.,   0.],
            [ 72., 567.,  80.,   3.,   0.],
@@ -139,6 +169,11 @@ class Markov(object):
     >>> rpci = pci/(pci.mean(axis=0))
     >>> rq = mc.Quantiles(rpci.flatten()).yb.reshape(pci.shape)
     >>> mq = Markov(rq)
+    The Markov Chain is irreducible and is composed by:
+    1 Recurrent class (indices):
+    [0 1 2 3 4]
+    0 Transient class.
+    The Markov Chain has 0 absorbing state.
     >>> mq.transitions
     array([[707.,  58.,   7.,   1.,   0.],
            [ 50., 629.,  80.,   1.,   1.],
@@ -157,6 +192,7 @@ class Markov(object):
         else:
             self.classes = np.unique(class_ids)
 
+        class_ids = np.array(class_ids)
         n, t = class_ids.shape
         k = len(self.classes)
         self.k = k
@@ -186,39 +222,55 @@ class Markov(object):
         p_temp = self.p
         if (p_temp.sum(axis=1) == 0).sum()>0:
             p_temp = fill_diag2(p_temp)
-        mc = qe.MarkovChain(p_temp)
-        self.num_cclasses = mc.num_communication_classes
-        self.communication_classes = mc.communication_classes_indices
-        self.recurrent_classes = mc.recurrent_classes_indices
+        markovchain = qe.MarkovChain(p_temp)
+        self.num_cclasses = markovchain.num_communication_classes
+        self.num_rclasses = markovchain.num_recurrent_classes
+
+        self.cclasses_indices = markovchain.communication_classes_indices
+        self.rclasses_indices = markovchain.recurrent_classes_indices
         transient = set(list(map(tuple,
-                                 self.communication_classes))).difference(
-            set(list(map(tuple, self.recurrent_classes))))
+                                 self.cclasses_indices))).difference(
+            set(list(map(tuple, self.rclasses_indices))))
+        self.num_tclasses = len(transient)
         if len(transient):
-            self.transient_classes = [np.asarray(i) for i in transient]
+            self.tclasses_indices = [np.asarray(i) for i in transient]
         else:
-            self.transient_classes = None
+            self.tclasses_indices = None
+        self.astates_indices = list(np.argwhere(p_temp == 1)[:, 0])
+        self.num_astates = len(self.astates_indices)
+
         if summary:
-            if mc.is_irreducible:
+            if markovchain.is_irreducible:
                 print("The Markov Chain is irreducible and is composed by:")
             else:
                 print("The Markov Chain is reducible and is composed by:")
-            print("Recurrent classes:")
-            print(*self.recurrent_classes, sep = ", ")
-            print("Transient classes:")
-            if self.transient_classes is None:
-                print("None")
+            if self.num_rclasses == 1:
+                print("1 Recurrent class (indices):")
             else:
-                print(*self.transient_classes, sep = ", ")
-
-        # for cclass in self.communication_classes:
-        #     rows = cclass[:, np.newaxis]
-        #     p_temp = P[rows, cclass]
-        #     if all(p_temp.sum(axis=1) < 1):
-        #         self.transient_classes.append(cclass)
-        #     else:
-        #         self.recurrent_classes.append(cclass)
-        # if not len(self.transient_classes):
-        #     self.transient_classes = None
+                print("{0} Recurrent classes (indices):".format(
+                    self.num_rclasses))
+            print(*self.rclasses_indices, sep = ", ")
+            if self.num_tclasses == 0:
+                print("0 Transient class.")
+            else:
+                if self.num_tclasses == 1:
+                    print("1 Transient class (indices):")
+                else:
+                    print("{0} Transient classes (indices):".format(self.num_tclasses))
+                print(*self.tclasses_indices, sep=", ")
+            # if self.tclasses_indices is None:
+            #     print("None")
+            # else:
+            #     print(*self.tclasses_indices, sep = ", ")
+            if self.num_astates == 0:
+                print("The Markov Chain has 0 absorbing state.")
+            else:
+                if self.num_astates == 1:
+                    print("The Markov Chain has 1 absorbing state:")
+                else:
+                    print("The Markov Chain has {0} absorbing states:".format(
+                        self.num_astates))
+                print(*self.astates_indices, sep=", ")
 
 
     @property
@@ -1293,7 +1345,7 @@ class LISA_Markov(Markov):
                for yi in y])
         q = np.array([mli.q for mli in ml]).transpose()
         classes = np.arange(1, 5)  # no guarantee all 4 quadrants are visited
-        Markov.__init__(self, q, classes)
+        Markov.__init__(self, q, classes, summary=False)
         self.q = q
         self.w = w
         n, k = q.shape
@@ -1329,8 +1381,8 @@ class LISA_Markov(Markov):
         rlag = ylag / ybar
         rc = r < 1.
         rlagc = rlag < 1.
-        markov_y = Markov(rc)
-        markov_ylag = Markov(rlagc)
+        markov_y = Markov(rc, summary=False)
+        markov_ylag = Markov(rlagc, summary=False)
         A = np.matrix([[1, 0, 0, 0],
                        [0, 0, 1, 0],
                        [0, 0, 0, 1],
@@ -1591,7 +1643,7 @@ def prais(pmat):
     >>> f = libpysal.io.open(libpysal.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)])
     >>> q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
-    >>> m = Markov(q5)
+    >>> m = Markov(q5, summary=False)
     >>> m.transitions
     array([[729.,  71.,   1.,   0.,   0.],
            [ 72., 567.,  80.,   3.,   0.],
@@ -1877,6 +1929,9 @@ class FullRank_Markov(Markov):
                    If True, assign 1 to diagonal elements which fall in rows
                    full of 0s to ensure p is a stochastic transition
                    probability matrix (each row sums up to 1).
+    summary      : bool
+                   If True, print out the summary of the Markov Chain during
+                   initialization. Default is True.
 
     Attributes
     ----------
@@ -1911,6 +1966,12 @@ class FullRank_Markov(Markov):
     >>> f = ps.io.open(ps.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)]).transpose()
     >>> m = FullRank_Markov(pci)
+    The Markov Chain is irreducible and is composed by:
+    1 Recurrent class (indices):
+    [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+     24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47]
+    0 Transient class.
+    The Markov Chain has 0 absorbing state.
     >>> m.ranks
     array([[45, 45, 44, ..., 41, 40, 39],
            [24, 25, 25, ..., 36, 38, 41],
@@ -1936,7 +1997,7 @@ class FullRank_Markov(Markov):
 
     """
 
-    def __init__(self, y):
+    def __init__(self, y, fill_diag=False, summary=True):
 
         y = np.asarray(y)
         # resolve ties: All values are given a distinct rank, corresponding
@@ -1944,7 +2005,9 @@ class FullRank_Markov(Markov):
         r_asc = np.array([rankdata(col, method='ordinal') for col in y.T]).T
         # ranks by high (1) to low (n)
         self.ranks = r_asc.shape[0] - r_asc + 1
-        super(FullRank_Markov, self).__init__(self.ranks)
+        super(FullRank_Markov, self).__init__(self.ranks,
+                                              fill_diag=fill_diag,
+                                              summary=summary)
 
 
 def sojourn_time(p):
@@ -2000,10 +2063,17 @@ class GeoRank_Markov(Markov):
 
     Parameters
     ----------
-    y              : array
-                     (n, t) with t>>n, one row per observation (n total),
-                     one column recording the value of each observation,
-                     with as many columns as time periods.
+    y            : array
+                   (n, t) with t>>n, one row per observation (n total),
+                   one column recording the value of each observation,
+                   with as many columns as time periods.
+    fill_diag    : bool
+                   If True, assign 1 to diagonal elements which fall in rows
+                   full of 0s to ensure p is a stochastic transition
+                   probability matrix (each row sums up to 1).
+    summary      : bool
+                   If True, print out the summary of the Markov Chain during
+                   initialization. Default is True.
 
     Attributes
     ----------
@@ -2036,6 +2106,12 @@ class GeoRank_Markov(Markov):
     >>> f = ps.io.open(ps.examples.get_path("usjoin.csv"))
     >>> pci = np.array([f.by_col[str(y)] for y in range(1929,2010)]).transpose()
     >>> m = GeoRank_Markov(pci)
+    The Markov Chain is irreducible and is composed by:
+    1 Recurrent class (indices):
+    [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+     24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47]
+    0 Transient class.
+    The Markov Chain has 0 absorbing state.
     >>> m.transitions
     array([[38.,  0.,  8., ...,  0.,  0.,  0.],
            [ 0., 15.,  0., ...,  0.,  1.,  0.],
@@ -2080,12 +2156,14 @@ class GeoRank_Markov(Markov):
 
     """
 
-    def __init__(self, y):
+    def __init__(self, y, fill_diag=False, summary=True):
         y = np.asarray(y)
         n = y.shape[0]
         # resolve ties: All values are given a distinct rank, corresponding
         # to the order that the values occur in each cross section.
         ranks = np.array([rankdata(col, method='ordinal') for col in y.T]).T
         geo_ranks = np.argsort(ranks, axis=0) + 1
-        super(GeoRank_Markov, self).__init__(geo_ranks)
+        super(GeoRank_Markov, self).__init__(geo_ranks,
+                                             fill_diag=fill_diag,
+                                             summary=summary)
 

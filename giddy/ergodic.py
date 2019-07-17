@@ -9,7 +9,7 @@ __all__ = ['steady_state', 'fmpt', 'var_fmpt',
 import numpy as np
 import numpy.linalg as la
 import quantecon as qe
-from .util import fill_diag3, fill_diag2
+from .util import fill_diag2
 
 
 def steady_state(P):
