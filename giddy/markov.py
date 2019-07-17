@@ -55,7 +55,7 @@ for i, sig_key in enumerate(sig_keys):
 
 class Markov(object):
     """
-    Classic Markov transition matrices.
+    Classic Markov Chain estimation.
 
     Parameters
     ----------
@@ -69,6 +69,9 @@ class Markov(object):
                    If True, assign 1 to diagonal elements which fall in rows
                    full of 0s to ensure p is a stochastic transition
                    probability matrix (each row sums up to 1).
+    summary      : bool
+                   If True, print out the summary of the Markov Chain during
+                   initialization. Default is True.
     Attributes
     ----------
     k            : int
@@ -82,7 +85,7 @@ class Markov(object):
                    If num_cclasses>1, the Markov Chain is not ergodic
                    and there will be (num_cclasses) distributions towards
                    which the Markov Chain will converge in the long run.
-    i_cclasses   : list
+    communication_classes   : list
                    List of indices within each communicating classes.
     transitions  : array
                    (k, k), count of transitions between each state i and j.
@@ -147,7 +150,8 @@ class Markov(object):
 
     """
 
-    def __init__(self, class_ids, classes=None, fill_diag=False):
+    def __init__(self, class_ids, classes=None, fill_diag=False,
+                 summary=True):
         if classes is not None:
             self.classes = classes
         else:
@@ -184,7 +188,38 @@ class Markov(object):
             p_temp = fill_diag2(p_temp)
         mc = qe.MarkovChain(p_temp)
         self.num_cclasses = mc.num_communication_classes
-        self.i_cclasses = mc.communication_classes_indices
+        self.communication_classes = mc.communication_classes_indices
+        self.recurrent_classes = mc.recurrent_classes_indices
+        transient = set(list(map(tuple,
+                                 self.communication_classes))).difference(
+            set(list(map(tuple, self.recurrent_classes))))
+        if len(transient):
+            self.transient_classes = [np.asarray(i) for i in transient]
+        else:
+            self.transient_classes = None
+        if summary:
+            if mc.is_irreducible:
+                print("The Markov Chain is irreducible and is composed by:")
+            else:
+                print("The Markov Chain is reducible and is composed by:")
+            print("Recurrent classes:")
+            print(*self.recurrent_classes, sep = ", ")
+            print("Transient classes:")
+            if self.transient_classes is None:
+                print("None")
+            else:
+                print(*self.transient_classes, sep = ", ")
+
+        # for cclass in self.communication_classes:
+        #     rows = cclass[:, np.newaxis]
+        #     p_temp = P[rows, cclass]
+        #     if all(p_temp.sum(axis=1) < 1):
+        #         self.transient_classes.append(cclass)
+        #     else:
+        #         self.recurrent_classes.append(cclass)
+        # if not len(self.transient_classes):
+        #     self.transient_classes = None
+
 
     @property
     def fmpt(self):
@@ -706,7 +741,8 @@ class Spatial_Markov(object):
                 y, k=k, cutoffs=self.cutoffs)
             self.classes = np.arange(self.k)
 
-        classic = Markov(self.class_ids, fill_diag=fill_diag)
+        classic = Markov(self.class_ids, fill_diag=fill_diag,
+                         summary=False)
         self.p = classic.p
         self.transitions = classic.transitions
         self.T, self.P = self._calc(y, w, fill_diag=fill_diag)
