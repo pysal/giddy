@@ -54,6 +54,8 @@ Examples
 * [Markov based methods](notebooks/Markov%20Based%20Methods.ipynb)
 * [Rank based methods](notebooks/Rank%20based%20Methods.ipynb)
 * [Mobility measures](notebooks/Mobility%20measures.ipynb)
+* [Rank-based Markov methods](notebooks/Rank_Markov.ipynb)
+* [Sequence methods (Optimal matching)](notebooks/Sequence.ipynb)
 
 Installation
 ------------
