@@ -60,7 +60,7 @@ If you use PySAL-giddy in a scientific publication, we would appreciate using th
 
 Bibtex entry::
 
-   @misc{wei_kang_2019_3251137,
+   @misc{wei_kang_2019_3351744,
      author       = {Wei Kang and
                      Sergio Rey and
                      Philip Stephens and
@@ -72,13 +72,12 @@ Bibtex entry::
                      Charles Schmidt and
                      eli knaap and
                      Andy Eschbacher},
-     title        = {pysal/giddy: giddy 2.2.0},
-     month        = jun,
+     title        = {pysal/giddy: giddy 2.2.1},
+     month        = jul,
      year         = 2019,
-     doi          = {10.5281/zenodo.3251137},
-     url          = {https://doi.org/10.5281/zenodo.3251137}
+     doi          = {10.5281/zenodo.3351744},
+     url          = {https://doi.org/10.5281/zenodo.3351744}
    }
-
 
 .. toctree::
    :hidden:
