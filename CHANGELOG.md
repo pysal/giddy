@@ -1,3 +1,35 @@
+# Version 2.2.1 (2019-07-25)
+
+We closed a total of 21 issues (enhancements and bug fixes) through 10 pull requests, since our last release on 2019-06-20.
+
+## Issues Closed
+  - Prepare for new release 2.2.1 which will have the addition of sequence methods (#110)
+  - Is it good practice to reuse a function name as the name of a class attribute? (#108)
+  - (Docs) add tutorial page (#106)
+  - (docs)  add zenodo citation to docs landing page (#105)
+  - update Readme for v2.2.0 (#104)
+  - edits on OM variant of transitions (#103)
+  - (ENH) Sequence methods (#101)
+  - (docs) reference label style (#102)
+  - (bug) setup.py: md as long description (#100)
+  - Prepare for release 2.2.0 (#99)
+
+## Pull Requests
+  - Prepare for new release 2.2.1 which will have the addition of sequence methods (#110)
+  - (Docs) add tutorial page (#106)
+  - (docs)  add zenodo citation to docs landing page (#105)
+  - update Readme for v2.2.0 (#104)
+  - edits on OM variant of transitions (#103)
+  - (ENH) Sequence methods (#101)
+  - (docs) reference label style (#102)
+  - (bug) setup.py: md as long description (#100)
+  - Prepare for release 2.2.0 (#99)
+
+The following individuals contributed to this release:
+
+  - Wei Kang
+  - Serge Rey
+  
 # Version 2.2.0 (2019-06-20)
 
 We closed a total of 25 issues (enhancements and bug fixes) through 11 pull requests, since our last release on 2019-04-08.
