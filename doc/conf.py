@@ -92,7 +92,7 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'tests/*']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'tests/*', '**.ipynb_checkpoints']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
@@ -278,3 +278,46 @@ def setup(app):
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'https://docs.python.org/3.6/': None}
 
+
+# This is processed by Jinja2 and inserted before each notebook
+nbsphinx_prolog = r"""
+{% set docname = env.doc2path(env.docname, base='doc') %}
+
+.. only:: html
+
+    .. role:: raw-html(raw)
+        :format: html
+
+    .. nbinfo::
+
+        This page was generated from `{{ docname }}`__.
+        Interactive online version:
+        :raw-html:`<a href="https://mybinder.org/v2/gh/pysal/giddy/master?filepath={{ docname }}"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a>`
+
+    __ https://github.com/pysal/giddy/{{ docname }}
+
+.. raw:: latex
+
+    \nbsphinxstartnotebook{\scriptsize\noindent\strut
+    \textcolor{gray}{The following section was generated from
+    \sphinxcode{\sphinxupquote{\strut {{ docname | escape_latex }}}} \dotfill}}
+"""
+
+# This is processed by Jinja2 and inserted after each notebook
+nbsphinx_epilog = r"""
+.. raw:: latex
+
+    \nbsphinxstopnotebook{\scriptsize\noindent\strut
+    \textcolor{gray}{\dotfill\ \sphinxcode{\sphinxupquote{\strut
+    {{ env.doc2path(env.docname, base='doc') | escape_latex }}}} ends here.}}
+"""
+
+# List of arguments to be passed to the kernel that executes the notebooks:
+nbsphinx_execute_arguments = [
+    "--InlineBackend.figure_formats={'svg', 'pdf'}",
+    "--InlineBackend.rc={'figure.dpi': 96}",
+]
+
+mathjax_config = {
+    'TeX': {'equationNumbers': {'autoNumber': 'AMS', 'useLabelIds': True}},
+}

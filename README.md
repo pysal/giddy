@@ -6,7 +6,7 @@ GeospatIal Distribution DYnamics (giddy) in PySAL
 [![Gitter room](https://badges.gitter.im/pysal/giddy.svg)](https://gitter.im/pysal/giddy)
 [![Documentation Status](https://readthedocs.org/projects/giddy/badge/?version=latest)](https://giddy.readthedocs.io/en/latest/?badge=latest)
 [![PyPI version](https://badge.fury.io/py/giddy.svg)](https://badge.fury.io/py/giddy)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3251137.svg)](https://doi.org/10.5281/zenodo.3251137)
+[![DOI](https://zenodo.org/badge/91390088.svg)](https://zenodo.org/badge/latestdoi/91390088)
 
 
 Giddy is an open-source python library for the analysis of dynamics of
@@ -54,6 +54,8 @@ Examples
 * [Markov based methods](notebooks/Markov%20Based%20Methods.ipynb)
 * [Rank based methods](notebooks/Rank%20based%20Methods.ipynb)
 * [Mobility measures](notebooks/Mobility%20measures.ipynb)
+* [Rank-based Markov methods](notebooks/Rank_Markov.ipynb)
+* [Sequence methods (Optimal matching)](notebooks/Sequence.ipynb)
 
 Installation
 ------------
@@ -98,7 +100,7 @@ BibTeX Citation
 ---------------
 
 ```
-@misc{wei_kang_2019_3251137,
+@misc{wei_kang_2019_3351744,
   author       = {Wei Kang and
                   Sergio Rey and
                   Philip Stephens and
@@ -110,11 +112,11 @@ BibTeX Citation
                   Charles Schmidt and
                   eli knaap and
                   Andy Eschbacher},
-  title        = {pysal/giddy: giddy 2.2.0},
-  month        = jun,
+  title        = {pysal/giddy: giddy 2.2.1},
+  month        = jul,
   year         = 2019,
-  doi          = {10.5281/zenodo.3251137},
-  url          = {https://doi.org/10.5281/zenodo.3251137}
+  doi          = {10.5281/zenodo.3351744},
+  url          = {https://doi.org/10.5281/zenodo.3351744}
 }
 ```
 
