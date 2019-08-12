@@ -1,5 +1,4 @@
-numpy>=1.13.3
-scipy>=1.3.0
+scipy
 libpysal>=4.0.1
 mapclassify>=2.1.1
 esda>=2.1.1
