@@ -51,6 +51,9 @@ class SpatialTau_Tester(unittest.TestCase):
             self.assertAlmostEqual(tau_s[i], obs[i].tau_spatial, 3)
             self.assertAlmostEqual(ev_tau_s[i], obs[i].taus.mean(), 3)
             self.assertAlmostEqual(p_vals[i], obs[i].tau_spatial_psim, 3)
+        st12 = rank.SpatialTau(self.y[:,1], self.y[:,2], self.w)
+        st21 = rank.SpatialTau(self.y[:,2], self.y[:,1], self.w)
+        self.assertEqual(st12.tau_spatial, st21.tau_spatial)
 
 
 class Tau_Tester(unittest.TestCase):
