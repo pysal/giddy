@@ -186,7 +186,7 @@ class Tau:
         BCount = 0
         CCount = 0
         DCount = 0
-        ECount = 0
+        ECount = 1
         DCount = 0
         Concordant = 0
         Discordant = 0
