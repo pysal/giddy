@@ -92,6 +92,7 @@ class Rose(object):
 
         >>> import libpysal
         >>> from giddy.directional import Rose
+        >>> import numpy as np
         >>> import matplotlib.pyplot as plt
         >>> file_path = libpysal.examples.get_path("spi_download.csv")
         >>> f=open(file_path,'r')
@@ -206,7 +207,7 @@ class Rose(object):
         rose diagram conditional on the starting relative income:
 
         >>> fig1, _ = r8.plot(attribute=Y[:,0])
-        >>> plt.show(fig1)
+        >>> plt.show()
         """
 
         self.Y = Y
