@@ -1,4 +1,4 @@
-# Version 2.2.1 (2019-09-06)
+# Version 2.2.2 (2019-09-06)
 
 We closed a total of 21 issues (enhancements and bug fixes) through 9 pull requests, since our last release on 2019-07-25.
 
