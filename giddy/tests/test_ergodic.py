@@ -23,7 +23,7 @@ class SteadyState_Tester(unittest.TestCase):
         exp = np.array([[0.375, 0.625, 0.   ], [0.   , 0.   , 1.   ]])
         np.testing.assert_array_almost_equal(exp, obs)
 
-        obs = ergodic.steady_state_general(self.p3, fill_diag=True)
+        obs = ergodic.steady_state_general(self.p3, fill_empty_classes=True)
         exp = np.array([[0.375, 0.625, 0.], [0., 0., 1.]])
         np.testing.assert_array_almost_equal(exp, obs)
 
@@ -53,7 +53,7 @@ class Fmpt_Tester(unittest.TestCase):
                         [    np.inf,     np.inf, 1.        ]])
         np.testing.assert_array_almost_equal(exp, obs)
 
-        obs = ergodic.fmpt_general(self.p3, fill_diag=True)
+        obs = ergodic.fmpt_general(self.p3, fill_empty_classes=True)
         exp = np.array([[2.66666667, 2., np.inf],
                         [3.33333333, 1.6, np.inf],
                         [np.inf, np.inf, 1.]])

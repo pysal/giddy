@@ -144,7 +144,7 @@ class test_Spatial_Markov(unittest.TestCase):
         ## staying probability of a state is 1 if there is no transition from
         # that state
         sm = Spatial_Markov(self.rpci, self.w, cutoffs=cc, lag_cutoffs=cc,
-                            fill_diag=True)
+                            fill_empty_classes=True)
         P = np.array([[[0.96703297, 0.03296703, 0., 0., 0.],
                        [0.10638298, 0.68085106, 0.21276596, 0., 0.],
                        [0., 0.14285714, 0.7755102, 0.08163265, 0.],

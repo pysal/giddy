@@ -9,7 +9,7 @@ __all__ = ["Markov", "LISA_Markov", "Spatial_Markov", "kullback",
 
 import numpy as np
 from .ergodic import steady_state_general, fmpt_general
-from .util import fill_diag3, fill_diag2
+from .util import fill_empty_diagonals
 from .components import Graph
 from scipy import stats
 from scipy.stats import rankdata
@@ -65,10 +65,10 @@ class Markov(object):
                    periods.
     classes      : array
                    (k, 1), all different classes (bins) of the matrix.
-    fill_diag    : bool
-                   If True, assign 1 to diagonal elements which fall in rows
-                   full of 0s to ensure p is a stochastic transition
-                   probability matrix (each row sums up to 1).
+    fill_empty_classes: bool
+                        If True, assign 1 to diagonal elements which fall in rows
+                        full of 0s to ensure p is a stochastic transition
+                        probability matrix (each row sums up to 1).
     summary      : bool
                    If True, print out the summary of the Markov Chain during
                    initialization. Default is True.
@@ -187,7 +187,7 @@ class Markov(object):
 
     """
 
-    def __init__(self, class_ids, classes=None, fill_diag=False,
+    def __init__(self, class_ids, classes=None, fill_empty_classes=False,
                  summary=True):
         if classes is not None:
             self.classes = classes
@@ -218,12 +218,12 @@ class Markov(object):
         row_sum = transitions.sum(axis=1)
         self.p = np.dot(np.diag(1 / (row_sum + (row_sum == 0))), transitions)
 
-        if fill_diag:
-            self.p = fill_diag2(self.p)
+        if fill_empty_classes:
+            self.p = fill_empty_diagonals(self.p)
 
         p_temp = self.p
         if (p_temp.sum(axis=1) == 0).sum()>0:
-            p_temp = fill_diag2(p_temp)
+            p_temp = fill_empty_diagonals(p_temp)
         markovchain = qe.MarkovChain(p_temp)
         self.num_cclasses = markovchain.num_communication_classes
         self.num_rclasses = markovchain.num_recurrent_classes
@@ -278,13 +278,13 @@ class Markov(object):
     @property
     def fmpt(self):
         if not hasattr(self, '_fmpt'):
-            self._fmpt = fmpt_general(self.p, fill_diag=True)
+            self._fmpt = fmpt_general(self.p, fill_empty_classes=True)
         return self._fmpt
 
     @property
     def steady_state(self):
         if not hasattr(self, '_steady_state'):
-            self._steady_state = steady_state_general(self.p, fill_diag=True)
+            self._steady_state = steady_state_general(self.p, fill_empty_classes=True)
         return self._steady_state
 
     @property
@@ -339,12 +339,12 @@ class Spatial_Markov(object):
                       discretization.
     variable_name   : string
                       name of variable.
-    fill_diag       : bool
-                      If True, assign 1 to diagonal elements which fall in rows
-                      full of 0s to ensure each conditional transition
-                      probability matrix is a stochastic matrix (each row
-                      sums up to 1). In other words, the probablity of
-                      staying at that state is 1.
+    fill_empty_classes: bool
+                        If True, assign 1 to diagonal elements which fall in rows
+                        full of 0s to ensure each conditional transition
+                        probability matrix is a stochastic matrix (each row
+                        sums up to 1). In other words, the probability of
+                        staying at that state is 1.
 
     Attributes
     ----------
@@ -686,9 +686,9 @@ class Spatial_Markov(object):
     (3.1) As we can see from the above estimated conditional transition
     probability matrix, some rows are full of zeros which violate the
     requirement of a transition probability matrix that every row sums to 1.
-    We can easily adjust this assigning fill_diag = True when initializing
+    We can easily adjust this assigning fill_empty_classes = True when initializing
     Spatial_Markov.
-    >>> sm = Spatial_Markov(rpci, w, cutoffs=cc, lag_cutoffs=cc, fill_diag=True)
+    >>> sm = Spatial_Markov(rpci, w, cutoffs=cc, lag_cutoffs=cc, fill_empty_classes=True)
     >>> for p in sm.P:
     ...     print(p)
     [[0.96703297 0.03296703 0.         0.         0.        ]
@@ -768,7 +768,7 @@ class Spatial_Markov(object):
 
     def __init__(self, y, w, k=4, m=4, permutations=0, fixed=True,
                  discrete=False, cutoffs=None, lag_cutoffs=None,
-                 variable_name=None, fill_diag=False):
+                 variable_name=None, fill_empty_classes=False):
 
         y = np.asarray(y)
         self.fixed = fixed
@@ -795,11 +795,11 @@ class Spatial_Markov(object):
                 y, k=k, cutoffs=self.cutoffs)
             self.classes = np.arange(self.k)
 
-        classic = Markov(self.class_ids, fill_diag=fill_diag,
+        classic = Markov(self.class_ids, fill_empty_classes=fill_empty_classes,
                          summary=False)
         self.p = classic.p
         self.transitions = classic.transitions
-        self.T, self.P = self._calc(y, w, fill_diag=fill_diag)
+        self.T, self.P = self._calc(y, w, fill_empty_classes=fill_empty_classes)
 
         if permutations:
             nrp = np.random.permutation
@@ -911,11 +911,11 @@ class Spatial_Markov(object):
             self._x2_dof = k * (k - 1) * (k - 1)
         return self._x2_dof
 
-    def _calc(self, y, w, fill_diag=False):
+    def _calc(self, y, w, fill_empty_classes=False):
         '''Helper to estimate spatial lag conditioned Markov transition
         probability matrices based on maximum likelihood techniques.
 
-        If fill_diag=True, assign 1 to diagonal elements which fall in rows
+        If fill_empty_classes=True, assign 1 to diagonal elements which fall in rows
         full of 0s to ensure each conditional transition probability matrix
         is a stochastic matrix (each row sums up to 1).
 
@@ -944,8 +944,8 @@ class Spatial_Markov(object):
             p_i = np.matrix(np.diag(1. / row_sum) * np.matrix(mat))
             P[i] = p_i
 
-        if fill_diag:
-            P = fill_diag3(P)
+        if fill_empty_classes:
+            P = fill_empty_diagonals(P)
         return T, P
 
     def _mn_test(self):
@@ -1927,10 +1927,10 @@ class FullRank_Markov(Markov):
                    (n, t) with t>>n, one row per observation (n total),
                    one column recording the value of each observation,
                    with as many columns as time periods.
-    fill_diag    : bool
-                   If True, assign 1 to diagonal elements which fall in rows
-                   full of 0s to ensure p is a stochastic transition
-                   probability matrix (each row sums up to 1).
+    fill_empty_classes: bool
+                        If True, assign 1 to diagonal elements which fall in rows
+                        full of 0s to ensure p is a stochastic transition
+                        probability matrix (each row sums up to 1).
     summary      : bool
                    If True, print out the summary of the Markov Chain during
                    initialization. Default is True.
@@ -1999,7 +1999,7 @@ class FullRank_Markov(Markov):
 
     """
 
-    def __init__(self, y, fill_diag=False, summary=True):
+    def __init__(self, y, fill_empty_classes=False, summary=True):
 
         y = np.asarray(y)
         # resolve ties: All values are given a distinct rank, corresponding
@@ -2008,7 +2008,7 @@ class FullRank_Markov(Markov):
         # ranks by high (1) to low (n)
         self.ranks = r_asc.shape[0] - r_asc + 1
         super(FullRank_Markov, self).__init__(self.ranks,
-                                              fill_diag=fill_diag,
+                                              fill_empty_classes=fill_empty_classes,
                                               summary=summary)
 
 
@@ -2069,10 +2069,10 @@ class GeoRank_Markov(Markov):
                    (n, t) with t>>n, one row per observation (n total),
                    one column recording the value of each observation,
                    with as many columns as time periods.
-    fill_diag    : bool
-                   If True, assign 1 to diagonal elements which fall in rows
-                   full of 0s to ensure p is a stochastic transition
-                   probability matrix (each row sums up to 1).
+    fill_empty_classes: bool
+                        If True, assign 1 to diagonal elements which fall in rows
+                        full of 0s to ensure p is a stochastic transition
+                        probability matrix (each row sums up to 1).
     summary      : bool
                    If True, print out the summary of the Markov Chain during
                    initialization. Default is True.
@@ -2158,7 +2158,7 @@ class GeoRank_Markov(Markov):
 
     """
 
-    def __init__(self, y, fill_diag=False, summary=True):
+    def __init__(self, y, fill_empty_classes=False, summary=True):
         y = np.asarray(y)
         n = y.shape[0]
         # resolve ties: All values are given a distinct rank, corresponding
@@ -2166,6 +2166,6 @@ class GeoRank_Markov(Markov):
         ranks = np.array([rankdata(col, method='ordinal') for col in y.T]).T
         geo_ranks = np.argsort(ranks, axis=0) + 1
         super(GeoRank_Markov, self).__init__(geo_ranks,
-                                             fill_diag=fill_diag,
+                                             fill_empty_classes=fill_empty_classes,
                                              summary=summary)
 
