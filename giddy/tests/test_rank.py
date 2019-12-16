@@ -51,6 +51,9 @@ class SpatialTau_Tester(unittest.TestCase):
             self.assertAlmostEqual(tau_s[i], obs[i].tau_spatial, 3)
             self.assertAlmostEqual(ev_tau_s[i], obs[i].taus.mean(), 3)
             self.assertAlmostEqual(p_vals[i], obs[i].tau_spatial_psim, 3)
+        st12 = rank.SpatialTau(self.y[:,1], self.y[:,2], self.w)
+        st21 = rank.SpatialTau(self.y[:,2], self.y[:,1], self.w)
+        self.assertEqual(st12.tau_spatial, st21.tau_spatial)
 
 
 class Tau_Tester(unittest.TestCase):
@@ -60,6 +63,12 @@ class Tau_Tester(unittest.TestCase):
         kt = rank.Tau(x1, x2)
         self.assertAlmostEqual(kt.tau, -0.47140452079103173, 5)
         self.assertAlmostEqual(kt.tau_p, 0.24821309157521476, 5)
+        x1 = [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1]
+        x2 = [1, 4, 7, 1, 1, 3, 1, 6, 7, 7, 3, 6, 2, 7, 2, 8]
+        kt12 = rank.Tau(x1, x2)
+        kt21 = rank.Tau(x2, x1)
+        self.assertEqual(kt12.tau, kt21.tau)
+        self.assertAlmostEqual(kt12.tau, 0.15494494670022804)
 
 
 suite = unittest.TestSuite()

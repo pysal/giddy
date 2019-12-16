@@ -71,13 +71,7 @@ def get_lower(matrix):
 
     """
     n = matrix.shape[0]
-    lowerlist = []
-    for i in range(n):
-        for j in range(n):
-            if i > j:
-                lowerlist.append(matrix[i, j])
-    veclen = n * (n - 1) / 2
-    lowvec = np.reshape(np.array(lowerlist), (int(veclen), 1))
+    lowvec = matrix[np.tril_indices(n, k=-1)].reshape(-1,1)
     return lowvec
 
 

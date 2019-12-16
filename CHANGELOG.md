@@ -1,3 +1,38 @@
+# Version 2.2.2 (2019-09-06)
+
+We closed a total of 21 issues (enhancements and bug fixes) through 9 pull requests, since our last release on 2019-07-25.
+
+## Issues Closed
+  - remove the parameter in plt.show() due to the API change in Matplotlib (deprecation) (#122)
+  - development guidelines link in README.md (#119)
+  - BUG: Fix for correct handling of ties in Tau (#118)
+  - resolving broken dev link (#120)
+  - initialization of ECount parameter in Kendall's Tau (#117)
+  - (bug) debug travis-ci  (#116)
+  - docs building is failing (#114)
+  - (docs, bug) fix docs building and configure nbsphinx to work with binder in docs tutorials (#115)
+  -  (docs) rename notebooks for configuring nbsphinx and binder (#113)
+  - docs updates for v2.2.1 (#112)
+  - update dependency versions (#111)
+  - Prepare for new release 2.2.1 which will have the addition of sequence methods (#110)
+
+## Pull Requests
+  - remove the parameter in plt.show() due to the API change in Matplotlib (deprecation) (#122)
+  - BUG: Fix for correct handling of ties in Tau (#118)
+  - resolving broken dev link (#120)
+  - (bug) debug travis-ci  (#116)
+  - (docs, bug) fix docs building and configure nbsphinx to work with binder in docs tutorials (#115)
+  -  (docs) rename notebooks for configuring nbsphinx and binder (#113)
+  - docs updates for v2.2.1 (#112)
+  - update dependency versions (#111)
+  - Prepare for new release 2.2.1 which will have the addition of sequence methods (#110)
+
+The following individuals contributed to this release:
+
+  - Wei Kang
+  - James Gaboardi
+  - Serge Rey
+  
 # Version 2.2.1 (2019-07-25)
 
 We closed a total of 21 issues (enhancements and bug fixes) through 10 pull requests, since our last release on 2019-06-20.
