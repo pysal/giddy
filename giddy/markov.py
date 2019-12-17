@@ -8,7 +8,7 @@ __all__ = ["Markov", "LISA_Markov", "Spatial_Markov", "kullback",
            "GeoRank_Markov"]
 
 import numpy as np
-from .ergodic import steady_state_general, fmpt_general
+from .ergodic import steady_state, fmpt
 from .util import fill_empty_diagonals
 from .components import Graph
 from scipy import stats
@@ -278,13 +278,13 @@ class Markov(object):
     @property
     def fmpt(self):
         if not hasattr(self, '_fmpt'):
-            self._fmpt = fmpt_general(self.p, fill_empty_classes=True)
+            self._fmpt = fmpt(self.p, fill_empty_classes=True)
         return self._fmpt
 
     @property
     def steady_state(self):
         if not hasattr(self, '_steady_state'):
-            self._steady_state = steady_state_general(self.p, fill_empty_classes=True)
+            self._steady_state = steady_state(self.p, fill_empty_classes=True)
         return self._steady_state
 
     @property
@@ -818,7 +818,7 @@ class Spatial_Markov(object):
     @property
     def s(self):
         if not hasattr(self, '_s'):
-            self._s = steady_state_general(self.p)
+            self._s = steady_state(self.p)
         return self._s
 
     @property
@@ -826,7 +826,7 @@ class Spatial_Markov(object):
         if not hasattr(self, '_S'):
             _S = []
             for i, p in enumerate(self.P):
-                _S.append(steady_state_general(p))
+                _S.append(steady_state(p))
             # if np.array(_S).dtype is np.dtype('O'):
             self._S = np.asarray(_S)
         return self._S
@@ -834,7 +834,7 @@ class Spatial_Markov(object):
     @property
     def f(self):
         if not hasattr(self, '_f'):
-            self._f = fmpt_general(self.p)
+            self._f = fmpt(self.p)
         return self._f
 
     @property
@@ -842,7 +842,7 @@ class Spatial_Markov(object):
         if not hasattr(self, '_F'):
             F = np.zeros_like(self.P)
             for i, p in enumerate(self.P):
-                F[i] = fmpt_general(np.asarray(p))
+                F[i] = fmpt(np.asarray(p))
             self._F = np.asarray(F)
         return self._F
 
@@ -941,7 +941,7 @@ class Spatial_Markov(object):
         for i, mat in enumerate(T):
             row_sum = mat.sum(axis=1)
             row_sum = row_sum + (row_sum == 0)
-            p_i = np.matrix(np.diag(1. / row_sum) * np.matrix(mat))
+            p_i = np.array(np.diag(1. / row_sum)).dot(np.array(mat))
             P[i] = p_i
 
         if fill_empty_classes:
@@ -1111,8 +1111,8 @@ def chi2(T1, T2):
     dof2 = sum(rs2nz)
     rs2 = rs2 + (rs2 == 0)
     dof = (dof1 - 1) * (dof2 - 1)
-    p = np.diag(1 / rs2) * np.matrix(T2)
-    E = np.diag(rs1) * np.matrix(p)
+    p = np.diag(1 / rs2).dot(np.array(T2))
+    E = np.diag(rs1).dot(np.array(p))
     num = T1 - E
     num = np.multiply(num, num)
     E = E + (E == 0)
@@ -1385,16 +1385,15 @@ class LISA_Markov(Markov):
         rlagc = rlag < 1.
         markov_y = Markov(rc, summary=False)
         markov_ylag = Markov(rlagc, summary=False)
-        A = np.matrix([[1, 0, 0, 0],
+        A = np.array([[1, 0, 0, 0],
                        [0, 0, 1, 0],
                        [0, 0, 0, 1],
                        [0, 1, 0, 0]])
 
-        kp = A * np.kron(markov_y.p, markov_ylag.p) * A.T
+        kp = A.dot(np.kron(markov_y.p, markov_ylag.p)).dot(A.T)
         trans = self.transitions.sum(axis=1)
-        t1 = np.diag(trans) * kp
+        t1 = np.diag(trans).dot(kp)
         t2 = self.transitions
-        t1 = t1.getA()
         self.chi_2 = chi2(t2, t1)
         self.expected_t = t1
         self.permutations = permutations
