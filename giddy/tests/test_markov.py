@@ -67,10 +67,10 @@ class test_Markov(unittest.TestCase):
         np.testing.assert_array_almost_equal(m.steady_state, expected)
 
         expected = np.array([[1.        ,  np.inf, np.inf,np.inf,np.inf],
-       [ np.inf, 1.78305684, 8.65447755,    np.inf,     np.inf],
-       [ np.inf, 7.393034  , 2.2770465 ,     np.inf,     np.inf],
+       [ np.inf, np.inf, 9.,    29.,     np.inf],
+       [ np.inf, np.inf , np.inf ,  20,     np.inf],
        [  np.inf,   np.inf,   np.inf, 1.        ,     np.inf],
-       [  np.inf,      np.inf,   np.inf,      np.inf, 1.        ]])
+       [  np.inf,      np.inf,   np.inf,     10, np.inf]])
         np.testing.assert_array_almost_equal(m.fmpt, expected)
 
         expected = np.array([np.inf,  9. ,  5.5, np.inf, 10. ])

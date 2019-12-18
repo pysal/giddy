@@ -60,7 +60,7 @@ def _steady_state_ergodic(P):
     # normalize eigenvector corresponding to the eigenvalue 1
     return row / sum(row)
 
-def steady_state(P, fill_empty_classes=True):
+def steady_state(P, fill_empty_classes = False):
     """
     Generalized function for calculating the steady state distribution
     for a regular or reducible Markov transition matrix P.
@@ -70,10 +70,10 @@ def steady_state(P, fill_empty_classes=True):
     P        : array
                (k, k), an ergodic or non-ergodic Markov transition probability
                matrix.
-    fill_empty_classes: bool
+    fill_empty_classes: bool, optional
                         If True, assign 1 to diagonal elements which fall in rows full
                         of 0s to ensure the transition probability matrix is a
-                        stochastic one.
+                        stochastic one. Default is False.
 
     Returns
     -------
@@ -197,7 +197,7 @@ def _fmpt_ergodic(P):
     M = (I - Z + E.dot(Zdg)).dot(D)
     return M
 
-def fmpt(P, fill_empty_classes = True):
+def fmpt(P, fill_empty_classes = False):
     """
     Generalized function for calculating first mean passage times for an
     ergodic or non-ergodic transition probability matrix.
@@ -207,10 +207,10 @@ def fmpt(P, fill_empty_classes = True):
     P        : array
                (k, k), an ergodic/non-ergodic Markov transition probability
                matrix.
-    fill_empty_classes: bool
+    fill_empty_classes: bool, optional
                         If True, assign 1 to diagonal elements which fall in rows full
                         of 0s to ensure the transition probability matrix is a
-                        stochastic one.
+                        stochastic one. Default is False.
 
     Returns
     -------
@@ -223,6 +223,7 @@ def fmpt(P, fill_empty_classes = True):
     --------
     >>> import numpy as np
     >>> from giddy.ergodic import fmpt
+    >>> np.set_printoptions(suppress=True) #prevent scientific format
 
     # irreducible Markov chain
     >>> p = np.array([[.5, .25, .25],[.5,0,.5],[.25,.25,.5]])
@@ -280,15 +281,39 @@ def fmpt(P, fill_empty_classes = True):
     num_classes = mc.num_communication_classes
     if num_classes == 1:
         fmpt_all = _fmpt_ergodic(P)
-        return fmpt_all
-    else:
-        i_cclasses = mc.communication_classes_indices
-        fmpt_all = np.full((mc.n, mc.n), np.inf)
-        for cclass in i_cclasses:
-            rows = cclass[:, np.newaxis]
-            p_temp = P[rows, cclass]
-            fmpt_all[rows, cclass] = _fmpt_ergodic(p_temp)
-        return fmpt_all
+    else: # deal with non-ergodic Markov chains
+        k = P.shape[0]
+        fmpt_all = np.zeros((k, k))
+        for desti in range(k):
+            b = np.ones(k - 1)
+            p_sub = np.delete(np.delete(P, desti, 0), desti, 1)
+            p_calc = np.eye(k - 1) - p_sub
+            m = np.full(k - 1, np.inf)
+            row0 = (p_calc != 0).sum(axis=1)
+            none0 = np.arange(k - 1)
+            try:
+                m[none0] = np.linalg.solve(p_calc, b)
+            except np.linalg.LinAlgError as err:
+                if 'Singular matrix' in str(err):
+                    if (row0 == 0).sum() > 0:
+                        index0 = set(np.argwhere(row0 == 0).flatten())
+                        x = (p_calc[:, list(index0)] != 0).sum(axis=1)
+                        setx = set(np.argwhere(x).flatten())
+                        while not setx.issubset(index0):
+                            index0 = index0.union(setx)
+                            x = (p_calc[:, list(index0)] != 0).sum(axis=1)
+                            setx = set(np.argwhere(x).flatten())
+                        none0 = np.asarray(list(set(none0).difference(index0)))
+                        if len(none0) >= 1:
+                            p_calc = p_calc[none0, :][:, none0]
+                            b = b[none0]
+                            m[none0] = np.linalg.solve(p_calc, b)
+            recc = np.nan_to_num((np.delete(P, desti, 1)[desti] * m),
+                                 0, posinf=np.inf).sum() + 1
+            fmpt_all[:, desti] = np.insert(m, desti, recc)
+            fmpt_all = np.where(fmpt_all < -1e+16, np.inf, fmpt_all)
+            fmpt_all = np.where(fmpt_all > 1e+16, np.inf, fmpt_all)
+    return fmpt_all
 
 
 
@@ -326,16 +351,17 @@ def var_fmpt_ergodic(P):
 
     """
 
-    P = np.matrix(P)
-    A = P ** 1000
-    n, k = A.shape
+    P = np.asarray(P)
+    k = P.shape[0]
+    A = _steady_state_ergodic(P)
+    A = np.tile(A, (k, 1))
     I = np.identity(k)
     Z = la.inv(I - P + A)
     E = np.ones_like(Z)
     D = np.diag(1. / np.diag(A))
     Zdg = np.diag(np.diag(Z))
-    M = (I - Z + E * Zdg) * D
-    ZM = Z * M
+    M = (I - Z + E.dot(Zdg)).dot(D)
+    ZM = Z.dot(M)
     ZMdg = np.diag(np.diag(ZM))
-    W = M * (2 * Zdg * D - I) + 2 * (ZM - E * ZMdg)
+    W = M.dot(2 * Zdg.dot(D) - I) + 2 * (ZM - E.dot(ZMdg))
     return np.array(W - np.multiply(M, M))
