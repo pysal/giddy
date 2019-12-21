@@ -34,6 +34,47 @@ class test_Markov(unittest.TestCase):
                              0.20937187])
         np.testing.assert_array_almost_equal(m.steady_state, expected)
 
+        expected = np.array([[  4.81354357,  11.50292712,  29.60921231,
+                              53.38594954, 103.59816743],
+                             [ 42.04774505,   5.34023324,  18.74455332,
+                               42.50023268, 92.71316899],
+                             [ 69.25849753,  27.21075248,   4.82147603,
+                               25.27184624, 75.43305672],
+                             [ 84.90689329,  42.85914824,  17.18082642,
+                               5.31299186, 51.60953369],
+                             [ 98.41295543,  56.36521038,  30.66046735,
+                               14.21158356, 4.77619083]])
+        np.testing.assert_array_almost_equal(m.fmpt, expected)
+
+        expected = np.array([11.125     ,  4.65806452,  4.73372781,
+                           4.95172414, 13.77586207])
+        np.testing.assert_array_almost_equal(m.sojourn_time, expected)
+
+        m = Markov(q5[:, :2])
+        expected = np.array([[10.,  0.,  0.,  0.,  0.],
+                             [ 0.,  8.,  1.,  0.,  0.],
+                             [ 0.,  1.,  9.,  1.,  0.],
+                             [ 0.,  0.,  0.,  8.,  0.],
+                             [ 0.,  0.,  0.,  1.,  9.]])
+        np.testing.assert_array_equal(m.transitions, expected)
+        expected = np.array([[1.        , 0.        , 0.        , 0., 0.  ],
+       [0.        , 0.88888889, 0.11111111, 0.        , 0.        ],
+       [0.        , 0.09090909, 0.81818182, 0.09090909, 0.        ],
+       [0.        , 0.        , 0.        , 1.        , 0.        ],
+       [0.        , 0.        , 0.        , 0.1       , 0.9       ]])
+        np.testing.assert_array_almost_equal(m.p, expected)
+        expected = np.array([[1., 0., 0., 0., 0.], [0., 0., 0., 1., 0.]])
+        np.testing.assert_array_almost_equal(m.steady_state, expected)
+
+        expected = np.array([[1.        ,  np.inf, np.inf,np.inf,np.inf],
+       [ np.inf, np.inf, 9.,    29.,     np.inf],
+       [ np.inf, np.inf , np.inf ,  20,     np.inf],
+       [  np.inf,   np.inf,   np.inf, 1.        ,     np.inf],
+       [  np.inf,      np.inf,   np.inf,     10, np.inf]])
+        np.testing.assert_array_almost_equal(m.fmpt, expected)
+
+        expected = np.array([np.inf,  9. ,  5.5, np.inf, 10. ])
+        np.testing.assert_array_almost_equal(m.sojourn_time, expected)
 
 class test_Spatial_Markov(unittest.TestCase):
     def setUp(self):
@@ -58,6 +99,17 @@ class test_Spatial_Markov(unittest.TestCase):
                       [0.01776781, 0.19964349, 0.19009833, 0.25524697,
                        0.3372434]])
         np.testing.assert_array_almost_equal(S, sm.S)
+        F0 = np.array([[  2.29835259,  28.95614035,  46.14285714,  80.80952381,
+        279.42857143],
+       [ 33.86549708,   3.79459555,  22.57142857,  57.23809524,
+        255.85714286],
+       [ 43.60233918,   9.73684211,   4.91085714,  34.66666667,
+        233.28571429],
+       [ 46.62865497,  12.76315789,   6.25714286,  14.61564626,
+        198.61904762],
+       [ 52.62865497,  18.76315789,  12.25714286,   6.        ,
+         34.1031746 ]])
+        np.testing.assert_array_almost_equal(F0, sm.F[0])
 
     def test_cutoff(self):
         cc = np.array([0.8, 0.9, 1, 1.2])
@@ -88,6 +140,46 @@ class test_Spatial_Markov(unittest.TestCase):
                        [0., 0., 0.05660377, 0.90566038, 0.03773585],
                        [0., 0., 0., 0.03932584, 0.96067416]]])
         np.testing.assert_array_almost_equal(P, sm.P)
+
+        ## staying probability of a state is 1 if there is no transition from
+        # that state
+        sm = Spatial_Markov(self.rpci, self.w, cutoffs=cc, lag_cutoffs=cc,
+                            fill_empty_classes=True)
+        P = np.array([[[0.96703297, 0.03296703, 0., 0., 0.],
+                       [0.10638298, 0.68085106, 0.21276596, 0., 0.],
+                       [0., 0.14285714, 0.7755102, 0.08163265, 0.],
+                       [0., 0., 0.5, 0.5, 0.],
+                       [0., 0., 0., 0., 1.]],
+                      [[0.88636364, 0.10606061, 0.00757576, 0., 0.],
+                       [0.04402516, 0.89308176, 0.06289308, 0., 0.],
+                       [0., 0.05882353, 0.8627451, 0.07843137, 0.],
+                       [0., 0., 0.13846154, 0.86153846, 0.],
+                       [0., 0., 0., 0., 1.]],
+                      [[0.78082192, 0.17808219, 0.02739726, 0.01369863, 0.],
+                       [0.03488372, 0.90406977, 0.05813953, 0.00290698, 0.],
+                       [0., 0.05919003, 0.84735202, 0.09034268, 0.00311526],
+                       [0., 0., 0.05811623, 0.92985972, 0.01202405],
+                       [0., 0., 0., 0.14285714, 0.85714286]],
+                      [[0.82692308, 0.15384615, 0., 0.01923077, 0.],
+                       [0.0703125, 0.7890625, 0.125, 0.015625, 0.],
+                       [0.00295858, 0.06213018, 0.82248521, 0.10946746,
+                        0.00295858],
+                       [0., 0.00185529, 0.07606679, 0.88497217, 0.03710575],
+                       [0., 0., 0., 0.07803468, 0.92196532]],
+                      [[1., 0., 0., 0., 0.],
+                       [0., 1., 0., 0., 0.],
+                       [0., 0.06666667, 0.9, 0.03333333, 0.],
+                       [0., 0., 0.05660377, 0.90566038, 0.03773585],
+                       [0., 0., 0., 0.03932584, 0.96067416]]])
+        np.testing.assert_array_almost_equal(P, sm.P)
+
+        S0 = np.array([[0.54148249, 0.16780007, 0.24991499, 0.04080245, 0.
+                      ], [0.        , 0.        , 0.        , 0.        ,
+                          1.        ]])
+        np.testing.assert_array_almost_equal(S0, sm.S[0])
+
+
+
 
     def test_discretized(self):
         w = ps.weights.Queen.from_shapefile(
@@ -296,11 +388,15 @@ class GeoRank_Markov_Tester(unittest.TestCase):
 class Sojourn_time_Tester(unittest.TestCase):
     def setUp(self):
         self.p = np.array([[.5, .25, .25], [.5, 0, .5], [.25, .25, .5]])
+        self.p2 = np.array([[.5, .5, 0], [.3, .7, 0], [0, 0, 1]])
 
-    def test_steady_state(self):
+    def test_sojourn_time(self):
         obs = sojourn_time(self.p)
         exp = np.array([2., 1., 2.])
         np.testing.assert_array_almost_equal(exp, obs)
+
+        exp = np.array([2.        , 3.33333333, np.inf])
+        np.testing.assert_array_almost_equal(exp, sojourn_time(self.p2))
 
 
 if __name__ == '__main__':

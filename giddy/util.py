@@ -2,9 +2,10 @@
 Utilities for the spatial dynamics module.
 """
 
-__all__ = ['shuffle_matrix', 'get_lower']
+__all__ = ['shuffle_matrix', 'get_lower', 'fill_empty_diagonals']
 
 import numpy as np
+import copy
 
 def shuffle_matrix(X, ids):
     """
@@ -74,4 +75,108 @@ def get_lower(matrix):
     lowvec = matrix[np.tril_indices(n, k=-1)].reshape(-1,1)
     return lowvec
 
+def fill_empty_diagonals(p):
+    """
+    Assign 1 to diagonal elements which fall in rows full of 0s to ensure
+    the transition probability matrix is a stochastic one. Currently
+    implemented for two- and three-dimensional transition probability
+    matrices.
 
+    Parameters
+    ----------
+    p        : array
+               (k, k), an ergodic/non-ergodic Markov transition probability
+               matrix.
+
+    Returns
+    -------
+    p_temp   : array
+               Matrix without rows full of 0 transition probabilities.
+               (stochastic matrix)
+
+    Examples
+    --------
+    >>> import numpy as np
+    >>> from giddy.util import fill_empty_diagonals
+    >>> p2 = np.array([[.5, .5, 0], [.3, .7, 0], [0, 0, 0]])
+    >>> fill_empty_diagonals(p2)
+    array([[0.5, 0.5, 0. ],
+           [0.3, 0.7, 0. ],
+           [0. , 0. , 1. ]])
+
+    >>> p3 = np.array([[[0.5, 0.5, 0. ], [0.3, 0.7, 0. ], [0. , 0. , 0. ]],
+    ...  [[0. , 0. , 0. ], [0.3, 0.7, 0. ], [0. , 0. , 0. ]]])
+    >>> p_new = fill_empty_diagonals(p3)
+    >>> p_new[1]
+    array([[1. , 0. , 0. ],
+           [0.3, 0.7, 0. ],
+           [0. , 0. , 1. ]])
+    """
+
+    p_temp = np.asarray(p)
+    if len(p_temp.shape) == 3:
+         return _fill_empty_diagonal_3d(p_temp)
+    elif len(p_temp.shape) == 2:
+        return _fill_empty_diagonal_2d(p_temp)
+    else:
+        raise NotImplementedError('Filling empty diagonals is '
+                                  'only implemented for 2/3d matrices.')
+
+
+def _fill_empty_diagonal_2d(p):
+    """
+    Assign 1 to diagonal elements which fall in rows full of 0s to ensure
+    the transition probability matrix is a stochastic one.
+
+    Parameters
+    ----------
+    p        : array
+               (k, k), an ergodic/non-ergodic Markov transition probability
+               matrix.
+
+    Returns
+    -------
+    p_temp   : array
+               Matrix without rows full of 0 transition probabilities.
+               (stochastic matrix)
+
+    """
+
+    p_temp = copy.copy(p)
+    p0 = (p_temp.sum(axis=1) == 0)
+    if p0.sum()>0:
+        row_zero_i = np.where(p0)
+        for row in row_zero_i:
+            p_temp[row, row] = 1
+    return p_temp
+
+
+def _fill_empty_diagonal_3d(p):
+    """
+    Assign 1 to diagonal elements which fall in rows full of 0s to ensure
+    the conditional transition probability matrices is are stochastic matrices.
+    Staying probabilities are 1.
+
+    Parameters
+    ----------
+    p        : array
+               (m, k, k), m ergodic/non-ergodic Markov transition probability
+               matrices.
+
+    Returns
+    -------
+    p_temp   : array
+               Matrices without rows full of 0 transition probabilities.
+               (stochastic matrices)
+
+    """
+
+    p_temp = copy.copy(p)
+    p0 = (p_temp.sum(axis=2) == 0)
+    if p0.sum()>0:
+        rows, cols = np.where(p0)
+        row_zero_i = list(zip(rows, cols))
+        for row in row_zero_i:
+            i, j = row
+            p_temp[i, j, j] = 1
+    return p_temp
