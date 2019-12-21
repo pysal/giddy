@@ -131,8 +131,8 @@ class Markov(object):
     [0]
     1 Transient class (indices):
     [1 2]
-    The Markov Chain has 1 absorbing state:
-    0
+    The Markov Chain has 1 absorbing state (index):
+    [0]
 
     US nominal per capita income 48 states 81 years 1929-2009
 
@@ -238,7 +238,7 @@ class Markov(object):
             self.tclasses_indices = [np.asarray(i) for i in transient]
         else:
             self.tclasses_indices = None
-        self.astates_indices = list(np.argwhere(p_temp == 1)[:, 0])
+        self.astates_indices = list(np.argwhere(np.diag(p_temp) == 1))
         self.num_astates = len(self.astates_indices)
 
         if summary:
@@ -260,17 +260,13 @@ class Markov(object):
                 else:
                     print("{0} Transient classes (indices):".format(self.num_tclasses))
                 print(*self.tclasses_indices, sep=", ")
-            # if self.tclasses_indices is None:
-            #     print("None")
-            # else:
-            #     print(*self.tclasses_indices, sep = ", ")
             if self.num_astates == 0:
                 print("The Markov Chain has 0 absorbing state.")
             else:
                 if self.num_astates == 1:
-                    print("The Markov Chain has 1 absorbing state:")
+                    print("The Markov Chain has 1 absorbing state (index):")
                 else:
-                    print("The Markov Chain has {0} absorbing states:".format(
+                    print("The Markov Chain has {0} absorbing states (indices):".format(
                         self.num_astates))
                 print(*self.astates_indices, sep=", ")
 

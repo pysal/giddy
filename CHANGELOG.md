@@ -1,3 +1,27 @@
+# Version 2.3.0 (2019-12-20)
+
+We closed a total of 11 issues (enhancements and bug fixes) through 5 pull requests, since our last release on 2019-09-06.
+
+## Issues Closed
+  - (ENH) Extend functions for Markov classes to deal with non-ergodic Markov chains (#109)
+  - travis CI: pip install from git clone (#126)
+  - rewrite utility function "get_lower" using numpy's more efficient functionality (#125)
+  - Release version 2.2.2 for bug fix  (#121)
+  - prepare for new release: version 2.2.2  (#123)
+  - remove the parameter in plt.show() due to the API change in Matplotlib (deprecation) (#122)
+
+## Pull Requests
+  - (ENH) Extend functions for Markov classes to deal with non-ergodic Markov chains (#109)
+  - travis CI: pip install from git clone (#126)
+  - rewrite utility function "get_lower" using numpy's more efficient functionality (#125)
+  - prepare for new release: version 2.2.2  (#123)
+  - remove the parameter in plt.show() due to the API change in Matplotlib (deprecation) (#122)
+
+The following individuals contributed to this release:
+
+  - Wei Kang
+  - James Gaboardi
+
 # Version 2.2.2 (2019-09-06)
 
 We closed a total of 21 issues (enhancements and bug fixes) through 9 pull requests, since our last release on 2019-07-25.
