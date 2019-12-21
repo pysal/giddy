@@ -264,10 +264,16 @@ texinfo_documents = [
 
 # Generate the API documentation when building
 autosummary_generate = True
-numpydoc_show_class_members = True
-class_members_toctree = True
-numpydoc_show_inherited_class_members = True
+
+# avoid showing members twice
+numpydoc_show_class_members = False
 numpydoc_use_plots = True
+
+# automatically document class members
+autodoc_default_options = {
+    'members': True,
+    'undoc-members': True
+}
 
 # display the source code for Plot directive
 plot_include_source = True
@@ -275,8 +281,16 @@ plot_include_source = True
 def setup(app):
     app.add_stylesheet("pysal-styles.css")
 
-# Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'https://docs.python.org/3.6/': None}
+# Configuration for intersphinx
+intersphinx_mapping = {"python": ('https://docs.python.org/3', None),
+                       'numpy': ('https://docs.scipy.org/doc/numpy', None),
+                       'scipy': ('https://docs.scipy.org/doc/scipy/reference/', None),
+                       'libpysal': ('https://pysal.org/libpysal/', None),
+                       'mapclassify': ('https://pysal.org/mapclassify/', None),
+                       'esda': ('https://esda.readthedocs.io/', None),
+                       'matplotlib':("https://matplotlib.org/", None)
+                       }
+
 
 
 # This is processed by Jinja2 and inserted before each notebook
