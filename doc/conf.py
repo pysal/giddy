@@ -296,6 +296,7 @@ intersphinx_mapping = {"python": ('https://docs.python.org/3', None),
 # This is processed by Jinja2 and inserted before each notebook
 nbsphinx_prolog = r"""
 {% set docname = env.doc2path(env.docname, base='doc') %}
+{% set fullpath = env.doc2path(env.docname, base='tree/master/doc/') %}
 
 .. only:: html
 
@@ -308,7 +309,7 @@ nbsphinx_prolog = r"""
         Interactive online version:
         :raw-html:`<a href="https://mybinder.org/v2/gh/pysal/giddy/master?filepath={{ docname }}"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a>`
 
-    __ https://github.com/pysal/giddy/{{ docname }}
+    __ https://github.com/pysal/giddy/{{ fullpath }}
 
 .. raw:: latex
 
