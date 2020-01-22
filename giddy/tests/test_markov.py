@@ -76,6 +76,11 @@ class test_Markov(unittest.TestCase):
         expected = np.array([np.inf,  9. ,  5.5, np.inf, 10. ])
         np.testing.assert_array_almost_equal(m.sojourn_time, expected)
 
+        q5_fix = np.array(mc.Quantiles(pci.flatten()).yb).reshape(pci.shape)
+        m = Markov(q5_fix[:30, -4:-2], classes=np.arange(5))
+        expected = np.array([np.inf,2.14285714, 1., np.inf, np.inf])
+        np.testing.assert_array_almost_equal(m.sojourn_time, expected)
+
 class test_Spatial_Markov(unittest.TestCase):
     def setUp(self):
         f = ps.io.open(ps.examples.get_path('usjoin.csv'))

@@ -2007,7 +2007,7 @@ class FullRank_Markov(Markov):
                                               summary=summary)
 
 
-def sojourn_time(p):
+def sojourn_time(p, summary=True):
     """
     Calculate sojourn time based on a given transition probability matrix.
 
@@ -2015,12 +2015,15 @@ def sojourn_time(p):
     ----------
     p        : array
                (k, k), a Markov transition probability matrix.
-
+    summary  : bool
+               If True and the Markov Chain has absorbing states whose
+               sojourn time is infinitely large, print out the information
+               about the absorbing states. Default is True.
     Returns
     -------
              : array
                (k, ), sojourn times. Each element is the expected time a Markov
-               chain spends in each states before leaving that state.
+               chain spends in each state before leaving that state.
 
     Notes
     -----
@@ -2035,18 +2038,29 @@ def sojourn_time(p):
     >>> sojourn_time(p)
     array([2., 1., 2.])
 
+    Non-ergodic Markov Chains with rows full of 0
+
+    >>> p = np.array([[.5, .25, .25], [.5, 0, .5],[ 0, 0, 0]])
+    >>> sojourn_time(p)
+    Sojourn times are infinite for absorbing states! In this Markov Chain, states [2] are absorbing states.
+    array([ 2.,  1., inf])
     """
 
     p = np.asarray(p)
+    if (p.sum(axis=1) == 0).sum() > 0:
+        p = fill_empty_diagonals(p)
+
+    markovchain = qe.MarkovChain(p)
     pii = p.diagonal()
 
     if not (1 - pii).all():
         absorbing_states = np.where(pii == 1)[0]
         non_absorbing_states = np.where(pii != 1)[0]
         st = np.full(len(pii), np.inf)
-        print("Sojourn times are infinite for absorbing states! In this "
-               "Markov Chain, states {} are absorbing states.".format(
-                list(absorbing_states)))
+        if summary:
+            print("Sojourn times are infinite for absorbing states! In this "
+                   "Markov Chain, states {} are absorbing states.".format(
+                    list(absorbing_states)))
         st[non_absorbing_states] = 1 / (1 - pii[non_absorbing_states])
     else:
         st = 1 / (1 - pii)

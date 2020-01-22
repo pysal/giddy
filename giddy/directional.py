@@ -213,7 +213,6 @@ class Rose(object):
         self.Y = Y
         self.w = w
         self.k = k
-        self.permtuations = 0
         self.sw = 2 * np.pi / self.k
         self.cuts = np.arange(0.0, 2 * np.pi + self.sw, self.sw)
         observed = self._calc(Y, w, k)
