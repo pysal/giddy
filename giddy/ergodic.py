@@ -97,18 +97,18 @@ def steady_state(P, fill_empty_classes = False):
     >>> import numpy as np
     >>> from giddy.ergodic import steady_state
 
-    # irreducible Markov chain
+    Irreducible Markov chain
     >>> p = np.array([[.5, .25, .25],[.5,0,.5],[.25,.25,.5]])
     >>> steady_state(p)
     array([0.4, 0.2, 0.4])
 
-    # reducible Markov chain: two communicating classes
+    Reducible Markov chain: two communicating classes
     >>> p = np.array([[.5, .5, 0],[.2,0.8,0],[0,0,1]])
     >>> steady_state(p)
     array([[0.28571429, 0.71428571, 0.        ],
            [0.        , 0.        , 1.        ]])
 
-    # reducible Markov chain: two communicating classes
+    Reducible Markov chain: two communicating classes
     >>> p = np.array([[.5, .5, 0],[.2,0.8,0],[0,0,0]])
     >>> steady_state(p, fill_empty_classes = True)
     array([[0.28571429, 0.71428571, 0.        ],
@@ -129,7 +129,7 @@ def steady_state(P, fill_empty_classes = False):
         else:
             raise ValueError('Input transition probability matrix has '
                              '%d rows full of 0s. Please set '
-                             'fill_empty_diagonals=True to set diagonal '
+                             'fill_empty_classes=True to set diagonal '
                              'elements for these rows to be 1 to make '
                              'sure the matrix is stochastic.' % rows0)
     mc = qe.MarkovChain(P)
@@ -225,7 +225,7 @@ def fmpt(P, fill_empty_classes = False):
     >>> from giddy.ergodic import fmpt
     >>> np.set_printoptions(suppress=True) #prevent scientific format
 
-    # irreducible Markov chain
+    Irreducible Markov chain
     >>> p = np.array([[.5, .25, .25],[.5,0,.5],[.25,.25,.5]])
     >>> fm = fmpt(p)
     >>> fm
@@ -239,7 +239,7 @@ def fmpt(P, fill_empty_classes = False):
     experience a change in the weather (either rain or snow) in 2.67 days from
     today.
 
-    # reducible Markov chain: two communicating classes (this is an
+    Reducible Markov chain: two communicating classes (this is an
     artificial example)
     >>> p = np.array([[.5, .5, 0],[.2,0.8,0],[0,0,1]])
     >>> fmpt(p)
@@ -274,7 +274,7 @@ def fmpt(P, fill_empty_classes = False):
         else:
             raise ValueError('Input transition probability matrix has '
                              '%d rows full of 0s. Please set '
-                             'fill_empty_diagonals=True to set diagonal '
+                             'fill_empty_classes=True to set diagonal '
                              'elements for these rows to be 1 to make '
                              'sure the matrix is stochastic.'%rows0)
     mc = qe.MarkovChain(P)
