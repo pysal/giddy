@@ -112,8 +112,8 @@ class Markov(object):
     The Markov Chain is irreducible and is composed by:
     1 Recurrent class (indices):
     [0 1 2]
-    0 Transient class.
-    The Markov Chain has 0 absorbing state.
+    0 Transient classes.
+    The Markov Chain has 0 absorbing states.
     >>> m.classes.tolist()
     ['a', 'b', 'c']
     >>> m.p
@@ -148,8 +148,8 @@ class Markov(object):
     The Markov Chain is irreducible and is composed by:
     1 Recurrent class (indices):
     [0 1 2 3 4]
-    0 Transient class.
-    The Markov Chain has 0 absorbing state.
+    0 Transient classes.
+    The Markov Chain has 0 absorbing states.
     >>> m.transitions
     array([[729.,  71.,   1.,   0.,   0.],
            [ 72., 567.,  80.,   3.,   0.],
@@ -174,8 +174,8 @@ class Markov(object):
     The Markov Chain is irreducible and is composed by:
     1 Recurrent class (indices):
     [0 1 2 3 4]
-    0 Transient class.
-    The Markov Chain has 0 absorbing state.
+    0 Transient classes.
+    The Markov Chain has 0 absorbing states.
     >>> mq.transitions
     array([[707.,  58.,   7.,   1.,   0.],
            [ 50., 629.,  80.,   1.,   1.],
@@ -253,7 +253,7 @@ class Markov(object):
                     self.num_rclasses))
             print(*self.rclasses_indices, sep = ", ")
             if self.num_tclasses == 0:
-                print("0 Transient class.")
+                print("0 Transient classes.")
             else:
                 if self.num_tclasses == 1:
                     print("1 Transient class (indices):")
@@ -261,7 +261,7 @@ class Markov(object):
                     print("{0} Transient classes (indices):".format(self.num_tclasses))
                 print(*self.tclasses_indices, sep=", ")
             if self.num_astates == 0:
-                print("The Markov Chain has 0 absorbing state.")
+                print("The Markov Chain has 0 absorbing states.")
             else:
                 if self.num_astates == 1:
                     print("The Markov Chain has 1 absorbing state (index):")
@@ -1259,6 +1259,7 @@ class LISA_Markov(Markov):
     >>> import libpysal
     >>> import numpy as np
     >>> from giddy.markov import LISA_Markov
+    >>> np.set_printoptions(suppress=True) #prevent scientific format
     >>> f = libpysal.io.open(libpysal.examples.get_path("usjoin.csv"))
     >>> years = list(range(1929, 2010))
     >>> pci = np.array([f.by_col[str(y)] for y in years]).transpose()
@@ -1967,8 +1968,8 @@ class FullRank_Markov(Markov):
     1 Recurrent class (indices):
     [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
      24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47]
-    0 Transient class.
-    The Markov Chain has 0 absorbing state.
+    0 Transient classes.
+    The Markov Chain has 0 absorbing states.
     >>> m.ranks
     array([[45, 45, 44, ..., 41, 40, 39],
            [24, 25, 25, ..., 36, 38, 41],
@@ -2121,8 +2122,8 @@ class GeoRank_Markov(Markov):
     1 Recurrent class (indices):
     [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
      24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47]
-    0 Transient class.
-    The Markov Chain has 0 absorbing state.
+    0 Transient classes.
+    The Markov Chain has 0 absorbing states.
     >>> m.transitions
     array([[38.,  0.,  8., ...,  0.,  0.,  0.],
            [ 0., 15.,  0., ...,  0.,  1.,  0.],
