@@ -7,7 +7,7 @@ GeospatIal Distribution DYnamics (giddy) in PySAL
 [![Documentation Status](https://readthedocs.org/projects/giddy/badge/?version=latest)](https://giddy.readthedocs.io/en/latest/?badge=latest)
 [![PyPI version](https://badge.fury.io/py/giddy.svg)](https://badge.fury.io/py/giddy)
 [![DOI](https://zenodo.org/badge/91390088.svg)](https://zenodo.org/badge/latestdoi/91390088)
-
+[![badge](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pysal/giddy/master)
 
 Giddy is an open-source python library for the analysis of dynamics of
 longitudinal spatial data. Originating from the spatial dynamics module
