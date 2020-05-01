@@ -1,11 +1,10 @@
-
 """
 Directional Analysis of Dynamic LISAs
 
 """
 __author__ = "Sergio J. Rey <sjsrey@gmail.com>"
 
-__all__ = ['Rose']
+__all__ = ["Rose"]
 
 import warnings
 import numpy as np
@@ -216,15 +215,15 @@ class Rose(object):
         self.sw = 2 * np.pi / self.k
         self.cuts = np.arange(0.0, 2 * np.pi + self.sw, self.sw)
         observed = self._calc(Y, w, k)
-        self.theta = observed['theta']
-        self.bins = observed['bins']
-        self.counts = observed['counts']
-        self.r = observed['r']
-        self.lag = observed['lag']
-        self._dx = observed['dx']
-        self._dy = observed['dy']
+        self.theta = observed["theta"]
+        self.bins = observed["bins"]
+        self.counts = observed["counts"]
+        self.r = observed["r"]
+        self.lag = observed["lag"]
+        self._dx = observed["dx"]
+        self._dy = observed["dy"]
 
-    def permute(self, permutations=99, alternative='two.sided'):
+    def permute(self, permutations=99, alternative="two.sided"):
         """
         Generate ransom spatial permutations for inference on LISA vectors.
 
@@ -247,12 +246,14 @@ class Rose(object):
         for m in range(permutations):
             np.random.shuffle(idxs)
             res = self._calc(rY[idxs, :], self.w, self.k)
-            counts[m] = res['counts']
+            counts[m] = res["counts"]
         self.counts_perm = counts
         self.larger_perm = np.array(
-            [(counts[:, i] >= self.counts[i]).sum() for i in range(self.k)])
+            [(counts[:, i] >= self.counts[i]).sum() for i in range(self.k)]
+        )
         self.smaller_perm = np.array(
-            [(counts[:, i] <= self.counts[i]).sum() for i in range(self.k)])
+            [(counts[:, i] <= self.counts[i]).sum() for i in range(self.k)]
+        )
         self.expected_perm = counts.mean(axis=0)
         self.alternative = alternative
 
@@ -274,30 +275,30 @@ class Rose(object):
         # depending on the problem at hand.
 
         alt = alternative.upper()
-        if alt == 'TWO.SIDED':
-            P = (self.larger_perm + 1) / (permutations + 1.)
+        if alt == "TWO.SIDED":
+            P = (self.larger_perm + 1) / (permutations + 1.0)
             mask = P < 0.5
             self.p = mask * 2 * P + (1 - mask) * 2 * (1 - P)
-        elif alt == 'POSITIVE':
+        elif alt == "POSITIVE":
             # NE, SW sectors are higher, NW, SE are lower
             POS = _POS8
             if self.k == 4:
                 POS = _POS4
-            L = (self.larger_perm + 1) / (permutations + 1.)
-            S = (self.smaller_perm + 1) / (permutations + 1.)
+            L = (self.larger_perm + 1) / (permutations + 1.0)
+            S = (self.smaller_perm + 1) / (permutations + 1.0)
             P = POS * L + (1 - POS) * S
             self.p = P
-        elif alt == 'NEGATIVE':
+        elif alt == "NEGATIVE":
             # NE, SW sectors are lower, NW, SE are higher
             NEG = _NEG8
             if self.k == 4:
                 NEG = _NEG4
-            L = (self.larger_perm + 1) / (permutations + 1.)
-            S = (self.smaller_perm + 1) / (permutations + 1.)
+            L = (self.larger_perm + 1) / (permutations + 1.0)
+            S = (self.smaller_perm + 1) / (permutations + 1.0)
             P = NEG * L + (1 - NEG) * S
             self.p = P
         else:
-            print(('Bad option for alternative: %s.' % alternative))
+            print(("Bad option for alternative: %s." % alternative))
 
     def _calc(self, Y, w, k):
         wY = weights.lag_spatial(w, Y)
@@ -311,16 +312,16 @@ class Rose(object):
         utheta = theta * (1 - neg) + neg * (2 * np.pi + theta)
         counts, bins = np.histogram(utheta, self.cuts)
         results = {}
-        results['counts'] = counts
-        results['theta'] = theta
-        results['bins'] = bins
-        results['r'] = r
-        results['lag'] = wY
-        results['dx'] = dx
-        results['dy'] = dy
+        results["counts"] = counts
+        results["theta"] = theta
+        results["bins"] = bins
+        results["r"] = r
+        results["lag"] = wY
+        results["dx"] = dx
+        results["dy"] = dy
         return results
 
-    @_requires('splot')
+    @_requires("splot")
     def plot(self, attribute=None, ax=None, **kwargs):
         """
         Plot the rose diagram.
@@ -346,8 +347,8 @@ class Rose(object):
         """
 
         from splot.giddy import dynamic_lisa_rose
-        fig, ax = dynamic_lisa_rose(self, attribute=attribute,
-                                    ax=ax, **kwargs)
+
+        fig, ax = dynamic_lisa_rose(self, attribute=attribute, ax=ax, **kwargs)
         return fig, ax
 
     def plot_origin(self):  # TODO add attribute option to color vectors
@@ -357,18 +358,19 @@ class Rose(object):
         """
         import matplotlib.cm as cm
         import matplotlib.pyplot as plt
+
         ax = plt.subplot(111)
         xlim = [self._dx.min(), self._dx.max()]
         ylim = [self._dy.min(), self._dy.max()]
         for x, y in zip(self._dx, self._dy):
             xs = [0, x]
             ys = [0, y]
-            plt.plot(xs, ys, '-b')  # TODO change this to scale with attribute
-        plt.axis('equal')
+            plt.plot(xs, ys, "-b")  # TODO change this to scale with attribute
+        plt.axis("equal")
         plt.xlim(xlim)
         plt.ylim(ylim)
 
-    @_requires('splot')
+    @_requires("splot")
     def plot_vectors(self, arrows=True):
         """
         Plot vectors of positional transition of LISA values

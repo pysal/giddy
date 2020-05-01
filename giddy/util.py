@@ -2,10 +2,11 @@
 Utilities for the spatial dynamics module.
 """
 
-__all__ = ['shuffle_matrix', 'get_lower', 'fill_empty_diagonals']
+__all__ = ["shuffle_matrix", "get_lower", "fill_empty_diagonals"]
 
 import numpy as np
 import copy
+
 
 def shuffle_matrix(X, ids):
     """
@@ -72,8 +73,9 @@ def get_lower(matrix):
 
     """
     n = matrix.shape[0]
-    lowvec = matrix[np.tril_indices(n, k=-1)].reshape(-1,1)
+    lowvec = matrix[np.tril_indices(n, k=-1)].reshape(-1, 1)
     return lowvec
+
 
 def fill_empty_diagonals(p):
     """
@@ -115,12 +117,13 @@ def fill_empty_diagonals(p):
 
     p_temp = np.asarray(p)
     if len(p_temp.shape) == 3:
-         return _fill_empty_diagonal_3d(p_temp)
+        return _fill_empty_diagonal_3d(p_temp)
     elif len(p_temp.shape) == 2:
         return _fill_empty_diagonal_2d(p_temp)
     else:
-        raise NotImplementedError('Filling empty diagonals is '
-                                  'only implemented for 2/3d matrices.')
+        raise NotImplementedError(
+            "Filling empty diagonals is " "only implemented for 2/3d matrices."
+        )
 
 
 def _fill_empty_diagonal_2d(p):
@@ -143,8 +146,8 @@ def _fill_empty_diagonal_2d(p):
     """
 
     p_temp = copy.copy(p)
-    p0 = (p_temp.sum(axis=1) == 0)
-    if p0.sum()>0:
+    p0 = p_temp.sum(axis=1) == 0
+    if p0.sum() > 0:
         row_zero_i = np.where(p0)
         for row in row_zero_i:
             p_temp[row, row] = 1
@@ -172,8 +175,8 @@ def _fill_empty_diagonal_3d(p):
     """
 
     p_temp = copy.copy(p)
-    p0 = (p_temp.sum(axis=2) == 0)
-    if p0.sum()>0:
+    p0 = p_temp.sum(axis=2) == 0
+    if p0.sum() > 0:
         rows, cols = np.where(p0)
         row_zero_i = list(zip(rows, cols))
         for row in row_zero_i:

@@ -3,7 +3,7 @@ Summary measures for ergodic Markov chains.
 """
 __author__ = "Sergio J. Rey <sjsrey@gmail.com>, Wei Kang <weikang9009@gmail.com>"
 
-__all__ = ['steady_state', 'var_fmpt_ergodic',  'fmpt']
+__all__ = ["steady_state", "var_fmpt_ergodic", "fmpt"]
 
 import numpy as np
 import numpy.linalg as la
@@ -60,7 +60,8 @@ def _steady_state_ergodic(P):
     # normalize eigenvector corresponding to the eigenvalue 1
     return row / sum(row)
 
-def steady_state(P, fill_empty_classes = False):
+
+def steady_state(P, fill_empty_classes=False):
     """
     Generalized function for calculating the steady state distribution
     for a regular or reducible Markov transition matrix P.
@@ -127,17 +128,20 @@ def steady_state(P, fill_empty_classes = False):
         if fill_empty_classes:
             P = fill_empty_diagonals(P)
         else:
-            raise ValueError('Input transition probability matrix has '
-                             '%d rows full of 0s. Please set '
-                             'fill_empty_classes=True to set diagonal '
-                             'elements for these rows to be 1 to make '
-                             'sure the matrix is stochastic.' % rows0)
+            raise ValueError(
+                "Input transition probability matrix has "
+                "%d rows full of 0s. Please set "
+                "fill_empty_classes=True to set diagonal "
+                "elements for these rows to be 1 to make "
+                "sure the matrix is stochastic." % rows0
+            )
     mc = qe.MarkovChain(P)
     num_classes = mc.num_communication_classes
     if num_classes == 1:
         return mc.stationary_distributions[0]
     else:
         return mc.stationary_distributions
+
 
 def _fmpt_ergodic(P):
     """
@@ -192,12 +196,13 @@ def _fmpt_ergodic(P):
     E = np.ones_like(Z)
     A_diag = np.diag(A)
     A_diag = A_diag + (A_diag == 0)
-    D = np.diag(1. / A_diag)
+    D = np.diag(1.0 / A_diag)
     Zdg = np.diag(np.diag(Z))
     M = (I - Z + E.dot(Zdg)).dot(D)
     return M
 
-def fmpt(P, fill_empty_classes = False):
+
+def fmpt(P, fill_empty_classes=False):
     """
     Generalized function for calculating first mean passage times for an
     ergodic or non-ergodic transition probability matrix.
@@ -272,16 +277,18 @@ def fmpt(P, fill_empty_classes = False):
         if fill_empty_classes:
             P = fill_empty_diagonals(P)
         else:
-            raise ValueError('Input transition probability matrix has '
-                             '%d rows full of 0s. Please set '
-                             'fill_empty_classes=True to set diagonal '
-                             'elements for these rows to be 1 to make '
-                             'sure the matrix is stochastic.'%rows0)
+            raise ValueError(
+                "Input transition probability matrix has "
+                "%d rows full of 0s. Please set "
+                "fill_empty_classes=True to set diagonal "
+                "elements for these rows to be 1 to make "
+                "sure the matrix is stochastic." % rows0
+            )
     mc = qe.MarkovChain(P)
     num_classes = mc.num_communication_classes
     if num_classes == 1:
         fmpt_all = _fmpt_ergodic(P)
-    else: # deal with non-ergodic Markov chains
+    else:  # deal with non-ergodic Markov chains
         k = P.shape[0]
         fmpt_all = np.zeros((k, k))
         for desti in range(k):
@@ -294,7 +301,7 @@ def fmpt(P, fill_empty_classes = False):
             try:
                 m[none0] = np.linalg.solve(p_calc, b)
             except np.linalg.LinAlgError as err:
-                if 'Singular matrix' in str(err):
+                if "Singular matrix" in str(err):
                     if (row0 == 0).sum() > 0:
                         index0 = set(np.argwhere(row0 == 0).flatten())
                         x = (p_calc[:, list(index0)] != 0).sum(axis=1)
@@ -308,13 +315,16 @@ def fmpt(P, fill_empty_classes = False):
                             p_calc = p_calc[none0, :][:, none0]
                             b = b[none0]
                             m[none0] = np.linalg.solve(p_calc, b)
-            recc = np.nan_to_num((np.delete(P, desti, 1)[desti] * m),
-                                 0, posinf=np.inf).sum() + 1
+            recc = (
+                np.nan_to_num(
+                    (np.delete(P, desti, 1)[desti] * m), 0, posinf=np.inf
+                ).sum()
+                + 1
+            )
             fmpt_all[:, desti] = np.insert(m, desti, recc)
-            fmpt_all = np.where(fmpt_all < -1e+16, np.inf, fmpt_all)
-            fmpt_all = np.where(fmpt_all > 1e+16, np.inf, fmpt_all)
+            fmpt_all = np.where(fmpt_all < -1e16, np.inf, fmpt_all)
+            fmpt_all = np.where(fmpt_all > 1e16, np.inf, fmpt_all)
     return fmpt_all
-
 
 
 def var_fmpt_ergodic(P):
@@ -358,7 +368,7 @@ def var_fmpt_ergodic(P):
     I = np.identity(k)
     Z = la.inv(I - P + A)
     E = np.ones_like(Z)
-    D = np.diag(1. / np.diag(A))
+    D = np.diag(1.0 / np.diag(A))
     Zdg = np.diag(np.diag(Z))
     M = (I - Z + E.dot(Zdg)).dot(D)
     ZM = Z.dot(M)

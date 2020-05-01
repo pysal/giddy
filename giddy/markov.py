@@ -3,9 +3,17 @@ Markov based methods for spatial dynamics.
 """
 __author__ = "Sergio J. Rey <sjsrey@gmail.com>, Wei Kang <weikang9009@gmail.com>"
 
-__all__ = ["Markov", "LISA_Markov", "Spatial_Markov", "kullback",
-           "prais", "homogeneity", "FullRank_Markov", "sojourn_time",
-           "GeoRank_Markov"]
+__all__ = [
+    "Markov",
+    "LISA_Markov",
+    "Spatial_Markov",
+    "kullback",
+    "prais",
+    "homogeneity",
+    "FullRank_Markov",
+    "sojourn_time",
+    "GeoRank_Markov",
+]
 
 import numpy as np
 from .ergodic import steady_state, fmpt
@@ -187,8 +195,7 @@ class Markov(object):
 
     """
 
-    def __init__(self, class_ids, classes=None, fill_empty_classes=False,
-                 summary=True):
+    def __init__(self, class_ids, classes=None, fill_empty_classes=False, summary=True):
         if classes is not None:
             self.classes = classes
         else:
@@ -222,7 +229,7 @@ class Markov(object):
             self.p = fill_empty_diagonals(self.p)
 
         p_temp = self.p
-        if (p_temp.sum(axis=1) == 0).sum()>0:
+        if (p_temp.sum(axis=1) == 0).sum() > 0:
             p_temp = fill_empty_diagonals(p_temp)
         markovchain = qe.MarkovChain(p_temp)
         self.num_cclasses = markovchain.num_communication_classes
@@ -230,9 +237,9 @@ class Markov(object):
 
         self.cclasses_indices = markovchain.communication_classes_indices
         self.rclasses_indices = markovchain.recurrent_classes_indices
-        transient = set(list(map(tuple,
-                                 self.cclasses_indices))).difference(
-            set(list(map(tuple, self.rclasses_indices))))
+        transient = set(list(map(tuple, self.cclasses_indices))).difference(
+            set(list(map(tuple, self.rclasses_indices)))
+        )
         self.num_tclasses = len(transient)
         if len(transient):
             self.tclasses_indices = [np.asarray(i) for i in transient]
@@ -249,9 +256,8 @@ class Markov(object):
             if self.num_rclasses == 1:
                 print("1 Recurrent class (indices):")
             else:
-                print("{0} Recurrent classes (indices):".format(
-                    self.num_rclasses))
-            print(*self.rclasses_indices, sep = ", ")
+                print("{0} Recurrent classes (indices):".format(self.num_rclasses))
+            print(*self.rclasses_indices, sep=", ")
             if self.num_tclasses == 0:
                 print("0 Transient classes.")
             else:
@@ -266,26 +272,28 @@ class Markov(object):
                 if self.num_astates == 1:
                     print("The Markov Chain has 1 absorbing state (index):")
                 else:
-                    print("The Markov Chain has {0} absorbing states (indices):".format(
-                        self.num_astates))
+                    print(
+                        "The Markov Chain has {0} absorbing states (indices):".format(
+                            self.num_astates
+                        )
+                    )
                 print(*self.astates_indices, sep=", ")
-
 
     @property
     def fmpt(self):
-        if not hasattr(self, '_fmpt'):
+        if not hasattr(self, "_fmpt"):
             self._fmpt = fmpt(self.p, fill_empty_classes=True)
         return self._fmpt
 
     @property
     def steady_state(self):
-        if not hasattr(self, '_steady_state'):
+        if not hasattr(self, "_steady_state"):
             self._steady_state = steady_state(self.p, fill_empty_classes=True)
         return self._steady_state
 
     @property
     def sojourn_time(self):
-        if not hasattr(self, '_st'):
+        if not hasattr(self, "_st"):
             self._st = sojourn_time(self.p)
         return self._st
 
@@ -762,9 +770,20 @@ class Spatial_Markov(object):
 
     """
 
-    def __init__(self, y, w, k=4, m=4, permutations=0, fixed=True,
-                 discrete=False, cutoffs=None, lag_cutoffs=None,
-                 variable_name=None, fill_empty_classes=False):
+    def __init__(
+        self,
+        y,
+        w,
+        k=4,
+        m=4,
+        permutations=0,
+        fixed=True,
+        discrete=False,
+        cutoffs=None,
+        lag_cutoffs=None,
+        variable_name=None,
+        fill_empty_classes=False,
+    ):
 
         y = np.asarray(y)
         self.fixed = fixed
@@ -788,11 +807,13 @@ class Spatial_Markov(object):
             self.lclass_ids = self.class_ids
         else:
             self.class_ids, self.cutoffs, self.k = self._maybe_classify(
-                y, k=k, cutoffs=self.cutoffs)
+                y, k=k, cutoffs=self.cutoffs
+            )
             self.classes = np.arange(self.k)
 
-        classic = Markov(self.class_ids, fill_empty_classes=fill_empty_classes,
-                         summary=False)
+        classic = Markov(
+            self.class_ids, fill_empty_classes=fill_empty_classes, summary=False
+        )
         self.p = classic.p
         self.transitions = classic.transitions
         self.T, self.P = self._calc(y, w, fill_empty_classes=fill_empty_classes)
@@ -808,18 +829,18 @@ class Spatial_Markov(object):
                 x2_realizations[perm] = x2s
                 if x2s >= self.x2:
                     counter += 1
-            self.x2_rpvalue = (counter + 1.0) / (permutations + 1.)
+            self.x2_rpvalue = (counter + 1.0) / (permutations + 1.0)
             self.x2_realizations = x2_realizations
 
     @property
     def s(self):
-        if not hasattr(self, '_s'):
+        if not hasattr(self, "_s"):
             self._s = steady_state(self.p)
         return self._s
 
     @property
     def S(self):
-        if not hasattr(self, '_S'):
+        if not hasattr(self, "_S"):
             _S = []
             for i, p in enumerate(self.P):
                 _S.append(steady_state(p))
@@ -829,13 +850,13 @@ class Spatial_Markov(object):
 
     @property
     def f(self):
-        if not hasattr(self, '_f'):
+        if not hasattr(self, "_f"):
             self._f = fmpt(self.p)
         return self._f
 
     @property
     def F(self):
-        if not hasattr(self, '_F'):
+        if not hasattr(self, "_F"):
             F = np.zeros_like(self.P)
             for i, p in enumerate(self.P):
                 F[i] = fmpt(np.asarray(p))
@@ -845,13 +866,13 @@ class Spatial_Markov(object):
     # bickenbach and bode tests
     @property
     def ht(self):
-        if not hasattr(self, '_ht'):
+        if not hasattr(self, "_ht"):
             self._ht = homogeneity(self.T)
         return self._ht
 
     @property
     def Q(self):
-        if not hasattr(self, '_Q'):
+        if not hasattr(self, "_Q"):
             self._Q = self.ht.Q
         return self._Q
 
@@ -878,51 +899,51 @@ class Spatial_Markov(object):
     # shtests
     @property
     def shtest(self):
-        if not hasattr(self, '_shtest'):
+        if not hasattr(self, "_shtest"):
             self._shtest = self._mn_test()
         return self._shtest
 
     @property
     def chi2(self):
-        if not hasattr(self, '_chi2'):
+        if not hasattr(self, "_chi2"):
             self._chi2 = self._chi2_test()
         return self._chi2
 
     @property
     def x2(self):
-        if not hasattr(self, '_x2'):
+        if not hasattr(self, "_x2"):
             self._x2 = sum([c[0] for c in self.chi2])
         return self._x2
 
     @property
     def x2_pvalue(self):
-        if not hasattr(self, '_x2_pvalue'):
+        if not hasattr(self, "_x2_pvalue"):
             self._x2_pvalue = 1 - stats.chi2.cdf(self.x2, self.x2_dof)
         return self._x2_pvalue
 
     @property
     def x2_dof(self):
-        if not hasattr(self, '_x2_dof'):
+        if not hasattr(self, "_x2_dof"):
             k = self.k
             self._x2_dof = k * (k - 1) * (k - 1)
         return self._x2_dof
 
     def _calc(self, y, w, fill_empty_classes=False):
-        '''Helper to estimate spatial lag conditioned Markov transition
+        """Helper to estimate spatial lag conditioned Markov transition
         probability matrices based on maximum likelihood techniques.
 
         If fill_empty_classes=True, assign 1 to diagonal elements which fall in rows
         full of 0s to ensure each conditional transition probability matrix
         is a stochastic matrix (each row sums up to 1).
 
-        '''
+        """
         if self.discrete:
-            self.lclass_ids = weights.lag_categorical(w, self.class_ids,
-                                                      ties="tryself")
+            self.lclass_ids = weights.lag_categorical(w, self.class_ids, ties="tryself")
         else:
             ly = weights.lag_spatial(w, y)
             self.lclass_ids, self.lag_cutoffs, self.m = self._maybe_classify(
-                ly, self.m, self.lag_cutoffs)
+                ly, self.m, self.lag_cutoffs
+            )
             self.lclasses = np.arange(self.m)
 
         T = np.zeros((self.m, self.k, self.k))
@@ -930,14 +951,15 @@ class Spatial_Markov(object):
         for t1 in range(t - 1):
             t2 = t1 + 1
             for i in range(n):
-                T[self.lclass_ids[i, t1], self.class_ids[i, t1],
-                    self.class_ids[i, t2]] += 1
+                T[
+                    self.lclass_ids[i, t1], self.class_ids[i, t1], self.class_ids[i, t2]
+                ] += 1
 
         P = np.zeros_like(T)
         for i, mat in enumerate(T):
             row_sum = mat.sum(axis=1)
             row_sum = row_sum + (row_sum == 0)
-            p_i = np.array(np.diag(1. / row_sum)).dot(np.array(mat))
+            p_i = np.array(np.diag(1.0 / row_sum)).dot(np.array(mat))
             P[i] = p_i
 
         if fill_empty_classes:
@@ -951,8 +973,7 @@ class Spatial_Markov(object):
         """
         n0, n1, n2 = self.T.shape
         rn = list(range(n0))
-        mat = [self._ssmnp_test(
-            self.s, self.S[i], self.T[i].sum()) for i in rn]
+        mat = [self._ssmnp_test(self.s, self.S[i], self.T[i].sum()) for i in rn]
         return mat
 
     def _ssmnp_test(self, p1, p2, nt):
@@ -1005,8 +1026,7 @@ class Spatial_Markov(object):
 
         class_names = ["C%d" % i for i in range(self.k)]
         regime_names = ["LAG%d" % i for i in range(self.k)]
-        ht = homogeneity(self.T, class_names=class_names,
-                         regime_names=regime_names)
+        ht = homogeneity(self.T, class_names=class_names, regime_names=regime_names)
         title = "Spatial Markov Test"
         if self.variable_name:
             title = title + ": " + self.variable_name
@@ -1016,9 +1036,9 @@ class Spatial_Markov(object):
             ht.summary(title=title)
 
     def _maybe_classify(self, y, k, cutoffs):
-        '''Helper method for classifying continuous data.
+        """Helper method for classifying continuous data.
 
-        '''
+        """
 
         rows, cols = y.shape
         if cutoffs is None:
@@ -1029,14 +1049,14 @@ class Spatial_Markov(object):
                 k = len(cutoffs)
                 return yb, cutoffs[:-1], k
             else:
-                yb = np.array([mc.Quantiles(y[:, i], k=k).yb for i in
-                               np.arange(cols)]).transpose()
+                yb = np.array(
+                    [mc.Quantiles(y[:, i], k=k).yb for i in np.arange(cols)]
+                ).transpose()
                 return yb, None, k
         else:
             cutoffs = list(cutoffs) + [np.inf]
             cutoffs = np.array(cutoffs)
-            yb = mc.UserDefined(y.flatten(), np.array(cutoffs)).yb.reshape(
-                y.shape)
+            yb = mc.UserDefined(y.flatten(), np.array(cutoffs)).yb.reshape(y.shape)
             k = len(cutoffs)
             return yb, cutoffs[:-1], k
 
@@ -1335,13 +1355,13 @@ class LISA_Markov(Markov):
 
     """
 
-    def __init__(self, y, w, permutations=0,
-                 significance_level=0.05, geoda_quads=False):
+    def __init__(
+        self, y, w, permutations=0, significance_level=0.05, geoda_quads=False
+    ):
         y = y.transpose()
         pml = Moran_Local
         gq = geoda_quads
-        ml = ([pml(yi, w, permutations=permutations, geoda_quads=gq)
-               for yi in y])
+        ml = [pml(yi, w, permutations=permutations, geoda_quads=gq) for yi in y]
         q = np.array([mli.q for mli in ml]).transpose()
         classes = np.arange(1, 5)  # no guarantee all 4 quadrants are visited
         Markov.__init__(self, q, classes, summary=False)
@@ -1378,14 +1398,11 @@ class LISA_Markov(Markov):
         r = y / ybar
         ylag = np.array([weights.lag_spatial(w, yt) for yt in y])
         rlag = ylag / ybar
-        rc = r < 1.
-        rlagc = rlag < 1.
+        rc = r < 1.0
+        rlagc = rlag < 1.0
         markov_y = Markov(rc, summary=False)
         markov_ylag = Markov(rlagc, summary=False)
-        A = np.array([[1, 0, 0, 0],
-                       [0, 0, 1, 0],
-                       [0, 0, 0, 1],
-                       [0, 1, 0, 0]])
+        A = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [0, 1, 0, 0]])
 
         kp = A.dot(np.kron(markov_y.p, markov_ylag.p)).dot(A.T)
         trans = self.transitions.sum(axis=1)
@@ -1458,10 +1475,10 @@ class LISA_Markov(Markov):
             for key in list(self.w.neighbors.keys()):
                 idx = self.w.id2i[key]
                 i2id[idx] = key
-            sig_lisas = (self.q == quadrant) \
-                * (self.p_values <= self.significance_level)
-            sig_ids = [np.nonzero(
-                sig_lisas[:, i])[0].tolist() for i in range(k)]
+            sig_lisas = (self.q == quadrant) * (
+                self.p_values <= self.significance_level
+            )
+            sig_ids = [np.nonzero(sig_lisas[:, i])[0].tolist() for i in range(k)]
 
             neighbors = self.w.neighbors
             for t in range(k - 1):
@@ -1511,8 +1528,8 @@ class LISA_Markov(Markov):
                         ii = self.w.id2i[i]
                         components[ii, t] = c + 1
             results = {}
-            results['components'] = components
-            results['spill_over'] = spill_over
+            results["components"] = components
+            results["spill_over"] = spill_over
             return results
 
         else:
@@ -1605,9 +1622,9 @@ def kullback(F):
     chom = T1 - T4 - T2 + T3
     cdof = r * (s - 1) * (r - 1)
     results = {}
-    results['Conditional homogeneity'] = chom
-    results['Conditional homogeneity dof'] = cdof
-    results['Conditional homogeneity pvalue'] = 1 - stats.chi2.cdf(chom, cdof)
+    results["Conditional homogeneity"] = chom
+    results["Conditional homogeneity dof"] = cdof
+    results["Conditional homogeneity pvalue"] = 1 - stats.chi2.cdf(chom, cdof)
     return results
 
 
@@ -1663,8 +1680,12 @@ def prais(pmat):
     return pr
 
 
-def homogeneity(transition_matrices, regime_names=[], class_names=[],
-                title="Markov Homogeneity Test"):
+def homogeneity(
+    transition_matrices,
+    regime_names=[],
+    class_names=[],
+    title="Markov Homogeneity Test",
+):
     """
     Test for homogeneity of Markov transition probabilities across regimes.
 
@@ -1688,8 +1709,12 @@ def homogeneity(transition_matrices, regime_names=[], class_names=[],
                           an instance of Homogeneity_Results.
     """
 
-    return Homogeneity_Results(transition_matrices, regime_names=regime_names,
-                               class_names=class_names, title=title)
+    return Homogeneity_Results(
+        transition_matrices,
+        regime_names=regime_names,
+        class_names=class_names,
+        title=title,
+    )
 
 
 class Homogeneity_Results:
@@ -1723,8 +1748,13 @@ class Homogeneity_Results:
 
     """
 
-    def __init__(self, transition_matrices, regime_names=[], class_names=[],
-                 title="Markov Homogeneity Test"):
+    def __init__(
+        self,
+        transition_matrices,
+        regime_names=[],
+        class_names=[],
+        title="Markov Homogeneity Test",
+    ):
         self._homogeneity(transition_matrices)
         self.regime_names = regime_names
         self.class_names = class_names
@@ -1741,8 +1771,8 @@ class Homogeneity_Results:
         n_i = T.sum(axis=1)
         A_i = (T > 0).sum(axis=1)
         A_im = np.zeros((r, m))
-        p_ij = np.dot(np.diag(1. / (n_i + (n_i == 0) * 1.)), T)
-        den = p_ij + 1. * (p_ij == 0)
+        p_ij = np.dot(np.diag(1.0 / (n_i + (n_i == 0) * 1.0)), T)
+        den = p_ij + 1.0 * (p_ij == 0)
         b_i = np.zeros_like(A_i)
         p_ijm = np.zeros_like(M)
         # get dimensions
@@ -1755,10 +1785,10 @@ class Homogeneity_Results:
 
         for nijm in M:
             nim = nijm.sum(axis=1)
-            B[:, m] = 1. * (nim > 0)
-            b_i = b_i + 1. * (nim > 0)
-            p_ijm[m] = np.dot(np.diag(1. / (nim + (nim == 0) * 1.)), nijm)
-            num = (p_ijm[m] - p_ij)**2
+            B[:, m] = 1.0 * (nim > 0)
+            b_i = b_i + 1.0 * (nim > 0)
+            p_ijm[m] = np.dot(np.diag(1.0 / (nim + (nim == 0) * 1.0)), nijm)
+            num = (p_ijm[m] - p_ij) ** 2
             ratio = num / den
             qijm = np.dot(np.diag(nim), ratio)
             q_table[m] = qijm
@@ -1778,7 +1808,7 @@ class Homogeneity_Results:
         self.dof = int(((b_i - 1) * (A_i - 1)).sum())
         self.Q = Q
         self.Q_p_value = 1 - stats.chi2.cdf(self.Q, self.dof)
-        self.LR = LR * 2.
+        self.LR = LR * 2.0
         self.LR_p_value = 1 - stats.chi2.cdf(self.LR, self.dof)
         self.A = A_i
         self.A_im = A_im
@@ -1815,14 +1845,13 @@ class Homogeneity_Results:
         contents.append(l)
         contents.append(r)
         contents.append(lead)
-        h = "%7s %20s %20s" % ('Test', 'LR', 'Chi-2')
+        h = "%7s %20s %20s" % ("Test", "LR", "Chi-2")
         contents.append(h)
-        stat = "%7s %20.3f %20.3f" % ('Stat.', self.LR, self.Q)
+        stat = "%7s %20.3f %20.3f" % ("Stat.", self.LR, self.Q)
         contents.append(stat)
-        stat = "%7s %20d %20d" % ('DOF', self.dof, self.dof)
+        stat = "%7s %20d %20d" % ("DOF", self.dof, self.dof)
         contents.append(stat)
-        stat = "%7s %20.3f %20.3f" % ('p-value', self.LR_p_value,
-                                      self.Q_p_value)
+        stat = "%7s %20.3f %20.3f" % ("p-value", self.LR_p_value, self.Q_p_value)
         contents.append(stat)
         print(("\n".join(contents)))
         print(lead)
@@ -1835,9 +1864,10 @@ class Homogeneity_Results:
         max_col = max([len(col) for col in cols])
         col_width = max([5, max_col])  # probabilities have 5 chars
         p0 = []
-        line0 = ['{s: <{w}}'.format(s="P(H0)", w=col_width)]
-        line0.extend((['{s: >{w}}'.format(s=cname, w=col_width) for cname in
-                       self.class_names]))
+        line0 = ["{s: <{w}}".format(s="P(H0)", w=col_width)]
+        line0.extend(
+            (["{s: >{w}}".format(s=cname, w=col_width) for cname in self.class_names])
+        )
         print(("    ".join(line0)))
         p0.append("&".join(line0))
         for i, row in enumerate(self.p_h0):
@@ -1850,10 +1880,15 @@ class Homogeneity_Results:
         print(lead)
         for r, p1 in enumerate(self.p_h1):
             p0 = []
-            line0 = ['{s: <{w}}'.format(s="P(%s)" %
-                                        regime_names[r], w=col_width)]
-            line0.extend((['{s: >{w}}'.format(s=cname, w=col_width) for cname
-                           in self.class_names]))
+            line0 = ["{s: <{w}}".format(s="P(%s)" % regime_names[r], w=col_width)]
+            line0.extend(
+                (
+                    [
+                        "{s: >{w}}".format(s=cname, w=col_width)
+                        for cname in self.class_names
+                    ]
+                )
+            )
             print(("    ".join(line0)))
             p0.append("&".join(line0))
             for i, row in enumerate(p1):
@@ -1867,7 +1902,7 @@ class Homogeneity_Results:
         if file_name:
             k = self.k
             ks = str(k + 1)
-            with open(file_name, 'w') as f:
+            with open(file_name, "w") as f:
                 c = []
                 fmt = "r" * (k + 1)
                 s = "\\begin{tabular}{|%s|}\\hline\n" % fmt
@@ -2000,12 +2035,12 @@ class FullRank_Markov(Markov):
         y = np.asarray(y)
         # resolve ties: All values are given a distinct rank, corresponding
         # to the order that the values occur in each cross section.
-        r_asc = np.array([rankdata(col, method='ordinal') for col in y.T]).T
+        r_asc = np.array([rankdata(col, method="ordinal") for col in y.T]).T
         # ranks by high (1) to low (n)
         self.ranks = r_asc.shape[0] - r_asc + 1
-        super(FullRank_Markov, self).__init__(self.ranks,
-                                              fill_empty_classes=fill_empty_classes,
-                                              summary=summary)
+        super(FullRank_Markov, self).__init__(
+            self.ranks, fill_empty_classes=fill_empty_classes, summary=summary
+        )
 
 
 def sojourn_time(p, summary=True):
@@ -2059,9 +2094,12 @@ def sojourn_time(p, summary=True):
         non_absorbing_states = np.where(pii != 1)[0]
         st = np.full(len(pii), np.inf)
         if summary:
-            print("Sojourn times are infinite for absorbing states! In this "
-                   "Markov Chain, states {} are absorbing states.".format(
-                    list(absorbing_states)))
+            print(
+                "Sojourn times are infinite for absorbing states! In this "
+                "Markov Chain, states {} are absorbing states.".format(
+                    list(absorbing_states)
+                )
+            )
         st[non_absorbing_states] = 1 / (1 - pii[non_absorbing_states])
     else:
         st = 1 / (1 - pii)
@@ -2173,9 +2211,8 @@ class GeoRank_Markov(Markov):
         n = y.shape[0]
         # resolve ties: All values are given a distinct rank, corresponding
         # to the order that the values occur in each cross section.
-        ranks = np.array([rankdata(col, method='ordinal') for col in y.T]).T
+        ranks = np.array([rankdata(col, method="ordinal") for col in y.T]).T
         geo_ranks = np.argsort(ranks, axis=0) + 1
-        super(GeoRank_Markov, self).__init__(geo_ranks,
-                                             fill_empty_classes=fill_empty_classes,
-                                             summary=summary)
-
+        super(GeoRank_Markov, self).__init__(
+            geo_ranks, fill_empty_classes=fill_empty_classes, summary=summary
+        )

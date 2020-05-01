@@ -11,6 +11,7 @@ import numpy as np
 import scipy.spatial.distance as d
 from .markov import Markov
 
+
 class Sequence(object):
     """
     Pairwise sequence analysis.
@@ -152,8 +153,7 @@ class Sequence(object):
     ValueError: Please specify a proper `dist_type` or `subs_mat` and `indel` to proceed!
     """
 
-    def __init__(self, y, subs_mat=None, dist_type=None,
-                 indel=None, cluster_type=None):
+    def __init__(self, y, subs_mat=None, dist_type=None, indel=None, cluster_type=None):
 
         y = np.asarray(y)
         merged = list(itertools.chain.from_iterable(y))
@@ -172,8 +172,10 @@ class Sequence(object):
 
         if subs_mat is None or indel is None:
             if dist_type is None:
-                raise ValueError("Please specify a proper `dist_type` or "
-                                 "`subs_mat` and `indel` to proceed!")
+                raise ValueError(
+                    "Please specify a proper `dist_type` or "
+                    "`subs_mat` and `indel` to proceed!"
+                )
             else:
                 if dist_type.lower() == "interval":
                     self.indel = self.k - 1
@@ -187,10 +189,10 @@ class Sequence(object):
                 elif dist_type.lower() == "hamming":
                     if len(y_int.shape) != 2:
                         raise ValueError(
-                            'hamming distance cannot be calculated for '
-                            'sequences of unequal lengths!')
-                    hamming_dist = d.pdist(y_int, metric='hamming') * \
-                                   y_int.shape[1]
+                            "hamming distance cannot be calculated for "
+                            "sequences of unequal lengths!"
+                        )
+                    hamming_dist = d.pdist(y_int, metric="hamming") * y_int.shape[1]
                     self.seq_dis_mat = d.squareform(hamming_dist)
 
                 elif dist_type.lower() == "arbitrary":
@@ -219,9 +221,7 @@ class Sequence(object):
                     for i, tran in enumerate(itertools.product(y_uni, y_uni)):
                         trans_list.append(tran)
                         dict_trans_state[tran] = i + len(y_uni)
-                    subs_mat = np.ones(
-                        (self.k * (self.k + 1), self.k * (self.k +
-                                                          1)))
+                    subs_mat = np.ones((self.k * (self.k + 1), self.k * (self.k + 1)))
                     np.fill_diagonal(subs_mat, 0)
                     for row in range(self.k ** 2):
                         row_index = row + self.k
@@ -229,8 +229,10 @@ class Sequence(object):
                         for col in range(self.k ** 2):
                             col_index = col + self.k
                             col_tran = trans_list[col_index]
-                            subs_mat[row_index, col_index] = abs(int(row_tran[0] == row_tran[1])-
-                                                                 int(col_tran[0] == col_tran[1]))
+                            subs_mat[row_index, col_index] = abs(
+                                int(row_tran[0] == row_tran[1])
+                                - int(col_tran[0] == col_tran[1])
+                            )
 
                     self.dict_trans_state = dict_trans_state
                     self.subs_mat = subs_mat
@@ -240,8 +242,7 @@ class Sequence(object):
                     y_tran_index = np.zeros_like(y_int)
                     y_tran = []
                     for i in range(y_int.shape[1]):
-                        y_tran.append(
-                            list(zip(y_int_ext[:, i], y_int_ext[:, i + 1])))
+                        y_tran.append(list(zip(y_int_ext[:, i], y_int_ext[:, i + 1])))
                     for i in range(y_int.shape[0]):
                         for j in range(y_int.shape[1]):
                             y_tran_index[i, j] = dict_trans_state[y_tran[j][i]]
@@ -251,7 +252,7 @@ class Sequence(object):
             self._om_dist(y_int)
 
     def _om_pair_dist(self, seq1, seq2):
-        '''
+        """
         Method for calculating the optimal matching distance between a pair of
         sequences given a substitution cost matrix and an indel cost.
 
@@ -269,7 +270,7 @@ class Sequence(object):
                           score for aligning the substring, seq1[0:j] and seq2[0:i],
                           and D[t2+1, t1+1] (or D[-1,-1]) is the global optimal score.
 
-        '''
+        """
 
         t1 = len(seq1)
         t2 = len(seq2)
@@ -284,13 +285,12 @@ class Sequence(object):
             for j in range(1, t1 + 1):
                 gaps = D[i, j - 1] + self.indel
                 gapt = D[i - 1, j] + self.indel
-                match = D[i - 1, j - 1] + self.subs_mat[
-                    seq1[j - 1], seq2[i - 1]]
+                match = D[i - 1, j - 1] + self.subs_mat[seq1[j - 1], seq2[i - 1]]
                 D[i, j] = min(match, gaps, gapt)
         return D
 
     def _om_dist(self, y_int):
-        '''
+        """
         Method for calculating optimal matching distances between all
         sequence pairs.
 
@@ -304,15 +304,15 @@ class Sequence(object):
         This method is optimized to calculate the distance between unique
         sequences only in order to save computation time.
 
-        '''
+        """
         y_str = []
         for i in y_int:
-            y_str.append(''.join(list(map(str, i))))
+            y_str.append("".join(list(map(str, i))))
 
         moves_str, unique_indices = np.unique(y_str, axis=0, return_index=True)
         moves_int = y_int[unique_indices]
         uni_num = len(moves_str)
-        dict_move_index = dict(zip(map(tuple,moves_int), range(uni_num)))
+        dict_move_index = dict(zip(map(tuple, moves_int), range(uni_num)))
 
         # dict_move_index = dict(zip(map(tuple, moves_str), range(uni_num)))
 
@@ -321,8 +321,7 @@ class Sequence(object):
         for pair in itertools.combinations(range(uni_num), 2):
             seq1 = moves_int[pair[0]]
             seq2 = moves_int[pair[1]]
-            uni_seq_dis_mat[pair[0], pair[1]] = self._om_pair_dist(seq1,
-                                                                   seq2)[-1, -1]
+            uni_seq_dis_mat[pair[0], pair[1]] = self._om_pair_dist(seq1, seq2)[-1, -1]
         uni_seq_dis_mat = uni_seq_dis_mat + uni_seq_dis_mat.transpose()
 
         seq_dis_mat = np.zeros((self.n, self.n))
@@ -330,7 +329,7 @@ class Sequence(object):
             seq1 = y_int[pair[0]]
             seq2 = y_int[pair[1]]
             seq_dis_mat[pair[0], pair[1]] = uni_seq_dis_mat[
-                dict_move_index[tuple(seq1)],
-                dict_move_index[tuple(seq2)]]
+                dict_move_index[tuple(seq1)], dict_move_index[tuple(seq2)]
+            ]
 
         self.seq_dis_mat = seq_dis_mat + seq_dis_mat.transpose()

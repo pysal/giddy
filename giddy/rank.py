@@ -3,8 +3,15 @@ Rank and spatial rank mobility measures.
 """
 __author__ = "Sergio J. Rey <sjsrey@gmail.com>, Wei Kang <weikang9009@gmail.com>"
 
-__all__ = ['SpatialTau', 'Tau', 'Theta', 'Tau_Local', 'Tau_Local_Neighbor',
-           'Tau_Local_Neighborhood', 'Tau_Regional']
+__all__ = [
+    "SpatialTau",
+    "Tau",
+    "Theta",
+    "Tau_Local",
+    "Tau_Local_Neighbor",
+    "Tau_Local_Neighborhood",
+    "Tau_Regional",
+]
 
 from scipy.stats.mstats import rankdata
 from scipy.special import erfc
@@ -97,19 +104,17 @@ class Theta:
         self.permutations = permutations
         if permutations:
             np.perm = np.random.permutation
-            sim = np.array([self._calc(
-                np.perm(regime)) for i in range(permutations)])
+            sim = np.array([self._calc(np.perm(regime)) for i in range(permutations)])
             self.theta.shape = (1, len(self.theta))
             sim = np.concatenate((self.theta, sim))
             self.sim = sim
-            den = permutations + 1.
+            den = permutations + 1.0
             self.pvalue_left = (sim <= sim[0]).sum(axis=0) / den
             self.pvalue_right = (sim > sim[0]).sum(axis=0) / den
             self.z = (sim[0] - sim.mean(axis=0)) / sim.std(axis=0)
 
     def _calc(self, regime):
-        within = [abs(
-            sum(self.ranks_d[regime == reg])) for reg in self.regimes]
+        within = [abs(sum(self.ranks_d[regime == reg])) for reg in self.regimes]
         return np.array(sum(within) / self.total)
 
 
@@ -255,7 +260,7 @@ class Tau:
         cd = Concordant + Discordant
         num = Concordant - Discordant
         tau = num / np.sqrt((cd + ExtraX) * (cd + ExtraY))
-        v = (4. * n + 10) / (9. * n * (n - 1))
+        v = (4.0 * n + 10) / (9.0 * n * (n - 1))
         z = tau / np.sqrt(v)
         pval = erfc(np.abs(z) / 1.4142136)  # follow scipy
         return tau, pval, Concordant, Discordant, ExtraX, ExtraY
@@ -347,7 +352,7 @@ class SpatialTau(object):
 
     def __init__(self, x, y, w, permutations=0):
 
-        w.transform = 'b'
+        w.transform = "b"
         self.n = len(x)
         res = Tau(x, y)
         self.tau = res.tau
@@ -358,7 +363,7 @@ class SpatialTau(object):
         self.extraY = res.extraY
         res = self._calc(x, y, w)
         self.tau_spatial = res[0]
-        self.pairs_spatial = int(w.s0 / 2.)
+        self.pairs_spatial = int(w.s0 / 2.0)
         self.concordant_spatial = res[1]
         self.discordant_spatial = res[2]
 
@@ -369,8 +374,7 @@ class SpatialTau(object):
                 rids = np.random.permutation(ids)
                 taus[r] = self._calc(x[rids], y[rids], w)[0]
             self.taus = taus
-            self.tau_spatial_psim = pseudop(taus, self.tau_spatial,
-                                            permutations)
+            self.tau_spatial_psim = pseudop(taus, self.tau_spatial, permutations)
 
     def _calc(self, x, y, w):
         n1 = n2 = iS = gc = 0
@@ -407,9 +411,9 @@ class SpatialTau(object):
 def pseudop(sim, observed, nperm):
     above = sim >= observed
     larger = above.sum()
-    psim = (larger + 1.) / (nperm + 1.)
+    psim = (larger + 1.0) / (nperm + 1.0)
     if psim > 0.5:
-        psim = (nperm - larger + 1.) / (nperm + 1.)
+        psim = (nperm - larger + 1.0) / (nperm + 1.0)
     return psim
 
 
@@ -484,10 +488,10 @@ class Tau_Local:
         C = (xx - xx.T) * (yy - yy.T)
         self.S = -1 * (C < 0) + 1 * (C > 0)
 
-        self.tau = self.S.sum() * 1. / (self.n * (self.n - 1))
+        self.tau = self.S.sum() * 1.0 / (self.n * (self.n - 1))
         si = self.S.sum(axis=1)
 
-        self.tau_local = si * 1. / (self.n - 1)
+        self.tau_local = si * 1.0 / (self.n - 1)
 
 
 class Tau_Local_Neighbor:
@@ -597,7 +601,7 @@ class Tau_Local_Neighbor:
         y = np.asarray(y)
         self.n = len(x)
 
-        w.transform = 'b'
+        w.transform = "b"
         self.tau_ln, self.tau_ln_weights = self._calc(x, y, w)
 
         concor_sign = np.ones(self.n)
@@ -622,8 +626,9 @@ class Tau_Local_Neighbor:
                     tau_ln_sim[i, j] = self._calc(xr, yr, w, i)
                 larger = (tau_ln_sim[i] >= obs_i).sum()
                 smaller = (tau_ln_sim[i] <= obs_i).sum()
-                tau_ln_pvalues[i] = (np.min([larger, smaller]) + 1.) / (
-                    1 + permutations)
+                tau_ln_pvalues[i] = (np.min([larger, smaller]) + 1.0) / (
+                    1 + permutations
+                )
             self.tau_ln_sim = tau_ln_sim
             self.tau_ln_pvalues = tau_ln_pvalues
 
@@ -754,7 +759,7 @@ class Tau_Local_Neighborhood:
         self.S = res.S
         self.tau_local = res.tau_local
 
-        w.transform = 'b'
+        w.transform = "b"
         tau_lnhood = np.zeros(self.n)
         for i in range(self.n):
             neighbors_i = [i]
@@ -762,7 +767,7 @@ class Tau_Local_Neighborhood:
             n_i = len(neighbors_i)
             sh_i = self.S[neighbors_i, :][:, neighbors_i]
             # Neighborhood set LIMA
-            tau_lnhood[i] = sh_i.sum() * 1. / (n_i * (n_i - 1))
+            tau_lnhood[i] = sh_i.sum() * 1.0 / (n_i * (n_i - 1))
         self.tau_lnhood = tau_lnhood
 
         concor_sign = np.ones(self.n)
@@ -780,16 +785,17 @@ class Tau_Local_Neighborhood:
                 for j in range(permutations):
                     np.random.shuffle(rids)
                     neighbors_i = [i]
-                    neighbors_i.extend(rids[:len(w.neighbors[i])])
+                    neighbors_i.extend(rids[: len(w.neighbors[i])])
                     n_i = len(neighbors_i)
                     neighbors_i_second = neighbors_i
                     sh_i = self.S[neighbors_i, :][:, neighbors_i_second]
-                    tau_lnhood_sim[i, j] = sh_i.sum() * 1. / (n_i * (n_i - 1))
+                    tau_lnhood_sim[i, j] = sh_i.sum() * 1.0 / (n_i * (n_i - 1))
 
                 larger = (tau_lnhood_sim[i] >= obs_i).sum()
                 smaller = (tau_lnhood_sim[i] <= obs_i).sum()
-                tau_lnhood_pvalues[i] = (np.min([larger, smaller]) +
-                                         1.) / (1 + permutations)
+                tau_lnhood_pvalues[i] = (np.min([larger, smaller]) + 1.0) / (
+                    1 + permutations
+                )
 
             self.tau_lnhood_sim = tau_lnhood_sim
             self.tau_lnhood_pvalues = tau_lnhood_pvalues
@@ -894,7 +900,7 @@ class Tau_Regional:
             P[ur.index(r), i] = 1  # construct P matrix
 
         w = weights.block_weights(regime)
-        w.transform = 'b'
+        w.transform = "b"
         W = w.full()[0]
         WH = np.ones((self.n, self.n)) - np.eye(self.n) - W
 
@@ -915,8 +921,7 @@ class Tau_Regional:
                 smaller += np.less_equal(tau_reg_sim[i], self.tau_reg)
 
             m = np.less(smaller, larger)
-            pvalues = (1 + m * smaller + (1 - m) *
-                       larger) / (1. + permutations)
+            pvalues = (1 + m * smaller + (1 - m) * larger) / (1.0 + permutations)
             self.tau_reg_sim = tau_reg_sim
             self.tau_reg_pvalues = pvalues
 
