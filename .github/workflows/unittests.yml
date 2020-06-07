@@ -31,7 +31,7 @@
        - shell: bash -l {0}
          run: conda list
        - shell: bash -l {0}
-         run: python -m black spaghetti --check
+         run: python -m black giddy --check
        - shell: bash -l {0}
          run: py.test -v giddy --cov=giddy --doctest-modules --cov-config=.coveragerc --cov-report=xml
        - name: codecov (${{ matrix.os }}, ${{ matrix.environment-file }})
