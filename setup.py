@@ -82,7 +82,6 @@ def setup_package():
             ],
           license='3-Clause BSD',
           packages=find_packages(),
-          # packages=['giddy','giddy.tests'],
           install_requires=install_reqs,
           extras_require=extras_reqs,
           zip_safe=False,

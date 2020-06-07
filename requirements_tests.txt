@@ -1,8 +1,6 @@
-nose
-nose-progressive
-nose-exclude
-coverage
-coveralls
+codecov
+pytest
+pytest-cov
 matplotlib
 pandas
 ipywidgets
