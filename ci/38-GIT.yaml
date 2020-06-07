@@ -4,6 +4,7 @@ channels:
 dependencies:
   - python=3.8
   # required
+  - geopandas>=0.4.0
   - scipy>=1.3.0
   - quantecon>=0.4.7
   - pip

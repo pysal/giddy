@@ -5,4 +5,3 @@ matplotlib
 pandas
 ipywidgets
 splot
-pytest
