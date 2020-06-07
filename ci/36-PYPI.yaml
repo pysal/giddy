@@ -1,0 +1,26 @@
+name: test
+channels:
+  - conda-forge
+dependencies:
+  - python=3.6
+  # required
+  - scipy>=1.3.0
+  - libpysal>=4.0.1
+  - mapclassify>=2.1.1
+  - esda>=2.1.1
+  - quantecon>=0.4.7
+  - splot
+  - libpysal
+  - mapclassify
+  - esda
+  # formatting
+  - black
+  # testing
+  - codecov
+  - pytest
+  - pytest-cov
+  - matplotlib
+  - pandas
+  - ipywidgets
+
+

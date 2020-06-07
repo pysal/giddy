@@ -1,0 +1,25 @@
+name: test
+channels:
+  - conda-forge
+dependencies:
+  - python=3.8
+  # required
+  - scipy>=1.3.0
+  - quantecon>=0.4.7
+  - pip
+  - pip:
+    - git+https://github.com/pysal/splot.git@master
+    - git+https://github.com/pysal/libpysal.git@master
+    - git+https://github.com/pysal/mapclassify.git@master
+    - git+https://github.com/pysal/esda.git@master
+  # formatting
+  - black
+  # testing
+  - codecov
+  - pytest
+  - pytest-cov
+  - matplotlib
+  - pandas
+  - ipywidgets
+
+
