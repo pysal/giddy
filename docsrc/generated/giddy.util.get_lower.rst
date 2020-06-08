@@ -1,0 +1,6 @@
+giddy.util.get\_lower
+=====================
+
+.. currentmodule:: giddy.util
+
+.. autofunction:: get_lower
