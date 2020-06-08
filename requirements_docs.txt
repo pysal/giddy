@@ -5,3 +5,4 @@ sphinxcontrib-bibtex
 sphinx_bootstrap_theme
 numpydoc
 nbsphinx
+nbsphinx-link
