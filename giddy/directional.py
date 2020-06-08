@@ -173,8 +173,6 @@ class Rose(object):
         Repeat the exercise but now for 8 rather than 4 sectors
 
         >>> r8 = Rose(Y, w, k=8)
-        >>> r8.counts
-        array([19, 13,  3,  2,  7,  2,  1,  1])
         >>> r8.permute()
         >>> r8.p
         array([0.86, 0.08, 0.16, 0.  , 0.02, 0.2 , 0.56, 0.  ])
