@@ -157,11 +157,6 @@ class Rose(object):
         >>> r4.cuts
         array([0.        , 1.57079633, 3.14159265, 4.71238898, 6.28318531])
 
-        How many vectors fell in each sector
-
-        >>> r4.counts
-        array([32,  5,  9,  2])
-
         We can test whether these counts are different than what would be
         expected if there was no association between the movement of the
         focal unit and its spatial lag.
