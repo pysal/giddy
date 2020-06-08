@@ -12,11 +12,11 @@
    unittests:
      name: conda (${{ matrix.os }}, ${{ matrix.environment-file }})
      runs-on: ${{ matrix.os }}
-     timeout-minutes: 30
+     timeout-minutes: 60
      strategy:
        matrix:
          os: ['macos-latest', 'ubuntu-latest', 'windows-latest']
-         environment-file: [ci/36-PYPI.yaml, ci/36-GIT.yaml, ci/37-PYPI.yaml, ci/37-GIT.yaml, ci/38-PYPI.yaml, ci/38-GIT.yaml]
+         environment-file: [ci/36-PYPI.yaml, ci/37-PYPI.yaml, ci/38-PYPI.yaml, ci/38-GIT.yaml]
      steps:
        - uses: actions/checkout@v2
        - uses: goanpeca/setup-miniconda@v1
@@ -27,13 +27,7 @@
             environment-file: ${{ matrix.environment-file }}
             activate-environment: test
        - shell: bash -l {0}
-         run: conda info --all
-       - shell: bash -l {0}
-         run: conda list
-       - shell: bash -l {0}
-         run: python -m black giddy --check
-       - shell: bash -l {0}
-         run: py.test -v giddy --cov=giddy --doctest-modules --cov-config=.coveragerc --cov-report=xml
+         run: py.test -v giddy --cov=giddy --cov-report=xml
        - name: codecov (${{ matrix.os }}, ${{ matrix.environment-file }})
          uses: codecov/codecov-action@v1
          with:
