@@ -24,7 +24,7 @@ Markov Methods
     giddy.markov.sojourn_time
     giddy.ergodic.steady_state
     giddy.ergodic.fmpt
-    giddy.ergodic.var_fmpt
+    giddy.ergodic.var_fmpt_ergodic
 
 
 .. _directional_api:
@@ -63,6 +63,7 @@ Exchange Mobility Methods
     giddy.rank.Tau_Regional
 
 .. _sequence_api:
+
 Alignment-based Sequence Methods
 --------------------------------
 
@@ -72,6 +73,7 @@ Alignment-based Sequence Methods
     giddy.sequence.Sequence
 
 .. _utility_api:
+
 Utility Functions
 -----------------
 

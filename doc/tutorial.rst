@@ -5,9 +5,10 @@ Tutorial
     :maxdepth: 1
     :caption: Contents:
 
-    notebooks/MarkovBasedMethods.ipynb
-    notebooks/RankMarkov.ipynb
-    notebooks/MobilityMeasures.ipynb
-    notebooks/directional.ipynb
-    notebooks/RankbasedMethods.ipynb
+    MarkovBasedMethods.ipynb
+    RankMarkov.ipynb
+    MobilityMeasures.ipynb
+    DirectionalLISA.ipynb
+    RankBasedMethods.ipynb
+    Sequence.ipynb
 

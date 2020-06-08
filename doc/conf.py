@@ -44,7 +44,8 @@ extensions = [#'sphinx_gallery.gen_gallery',
               'numpydoc',
               #'sphinx.ext.napoleon',
               'matplotlib.sphinxext.plot_directive',
-              'nbsphinx']
+              'nbsphinx',
+              'nbsphinx_link']
 
 
 
@@ -287,7 +288,7 @@ intersphinx_mapping = {"python": ('https://docs.python.org/3', None),
                        'scipy': ('https://docs.scipy.org/doc/scipy/reference/', None),
                        'libpysal': ('https://pysal.org/libpysal/', None),
                        'mapclassify': ('https://pysal.org/mapclassify/', None),
-                       'esda': ('https://esda.readthedocs.io/', None),
+                       'esda': ('https://pysal.org/esda/', None),
                        'matplotlib':("https://matplotlib.org/", None)
                        }
 
@@ -295,8 +296,8 @@ intersphinx_mapping = {"python": ('https://docs.python.org/3', None),
 
 # This is processed by Jinja2 and inserted before each notebook
 nbsphinx_prolog = r"""
-{% set docname = env.doc2path(env.docname, base='doc') %}
-{% set fullpath = env.doc2path(env.docname, base='tree/master/doc/') %}
+{% set docname = env.doc2path(env.docname, base=None).replace("nblink","ipynb") %}
+{% set fullpath = env.doc2path(env.docname, base='tree/master/notebooks/').replace("nblink","ipynb") %}
 
 .. only:: html
 

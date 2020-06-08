@@ -43,18 +43,18 @@ Features
         - Neighbor set LIMA and inference
         - Neighborhood set LIMA and inference
 
-[![us_neigborsetLIMA](figs/us_neigborsetLIMA.png)](notebooks/Rank%20based%20Methods.ipynb)
+[![us_neigborsetLIMA](figs/us_neigborsetLIMA.png)](notebooks/RankBasedMethods.ipynb)
 
 - Income mobility measures
 
 Examples
 --------
 
-* [Directional LISA](notebooks/directional.ipynb)
-* [Markov based methods](notebooks/Markov%20Based%20Methods.ipynb)
-* [Rank based methods](notebooks/Rank%20based%20Methods.ipynb)
-* [Mobility measures](notebooks/Mobility%20measures.ipynb)
-* [Rank-based Markov methods](notebooks/Rank_Markov.ipynb)
+* [Directional LISA](notebooks/DirectionalLISA.ipynb)
+* [Markov based methods](notebooks/MarkovBasedMethods.ipynb)
+* [Rank Markov methods](notebooks/RankMarkov.ipynb)
+* [Mobility measures](notebooks/MobilityMeasures.ipynb)
+* [Rank based methods](notebooks/RankBasedMethods.ipynb)
 * [Sequence methods (Optimal matching)](notebooks/Sequence.ipynb)
 
 Installation
@@ -74,9 +74,11 @@ pip install https://github.com/pysal/giddy/archive/master.zip
 
 #### Requirements
 
-- libpysal
-- esda
-- mapclassify
+- scipy>=1.3.0
+- libpysal>=4.0.1
+- mapclassify>=2.1.1
+- esda>=2.1.1
+- quantecon>=0.4.7
 
 Contribute
 ----------
