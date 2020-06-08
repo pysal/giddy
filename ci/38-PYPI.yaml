@@ -17,5 +17,6 @@ dependencies:
   - pytest
   - pytest-cov
   - matplotlib
+  - ipywidgets
 
 
