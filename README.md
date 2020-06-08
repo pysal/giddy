@@ -4,7 +4,6 @@ GeospatIal Distribution DYnamics (giddy) in PySAL
 ![.github/workflows/unittests.yml](https://github.com/pysal/giddy/workflows/.github/workflows/unittests.yml/badge.svg?branch=master)
 [![codecov](https://codecov.io/gh/pysal/giddy/branch/master/graph/badge.svg)](https://codecov.io/gh/pysal/giddy)
 [![Gitter room](https://badges.gitter.im/pysal/giddy.svg)](https://gitter.im/pysal/giddy)
-[![Documentation Status](https://readthedocs.org/projects/giddy/badge/?version=latest)](https://giddy.readthedocs.io/en/latest/?badge=latest)
 [![PyPI version](https://badge.fury.io/py/giddy.svg)](https://badge.fury.io/py/giddy)
 [![DOI](https://zenodo.org/badge/91390088.svg)](https://zenodo.org/badge/latestdoi/91390088)
 [![badge](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pysal/giddy/master)
