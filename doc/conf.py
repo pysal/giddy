@@ -47,7 +47,9 @@ extensions = [#'sphinx_gallery.gen_gallery',
               'nbsphinx',
               'nbsphinx_link']
 
-
+mathjax_config = {
+    'TeX': {'equationNumbers': {'autoNumber': 'AMS', 'useLabelIds': True}},
+}
 
 # sphinx_gallery_conf = {
 #      # path to your examples scripts
