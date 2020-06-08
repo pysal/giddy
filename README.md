@@ -4,7 +4,6 @@ GeospatIal Distribution DYnamics (giddy) in PySAL
 ![.github/workflows/unittests.yml](https://github.com/pysal/giddy/workflows/.github/workflows/unittests.yml/badge.svg?branch=master)
 [![codecov](https://codecov.io/gh/pysal/giddy/branch/master/graph/badge.svg)](https://codecov.io/gh/pysal/giddy)
 [![Gitter room](https://badges.gitter.im/pysal/giddy.svg)](https://gitter.im/pysal/giddy)
-[![Documentation Status](https://readthedocs.org/projects/giddy/badge/?version=latest)](https://giddy.readthedocs.io/en/latest/?badge=latest)
 [![PyPI version](https://badge.fury.io/py/giddy.svg)](https://badge.fury.io/py/giddy)
 [![DOI](https://zenodo.org/badge/91390088.svg)](https://zenodo.org/badge/latestdoi/91390088)
 [![badge](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pysal/giddy/master)
@@ -22,14 +21,14 @@ role of space in the evolution of distributions over time.
 Documentation
 -------------
 
-Online documentation is available [here](https://giddy.readthedocs.io).
+Online documentation is available [here](http://pysal.org/giddy/).
 
 
 Features
 --------
 - Directional LISA, inference and visualization as rose diagram
 
-[![rose_conditional](figs/rose_conditional.png)](notebooks/directional.ipynb)
+[![rose_conditional](figs/rose_conditional.png)](notebooks/DirectionalLISA.ipynb)
 
 *Above shows the rose diagram (directional LISAs) for US states incomes across 1969-2009 conditional on relative incomes in 1969.*
 
