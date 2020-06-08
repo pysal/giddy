@@ -21,14 +21,14 @@ role of space in the evolution of distributions over time.
 Documentation
 -------------
 
-Online documentation is available [here](https://giddy.readthedocs.io).
+Online documentation is available [here](http://pysal.org/giddy/).
 
 
 Features
 --------
 - Directional LISA, inference and visualization as rose diagram
 
-[![rose_conditional](figs/rose_conditional.png)](notebooks/directional.ipynb)
+[![rose_conditional](figs/rose_conditional.png)](notebooks/DirectionalLISA.ipynb)
 
 *Above shows the rose diagram (directional LISAs) for US states incomes across 1969-2009 conditional on relative incomes in 1969.*
 
