@@ -9,10 +9,6 @@ dependencies:
   - mapclassify>=2.1.1
   - esda>=2.1.1
   - quantecon>=0.4.7
-  - splot
-  - libpysal
-  - mapclassify
-  - esda
   # formatting
   - black
   # testing
@@ -21,6 +17,5 @@ dependencies:
   - pytest-cov
   - matplotlib
   - pandas
-  - ipywidgets
 
 
