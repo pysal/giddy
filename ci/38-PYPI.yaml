@@ -8,6 +8,7 @@ dependencies:
   - libpysal>=4.0.1
   - mapclassify>=2.1.1
   - esda>=2.1.1
+  - splot
   - quantecon>=0.4.7
   # formatting
   - black
