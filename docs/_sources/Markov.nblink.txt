@@ -1,3 +1,0 @@
-{
-    "path": "../notebooks/Markov Based Methods.ipynb"
-}

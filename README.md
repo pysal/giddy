@@ -101,23 +101,24 @@ BibTeX Citation
 ---------------
 
 ```
-@misc{wei_kang_2019_3351744,
+@software{wei_kang_2020_3887050,
   author       = {Wei Kang and
                   Sergio Rey and
                   Philip Stephens and
                   Nicholas Malizia and
-                  Levi John Wolf and
-                  Stefanie Lumnitz and
                   James Gaboardi and
-                  jlaura and
+                  Stefanie Lumnitz and
+                  Levi John Wolf and
                   Charles Schmidt and
-                  eli knaap and
-                  Andy Eschbacher},
-  title        = {pysal/giddy: giddy 2.2.1},
-  month        = jul,
-  year         = 2019,
-  doi          = {10.5281/zenodo.3351744},
-  url          = {https://doi.org/10.5281/zenodo.3351744}
+                  Jay Laura and
+                  Eli Knaap},
+  title        = {pysal/giddy: Release v2.3.1},
+  month        = jun,
+  year         = 2020,
+  publisher    = {Zenodo},
+  version      = {v2.3.1},
+  doi          = {10.5281/zenodo.3887050},
+  url          = {https://doi.org/10.5281/zenodo.3887050}
 }
 ```
 
