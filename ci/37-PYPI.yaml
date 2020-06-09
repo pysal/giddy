@@ -11,7 +11,7 @@ dependencies:
   - splot
   - quantecon>=0.4.7
   # formatting
-  - black
+#  - black
   # testing
   - codecov
   - pytest

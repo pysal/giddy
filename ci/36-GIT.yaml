@@ -13,7 +13,7 @@ dependencies:
     - git+https://github.com/pysal/mapclassify.git@master
     - git+https://github.com/pysal/esda.git@master
   # formatting
-  - black
+  #- black
   # testing
   - codecov
   - pytest
