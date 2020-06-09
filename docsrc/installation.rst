@@ -3,7 +3,7 @@
 Installation
 ============
 
-From version 2.2.0, giddy supports python `3.6`_ and `3.7`_ only.
+giddy currently supports python `3.6`_, `3.7`_, and `3.8`_.
 Please make sure that you are operating in a python 3 environment.
 
 Installing released version
@@ -43,6 +43,7 @@ contribute to the giddy development.
 
 .. _3.6: https://docs.python.org/3.6/
 .. _3.7: https://docs.python.org/3.7/
+.. _3.8: https://docs.python.org/3.8/
 .. _Python Package Index: https://pypi.org/project/giddy/
 .. _pysal/giddy: https://github.com/pysal/giddy
 .. _fork: https://help.github.com/articles/fork-a-repo/
