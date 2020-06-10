@@ -101,7 +101,7 @@ BibTeX Citation
 ---------------
 
 ```
-@software{wei_kang_2020_3887050,
+@software{wei_kang_2020_3887455,
   author       = {Wei Kang and
                   Sergio Rey and
                   Philip Stephens and
@@ -112,13 +112,13 @@ BibTeX Citation
                   Charles Schmidt and
                   Jay Laura and
                   Eli Knaap},
-  title        = {pysal/giddy: Release v2.3.1},
+  title        = {pysal/giddy: Release v2.3.3},
   month        = jun,
   year         = 2020,
   publisher    = {Zenodo},
-  version      = {v2.3.1},
-  doi          = {10.5281/zenodo.3887050},
-  url          = {https://doi.org/10.5281/zenodo.3887050}
+  version      = {v2.3.3},
+  doi          = {10.5281/zenodo.3887455},
+  url          = {https://doi.org/10.5281/zenodo.3887455}
 }
 ```
 
