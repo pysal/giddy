@@ -3,6 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>giddy.directional.Rose &#8212; giddy v2.3.3 Manual</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -13,7 +14,7 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="shortcut icon" href="../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -179,7 +180,7 @@ the LISA vectors, their visualization, and computationally based inference.</p>
 </dl>
 <dl class="py method">
 <dt id="giddy.directional.Rose.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">Y</span></em>, <em class="sig-param"><span class="n">w</span></em>, <em class="sig-param"><span class="n">k</span><span class="o">=</span><span class="default_value">8</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.directional.Rose.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Y</span></em>, <em class="sig-param"><span class="n">w</span></em>, <em class="sig-param"><span class="n">k</span><span class="o">=</span><span class="default_value">8</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.directional.Rose.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculation of rose diagram for local indicators of spatial
 association.</p>
 <dl class="field-list simple">
@@ -326,26 +327,26 @@ rose diagram conditional on the starting relative income:</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#giddy.directional.Rose.__init__" title="giddy.directional.Rose.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(self, Y, w[, k])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#giddy.directional.Rose.__init__" title="giddy.directional.Rose.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(Y, w[, k])</p></td>
 <td><p>Calculation of rose diagram for local indicators of spatial association.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#giddy.directional.Rose.permute" title="giddy.directional.Rose.permute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">permute</span></code></a>(self[, permutations, alternative])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#giddy.directional.Rose.permute" title="giddy.directional.Rose.permute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">permute</span></code></a>([permutations, alternative])</p></td>
 <td><p>Generate ransom spatial permutations for inference on LISA vectors.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#giddy.directional.Rose.plot" title="giddy.directional.Rose.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a>(self[, attribute, ax])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#giddy.directional.Rose.plot" title="giddy.directional.Rose.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a>([attribute, ax])</p></td>
 <td><p>Plot the rose diagram.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#giddy.directional.Rose.plot_origin" title="giddy.directional.Rose.plot_origin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_origin</span></code></a>(self)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#giddy.directional.Rose.plot_origin" title="giddy.directional.Rose.plot_origin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_origin</span></code></a>()</p></td>
 <td><p>Plot vectors of positional transition of LISA values starting from the same origin.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#giddy.directional.Rose.plot_vectors" title="giddy.directional.Rose.plot_vectors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_vectors</span></code></a>(self[, arrows])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#giddy.directional.Rose.plot_vectors" title="giddy.directional.Rose.plot_vectors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_vectors</span></code></a>([arrows])</p></td>
 <td><p>Plot vectors of positional transition of LISA values within quadrant in scatterplot in a polar plot.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py method">
 <dt id="giddy.directional.Rose.permute">
-<code class="sig-name descname">permute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">permutations</span><span class="o">=</span><span class="default_value">99</span></em>, <em class="sig-param"><span class="n">alternative</span><span class="o">=</span><span class="default_value">'two.sided'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose.permute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.directional.Rose.permute" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">permute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">permutations</span><span class="o">=</span><span class="default_value">99</span></em>, <em class="sig-param"><span class="n">alternative</span><span class="o">=</span><span class="default_value">'two.sided'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose.permute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.directional.Rose.permute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate ransom spatial permutations for inference on LISA vectors.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -367,7 +368,7 @@ the interval.</p>
 
 <dl class="py method">
 <dt id="giddy.directional.Rose.plot">
-<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param">self</em>, <em class="sig-param">attribute=None</em>, <em class="sig-param">ax=None</em>, <em class="sig-param">\*\*kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.directional.Rose.plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attribute</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.directional.Rose.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot the rose diagram.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -395,14 +396,14 @@ Note: ‘c’ and ‘color’ cannot be passed when attribute is not None</p>
 
 <dl class="py method">
 <dt id="giddy.directional.Rose.plot_origin">
-<code class="sig-name descname">plot_origin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose.plot_origin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.directional.Rose.plot_origin" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">plot_origin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose.plot_origin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.directional.Rose.plot_origin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot vectors of positional transition of LISA values starting
 from the same origin.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="giddy.directional.Rose.plot_vectors">
-<code class="sig-name descname">plot_vectors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">arrows</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose.plot_vectors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.directional.Rose.plot_vectors" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">plot_vectors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arrows</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose.plot_vectors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.directional.Rose.plot_vectors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot vectors of positional transition of LISA values
 within quadrant in scatterplot in a polar plot.</p>
 <dl class="field-list simple">
@@ -453,7 +454,7 @@ Note: ‘c’ and ‘color’ cannot be passed when attribute is not None</p>
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.4.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>
 </footer>

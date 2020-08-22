@@ -692,6 +692,7 @@ class Spatial_Markov(object):
     requirement of a transition probability matrix that every row sums to 1.
     We can easily adjust this assigning fill_empty_classes = True when initializing
     Spatial_Markov.
+
     >>> sm = Spatial_Markov(rpci, w, cutoffs=cc, lag_cutoffs=cc, fill_empty_classes=True)
     >>> for p in sm.P:
     ...     print(p)
