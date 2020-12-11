@@ -21,7 +21,7 @@ jobs:
         environment-file: [ci/36-PYPI.yaml, ci/36-GIT.yaml, ci/37-PYPI.yaml, ci/37-GIT.yaml, ci/38-PYPI.yaml, ci/38-GIT.yaml]
     steps:
       - uses: actions/checkout@v2
-      - uses: goanpeca/setup-miniconda@v1
+      - uses: conda-incubator/setup-miniconda@v2
         with:
           miniconda-version: 'latest'
           auto-update-conda: true
