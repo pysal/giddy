@@ -19,6 +19,11 @@ jobs:
       matrix:
         os: ['macos-latest', 'ubuntu-latest', 'windows-latest']
         environment-file: [ci/36-PYPI.yaml, ci/36-GIT.yaml, ci/37-PYPI.yaml, ci/37-GIT.yaml, ci/38-PYPI.yaml, ci/38-GIT.yaml]
+        exclude:
+           - environment-file: ci/36-PYPI.yaml
+             os: windows-latest
+           - environment-file: ci/36-GIT.yaml
+             os: windows-latest
     steps:
       - uses: actions/checkout@v2
       - uses: conda-incubator/setup-miniconda@v2
