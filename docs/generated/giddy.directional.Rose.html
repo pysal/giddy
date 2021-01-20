@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>giddy.directional.Rose &#8212; giddy v2.2.2 Manual</title>
+    <title>giddy.directional.Rose &#8212; giddy v2.3.3 Manual</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css" />
@@ -19,14 +19,14 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="giddy.mobility.markov_mobility" href="giddy.mobility.markov_mobility.html" />
-    <link rel="prev" title="giddy.ergodic.fmpt" href="giddy.ergodic.fmpt.html" />
+    <link rel="prev" title="giddy.ergodic.var_fmpt_ergodic" href="giddy.ergodic.var_fmpt_ergodic.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
 <script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -42,7 +42,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           giddy</a>
-        <span class="navbar-text navbar-version pull-left"><b>2.2.2</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.3.3</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -195,7 +195,7 @@ association.</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<p>Based on <a class="bibtex reference internal" href="../references.html#rey2011" id="id1">[RMA11]</a>.</p>
+<p>Based on <span id="id1">[<a class="reference internal" href="../references.html#id7"><span>RMA11</span></a>]</span>.</p>
 <p class="rubric">Examples</p>
 <p>Constructing data for illustration of directional LISA analytics.
 Data is for the 48 lower US states over the period 1969-2009 and
@@ -270,11 +270,6 @@ histogram</p>
 <span class="go">array([0.        , 1.57079633, 3.14159265, 4.71238898, 6.28318531])</span>
 </pre></div>
 </div>
-<p>How many vectors fell in each sector</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r4</span><span class="o">.</span><span class="n">counts</span>
-<span class="go">array([32,  5,  9,  2])</span>
-</pre></div>
-</div>
 <p>We can test whether these counts are different than what would be
 expected if there was no association between the movement of the
 focal unit and its spatial lag.</p>
@@ -289,8 +284,6 @@ focal unit and its spatial lag.</p>
 </div>
 <p>Repeat the exercise but now for 8 rather than 4 sectors</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">r8</span> <span class="o">=</span> <span class="n">Rose</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">r8</span><span class="o">.</span><span class="n">counts</span>
-<span class="go">array([19, 13,  3,  2,  7,  2,  1,  1])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">r8</span><span class="o">.</span><span class="n">permute</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">r8</span><span class="o">.</span><span class="n">p</span>
 <span class="go">array([0.86, 0.08, 0.16, 0.  , 0.02, 0.2 , 0.56, 0.  ])</span>

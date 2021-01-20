@@ -24,6 +24,8 @@
 
    .. autosummary::
    
+      ~LISA_Markov.fmpt
+      ~LISA_Markov.sojourn_time
       ~LISA_Markov.steady_state
    
    
