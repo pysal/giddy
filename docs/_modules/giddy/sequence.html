@@ -4,15 +4,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>giddy.sequence &#8212; giddy v2.3.3 Manual</title>
-    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <title>giddy.sequence &#8212; giddy v2.2.2 Manual</title>
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/pysal-styles.css" />
     <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
     <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/language_data.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
@@ -23,9 +22,9 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js "></script>
 <script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -41,7 +40,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           giddy</a>
-        <span class="navbar-text navbar-version pull-left"><b>2.3.3</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.2.2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -140,7 +139,6 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy.spatial.distance</span> <span class="k">as</span> <span class="nn">d</span>
 <span class="kn">from</span> <span class="nn">.markov</span> <span class="kn">import</span> <span class="n">Markov</span>
-
 
 <div class="viewcode-block" id="Sequence"><a class="viewcode-back" href="../../generated/giddy.sequence.Sequence.html#giddy.sequence.Sequence">[docs]</a><span class="k">class</span> <span class="nc">Sequence</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -283,7 +281,8 @@
 <span class="sd">    ValueError: Please specify a proper `dist_type` or `subs_mat` and `indel` to proceed!</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Sequence.__init__"><a class="viewcode-back" href="../../generated/giddy.sequence.Sequence.html#giddy.sequence.Sequence.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">subs_mat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dist_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">indel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cluster_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Sequence.__init__"><a class="viewcode-back" href="../../generated/giddy.sequence.Sequence.html#giddy.sequence.Sequence.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">subs_mat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dist_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">indel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cluster_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
         <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
         <span class="n">merged</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
@@ -302,10 +301,8 @@
 
         <span class="k">if</span> <span class="n">subs_mat</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">indel</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">dist_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;Please specify a proper `dist_type` or &quot;</span>
-                    <span class="s2">&quot;`subs_mat` and `indel` to proceed!&quot;</span>
-                <span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please specify a proper `dist_type` or &quot;</span>
+                                 <span class="s2">&quot;`subs_mat` and `indel` to proceed!&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">dist_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;interval&quot;</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">indel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span>
@@ -319,10 +316,10 @@
                 <span class="k">elif</span> <span class="n">dist_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;hamming&quot;</span><span class="p">:</span>
                     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_int</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                            <span class="s2">&quot;hamming distance cannot be calculated for &quot;</span>
-                            <span class="s2">&quot;sequences of unequal lengths!&quot;</span>
-                        <span class="p">)</span>
-                    <span class="n">hamming_dist</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pdist</span><span class="p">(</span><span class="n">y_int</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s2">&quot;hamming&quot;</span><span class="p">)</span> <span class="o">*</span> <span class="n">y_int</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                            <span class="s1">&#39;hamming distance cannot be calculated for &#39;</span>
+                            <span class="s1">&#39;sequences of unequal lengths!&#39;</span><span class="p">)</span>
+                    <span class="n">hamming_dist</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pdist</span><span class="p">(</span><span class="n">y_int</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;hamming&#39;</span><span class="p">)</span> <span class="o">*</span> \
+                                   <span class="n">y_int</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">seq_dis_mat</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">squareform</span><span class="p">(</span><span class="n">hamming_dist</span><span class="p">)</span>
 
                 <span class="k">elif</span> <span class="n">dist_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;arbitrary&quot;</span><span class="p">:</span>
@@ -351,7 +348,9 @@
                     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">tran</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">y_uni</span><span class="p">,</span> <span class="n">y_uni</span><span class="p">)):</span>
                         <span class="n">trans_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tran</span><span class="p">)</span>
                         <span class="n">dict_trans_state</span><span class="p">[</span><span class="n">tran</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_uni</span><span class="p">)</span>
-                    <span class="n">subs_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>
+                    <span class="n">subs_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span>
+                        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">+</span>
+                                                          <span class="mi">1</span><span class="p">)))</span>
                     <span class="n">np</span><span class="o">.</span><span class="n">fill_diagonal</span><span class="p">(</span><span class="n">subs_mat</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
                     <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">**</span> <span class="mi">2</span><span class="p">):</span>
                         <span class="n">row_index</span> <span class="o">=</span> <span class="n">row</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span>
@@ -359,10 +358,8 @@
                         <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">**</span> <span class="mi">2</span><span class="p">):</span>
                             <span class="n">col_index</span> <span class="o">=</span> <span class="n">col</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span>
                             <span class="n">col_tran</span> <span class="o">=</span> <span class="n">trans_list</span><span class="p">[</span><span class="n">col_index</span><span class="p">]</span>
-                            <span class="n">subs_mat</span><span class="p">[</span><span class="n">row_index</span><span class="p">,</span> <span class="n">col_index</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span>
-                                <span class="nb">int</span><span class="p">(</span><span class="n">row_tran</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">row_tran</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-                                <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">col_tran</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">col_tran</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-                            <span class="p">)</span>
+                            <span class="n">subs_mat</span><span class="p">[</span><span class="n">row_index</span><span class="p">,</span> <span class="n">col_index</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">row_tran</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">row_tran</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">-</span>
+                                                                 <span class="nb">int</span><span class="p">(</span><span class="n">col_tran</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">col_tran</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
 
                     <span class="bp">self</span><span class="o">.</span><span class="n">dict_trans_state</span> <span class="o">=</span> <span class="n">dict_trans_state</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">subs_mat</span> <span class="o">=</span> <span class="n">subs_mat</span>
@@ -372,7 +369,8 @@
                     <span class="n">y_tran_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">y_int</span><span class="p">)</span>
                     <span class="n">y_tran</span> <span class="o">=</span> <span class="p">[]</span>
                     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y_int</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-                        <span class="n">y_tran</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">y_int_ext</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">y_int_ext</span><span class="p">[:,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])))</span>
+                        <span class="n">y_tran</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">y_int_ext</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">y_int_ext</span><span class="p">[:,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])))</span>
                     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y_int</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
                         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y_int</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
                             <span class="n">y_tran_index</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_trans_state</span><span class="p">[</span><span class="n">y_tran</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span>
@@ -382,7 +380,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_om_dist</span><span class="p">(</span><span class="n">y_int</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_om_pair_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq1</span><span class="p">,</span> <span class="n">seq2</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Method for calculating the optimal matching distance between a pair of</span>
 <span class="sd">        sequences given a substitution cost matrix and an indel cost.</span>
 
@@ -400,7 +398,7 @@
 <span class="sd">                          score for aligning the substring, seq1[0:j] and seq2[0:i],</span>
 <span class="sd">                          and D[t2+1, t1+1] (or D[-1,-1]) is the global optimal score.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &#39;&#39;&#39;</span>
 
         <span class="n">t1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq1</span><span class="p">)</span>
         <span class="n">t2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq2</span><span class="p">)</span>
@@ -415,12 +413,13 @@
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">t1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
                 <span class="n">gaps</span> <span class="o">=</span> <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">indel</span>
                 <span class="n">gapt</span> <span class="o">=</span> <span class="n">D</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">indel</span>
-                <span class="n">match</span> <span class="o">=</span> <span class="n">D</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">subs_mat</span><span class="p">[</span><span class="n">seq1</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">seq2</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span>
+                <span class="n">match</span> <span class="o">=</span> <span class="n">D</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">subs_mat</span><span class="p">[</span>
+                    <span class="n">seq1</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">seq2</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]]</span>
                 <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">match</span><span class="p">,</span> <span class="n">gaps</span><span class="p">,</span> <span class="n">gapt</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">D</span>
 
     <span class="k">def</span> <span class="nf">_om_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_int</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">        Method for calculating optimal matching distances between all</span>
 <span class="sd">        sequence pairs.</span>
 
@@ -434,15 +433,15 @@
 <span class="sd">        This method is optimized to calculate the distance between unique</span>
 <span class="sd">        sequences only in order to save computation time.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">y_str</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">y_int</span><span class="p">:</span>
-            <span class="n">y_str</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">i</span><span class="p">))))</span>
+            <span class="n">y_str</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">i</span><span class="p">))))</span>
 
         <span class="n">moves_str</span><span class="p">,</span> <span class="n">unique_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_str</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">moves_int</span> <span class="o">=</span> <span class="n">y_int</span><span class="p">[</span><span class="n">unique_indices</span><span class="p">]</span>
         <span class="n">uni_num</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">moves_str</span><span class="p">)</span>
-        <span class="n">dict_move_index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">moves_int</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="n">uni_num</span><span class="p">)))</span>
+        <span class="n">dict_move_index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">tuple</span><span class="p">,</span><span class="n">moves_int</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="n">uni_num</span><span class="p">)))</span>
 
         <span class="c1"># dict_move_index = dict(zip(map(tuple, moves_str), range(uni_num)))</span>
 
@@ -451,7 +450,8 @@
         <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">uni_num</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
             <span class="n">seq1</span> <span class="o">=</span> <span class="n">moves_int</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
             <span class="n">seq2</span> <span class="o">=</span> <span class="n">moves_int</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
-            <span class="n">uni_seq_dis_mat</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_om_pair_dist</span><span class="p">(</span><span class="n">seq1</span><span class="p">,</span> <span class="n">seq2</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">uni_seq_dis_mat</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_om_pair_dist</span><span class="p">(</span><span class="n">seq1</span><span class="p">,</span>
+                                                                   <span class="n">seq2</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">uni_seq_dis_mat</span> <span class="o">=</span> <span class="n">uni_seq_dis_mat</span> <span class="o">+</span> <span class="n">uni_seq_dis_mat</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
 
         <span class="n">seq_dis_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">))</span>
@@ -459,8 +459,8 @@
             <span class="n">seq1</span> <span class="o">=</span> <span class="n">y_int</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
             <span class="n">seq2</span> <span class="o">=</span> <span class="n">y_int</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
             <span class="n">seq_dis_mat</span><span class="p">[</span><span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">uni_seq_dis_mat</span><span class="p">[</span>
-                <span class="n">dict_move_index</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">seq1</span><span class="p">)],</span> <span class="n">dict_move_index</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">seq2</span><span class="p">)]</span>
-            <span class="p">]</span>
+                <span class="n">dict_move_index</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">seq1</span><span class="p">)],</span>
+                <span class="n">dict_move_index</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">seq2</span><span class="p">)]]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">seq_dis_mat</span> <span class="o">=</span> <span class="n">seq_dis_mat</span> <span class="o">+</span> <span class="n">seq_dis_mat</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span></div>
 </pre></div>
@@ -480,7 +480,7 @@
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
     </p>
   </div>
 </footer>

@@ -1,4 +1,4 @@
-giddy.markov.LISA\_Markov
+﻿giddy.markov.LISA\_Markov
 =========================
 
 .. currentmodule:: giddy.markov
@@ -24,8 +24,6 @@ giddy.markov.LISA\_Markov
 
    .. autosummary::
    
-      ~LISA_Markov.fmpt
-      ~LISA_Markov.sojourn_time
       ~LISA_Markov.steady_state
    
    

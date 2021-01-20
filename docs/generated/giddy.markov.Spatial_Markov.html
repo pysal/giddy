@@ -4,15 +4,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>giddy.markov.Spatial_Markov &#8212; giddy v2.3.3 Manual</title>
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <title>giddy.markov.Spatial_Markov &#8212; giddy v2.2.2 Manual</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css" />
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
@@ -25,9 +24,9 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js "></script>
 <script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -43,7 +42,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           giddy</a>
-        <span class="navbar-text navbar-version pull-left"><b>2.3.3</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.2.2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -136,7 +135,7 @@
 <h1>giddy.markov.Spatial_Markov<a class="headerlink" href="#giddy-markov-spatial-markov" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="giddy.markov.Spatial_Markov">
-<em class="property">class </em><code class="sig-prename descclassname">giddy.markov.</code><code class="sig-name descname">Spatial_Markov</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">w</span></em>, <em class="sig-param"><span class="n">k</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">m</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">permutations</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">fixed</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">discrete</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">cutoffs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lag_cutoffs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">variable_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fill_empty_classes</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/markov.html#Spatial_Markov"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.markov.Spatial_Markov" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">giddy.markov.</code><code class="sig-name descname">Spatial_Markov</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">w</span></em>, <em class="sig-param"><span class="n">k</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">m</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">permutations</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">fixed</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">discrete</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">cutoffs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lag_cutoffs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">variable_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/markov.html#Spatial_Markov"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.markov.Spatial_Markov" title="Permalink to this definition">¶</a></dt>
 <dd><p>Markov transitions conditioned on the value of the spatial lag.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -179,12 +178,6 @@ None, meaning that quantiles will be used for the
 discretization.</p>
 </dd>
 <dt><strong>variable_name</strong><span class="classifier">string</span></dt><dd><p>name of variable.</p>
-</dd>
-<dt><strong>fill_empty_classes: bool</strong></dt><dd><p>If True, assign 1 to diagonal elements which fall in rows
-full of 0s to ensure each conditional transition
-probability matrix is a stochastic matrix (each row
-sums up to 1). In other words, the probability of
-staying at that state is 1.</p>
 </dd>
 </dl>
 </dd>
@@ -304,6 +297,7 @@ first quintile, on average, after 12.88 years, and would enter the
 fourth quintile after 28.473 years.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">sm</span><span class="o">.</span><span class="n">F</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="gp">...</span>
 <span class="go">[[  2.29835259  28.95614035  46.14285714  80.80952381 279.42857143]</span>
 <span class="go"> [ 33.86549708   3.79459555  22.57142857  57.23809524 255.85714286]</span>
 <span class="go"> [ 43.60233918   9.73684211   4.91085714  34.66666667 233.28571429]</span>
@@ -433,46 +427,6 @@ meaning that relative incomes:
 <span class="go"> [0.         0.         0.         0.03932584 0.96067416]]</span>
 </pre></div>
 </div>
-<p>(3.1) As we can see from the above estimated conditional transition
-probability matrix, some rows are full of zeros which violate the
-requirement of a transition probability matrix that every row sums to 1.
-We can easily adjust this assigning fill_empty_classes = True when initializing
-Spatial_Markov.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sm</span> <span class="o">=</span> <span class="n">Spatial_Markov</span><span class="p">(</span><span class="n">rpci</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">cutoffs</span><span class="o">=</span><span class="n">cc</span><span class="p">,</span> <span class="n">lag_cutoffs</span><span class="o">=</span><span class="n">cc</span><span class="p">,</span> <span class="n">fill_empty_classes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sm</span><span class="o">.</span><span class="n">P</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-<span class="go">[[0.96703297 0.03296703 0.         0.         0.        ]</span>
-<span class="go"> [0.10638298 0.68085106 0.21276596 0.         0.        ]</span>
-<span class="go"> [0.         0.14285714 0.7755102  0.08163265 0.        ]</span>
-<span class="go"> [0.         0.         0.5        0.5        0.        ]</span>
-<span class="go"> [0.         0.         0.         0.         1.        ]]</span>
-<span class="go">[[0.88636364 0.10606061 0.00757576 0.         0.        ]</span>
-<span class="go"> [0.04402516 0.89308176 0.06289308 0.         0.        ]</span>
-<span class="go"> [0.         0.05882353 0.8627451  0.07843137 0.        ]</span>
-<span class="go"> [0.         0.         0.13846154 0.86153846 0.        ]</span>
-<span class="go"> [0.         0.         0.         0.         1.        ]]</span>
-<span class="go">[[0.78082192 0.17808219 0.02739726 0.01369863 0.        ]</span>
-<span class="go"> [0.03488372 0.90406977 0.05813953 0.00290698 0.        ]</span>
-<span class="go"> [0.         0.05919003 0.84735202 0.09034268 0.00311526]</span>
-<span class="go"> [0.         0.         0.05811623 0.92985972 0.01202405]</span>
-<span class="go"> [0.         0.         0.         0.14285714 0.85714286]]</span>
-<span class="go">[[0.82692308 0.15384615 0.         0.01923077 0.        ]</span>
-<span class="go"> [0.0703125  0.7890625  0.125      0.015625   0.        ]</span>
-<span class="go"> [0.00295858 0.06213018 0.82248521 0.10946746 0.00295858]</span>
-<span class="go"> [0.         0.00185529 0.07606679 0.88497217 0.03710575]</span>
-<span class="go"> [0.         0.         0.         0.07803468 0.92196532]]</span>
-<span class="go">[[1.         0.         0.         0.         0.        ]</span>
-<span class="go"> [0.         1.         0.         0.         0.        ]</span>
-<span class="go"> [0.         0.06666667 0.9        0.03333333 0.        ]</span>
-<span class="go"> [0.         0.         0.05660377 0.90566038 0.03773585]</span>
-<span class="go"> [0.         0.         0.         0.03932584 0.96067416]]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sm</span><span class="o">.</span><span class="n">S</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="go">array([[0.54148249, 0.16780007, 0.24991499, 0.04080245, 0.        ],</span>
-<span class="go">       [0.        , 0.        , 0.        , 0.        , 1.        ]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sm</span><span class="o">.</span><span class="n">S</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-<span class="go">array([0.03607655, 0.22667277, 0.25883041, 0.43607249, 0.04234777])</span>
-</pre></div>
-</div>
 <p>(4) Spatial_Markov also accept discrete time series and calculate
 categorical spatial lags on which several transition probability matrices
 are conditioned.
@@ -531,30 +485,24 @@ spatial lags.</p>
 <dt><strong>p</strong><span class="classifier">array</span></dt><dd><p>(k, k), transition probability matrix for a-spatial
 Markov.</p>
 </dd>
-<dt><strong>s</strong><span class="classifier">array</span></dt><dd><p>(k, ), steady state distribution for a-spatial Markov.</p>
-</dd>
-<dt><strong>f</strong><span class="classifier">array</span></dt><dd><p>(k, k), first mean passage times for a-spatial Markov.</p>
+<dt><strong>s</strong><span class="classifier">array</span></dt><dd><p>(k, 1), ergodic distribution for a-spatial Markov.</p>
 </dd>
 <dt><strong>transitions</strong><span class="classifier">array</span></dt><dd><p>(k, k), counts of transitions between each state i and j
 for a-spatial Markov.</p>
 </dd>
-<dt><strong>T</strong><span class="classifier">array</span></dt><dd><p>(m, k, k), counts of transitions for each conditional
+<dt><strong>T</strong><span class="classifier">array</span></dt><dd><p>(k, k, k), counts of transitions for each conditional
 Markov.  T[0] is the matrix of transitions for
-observations with lags in the 0th quantile; T[m-1] is the
-transitions for the observations with lags in the m-1th.</p>
+observations with lags in the 0th quantile; T[k-1] is the
+transitions for the observations with lags in the k-1th.</p>
 </dd>
-<dt><strong>P</strong><span class="classifier">array</span></dt><dd><p>(m, k, k), transition probability matrix for spatial
+<dt><strong>P</strong><span class="classifier">array</span></dt><dd><p>(k, k, k), transition probability matrix for spatial
 Markov first dimension is the conditioned on the lag.</p>
 </dd>
-<dt><strong>S</strong><span class="classifier">arraylike</span></dt><dd><p>(m, k), steady state distributions for spatial Markov.
-Each row is a conditional steady state distribution.
-If one (or more) spatially conditional Markov chain is
-reducible (having more than 1 steady state distribution),
-this attribute is an array of m arrays of varying
-dimensions.</p>
+<dt><strong>S</strong><span class="classifier">array</span></dt><dd><p>(k, k), steady state distributions for spatial Markov.
+Each row is a conditional steady_state.</p>
 </dd>
-<dt><strong>F</strong><span class="classifier">array</span></dt><dd><p>(m, k, k),first mean passage times.
-First dimension is conditioned on the spatial lag.</p>
+<dt><strong>F</strong><span class="classifier">array</span></dt><dd><p>(k, k, k),first mean passage times.
+First dimension is conditioned on the lag.</p>
 </dd>
 <dt><strong>shtest</strong><span class="classifier">list</span></dt><dd><p>(k elements), each element of the list is a tuple for a
 multinomial difference test between the steady state
@@ -605,7 +553,7 @@ classes based on <a class="bibtex reference internal" href="../references.html#b
 </dl>
 <dl class="py method">
 <dt id="giddy.markov.Spatial_Markov.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">w</span></em>, <em class="sig-param"><span class="n">k</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">m</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">permutations</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">fixed</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">discrete</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">cutoffs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lag_cutoffs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">variable_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fill_empty_classes</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/markov.html#Spatial_Markov.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.markov.Spatial_Markov.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">w</span></em>, <em class="sig-param"><span class="n">k</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">m</span><span class="o">=</span><span class="default_value">4</span></em>, <em class="sig-param"><span class="n">permutations</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">fixed</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">discrete</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">cutoffs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lag_cutoffs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">variable_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/markov.html#Spatial_Markov.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.markov.Spatial_Markov.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
@@ -655,25 +603,22 @@ classes based on <a class="bibtex reference internal" href="../references.html#b
 <tr class="row-even"><td><p><a class="reference internal" href="#giddy.markov.Spatial_Markov.dof_hom" title="giddy.markov.Spatial_Markov.dof_hom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dof_hom</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#giddy.markov.Spatial_Markov.f" title="giddy.markov.Spatial_Markov.f"><code class="xref py py-obj docutils literal notranslate"><span class="pre">f</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#giddy.markov.Spatial_Markov.ht" title="giddy.markov.Spatial_Markov.ht"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ht</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#giddy.markov.Spatial_Markov.ht" title="giddy.markov.Spatial_Markov.ht"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ht</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#giddy.markov.Spatial_Markov.s" title="giddy.markov.Spatial_Markov.s"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#giddy.markov.Spatial_Markov.s" title="giddy.markov.Spatial_Markov.s"><code class="xref py py-obj docutils literal notranslate"><span class="pre">s</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#giddy.markov.Spatial_Markov.shtest" title="giddy.markov.Spatial_Markov.shtest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shtest</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#giddy.markov.Spatial_Markov.shtest" title="giddy.markov.Spatial_Markov.shtest"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shtest</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#giddy.markov.Spatial_Markov.x2" title="giddy.markov.Spatial_Markov.x2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">x2</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#giddy.markov.Spatial_Markov.x2" title="giddy.markov.Spatial_Markov.x2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">x2</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#giddy.markov.Spatial_Markov.x2_dof" title="giddy.markov.Spatial_Markov.x2_dof"><code class="xref py py-obj docutils literal notranslate"><span class="pre">x2_dof</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#giddy.markov.Spatial_Markov.x2_dof" title="giddy.markov.Spatial_Markov.x2_dof"><code class="xref py py-obj docutils literal notranslate"><span class="pre">x2_dof</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#giddy.markov.Spatial_Markov.x2_pvalue" title="giddy.markov.Spatial_Markov.x2_pvalue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">x2_pvalue</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#giddy.markov.Spatial_Markov.x2_pvalue" title="giddy.markov.Spatial_Markov.x2_pvalue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">x2_pvalue</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -716,11 +661,6 @@ classes based on <a class="bibtex reference internal" href="../references.html#b
 <dl class="py method">
 <dt id="giddy.markov.Spatial_Markov.dof_hom">
 <em class="property">property </em><code class="sig-name descname">dof_hom</code><a class="headerlink" href="#giddy.markov.Spatial_Markov.dof_hom" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="giddy.markov.Spatial_Markov.f">
-<em class="property">property </em><code class="sig-name descname">f</code><a class="headerlink" href="#giddy.markov.Spatial_Markov.f" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -786,7 +726,7 @@ temporally lagged spatial dependence.</p>
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
     </p>
   </div>
 </footer>

@@ -282,7 +282,8 @@ autodoc_default_options = {
 plot_include_source = True
 
 def setup(app):
-    app.add_stylesheet("pysal-styles.css")
+    app.add_css_file("pysal-styles.css")
+
 
 # Configuration for intersphinx
 intersphinx_mapping = {"python": ('https://docs.python.org/3', None),
