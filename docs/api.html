@@ -4,15 +4,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API reference &#8212; giddy v2.3.3 Manual</title>
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <title>API reference &#8212; giddy v2.2.2 Manual</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/pysal-styles.css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
@@ -25,9 +24,9 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js "></script>
 <script type="text/javascript" src="_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -43,7 +42,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           giddy</a>
-        <span class="navbar-text navbar-version pull-left"><b>2.3.3</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.2.2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -150,8 +149,8 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.markov.Markov.html#giddy.markov.Markov" title="giddy.markov.Markov"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.Markov</span></code></a>(class_ids[, classes, …])</p></td>
-<td><p>Classic Markov Chain estimation.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.markov.Markov.html#giddy.markov.Markov" title="giddy.markov.Markov"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.Markov</span></code></a>(class_ids[, classes])</p></td>
+<td><p>Classic Markov transition matrices.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.markov.Spatial_Markov.html#giddy.markov.Spatial_Markov" title="giddy.markov.Spatial_Markov"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.Spatial_Markov</span></code></a>(y, w[, k, m, …])</p></td>
 <td><p>Markov transitions conditioned on the value of the spatial lag.</p></td>
@@ -159,10 +158,10 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.markov.LISA_Markov.html#giddy.markov.LISA_Markov" title="giddy.markov.LISA_Markov"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.LISA_Markov</span></code></a>(y, w[, …])</p></td>
 <td><p>Markov for Local Indicators of Spatial Association</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.markov.FullRank_Markov.html#giddy.markov.FullRank_Markov" title="giddy.markov.FullRank_Markov"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.FullRank_Markov</span></code></a>(y[, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.markov.FullRank_Markov.html#giddy.markov.FullRank_Markov" title="giddy.markov.FullRank_Markov"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.FullRank_Markov</span></code></a>(y)</p></td>
 <td><p>Full Rank Markov in which ranks are considered as Markov states rather than quantiles or other discretized classes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.markov.GeoRank_Markov.html#giddy.markov.GeoRank_Markov" title="giddy.markov.GeoRank_Markov"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.GeoRank_Markov</span></code></a>(y[, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.markov.GeoRank_Markov.html#giddy.markov.GeoRank_Markov" title="giddy.markov.GeoRank_Markov"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.GeoRank_Markov</span></code></a>(y)</p></td>
 <td><p>Geographic Rank Markov.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.markov.kullback.html#giddy.markov.kullback" title="giddy.markov.kullback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.kullback</span></code></a>(F)</p></td>
@@ -174,17 +173,14 @@
 <tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.markov.homogeneity.html#giddy.markov.homogeneity" title="giddy.markov.homogeneity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.homogeneity</span></code></a>(transition_matrices)</p></td>
 <td><p>Test for homogeneity of Markov transition probabilities across regimes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.markov.sojourn_time.html#giddy.markov.sojourn_time" title="giddy.markov.sojourn_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.sojourn_time</span></code></a>(p[, summary])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.markov.sojourn_time.html#giddy.markov.sojourn_time" title="giddy.markov.sojourn_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.sojourn_time</span></code></a>(p)</p></td>
 <td><p>Calculate sojourn time based on a given transition probability matrix.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.ergodic.steady_state.html#giddy.ergodic.steady_state" title="giddy.ergodic.steady_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.ergodic.steady_state</span></code></a>(P[, …])</p></td>
-<td><p>Generalized function for calculating the steady state distribution for a regular or reducible Markov transition matrix P.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.ergodic.steady_state.html#giddy.ergodic.steady_state" title="giddy.ergodic.steady_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.ergodic.steady_state</span></code></a>(P)</p></td>
+<td><p>Calculates the steady state probability vector for a regular Markov transition matrix P.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.ergodic.fmpt.html#giddy.ergodic.fmpt" title="giddy.ergodic.fmpt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.ergodic.fmpt</span></code></a>(P[, fill_empty_classes])</p></td>
-<td><p>Generalized function for calculating first mean passage times for an ergodic or non-ergodic transition probability matrix.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.ergodic.var_fmpt_ergodic.html#giddy.ergodic.var_fmpt_ergodic" title="giddy.ergodic.var_fmpt_ergodic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.ergodic.var_fmpt_ergodic</span></code></a>(P)</p></td>
-<td><p>Variances of first mean passage times for an ergodic transition probability matrix.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.ergodic.fmpt.html#giddy.ergodic.fmpt" title="giddy.ergodic.fmpt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.ergodic.fmpt</span></code></a>(P)</p></td>
+<td><p>Calculates the matrix of first mean passage times for an ergodic transition probability matrix.</p></td>
 </tr>
 </tbody>
 </table>
@@ -277,9 +273,6 @@
 <tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.util.get_lower.html#giddy.util.get_lower" title="giddy.util.get_lower"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.util.get_lower</span></code></a>(matrix)</p></td>
 <td><p>Flattens the lower part of an n x n matrix into an n*(n-1)/2 x 1 vector.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.util.fill_empty_diagonals.html#giddy.util.fill_empty_diagonals" title="giddy.util.fill_empty_diagonals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.util.fill_empty_diagonals</span></code></a>(p)</p></td>
-<td><p>Assign 1 to diagonal elements which fall in rows full of 0s to ensure the transition probability matrix is a stochastic one.</p></td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -305,7 +298,7 @@
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
     </p>
   </div>
 </footer>
