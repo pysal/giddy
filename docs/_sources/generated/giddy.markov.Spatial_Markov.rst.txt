@@ -32,6 +32,7 @@
       ~Spatial_Markov.S
       ~Spatial_Markov.chi2
       ~Spatial_Markov.dof_hom
+      ~Spatial_Markov.f
       ~Spatial_Markov.ht
       ~Spatial_Markov.s
       ~Spatial_Markov.shtest

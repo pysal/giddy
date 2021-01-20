@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>giddy.ergodic.var_fmpt_ergodic &#8212; giddy v2.2.2 Manual</title>
+    <title>giddy.ergodic.var_fmpt_ergodic &#8212; giddy v2.3.3 Manual</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css" />
@@ -18,13 +18,15 @@
     <link rel="shortcut icon" href="../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="giddy.directional.Rose" href="giddy.directional.Rose.html" />
+    <link rel="prev" title="giddy.ergodic.fmpt" href="giddy.ergodic.fmpt.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
 <script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -40,7 +42,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           giddy</a>
-        <span class="navbar-text navbar-version pull-left"><b>2.2.2</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.3.3</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -61,7 +63,7 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-released-version">Installing released version</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-development-version">Installing development version</a></li>
@@ -76,8 +78,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../Sequence.html">Alignment-based sequence methods</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api.html#markov-methods">Markov Methods</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html#markov-methods">Markov Methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#directional-lisa">Directional LISA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#economic-mobility-indices">Economic Mobility Indices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#exchange-mobility-methods">Exchange Mobility Methods</a></li>
@@ -131,6 +133,41 @@
       
   <div class="section" id="giddy-ergodic-var-fmpt-ergodic">
 <h1>giddy.ergodic.var_fmpt_ergodic<a class="headerlink" href="#giddy-ergodic-var-fmpt-ergodic" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="giddy.ergodic.var_fmpt_ergodic">
+<code class="sig-prename descclassname">giddy.ergodic.</code><code class="sig-name descname">var_fmpt_ergodic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">P</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/ergodic.html#var_fmpt_ergodic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.ergodic.var_fmpt_ergodic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Variances of first mean passage times for an ergodic transition
+probability matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>P</strong><span class="classifier">array</span></dt><dd><p>(k, k), an ergodic Markov transition probability matrix.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt>: array</dt><dd><p>(k, k), elements are the variances for the number of intervals
+required for a chain starting in state i to first enter state j.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Uses formulation (and examples on p. 83) in <span id="id1">[<a class="reference internal" href="../references.html#id16"><span>KS67</span></a>]</span>.</p>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">giddy.ergodic</span> <span class="kn">import</span> <span class="n">var_fmpt_ergodic</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">],[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">],[</span><span class="o">.</span><span class="mi">25</span><span class="p">,</span><span class="o">.</span><span class="mi">25</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfm</span><span class="o">=</span><span class="n">var_fmpt_ergodic</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vfm</span>
+<span class="go">array([[ 5.58333333, 12.        ,  6.88888889],</span>
+<span class="go">       [ 6.22222222, 12.        ,  6.22222222],</span>
+<span class="go">       [ 6.88888889, 12.        ,  5.58333333]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </div>
 
 
