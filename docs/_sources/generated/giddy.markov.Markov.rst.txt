@@ -1,4 +1,4 @@
-giddy.markov.Markov
+﻿giddy.markov.Markov
 ===================
 
 .. currentmodule:: giddy.markov

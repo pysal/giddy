@@ -10,15 +10,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Set up Python
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v2
       with:
         python-version: '3.x'
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install setuptools wheel twine jupyter urllib3 pandas pyyaml
+        python setup.py sdist bdist_wheel
     - name: Run Changelog
       run: |
         jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.kernel_name=python3 tools/gitcount.ipynb
@@ -29,20 +30,6 @@ jobs:
         path: ./tools/changelog.md
       env:
         TEXT: ${{ steps.changetxt.outputs.text }}
-    - name: Creating a source distribution
-      run: |
-        python setup.py sdist bdist_wheel
-    - name: Publish distribution 📦 to TestPyPI
-      uses: pypa/gh-action-pypi-publish@master
-      with:
-        user: __token__
-        password: ${{ secrets.TEST_PYPI_PASSWORD }}
-        repository_url: https://test.pypi.org/legacy/
-    - name: Publish distribution 📦 to PyPI
-      uses: pypa/gh-action-pypi-publish@master
-      with:
-        user: __token__
-        password: ${{ secrets.PYPI_PASSWORD }}
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -58,15 +45,19 @@ jobs:
       run: |
         export PKG=$(ls dist/)
         set -- $PKG
-        echo "::set-env name=whl_path::$1"
+        echo "name=$1" >> $GITHUB_ENV
     - name: Upload Release Asset
-      id: upload-release-asset 
+      id: upload-release-asset
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: dist/${{ env.whl_path }}
-        asset_name: ${{ env.whl_path }}
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+        asset_path: dist/${{ env.name }}
+        asset_name: ${{ env.name }}
         asset_content_type: application/zip
-
+    - name: Publish distribution 📦 to PyPI
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        user: __token__
+        password: ${{ secrets.PYPI_PASSWORD }}

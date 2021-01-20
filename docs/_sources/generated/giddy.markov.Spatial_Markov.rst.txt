@@ -1,4 +1,4 @@
-giddy.markov.Spatial\_Markov
+﻿giddy.markov.Spatial\_Markov
 ============================
 
 .. currentmodule:: giddy.markov

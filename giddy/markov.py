@@ -80,6 +80,7 @@ class Markov(object):
     summary      : bool
                    If True, print out the summary of the Markov Chain during
                    initialization. Default is True.
+
     Attributes
     ----------
     k            : int
@@ -132,6 +133,7 @@ class Markov(object):
     array([0.30769231, 0.28846154, 0.40384615])
 
     Reducible Markov chain
+
     >>> c = [['b','a','a'],['c','c','a'],['c','b','c']]
     >>> m = Markov(c)
     The Markov Chain is reducible and is composed by:
