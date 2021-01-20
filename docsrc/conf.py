@@ -47,6 +47,10 @@ extensions = [#'sphinx_gallery.gen_gallery',
               'nbsphinx',
               'nbsphinx_link']
 
+# Configure the extension for sphinxcontrib.bibtex: set bibtex_bibfiles to the list of bib files.
+# New in Version 2.0.0 of sphinxcontrib.bibtex
+bibtex_bibfiles = ['_static/references.bib']
+
 mathjax_config = {
     'TeX': {'equationNumbers': {'autoNumber': 'AMS', 'useLabelIds': True}},
 }
