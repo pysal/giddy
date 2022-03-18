@@ -9,7 +9,7 @@ dependencies:
   - quantecon>=0.4.7
   - pip
   - pip:
-    - git+https://github.com/pysal/splot.git@master
+    - git+https://github.com/pysal/splot.git@main
     - git+https://github.com/pysal/libpysal.git@master
     - git+https://github.com/pysal/mapclassify.git@master
     - git+https://github.com/pysal/esda.git@master
