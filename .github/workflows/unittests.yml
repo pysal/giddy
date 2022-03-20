@@ -17,8 +17,9 @@ on:
         required: false
 
 jobs:
-  env:
-    RUN_TEST: pytest giddy --cov giddy -v -n auto --cov-config .coveragerc --cov-report xml --color yes --cov-append --cov-report term-missing
+  unittests:
+    env:
+      RUN_TEST: pytest giddy --cov giddy -v -n auto --cov-config .coveragerc --cov-report xml --color yes --cov-append --cov-report term-missing
     name: ${{ matrix.os }}, ${{ matrix.environment-file }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30
