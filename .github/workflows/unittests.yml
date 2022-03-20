@@ -54,7 +54,7 @@ jobs:
           pip install git+https://github.com/pysal/libpysal.git@master
           pip install git+https://github.com/pysal/esda.git@master
           pip install git+https://github.com/pysal/mapclassify.git@master
-          pip install git+https://github.com/pysal/splot.git@master
+          pip install git+https://github.com/pysal/splot.git@main
         if: matrix.os == 'ubuntu-latest' && contains(matrix.environment-file, 'DEV')
       
       - name: run tests - bash
