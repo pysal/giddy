@@ -137,7 +137,7 @@ class Rose(object):
 
         Take the first and last year of our income data as the interval to do
         the directional directional analysis
-        
+
         >>> Y=rel[:,[0,-1]]
 
         Set the random seed generator which is used in the permutation based

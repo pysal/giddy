@@ -46,7 +46,9 @@ def test_Sequence_unequal():
     np.testing.assert_allclose(seqAna.seq_dis_mat, seq_dis_mat)
     # 1.3 Calculating "hamming" distance will fail on unequal sequences
 
-    with pytest.raises(ValueError,):
+    with pytest.raises(
+        ValueError,
+    ):
         Sequence([seq1, seq2, seq3], dist_type="hamming")
 
 
