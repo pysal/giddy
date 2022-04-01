@@ -223,10 +223,10 @@ class Sequence(object):
                         dict_trans_state[tran] = i + len(y_uni)
                     subs_mat = np.ones((self.k * (self.k + 1), self.k * (self.k + 1)))
                     np.fill_diagonal(subs_mat, 0)
-                    for row in range(self.k ** 2):
+                    for row in range(self.k**2):
                         row_index = row + self.k
                         row_tran = trans_list[row_index]
-                        for col in range(self.k ** 2):
+                        for col in range(self.k**2):
                             col_index = col + self.k
                             col_tran = trans_list[col_index]
                             subs_mat[row_index, col_index] = abs(

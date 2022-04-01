@@ -1,7 +1,8 @@
 codecov
-pytest
-pytest-cov
+ipywidgets
 matplotlib
 pandas
-ipywidgets
+pytest
+pytest-cov
+pytest-xdist
 splot
