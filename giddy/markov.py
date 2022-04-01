@@ -1047,9 +1047,7 @@ class Spatial_Markov(object):
             ht.summary(title=title)
 
     def _maybe_classify(self, y, k, cutoffs):
-        """Helper method for classifying continuous data.
-
-        """
+        """Helper method for classifying continuous data."""
 
         rows, cols = y.shape
         if cutoffs is None:

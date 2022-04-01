@@ -8,52 +8,55 @@ import libpysal
 from giddy.directional import Rose
 import numpy as np
 import matplotlib.pyplot as plt
+
 file_path = libpysal.examples.get_path("spi_download.csv")
-f=open(file_path,'r')
-lines=f.readlines()
+f = open(file_path, "r")
+lines = f.readlines()
 f.close()
-lines=[line.strip().split(",") for line in lines]
-names=[line[2] for line in lines[1:-5]]
-data=np.array([list(map(int,line[3:])) for line in lines[1:-5]])
+lines = [line.strip().split(",") for line in lines]
+names = [line[2] for line in lines[1:-5]]
+data = np.array([list(map(int, line[3:])) for line in lines[1:-5]])
 
 # Bottom of the file has regional data which we don't need for this
 # example so we will subset only those records that match a state name
 
-sids=list(range(60))
-out=['"United States 3/"',
-     '"Alaska 3/"',
-     '"District of Columbia"',
-     '"Hawaii 3/"',
-     '"New England"',
-     '"Mideast"',
-     '"Great Lakes"',
-     '"Plains"',
-     '"Southeast"',
-     '"Southwest"',
-     '"Rocky Mountain"',
-     '"Far West 3/"']
-snames=[name for name in names if name not in out]
-sids=[names.index(name) for name in snames]
-states=data[sids,:]
-us=data[0]
-years=np.arange(1969,2009)
+sids = list(range(60))
+out = [
+    '"United States 3/"',
+    '"Alaska 3/"',
+    '"District of Columbia"',
+    '"Hawaii 3/"',
+    '"New England"',
+    '"Mideast"',
+    '"Great Lakes"',
+    '"Plains"',
+    '"Southeast"',
+    '"Southwest"',
+    '"Rocky Mountain"',
+    '"Far West 3/"',
+]
+snames = [name for name in names if name not in out]
+sids = [names.index(name) for name in snames]
+states = data[sids, :]
+us = data[0]
+years = np.arange(1969, 2009)
 
 # Now we convert state incomes to express them relative to the national
 # average
 
-rel=states/(us*1.)
+rel = states / (us * 1.0)
 
 # Create our contiguity matrix from an external GAL file and row
 # standardize the resulting weights
 
-gal=libpysal.io.open(libpysal.examples.get_path('states48.gal'))
-w=gal.read()
-w.transform='r'
+gal = libpysal.io.open(libpysal.examples.get_path("states48.gal"))
+w = gal.read()
+w.transform = "r"
 
 # Take the first and last year of our income data as the interval to do
 # the directional directional analysis
 
-Y=rel[:,[0,-1]]
+Y = rel[:, [0, -1]]
 
 # Set the random seed generator which is used in the permutation based
 # inference for the rose diagram so that we can replicate our example
@@ -65,7 +68,7 @@ np.random.seed(100)
 # dynamic LISA statistics. We will use four circular sectors for our
 # histogram
 
-r4=Rose(Y,w,k=4)
+r4 = Rose(Y, w, k=4)
 
 # What are the cut-offs for our histogram - in radians
 
@@ -99,19 +102,19 @@ r8.p
 # counts of vectors falling in quadrants II and IV should be much lower
 # than expected.
 
-r8.permute(alternative='positive')
+r8.permute(alternative="positive")
 r8.p
 # array([0.51, 0.04, 0.28, 0.02, 0.01, 0.14, 0.57, 0.03])
 
 # Finally, there is a second directional alternative for examining the
 # hypothesis that the focal unit and its lag move in opposite directions.
 
-r8.permute(alternative='negative')
+r8.permute(alternative="negative")
 r8.p
 # array([0.69, 0.99, 0.92, 1.  , 1.  , 0.97, 0.74, 1.  ])
 
 # We can call the plot method to visualize directional LISAs as a
 # rose diagram conditional on the starting relative income:
 
-fig1, _ = r8.plot(attribute=Y[:,0])
+fig1, _ = r8.plot(attribute=Y[:, 0])
 plt.show()
