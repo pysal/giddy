@@ -19,7 +19,7 @@ on:
 jobs:
   unittests:
     env:
-      RUN_TEST: pytest giddy --cov giddy -v -n auto --cov-config .coveragerc --cov-report xml --color yes --cov-append --cov-report term-missing
+      RUN_TEST: pytest giddy --cov giddy -v -n auto -r a --cov-config .coveragerc --cov-report xml --color yes --cov-append --cov-report term-missing
     name: ${{ matrix.os }}, ${{ matrix.environment-file }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
@@ -31,12 +31,13 @@ jobs:
           - ci/38.yaml
           - ci/39.yaml
           - ci/310.yaml
-          - ci/310-DEV.yaml
           - ci/310-DEV_shapely_dev.yaml
+          - ci/311.yaml
+          - ci/311-DEV.yaml
         include:
-          - environment-file: ci/310.yaml
+          - environment-file: ci/311.yaml
             os: macos-latest
-          - environment-file: ci/310.yaml
+          - environment-file: ci/311.yaml
             os: windows-latest
       fail-fast: false
   
@@ -59,6 +60,17 @@ jobs:
           pip install git+https://github.com/pysal/mapclassify.git@main
           pip install git+https://github.com/pysal/splot.git@main
         if: matrix.os == 'ubuntu-latest' && contains(matrix.environment-file, 'DEV')
+      
+      - name: environment info
+        shell: bash -l {0}
+        run: |
+          micromamba info
+          micromamba list
+      
+      - name: spatial versions (if geopandas is installed)
+        shell: bash -l {0}
+        run: 'python -c "import geopandas; geopandas.show_versions();"'
+        if: contains(matrix.environment-file, 'DEV')
       
       - name: run tests - bash
         shell: bash -l {0}
