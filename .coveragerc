@@ -2,6 +2,7 @@
 [run]
 branch = True
 include = */giddy/*
+disable_warnings=include-ignored
 
 [report]
 # Regexes for lines to exclude from consideration
