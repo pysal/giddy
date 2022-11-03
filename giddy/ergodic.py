@@ -3,11 +3,12 @@ Summary measures for ergodic Markov chains.
 """
 __author__ = "Sergio J. Rey <sjsrey@gmail.com>, Wei Kang <weikang9009@gmail.com>"
 
-__all__ = ["steady_state", "var_fmpt_ergodic", "fmpt"]
+__all__ = ["steady_state", "var_mfpt_ergodic", "mfpt"]
 
 import numpy as np
 import numpy.linalg as la
 import quantecon as qe
+from warnings import warn
 from .util import fill_empty_diagonals
 
 
@@ -144,8 +145,14 @@ def steady_state(P, fill_empty_classes=False):
 
 
 def _fmpt_ergodic(P):
+    warn('_fmpt_ergodic is deprecated. It will be replaced in giddy 2.5 with _mfpt_',
+         DeprecationWarning, stacklevel=2)
+    return _mfpt_ergodic(P)
+
+
+def _mfpt_ergodic(P):
     """
-    Calculates the matrix of first mean passage times for an ergodic transition
+    Calculates the matrix of mean first passage times for an ergodic transition
     probability matrix.
 
     Parameters
@@ -165,7 +172,7 @@ def _fmpt_ergodic(P):
     >>> import numpy as np
     >>> import giddy
     >>> p=np.array([[.5, .25, .25],[.5,0,.5],[.25,.25,.5]])
-    >>> fm = giddy.ergodic._fmpt_ergodic(p)
+    >>> fm = giddy.ergodic._mfpt_ergodic(p)
     >>> fm
     array([[2.5       , 4.        , 3.33333333],
            [2.66666667, 5.        , 2.66666667],
@@ -203,8 +210,14 @@ def _fmpt_ergodic(P):
 
 
 def fmpt(P, fill_empty_classes=False):
+    warn('fmpt is deprecated. It will be replaced in giddy 2.5 with mfpt',
+         DeprecationWarning, stacklevel=2)
+    return mfpt(P, fill_empty_classes)
+
+
+def mfpt(P, fill_empty_classes=False):
     """
-    Generalized function for calculating first mean passage times for an
+    Generalized function for calculating mean first passage times for an
     ergodic or non-ergodic transition probability matrix.
 
     Parameters
@@ -219,7 +232,7 @@ def fmpt(P, fill_empty_classes=False):
 
     Returns
     -------
-    fmpt_all : array
+    mfpt_all : array
                (k, k), elements are the expected value for the number of
                intervals required for a chain starting in state i to first
                enter state j. If i=j then this is the recurrence time.
@@ -227,12 +240,12 @@ def fmpt(P, fill_empty_classes=False):
     Examples
     --------
     >>> import numpy as np
-    >>> from giddy.ergodic import fmpt
+    >>> from giddy.ergodic import mfpt
     >>> np.set_printoptions(suppress=True) #prevent scientific format
 
     Irreducible Markov chain
     >>> p = np.array([[.5, .25, .25],[.5,0,.5],[.25,.25,.5]])
-    >>> fm = fmpt(p)
+    >>> fm = mfpt(p)
     >>> fm
     array([[2.5       , 4.        , 3.33333333],
            [2.66666667, 5.        , 2.66666667],
@@ -247,7 +260,7 @@ def fmpt(P, fill_empty_classes=False):
     Reducible Markov chain: two communicating classes (this is an
     artificial example)
     >>> p = np.array([[.5, .5, 0],[.2,0.8,0],[0,0,1]])
-    >>> fmpt(p)
+    >>> mfpt(p)
     array([[3.5, 2. , inf],
            [5. , 1.4, inf],
            [inf, inf, 1. ]])
@@ -259,13 +272,13 @@ def fmpt(P, fill_empty_classes=False):
 
 
     >>> p = np.array([[.5, .5, 0],[.2,0.8,0],[0,0,0]])
-    >>> fmpt(p, fill_empty_classes=True)
+    >>> mfpt(p, fill_empty_classes=True)
     array([[3.5, 2. , inf],
            [5. , 1.4, inf],
            [inf, inf, 1. ]])
 
     >>> p = np.array([[.5, .5, 0],[.2,0.8,0],[0,0,0]])
-    >>> fmpt(p, fill_empty_classes=False)
+    >>> mfpt(p, fill_empty_classes=False)
     Traceback (most recent call last):
         ...
     ValueError: Input transition probability matrix has 1 rows full of 0s. Please set fill_empty_classes=True to set diagonal elements for these rows to be 1 to make sure the matrix is stochastic.
@@ -287,10 +300,10 @@ def fmpt(P, fill_empty_classes=False):
     mc = qe.MarkovChain(P)
     num_classes = mc.num_communication_classes
     if num_classes == 1:
-        fmpt_all = _fmpt_ergodic(P)
+        mfpt_all = _mfpt_ergodic(P)
     else:  # deal with non-ergodic Markov chains
         k = P.shape[0]
-        fmpt_all = np.zeros((k, k))
+        mfpt_all = np.zeros((k, k))
         for desti in range(k):
             b = np.ones(k - 1)
             p_sub = np.delete(np.delete(P, desti, 0), desti, 1)
@@ -321,15 +334,21 @@ def fmpt(P, fill_empty_classes=False):
                 ).sum()
                 + 1
             )
-            fmpt_all[:, desti] = np.insert(m, desti, recc)
-            fmpt_all = np.where(fmpt_all < -1e16, np.inf, fmpt_all)
-            fmpt_all = np.where(fmpt_all > 1e16, np.inf, fmpt_all)
-    return fmpt_all
+            mfpt_all[:, desti] = np.insert(m, desti, recc)
+            mfpt_all = np.where(mfpt_all < -1e16, np.inf, mfpt_all)
+            mfpt_all = np.where(mfpt_all > 1e16, np.inf, mfpt_all)
+    return mfpt_all
 
 
-def var_fmpt_ergodic(P):
+def var_fmpt_ergodic(p):
+    warn('var_fmpt_ergodic is deprecated. It will be replaced in giddy 2.5 with var_fmpt_ergodic',
+         DeprecationWarning, stacklevel=2)
+    return var_mfpt_ergodic(p)
+
+
+def var_mfpt_ergodic(p):
     """
-    Variances of first mean passage times for an ergodic transition
+    Variances of mean first passage times for an ergodic transition
     probability matrix.
 
     Parameters
@@ -346,9 +365,9 @@ def var_fmpt_ergodic(P):
     Examples
     --------
     >>> import numpy as np
-    >>> from giddy.ergodic import var_fmpt_ergodic
+    >>> from giddy.ergodic import var_mfpt_ergodic
     >>> p=np.array([[.5, .25, .25],[.5,0,.5],[.25,.25,.5]])
-    >>> vfm=var_fmpt_ergodic(p)
+    >>> vfm=var_mfpt_ergodic(p)
     >>> vfm
     array([[ 5.58333333, 12.        ,  6.88888889],
            [ 6.22222222, 12.        ,  6.22222222],
@@ -361,7 +380,7 @@ def var_fmpt_ergodic(P):
 
     """
 
-    P = np.asarray(P)
+    P = np.asarray(p)
     k = P.shape[0]
     A = _steady_state_ergodic(P)
     A = np.tile(A, (k, 1))

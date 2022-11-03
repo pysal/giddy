@@ -23,7 +23,7 @@
 
    .. autosummary::
    
-      ~Markov.fmpt
+      ~Markov.mfpt
       ~Markov.sojourn_time
       ~Markov.steady_state
    
