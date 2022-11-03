@@ -57,7 +57,7 @@ class test_Markov(unittest.TestCase):
                 [98.41295543, 56.36521038, 30.66046735, 14.21158356, 4.77619083],
             ]
         )
-        np.testing.assert_array_almost_equal(m.fmpt, expected)
+        np.testing.assert_array_almost_equal(m.mfpt, expected)
 
         expected = np.array([11.125, 4.65806452, 4.73372781, 4.95172414, 13.77586207])
         np.testing.assert_array_almost_equal(m.sojourn_time, expected)
@@ -95,7 +95,7 @@ class test_Markov(unittest.TestCase):
                 [np.inf, np.inf, np.inf, 10, np.inf],
             ]
         )
-        np.testing.assert_array_almost_equal(m.fmpt, expected)
+        np.testing.assert_array_almost_equal(m.mfpt, expected)
 
         expected = np.array([np.inf, 9.0, 5.5, np.inf, 10.0])
         np.testing.assert_array_almost_equal(m.sojourn_time, expected)
@@ -608,7 +608,7 @@ class FullRank_Markov_Tester(unittest.TestCase):
                 754.8761577,
             ]
         )
-        np.testing.assert_array_almost_equal(m.fmpt[:, 0], expected)
+        np.testing.assert_array_almost_equal(m.mfpt[:, 0], expected)
         expected = np.array(
             [
                 5.71428571,
@@ -689,7 +689,7 @@ class GeoRank_Markov_Tester(unittest.TestCase):
                 99.71598303,
             ]
         )
-        np.testing.assert_array_almost_equal(gm.fmpt[:10, 0], expected)
+        np.testing.assert_array_almost_equal(gm.mfpt[:10, 0], expected)
         expected = np.array(
             [
                 1.9047619,

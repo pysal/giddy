@@ -16,9 +16,10 @@ __all__ = [
 ]
 
 import numpy as np
-from .ergodic import steady_state, fmpt
+from .ergodic import steady_state, mfpt
 from .util import fill_empty_diagonals
 from .components import Graph
+from warnings import warn
 from scipy import stats
 from scipy.stats import rankdata
 from operator import gt
@@ -282,10 +283,17 @@ class Markov(object):
                 print(*self.astates_indices, sep=", ")
 
     @property
-    def fmpt(self):
-        if not hasattr(self, "_fmpt"):
-            self._fmpt = fmpt(self.p, fill_empty_classes=True)
-        return self._fmpt
+    def mfpt(self):
+        warn('self._mfpt is deprecated. Please use self._mfpt')
+        if not hasattr(self, "_mfpt"):
+            self._mfpt = mfpt(self.p, fill_empty_classes=True)
+        return self._mfpt
+
+    @property
+    def mfpt(self):
+        if not hasattr(self, "_mfpt"):
+            self._mfpt = mfpt(self.p, fill_empty_classes=True)
+        return self._mfpt
 
     @property
     def steady_state(self):
@@ -854,7 +862,7 @@ class Spatial_Markov(object):
     @property
     def f(self):
         if not hasattr(self, "_f"):
-            self._f = fmpt(self.p)
+            self._f = mfpt(self.p)
         return self._f
 
     @property
@@ -862,7 +870,7 @@ class Spatial_Markov(object):
         if not hasattr(self, "_F"):
             F = np.zeros_like(self.P)
             for i, p in enumerate(self.P):
-                F[i] = fmpt(np.asarray(p))
+                F[i] = mfpt(np.asarray(p))
             self._F = np.asarray(F)
         return self._F
 
@@ -1980,8 +1988,8 @@ class FullRank_Markov(Markov):
                    (n, ), ergodic distribution.
     transitions  : array
                    (n, n), count of transitions between each rank i and j
-    fmpt         : array
-                   (n, n), first mean passage times.
+    mfpt         : array
+                   (n, n), mean first passage times.
     sojourn_time : array
                    (n, ), sojourn times.
 
@@ -2017,7 +2025,7 @@ class FullRank_Markov(Markov):
            [ 0.,  0.,  0., ...,  2.,  1., 77.]])
     >>> m.p[0, :5]
     array([0.825 , 0.0625, 0.0625, 0.025 , 0.025 ])
-    >>> m.fmpt[0, :5]
+    >>> m.mfpt[0, :5]
     array([48.        , 87.96280048, 68.1089084 , 58.83306575, 41.77250827])
     >>> m.sojourn_time[:5]
     array([5.71428571, 2.75862069, 2.22222222, 1.77777778, 1.66666667])
@@ -2129,8 +2137,8 @@ class GeoRank_Markov(Markov):
     transitions  : array
                    (n, n), count of rank transitions between each
                    geographic unit i and j.
-    fmpt         : array
-                   (n, n), first mean passage times.
+    mfpt         : array
+                   (n, n), mean first passage times.
     sojourn_time : array
                    (n, ), sojourn times.
 
@@ -2172,7 +2180,7 @@ class GeoRank_Markov(Markov):
            [0.025 , 0.    , 0.0625, ..., 0.425 , 0.    , 0.    ],
            [0.    , 0.    , 0.    , ..., 0.    , 0.225 , 0.025 ],
            [0.    , 0.    , 0.    , ..., 0.    , 0.0375, 0.175 ]])
-    >>> m.fmpt
+    >>> m.mfpt
     array([[ 48.        ,  63.35532038,  92.75274652, ...,  82.47515731,
              71.01114491,  68.65737127],
            [108.25928005,  48.        , 127.99032986, ...,  92.03098299,

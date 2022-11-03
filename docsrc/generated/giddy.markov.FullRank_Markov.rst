@@ -1,4 +1,4 @@
-giddy.markov.FullRank\_Markov
+﻿giddy.markov.FullRank\_Markov
 =============================
 
 .. currentmodule:: giddy.markov
@@ -23,7 +23,7 @@ giddy.markov.FullRank\_Markov
 
    .. autosummary::
    
-      ~FullRank_Markov.fmpt
+      ~FullRank_Markov.mfpt
       ~FullRank_Markov.sojourn_time
       ~FullRank_Markov.steady_state
    
