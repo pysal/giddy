@@ -633,7 +633,7 @@ class Spatial_Markov(object):
      [0.         0.01171875 0.08203125 0.87109375 0.03515625]
      [0.         0.         0.         0.03434343 0.96565657]]
 
-    We now obtain 4 5*5 spatial lag conditioned transition probability
+    We now obtain 4 (5,5) spatial lag conditioned transition probability
     matrices instead of 5 as in case (1).
 
     The Q and likelihood ratio statistics are still both significant.
@@ -653,11 +653,16 @@ class Spatial_Markov(object):
     spatial lags manually.
     For example, we want the defining cutoffs to be [0.8, 0.9, 1, 1.2],
     meaning that relative incomes:
-    2.1 smaller than 0.8 : class 0
-    2.2 between 0.8 and 0.9: class 1
-    2.3 between 0.9 and 1.0 : class 2
-    2.4 between 1.0 and 1.2: class 3
-    2.5 larger than 1.2: class 4
+
+    * class 0: smaller than 0.8
+
+    * class 1: between 0.8 and 0.9
+
+    * class 2: between 0.9 and 1.0
+
+    * class 3: between 1.0 and 1.2
+
+    * class 4: larger than 1.2
 
     >>> cc = np.array([0.8, 0.9, 1, 1.2])
     >>> sm = Spatial_Markov(rpci, w, cutoffs=cc, lag_cutoffs=cc, variable_name='rpci')
@@ -698,10 +703,10 @@ class Spatial_Markov(object):
      [0.         0.         0.         0.03932584 0.96067416]]
 
     (3.1) As we can see from the above estimated conditional transition
-    probability matrix, some rows are full of zeros which violate the
-    requirement of a transition probability matrix that every row sums to 1.
-    We can easily adjust this assigning fill_empty_classes = True when initializing
-    Spatial_Markov.
+    probability matrices, some rows are full of zeros and this violate the
+    requirement that each row of a transition probability matrix sums to 1.
+    We can easily adjust this assigning `fill_empty_classes = True` when initializing
+    `Spatial_Markov`.
 
     >>> sm = Spatial_Markov(rpci, w, cutoffs=cc, lag_cutoffs=cc, fill_empty_classes=True)
     >>> for p in sm.P:
@@ -737,11 +742,11 @@ class Spatial_Markov(object):
     >>> sm.S[2]
     array([0.03607655, 0.22667277, 0.25883041, 0.43607249, 0.04234777])
 
-    (4) Spatial_Markov also accept discrete time series and calculate
+    (4) `Spatial_Markov` also accepts discrete time series and calculates
     categorical spatial lags on which several transition probability matrices
     are conditioned.
     Let's still use the US state income time series to demonstrate. We first
-    discretize them into categories and then pass them to Spatial_Markov.
+    discretize them into categories and then pass them to `Spatial_Markov`.
 
     >>> import mapclassify as mc
     >>> y = mc.Quantiles(rpci.flatten(), k=5).yb.reshape(rpci.shape)
