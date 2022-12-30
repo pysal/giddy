@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>Full Rank Markov and Geographic Rank Markov &#8212; giddy v2.3.3 Manual</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="_static/pysal-styles.css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -24,10 +27,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -62,7 +65,7 @@
      href="index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#installing-released-version">Installing released version</a></li>
@@ -140,21 +143,35 @@
 /* CSS for nbsphinx extension */
 
 /* remove conflicting styling from Sphinx themes */
-div.nbinput.container,
-div.nbinput.container div.prompt,
-div.nbinput.container div.input_area,
-div.nbinput.container div[class*=highlight],
-div.nbinput.container div[class*=highlight] pre,
-div.nboutput.container,
-div.nboutput.container div.prompt,
-div.nboutput.container div.output_area,
-div.nboutput.container div[class*=highlight],
-div.nboutput.container div[class*=highlight] pre {
-    background: none;
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
     border: none;
-    padding: 0 0;
+    padding: 0;
     margin: 0;
     box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
 }
 
 /* avoid gaps between output lines */
@@ -231,10 +248,11 @@ div.nboutput.container div.prompt > div {
     }
 }
 
-/* disable scrollbars on prompts */
+/* disable scrollbars and line breaks on prompts */
 div.nbinput.container div.prompt pre,
 div.nboutput.container div.prompt pre {
     overflow: hidden;
+    white-space: pre;
 }
 
 /* input/output area */
@@ -255,7 +273,7 @@ div.nboutput.container div.output_area {
 div.nbinput.container div.input_area {
     border: 1px solid #e0e0e0;
     border-radius: 2px;
-    background: #f5f5f5;
+    /*background: #f5f5f5;*/
 }
 
 /* override MathJax center alignment in output cells */
@@ -321,6 +339,7 @@ div.nboutput.container div.output_area.rendered_html,
 div.nboutput.container div.output_area > div.output_javascript,
 div.nboutput.container div.output_area:not(.rendered_html) > img{
     padding: 5px;
+    margin: 0;
 }
 
 /* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
@@ -330,11 +349,12 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt a.copybtn {
+.prompt .copybtn {
     display: none;
 }
 
 /* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
 div.rendered_html table {
   border: none;
   border-collapse: collapse;
@@ -343,10 +363,14 @@ div.rendered_html table {
   font-size: 12px;
   table-layout: fixed;
 }
+.jp-RenderedHTMLCommon thead,
 div.rendered_html thead {
   border-bottom: 1px solid black;
   vertical-align: bottom;
 }
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
 div.rendered_html tr,
 div.rendered_html th,
 div.rendered_html td {
@@ -358,30 +382,32 @@ div.rendered_html td {
   max-width: none;
   border: none;
 }
+.jp-RenderedHTMLCommon th,
 div.rendered_html th {
   font-weight: bold;
 }
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
 div.rendered_html tbody tr:nth-child(odd) {
   background: #f5f5f5;
 }
+.jp-RenderedHTMLCommon tbody tr:hover,
 div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
 <div class="admonition note">
-<p>This page was generated from <a class="reference external" href="https://github.com/pysal/giddy/tree/master/notebooks/RankMarkov.ipynb">RankMarkov.ipynb</a>.
+<p>This page was generated from <a class="reference external" href="https://github.com/pysal/giddy//Users/wk0110/MyDrive(weikang9009&#64;gmail.com)/python_repos/pysal-refactor/giddy/docsrc/RankMarkov.ipynb">RankMarkov.ipynb</a>.
 Interactive online version:
 <span class="raw-html"><a href="https://mybinder.org/v2/gh/pysal/giddy/master?filepath=RankMarkov.ipynb"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a></span></p>
 </div>
-<div class="section" id="Full-Rank-Markov-and-Geographic-Rank-Markov">
-<h1>Full Rank Markov and Geographic Rank Markov<a class="headerlink" href="#Full-Rank-Markov-and-Geographic-Rank-Markov" title="Permalink to this headline">¶</a></h1>
-<p><strong>Author: Wei Kang</strong><a class="reference external" href="mailto:weikang9009&#37;&#52;&#48;gmail&#46;com">weikang9009<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+<section id="Full-Rank-Markov-and-Geographic-Rank-Markov">
+<h1>Full Rank Markov and Geographic Rank Markov<a class="headerlink" href="#Full-Rank-Markov-and-Geographic-Rank-Markov" title="Permalink to this heading">¶</a></h1>
+<p><strong>Author: Wei Kang</strong> <a class="reference external" href="mailto:weikang9009&#37;&#52;&#48;gmail&#46;com">weikang9009<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">libpysal</span> <span class="k">as</span> <span class="nn">ps</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">libpysal</span> <span class="k">as</span> <span class="nn">ps</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
@@ -391,14 +417,13 @@ Interactive online version:
 </pre></div>
 </div>
 </div>
-<div class="section" id="Full-Rank-Markov">
-<h2>Full Rank Markov<a class="headerlink" href="#Full-Rank-Markov" title="Permalink to this headline">¶</a></h2>
+<section id="Full-Rank-Markov">
+<h2>Full Rank Markov<a class="headerlink" href="#Full-Rank-Markov" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">giddy.markov</span> <span class="kn">import</span> <span class="n">FullRank_Markov</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">giddy.markov</span> <span class="kn">import</span> <span class="n">FullRank_Markov</span>
 </pre></div>
 </div>
 </div>
@@ -406,8 +431,7 @@ Interactive online version:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">income_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ps</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;usjoin.csv&quot;</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">income_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ps</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;usjoin.csv&quot;</span><span class="p">))</span>
 <span class="n">income_table</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -588,8 +612,7 @@ Interactive online version:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pci</span> <span class="o">=</span> <span class="n">income_table</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">1929</span><span class="p">,</span><span class="mi">2010</span><span class="p">)))]</span><span class="o">.</span><span class="n">values</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pci</span> <span class="o">=</span> <span class="n">income_table</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">1929</span><span class="p">,</span><span class="mi">2010</span><span class="p">)))]</span><span class="o">.</span><span class="n">values</span>
 <span class="n">pci</span>
 </pre></div>
 </div>
@@ -613,8 +636,7 @@ array([[  323,   267,   224, ..., 31988, 32819, 32274],
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">m</span> <span class="o">=</span> <span class="n">FullRank_Markov</span><span class="p">(</span><span class="n">pci</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">FullRank_Markov</span><span class="p">(</span><span class="n">pci</span><span class="p">)</span>
 <span class="n">m</span><span class="o">.</span><span class="n">ranks</span>
 </pre></div>
 </div>
@@ -638,8 +660,7 @@ array([[45, 45, 44, ..., 41, 40, 39],
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">m</span><span class="o">.</span><span class="n">transitions</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">transitions</span>
 </pre></div>
 </div>
 </div>
@@ -663,8 +684,7 @@ array([[66.,  5.,  5., ...,  0.,  0.,  0.],
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">m</span><span class="o">.</span><span class="n">p</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">p</span>
 </pre></div>
 </div>
 </div>
@@ -683,13 +703,12 @@ array([[0.825 , 0.0625, 0.0625, ..., 0.    , 0.    , 0.    ],
        [0.    , 0.    , 0.    , ..., 0.025 , 0.0125, 0.9625]])
 </pre></div></div>
 </div>
-<p>Full rank first mean passage times</p>
+<p>Full rank mean first passage times</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">m</span><span class="o">.</span><span class="n">fmpt</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">mfpt</span>
 </pre></div>
 </div>
 </div>
@@ -718,8 +737,7 @@ array([[  48.        ,   87.96280048,   68.1089084 , ...,  443.76689275,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">m</span><span class="o">.</span><span class="n">sojourn_time</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">sojourn_time</span>
 </pre></div>
 </div>
 </div>
@@ -745,8 +763,7 @@ array([ 5.71428571,  2.75862069,  2.22222222,  1.77777778,  1.66666667,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">df_fullrank</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(),</span><span class="n">m</span><span class="o">.</span><span class="n">sojourn_time</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Staying Probability&quot;</span><span class="p">,</span><span class="s2">&quot;Sojourn Time&quot;</span><span class="p">],</span> <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_fullrank</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(),</span><span class="n">m</span><span class="o">.</span><span class="n">sojourn_time</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Staying Probability&quot;</span><span class="p">,</span><span class="s2">&quot;Sojourn Time&quot;</span><span class="p">],</span> <span class="n">index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">df_fullrank</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -812,8 +829,7 @@ array([ 5.71428571,  2.75862069,  2.22222222,  1.77777778,  1.66666667,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">df_fullrank</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_fullrank</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -839,8 +855,7 @@ array([[&lt;matplotlib.axes._subplots.AxesSubplot object at 0x1a2ad213c8&gt;,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">fmpt</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span><span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">mfpt</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span><span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -869,15 +884,14 @@ array([[&lt;matplotlib.axes._subplots.AxesSubplot object at 0x1a2ad213c8&gt;,
 <img alt="_images/RankMarkov_15_2.png" src="_images/RankMarkov_15_2.png" />
 </div>
 </div>
-</div>
-<div class="section" id="Geographic-Rank-Markov">
-<h2>Geographic Rank Markov<a class="headerlink" href="#Geographic-Rank-Markov" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Geographic-Rank-Markov">
+<h2>Geographic Rank Markov<a class="headerlink" href="#Geographic-Rank-Markov" title="Permalink to this heading">¶</a></h2>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">giddy.markov</span> <span class="kn">import</span> <span class="n">GeoRank_Markov</span><span class="p">,</span> <span class="n">Markov</span><span class="p">,</span> <span class="n">sojourn_time</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">giddy.markov</span> <span class="kn">import</span> <span class="n">GeoRank_Markov</span><span class="p">,</span> <span class="n">Markov</span><span class="p">,</span> <span class="n">sojourn_time</span>
 <span class="n">gm</span> <span class="o">=</span> <span class="n">GeoRank_Markov</span><span class="p">(</span><span class="n">pci</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -886,8 +900,7 @@ array([[&lt;matplotlib.axes._subplots.AxesSubplot object at 0x1a2ad213c8&gt;,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">gm</span><span class="o">.</span><span class="n">transitions</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">transitions</span>
 </pre></div>
 </div>
 </div>
@@ -910,8 +923,7 @@ array([[38.,  0.,  8., ...,  0.,  0.,  0.],
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">gm</span><span class="o">.</span><span class="n">p</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">p</span>
 </pre></div>
 </div>
 </div>
@@ -934,8 +946,7 @@ array([[0.475 , 0.    , 0.1   , ..., 0.    , 0.    , 0.    ],
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">gm</span><span class="o">.</span><span class="n">sojourn_time</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">sojourn_time</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -953,8 +964,7 @@ array([1.9047619 , 1.23076923, 2.22222222, 1.73913043, 1.15942029,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">gm</span><span class="o">.</span><span class="n">sojourn_time</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">sojourn_time</span>
 </pre></div>
 </div>
 </div>
@@ -980,8 +990,7 @@ array([ 1.9047619 ,  1.23076923,  2.22222222,  1.73913043,  1.15942029,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">gm</span><span class="o">.</span><span class="n">fmpt</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">mfpt</span>
 </pre></div>
 </div>
 </div>
@@ -1010,12 +1019,11 @@ array([[ 48.        ,  63.35532038,  92.75274652, ...,  82.47515731,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">income_table</span><span class="p">[</span><span class="s2">&quot;geo_sojourn_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">sojourn_time</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">income_table</span><span class="p">[</span><span class="s2">&quot;geo_sojourn_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">sojourn_time</span>
 <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">income_table</span><span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">]:</span>
-    <span class="n">income_table</span><span class="p">[</span><span class="s2">&quot;geo_fmpt_to_&quot;</span> <span class="o">+</span> <span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">fmpt</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span>
-    <span class="n">income_table</span><span class="p">[</span><span class="s2">&quot;geo_fmpt_from_&quot;</span> <span class="o">+</span> <span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">fmpt</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span>
+    <span class="n">income_table</span><span class="p">[</span><span class="s2">&quot;geo_mfpt_to_&quot;</span> <span class="o">+</span> <span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">mfpt</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">income_table</span><span class="p">[</span><span class="s2">&quot;geo_mfpt_from_&quot;</span> <span class="o">+</span> <span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">mfpt</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span>
     <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="n">income_table</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -1055,16 +1063,16 @@ array([[ 48.        ,  63.35532038,  92.75274652, ...,  82.47515731,
       <th>1935</th>
       <th>1936</th>
       <th>...</th>
-      <th>geo_fmpt_to_Virginia</th>
-      <th>geo_fmpt_from_Virginia</th>
-      <th>geo_fmpt_to_Washington</th>
-      <th>geo_fmpt_from_Washington</th>
-      <th>geo_fmpt_to_West Virginia</th>
-      <th>geo_fmpt_from_West Virginia</th>
-      <th>geo_fmpt_to_Wisconsin</th>
-      <th>geo_fmpt_from_Wisconsin</th>
-      <th>geo_fmpt_to_Wyoming</th>
-      <th>geo_fmpt_from_Wyoming</th>
+      <th>geo_mfpt_to_Virginia</th>
+      <th>geo_mfpt_from_Virginia</th>
+      <th>geo_mfpt_to_Washington</th>
+      <th>geo_mfpt_from_Washington</th>
+      <th>geo_mfpt_to_West Virginia</th>
+      <th>geo_mfpt_from_West Virginia</th>
+      <th>geo_mfpt_to_Wisconsin</th>
+      <th>geo_mfpt_from_Wisconsin</th>
+      <th>geo_mfpt_to_Wyoming</th>
+      <th>geo_mfpt_from_Wyoming</th>
     </tr>
   </thead>
   <tbody>
@@ -1197,8 +1205,7 @@ array([[ 48.        ,  63.35532038,  92.75274652, ...,  82.47515731,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">geo_table</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">ps</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s1">&#39;us48.shp&#39;</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">geo_table</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">ps</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s1">&#39;us48.shp&#39;</span><span class="p">))</span>
 <span class="c1"># income_table = pd.read_csv(libpysal.examples.get_path(&quot;usjoin.csv&quot;))</span>
 <span class="n">complete_table</span> <span class="o">=</span> <span class="n">geo_table</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">income_table</span><span class="p">,</span><span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;STATE_NAME&#39;</span><span class="p">,</span><span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;Name&#39;</span><span class="p">)</span>
 <span class="n">complete_table</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -1239,16 +1246,16 @@ array([[ 48.        ,  63.35532038,  92.75274652, ...,  82.47515731,
       <th>geometry</th>
       <th>Name</th>
       <th>...</th>
-      <th>geo_fmpt_to_Virginia</th>
-      <th>geo_fmpt_from_Virginia</th>
-      <th>geo_fmpt_to_Washington</th>
-      <th>geo_fmpt_from_Washington</th>
-      <th>geo_fmpt_to_West Virginia</th>
-      <th>geo_fmpt_from_West Virginia</th>
-      <th>geo_fmpt_to_Wisconsin</th>
-      <th>geo_fmpt_from_Wisconsin</th>
-      <th>geo_fmpt_to_Wyoming</th>
-      <th>geo_fmpt_from_Wyoming</th>
+      <th>geo_mfpt_to_Virginia</th>
+      <th>geo_mfpt_from_Virginia</th>
+      <th>geo_mfpt_to_Washington</th>
+      <th>geo_mfpt_from_Washington</th>
+      <th>geo_mfpt_to_West Virginia</th>
+      <th>geo_mfpt_from_West Virginia</th>
+      <th>geo_mfpt_to_Wisconsin</th>
+      <th>geo_mfpt_from_Wisconsin</th>
+      <th>geo_mfpt_to_Wyoming</th>
+      <th>geo_mfpt_from_Wyoming</th>
     </tr>
   </thead>
   <tbody>
@@ -1381,8 +1388,7 @@ array([[ 48.        ,  63.35532038,  92.75274652, ...,  82.47515731,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">complete_table</span><span class="o">.</span><span class="n">columns</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complete_table</span><span class="o">.</span><span class="n">columns</span>
 </pre></div>
 </div>
 </div>
@@ -1395,30 +1401,29 @@ array([[ 48.        ,  63.35532038,  92.75274652, ...,  82.47515731,
 Index([&#39;AREA&#39;, &#39;PERIMETER&#39;, &#39;STATE_&#39;, &#39;STATE_ID&#39;, &#39;STATE_NAME&#39;, &#39;STATE_FIPS_x&#39;,
        &#39;SUB_REGION&#39;, &#39;STATE_ABBR&#39;, &#39;geometry&#39;, &#39;Name&#39;,
        ...
-       &#39;geo_fmpt_to_Virginia&#39;, &#39;geo_fmpt_from_Virginia&#39;,
-       &#39;geo_fmpt_to_Washington&#39;, &#39;geo_fmpt_from_Washington&#39;,
-       &#39;geo_fmpt_to_West Virginia&#39;, &#39;geo_fmpt_from_West Virginia&#39;,
-       &#39;geo_fmpt_to_Wisconsin&#39;, &#39;geo_fmpt_from_Wisconsin&#39;,
-       &#39;geo_fmpt_to_Wyoming&#39;, &#39;geo_fmpt_from_Wyoming&#39;],
+       &#39;geo_mfpt_to_Virginia&#39;, &#39;geo_mfpt_from_Virginia&#39;,
+       &#39;geo_mfpt_to_Washington&#39;, &#39;geo_mfpt_from_Washington&#39;,
+       &#39;geo_mfpt_to_West Virginia&#39;, &#39;geo_mfpt_from_West Virginia&#39;,
+       &#39;geo_mfpt_to_Wisconsin&#39;, &#39;geo_mfpt_from_Wisconsin&#39;,
+       &#39;geo_mfpt_to_Wyoming&#39;, &#39;geo_mfpt_from_Wyoming&#39;],
       dtype=&#39;object&#39;, length=189)
 </pre></div></div>
 </div>
-<p>Visualizing first mean passage time from/to California/Mississippi:</p>
+<p>Visualizing mean first passage time from/to California/Mississippi:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
 <span class="n">target_states</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;California&quot;</span><span class="p">,</span><span class="s2">&quot;Mississippi&quot;</span><span class="p">]</span>
 <span class="n">directions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;from&quot;</span><span class="p">,</span><span class="s2">&quot;to&quot;</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">direction</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">directions</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">target</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">target_states</span><span class="p">):</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
         <span class="n">col</span> <span class="o">=</span> <span class="n">direction</span><span class="o">+</span><span class="s2">&quot;_&quot;</span><span class="o">+</span><span class="n">target</span>
-        <span class="n">complete_table</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span><span class="n">column</span> <span class="o">=</span> <span class="s2">&quot;geo_fmpt_&quot;</span><span class="o">+</span> <span class="n">col</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;OrRd&#39;</span><span class="p">,</span>
+        <span class="n">complete_table</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span><span class="n">column</span> <span class="o">=</span> <span class="s2">&quot;geo_mfpt_&quot;</span><span class="o">+</span> <span class="n">col</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;OrRd&#39;</span><span class="p">,</span>
                     <span class="n">scheme</span><span class="o">=</span><span class="s1">&#39;quantiles&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;First Mean Passage Time &quot;</span><span class="o">+</span><span class="n">direction</span><span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span><span class="n">target</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Mean First Passage Time &quot;</span><span class="o">+</span><span class="n">direction</span><span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span><span class="n">target</span><span class="p">)</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
         <span class="n">leg</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span>
         <span class="n">leg</span><span class="o">.</span><span class="n">set_bbox_to_anchor</span><span class="p">((</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.16</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">))</span>
@@ -1449,8 +1454,7 @@ Index([&#39;AREA&#39;, &#39;PERIMETER&#39;, &#39;STATE_&#39;, &#39;STATE_ID&#39;
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span>
 <span class="n">schemes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Quantiles&quot;</span><span class="p">,</span><span class="s2">&quot;Equal_Interval&quot;</span><span class="p">]</span>
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">scheme</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">schemes</span><span class="p">):</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -1480,8 +1484,8 @@ Index([&#39;AREA&#39;, &#39;PERIMETER&#39;, &#39;STATE_&#39;, &#39;STATE_ID&#39;
 <img alt="_images/RankMarkov_29_1.png" src="_images/RankMarkov_29_1.png" />
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
     </div>
@@ -1503,7 +1507,7 @@ Index([&#39;AREA&#39;, &#39;PERIMETER&#39;, &#39;STATE_&#39;, &#39;STATE_ID&#39;
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br/>
     </p>
   </div>
 </footer>

@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>Rank based Methods &#8212; giddy v2.3.3 Manual</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="_static/pysal-styles.css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -24,10 +27,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -62,7 +65,7 @@
      href="index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#installing-released-version">Installing released version</a></li>
@@ -155,21 +158,35 @@
 /* CSS for nbsphinx extension */
 
 /* remove conflicting styling from Sphinx themes */
-div.nbinput.container,
-div.nbinput.container div.prompt,
-div.nbinput.container div.input_area,
-div.nbinput.container div[class*=highlight],
-div.nbinput.container div[class*=highlight] pre,
-div.nboutput.container,
-div.nboutput.container div.prompt,
-div.nboutput.container div.output_area,
-div.nboutput.container div[class*=highlight],
-div.nboutput.container div[class*=highlight] pre {
-    background: none;
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
     border: none;
-    padding: 0 0;
+    padding: 0;
     margin: 0;
     box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
 }
 
 /* avoid gaps between output lines */
@@ -246,10 +263,11 @@ div.nboutput.container div.prompt > div {
     }
 }
 
-/* disable scrollbars on prompts */
+/* disable scrollbars and line breaks on prompts */
 div.nbinput.container div.prompt pre,
 div.nboutput.container div.prompt pre {
     overflow: hidden;
+    white-space: pre;
 }
 
 /* input/output area */
@@ -270,7 +288,7 @@ div.nboutput.container div.output_area {
 div.nbinput.container div.input_area {
     border: 1px solid #e0e0e0;
     border-radius: 2px;
-    background: #f5f5f5;
+    /*background: #f5f5f5;*/
 }
 
 /* override MathJax center alignment in output cells */
@@ -336,6 +354,7 @@ div.nboutput.container div.output_area.rendered_html,
 div.nboutput.container div.output_area > div.output_javascript,
 div.nboutput.container div.output_area:not(.rendered_html) > img{
     padding: 5px;
+    margin: 0;
 }
 
 /* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
@@ -345,11 +364,12 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt a.copybtn {
+.prompt .copybtn {
     display: none;
 }
 
 /* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
 div.rendered_html table {
   border: none;
   border-collapse: collapse;
@@ -358,10 +378,14 @@ div.rendered_html table {
   font-size: 12px;
   table-layout: fixed;
 }
+.jp-RenderedHTMLCommon thead,
 div.rendered_html thead {
   border-bottom: 1px solid black;
   vertical-align: bottom;
 }
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
 div.rendered_html tr,
 div.rendered_html th,
 div.rendered_html td {
@@ -373,26 +397,29 @@ div.rendered_html td {
   max-width: none;
   border: none;
 }
+.jp-RenderedHTMLCommon th,
 div.rendered_html th {
   font-weight: bold;
 }
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
 div.rendered_html tbody tr:nth-child(odd) {
   background: #f5f5f5;
 }
+.jp-RenderedHTMLCommon tbody tr:hover,
 div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
 <div class="admonition note">
-<p>This page was generated from <a class="reference external" href="https://github.com/pysal/giddy/tree/master/notebooks/RankBasedMethods.ipynb">RankBasedMethods.ipynb</a>.
+<p>This page was generated from <a class="reference external" href="https://github.com/pysal/giddy//Users/wk0110/MyDrive(weikang9009&#64;gmail.com)/python_repos/pysal-refactor/giddy/docsrc/RankBasedMethods.ipynb">RankBasedMethods.ipynb</a>.
 Interactive online version:
 <span class="raw-html"><a href="https://mybinder.org/v2/gh/pysal/giddy/master?filepath=RankBasedMethods.ipynb"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a></span></p>
 </div>
-<div class="section" id="Rank-based-Methods">
-<h1>Rank based Methods<a class="headerlink" href="#Rank-based-Methods" title="Permalink to this headline">¶</a></h1>
-<p><strong>Author: Wei Kang</strong><a class="reference external" href="mailto:weikang9009&#37;&#52;&#48;gmail&#46;com">weikang9009<span>&#64;</span>gmail<span>&#46;</span>com</a><strong>, Serge Rey</strong><a class="reference external" href="mailto:sjsrey&#37;&#52;&#48;gmail&#46;com">sjsrey<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
-<div class="section" id="Introduction">
-<h2>Introduction<a class="headerlink" href="#Introduction" title="Permalink to this headline">¶</a></h2>
+<section id="Rank-based-Methods">
+<h1>Rank based Methods<a class="headerlink" href="#Rank-based-Methods" title="Permalink to this heading">¶</a></h1>
+<p><strong>Author: Wei Kang</strong> <a class="reference external" href="mailto:weikang9009&#37;&#52;&#48;gmail&#46;com">weikang9009<span>&#64;</span>gmail<span>&#46;</span>com</a><strong>, Serge Rey</strong> <a class="reference external" href="mailto:sjsrey&#37;&#52;&#48;gmail&#46;com">sjsrey<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+<section id="Introduction">
+<h2>Introduction<a class="headerlink" href="#Introduction" title="Permalink to this heading">¶</a></h2>
 <p>This notebook introduces two classic nonparametric statistics of exchange mobility and their spatial extensions. We will demonstrate the usage of these methods by an empirical study for understanding <a class="reference external" href="#Regional-exchange-mobility-pattern-in-US-1929-2009">regional exchange mobility pattern in US</a>. The dataset is the per capita incomes observed annually from 1929 to 2010 for the lower 48 US states.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="#Kendall's-Tau">Kendall Tau</a></p>
@@ -414,16 +441,15 @@ Interactive online version:
 </li>
 <li><p><a class="reference external" href="#Theta-statistic-of-exchange-mobility">Theta statistic of exchange mobility</a></p></li>
 </ul>
-</div>
-<div class="section" id="Regional-exchange-mobility-pattern-in-US-1929-2009">
-<h2>Regional exchange mobility pattern in US 1929-2009<a class="headerlink" href="#Regional-exchange-mobility-pattern-in-US-1929-2009" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Regional-exchange-mobility-pattern-in-US-1929-2009">
+<h2>Regional exchange mobility pattern in US 1929-2009<a class="headerlink" href="#Regional-exchange-mobility-pattern-in-US-1929-2009" title="Permalink to this heading">¶</a></h2>
 <p>Firstly we load in the US dataset:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">libpysal</span>
 <span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -612,8 +638,7 @@ Interactive online version:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
 
 <span class="n">index_year</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1929</span><span class="p">,</span><span class="mi">2010</span><span class="p">,</span><span class="mi">15</span><span class="p">)</span>
@@ -639,8 +664,7 @@ Interactive online version:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">years</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1929</span><span class="p">,</span><span class="mi">2010</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">years</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1929</span><span class="p">,</span><span class="mi">2010</span><span class="p">)</span>
 <span class="n">names</span> <span class="o">=</span> <span class="n">income_table</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]</span>
 <span class="n">pci</span> <span class="o">=</span> <span class="n">income_table</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span><span class="s1">&#39;STATE_FIPS&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">T</span>
 <span class="n">rpci</span><span class="o">=</span> <span class="p">(</span><span class="n">pci</span><span class="o">.</span><span class="n">T</span> <span class="o">/</span> <span class="n">pci</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
@@ -686,8 +710,7 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">BEA_regions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;New England Region&quot;</span><span class="p">,</span><span class="s2">&quot;Mideast Region&quot;</span><span class="p">,</span><span class="s2">&quot;Great Lakes Region&quot;</span><span class="p">,</span><span class="s2">&quot;Plains Region&quot;</span><span class="p">,</span><span class="s2">&quot;Southeast Region&quot;</span><span class="p">,</span><span class="s2">&quot;Southwest Region&quot;</span><span class="p">,</span><span class="s2">&quot;Rocky Mountain Region&quot;</span><span class="p">,</span><span class="s2">&quot;Far West Region&quot;</span><span class="p">]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">BEA_regions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;New England Region&quot;</span><span class="p">,</span><span class="s2">&quot;Mideast Region&quot;</span><span class="p">,</span><span class="s2">&quot;Great Lakes Region&quot;</span><span class="p">,</span><span class="s2">&quot;Plains Region&quot;</span><span class="p">,</span><span class="s2">&quot;Southeast Region&quot;</span><span class="p">,</span><span class="s2">&quot;Southwest Region&quot;</span><span class="p">,</span><span class="s2">&quot;Rocky Mountain Region&quot;</span><span class="p">,</span><span class="s2">&quot;Far West Region&quot;</span><span class="p">]</span>
 <span class="n">BEA_regions_abbr</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;NENG&quot;</span><span class="p">,</span><span class="s2">&quot;MEST&quot;</span><span class="p">,</span><span class="s2">&quot;GLAK&quot;</span><span class="p">,</span><span class="s2">&quot;PLNS&quot;</span><span class="p">,</span><span class="s2">&quot;SEST&quot;</span><span class="p">,</span><span class="s2">&quot;SWST&quot;</span><span class="p">,</span><span class="s2">&quot;RKMT&quot;</span><span class="p">,</span><span class="s2">&quot;FWST&quot;</span><span class="p">]</span>
 <span class="n">BEA</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span> <span class="s1">&#39;Region code&#39;</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;BEA region&#39;</span> <span class="p">:</span> <span class="n">BEA_regions</span><span class="p">,</span><span class="s1">&#39;BEA abbr&#39;</span><span class="p">:</span><span class="n">BEA_regions_abbr</span><span class="p">})</span>
 <span class="n">BEA</span>
@@ -779,8 +802,7 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">region_code</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">region_code</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">))</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 <span class="n">state_code</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;09&#39;</span><span class="p">,</span><span class="s1">&#39;23&#39;</span><span class="p">,</span><span class="s1">&#39;25&#39;</span><span class="p">,</span><span class="s1">&#39;33&#39;</span><span class="p">,</span><span class="s1">&#39;44&#39;</span><span class="p">,</span><span class="s1">&#39;50&#39;</span><span class="p">,</span><span class="s1">&#39;10&#39;</span><span class="p">,</span><span class="s1">&#39;11&#39;</span><span class="p">,</span><span class="s1">&#39;24&#39;</span><span class="p">,</span><span class="s1">&#39;34&#39;</span><span class="p">,</span><span class="s1">&#39;36&#39;</span><span class="p">,</span><span class="s1">&#39;42&#39;</span><span class="p">,</span><span class="s1">&#39;17&#39;</span><span class="p">,</span><span class="s1">&#39;18&#39;</span><span class="p">,</span><span class="s1">&#39;26&#39;</span><span class="p">,</span><span class="s1">&#39;39&#39;</span><span class="p">,</span><span class="s1">&#39;55&#39;</span><span class="p">,</span><span class="s1">&#39;19&#39;</span><span class="p">,</span><span class="s1">&#39;20&#39;</span><span class="p">,</span><span class="s1">&#39;27&#39;</span><span class="p">,</span><span class="s1">&#39;29&#39;</span><span class="p">,</span><span class="s1">&#39;31&#39;</span><span class="p">,</span><span class="s1">&#39;38&#39;</span><span class="p">,</span><span class="s1">&#39;46&#39;</span><span class="p">,</span><span class="s1">&#39;01&#39;</span><span class="p">,</span><span class="s1">&#39;05&#39;</span><span class="p">,</span><span class="s1">&#39;12&#39;</span><span class="p">,</span><span class="s1">&#39;13&#39;</span><span class="p">,</span><span class="s1">&#39;21&#39;</span><span class="p">,</span><span class="s1">&#39;22&#39;</span><span class="p">,</span><span class="s1">&#39;28&#39;</span><span class="p">,</span><span class="s1">&#39;37&#39;</span><span class="p">,</span><span class="s1">&#39;45&#39;</span><span class="p">,</span><span class="s1">&#39;47&#39;</span><span class="p">,</span><span class="s1">&#39;51&#39;</span><span class="p">,</span><span class="s1">&#39;54&#39;</span><span class="p">,</span><span class="s1">&#39;04&#39;</span><span class="p">,</span><span class="s1">&#39;35&#39;</span><span class="p">,</span><span class="s1">&#39;40&#39;</span><span class="p">,</span><span class="s1">&#39;48&#39;</span><span class="p">,</span><span class="s1">&#39;08&#39;</span><span class="p">,</span><span class="s1">&#39;16&#39;</span><span class="p">,</span><span class="s1">&#39;30&#39;</span><span class="p">,</span><span class="s1">&#39;49&#39;</span><span class="p">,</span><span class="s1">&#39;56&#39;</span><span class="p">,</span><span class="s1">&#39;02&#39;</span><span class="p">,</span><span class="s1">&#39;06&#39;</span><span class="p">,</span><span class="s1">&#39;15&#39;</span><span class="p">,</span><span class="s1">&#39;32&#39;</span><span class="p">,</span><span class="s1">&#39;41&#39;</span><span class="p">,</span><span class="s1">&#39;53&#39;</span><span class="p">]</span>
 <span class="n">state_region</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;Region code&#39;</span><span class="p">:</span><span class="n">region_code</span><span class="p">,</span><span class="s2">&quot;State code&quot;</span><span class="p">:</span><span class="n">state_code</span><span class="p">})</span>
 <span class="n">state_region_all</span> <span class="o">=</span> <span class="n">state_region</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">BEA</span><span class="p">,</span><span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;Region code&#39;</span><span class="p">,</span><span class="n">right_on</span><span class="o">=</span><span class="s1">&#39;Region code&#39;</span><span class="p">)</span>
@@ -966,8 +988,7 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 <span class="n">beaplot</span> <span class="o">=</span> <span class="n">complete_table</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="s2">&quot;BEA region&quot;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">leg</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span>
 <span class="n">leg</span><span class="o">.</span><span class="n">set_bbox_to_anchor</span><span class="p">((</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.16</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">))</span>
@@ -983,13 +1004,13 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 <img alt="_images/RankBasedMethods_11_0.png" src="_images/RankBasedMethods_11_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="Kendall’s-Tau">
-<h2>Kendall’s Tau<a class="headerlink" href="#Kendall’s-Tau" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="Kendall’s-Tau">
+<h2>Kendall’s Tau<a class="headerlink" href="#Kendall’s-Tau" title="Permalink to this heading">¶</a></h2>
 <p>Kendall’s <span class="math notranslate nohighlight">\(\tau\)</span> statistic is based on a comparison of the number of pairs of <span class="math notranslate nohighlight">\(n\)</span> observations that have concordant ranks between two variables. For measuring exchange mobility in <strong>giddy</strong>, the two variables in question are the values of an attribute measured at two points in time over <span class="math notranslate nohighlight">\(n\)</span> spatial units. This classic measure of rank correlation indicates how much relative stability there has been in the map pattern over the two periods. Spatial decomposition of Kendall’s
 <span class="math notranslate nohighlight">\(\tau\)</span> could be classified into three spatial scales: global spatial decomposition , inter- and intra-regional decomposition and local spatial decomposition. More details will be given latter.</p>
-<div class="section" id="Classic-Kendall-Tau">
-<h3>Classic Kendall Tau<a class="headerlink" href="#Classic-Kendall-Tau" title="Permalink to this headline">¶</a></h3>
+<section id="Classic-Kendall-Tau">
+<h3>Classic Kendall Tau<a class="headerlink" href="#Classic-Kendall-Tau" title="Permalink to this heading">¶</a></h3>
 <p>Kendall’s <span class="math notranslate nohighlight">\(\tau\)</span> statistic is a global measure of exchange mobility. For <span class="math notranslate nohighlight">\(n\)</span> spatial units over two periods, it is formally defined as follows:</p>
 <p><span class="math">\begin{equation}
 \tau = \frac{c-d}{(n(n-1))/2}
@@ -1004,8 +1025,7 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">giddy</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">giddy</span>
 </pre></div>
 </div>
 </div>
@@ -1013,8 +1033,7 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tau</span> <span class="o">=</span> <span class="n">giddy</span><span class="o">.</span><span class="n">rank</span><span class="o">.</span><span class="n">Tau</span><span class="p">(</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;1929&quot;</span><span class="p">],</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;2009&quot;</span><span class="p">])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau</span> <span class="o">=</span> <span class="n">giddy</span><span class="o">.</span><span class="n">rank</span><span class="o">.</span><span class="n">Tau</span><span class="p">(</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;1929&quot;</span><span class="p">],</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;2009&quot;</span><span class="p">])</span>
 <span class="n">tau</span>
 </pre></div>
 </div>
@@ -1032,8 +1051,7 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tau</span><span class="o">.</span><span class="n">concordant</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau</span><span class="o">.</span><span class="n">concordant</span>
 </pre></div>
 </div>
 </div>
@@ -1050,8 +1068,7 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tau</span><span class="o">.</span><span class="n">discordant</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau</span><span class="o">.</span><span class="n">discordant</span>
 </pre></div>
 </div>
 </div>
@@ -1069,8 +1086,7 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tau</span><span class="o">.</span><span class="n">tau</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau</span><span class="o">.</span><span class="n">tau</span>
 </pre></div>
 </div>
 </div>
@@ -1087,8 +1103,7 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tau</span><span class="o">.</span><span class="n">tau_p</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau</span><span class="o">.</span><span class="n">tau_p</span>
 </pre></div>
 </div>
 </div>
@@ -1102,9 +1117,9 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 </pre></div></div>
 </div>
 <p>The observed Kendall’s <span class="math notranslate nohighlight">\(\tau\)</span> statistic is 0.519 and its p-value is <span class="math notranslate nohighlight">\(1.974 \times 10^{-7}\)</span>. Therefore, we will reject the null hypothesis of no assocation between 1929 and 2009 at the <span class="math notranslate nohighlight">\(5\%\)</span> significance level.</p>
-</div>
-<div class="section" id="Spatial-Kendall-Tau">
-<h3>Spatial Kendall Tau<a class="headerlink" href="#Spatial-Kendall-Tau" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="Spatial-Kendall-Tau">
+<h3>Spatial Kendall Tau<a class="headerlink" href="#Spatial-Kendall-Tau" title="Permalink to this heading">¶</a></h3>
 <p>The spatial Kendall’s <span class="math notranslate nohighlight">\(\tau\)</span> decomposes all pairs into those that are spatial neighbors and those that are not, and examines whether the rank correlation is different between the two sets (Rey, 2014).</p>
 <p><span class="math">\begin{equation}
 \tau_w = \frac{\iota'(W\circ S)\iota}{\iota'W \iota}
@@ -1118,8 +1133,7 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">libpysal.weights</span> <span class="kn">import</span> <span class="n">block_weights</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">libpysal.weights</span> <span class="kn">import</span> <span class="n">block_weights</span>
 <span class="n">w</span> <span class="o">=</span> <span class="n">block_weights</span><span class="p">(</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;BEA region&quot;</span><span class="p">])</span>
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
 <span class="n">tau_w</span> <span class="o">=</span> <span class="n">giddy</span><span class="o">.</span><span class="n">rank</span><span class="o">.</span><span class="n">SpatialTau</span><span class="p">(</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;1929&quot;</span><span class="p">],</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;2009&quot;</span><span class="p">],</span><span class="n">w</span><span class="p">,</span><span class="mi">999</span><span class="p">)</span>
@@ -1140,8 +1154,7 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tau_w</span><span class="o">.</span><span class="n">concordant</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau_w</span><span class="o">.</span><span class="n">concordant</span>
 </pre></div>
 </div>
 </div>
@@ -1158,8 +1171,7 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tau_w</span><span class="o">.</span><span class="n">concordant_spatial</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau_w</span><span class="o">.</span><span class="n">concordant_spatial</span>
 </pre></div>
 </div>
 </div>
@@ -1176,8 +1188,7 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tau_w</span><span class="o">.</span><span class="n">discordant</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau_w</span><span class="o">.</span><span class="n">discordant</span>
 </pre></div>
 </div>
 </div>
@@ -1194,8 +1205,7 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tau_w</span><span class="o">.</span><span class="n">discordant_spatial</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau_w</span><span class="o">.</span><span class="n">discordant_spatial</span>
 </pre></div>
 </div>
 </div>
@@ -1213,8 +1223,7 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tau_w</span><span class="o">.</span><span class="n">tau_spatial</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau_w</span><span class="o">.</span><span class="n">tau_spatial</span>
 </pre></div>
 </div>
 </div>
@@ -1231,8 +1240,7 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tau_w</span><span class="o">.</span><span class="n">tau_spatial_psim</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau_w</span><span class="o">.</span><span class="n">tau_spatial_psim</span>
 </pre></div>
 </div>
 </div>
@@ -1247,9 +1255,9 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 </div>
 <p>The estimate of spatial Kendall’s <span class="math notranslate nohighlight">\(\tau\)</span> is 0.431 and its p-value is 0.001 which is much smaller than the significance level <span class="math notranslate nohighlight">\(0.05\)</span>. Therefore, we reject the null of spatial randomness of exchange mobility. The fact that <span class="math notranslate nohighlight">\(\tau_w=0.431\)</span> is smaller than the global average <span class="math notranslate nohighlight">\(\tau=0.519\)</span> implies that globally a significant number of rank exchanges happened between states within the same region though we do not know the specific region or regions hosting these rank exchanges. A
 more thorough decomposition of <span class="math notranslate nohighlight">\(\tau\)</span> such as inter- and intra-regional indicators and local indicators will provide insights on this issue.</p>
-</div>
-<div class="section" id="Inter--and-Intra-regional-decomposition-of-Kendall’s-Tau">
-<h3>Inter- and Intra-regional decomposition of Kendall’s Tau<a class="headerlink" href="#Inter--and-Intra-regional-decomposition-of-Kendall’s-Tau" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="Inter--and-Intra-regional-decomposition-of-Kendall’s-Tau">
+<h3>Inter- and Intra-regional decomposition of Kendall’s Tau<a class="headerlink" href="#Inter--and-Intra-regional-decomposition-of-Kendall’s-Tau" title="Permalink to this heading">¶</a></h3>
 <p>A meso-level view on the exchange mobility pattern is provided by inter- and intra-regional decomposition of Kendall’s <span class="math notranslate nohighlight">\(\tau\)</span>. This decomposition can shed light on specific regions hosting most rank exchanges. More precisely, insteading of examining the concordance relationship between any two neighboring spatial units in the whole study area, for a specific region A, we examine the concordance relationship between any two spatial units within region A (neighbors), resulting in the
 intraregional concordance statistic for A; or we could examine the concordance relationship between any spatial unit in region A and any spatial unit in region B (nonneighbors), resulting in the interregional concordance statistic for A and B. If there are k regions, there will be k intraregional concordance statistics and <span class="math notranslate nohighlight">\((k-1)^2\)</span> interregional concordance statistics, we could organize them into a <span class="math notranslate nohighlight">\((k,k)\)</span> matrix where the diagonal elements are intraregional concordance statistics
 and nondiagnoal elements are interregional concordance statistics.</p>
@@ -1267,8 +1275,7 @@ T=\frac{P(H \circ S)P'}{P H P'}
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>giddy.rank.Tau_Regional<span class="o">?</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>giddy.rank.Tau_Regional<span class="o">?</span>
 </pre></div>
 </div>
 </div>
@@ -1277,8 +1284,7 @@ T=\frac{P(H \circ S)P'}{P H P'}
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span>
 <span class="n">tau_w</span> <span class="o">=</span> <span class="n">giddy</span><span class="o">.</span><span class="n">rank</span><span class="o">.</span><span class="n">Tau_Regional</span><span class="p">(</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;1929&quot;</span><span class="p">],</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;2009&quot;</span><span class="p">],</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;BEA region&quot;</span><span class="p">],</span><span class="mi">999</span><span class="p">)</span>
 <span class="n">tau_w</span>
 </pre></div>
@@ -1306,8 +1312,7 @@ T=\frac{P(H \circ S)P'}{P H P'}
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tau_w</span><span class="o">.</span><span class="n">tau_reg</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau_w</span><span class="o">.</span><span class="n">tau_reg</span>
 </pre></div>
 </div>
 </div>
@@ -1340,8 +1345,7 @@ array([[ 0.66666667,  0.5       ,  0.3       ,  0.41666667,  0.28571429,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tau_w</span><span class="o">.</span><span class="n">tau_reg_pvalues</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau_w</span><span class="o">.</span><span class="n">tau_reg_pvalues</span>
 </pre></div>
 </div>
 </div>
@@ -1366,8 +1370,7 @@ array([[0.586, 0.516, 0.196, 0.37 , 0.151, 0.526, 0.051, 0.104],
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tau_w</span><span class="o">.</span><span class="n">tau_reg</span> <span class="o">*</span> <span class="p">(</span><span class="n">tau_w</span><span class="o">.</span><span class="n">tau_reg_pvalues</span><span class="o">&lt;</span><span class="mf">0.05</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau_w</span><span class="o">.</span><span class="n">tau_reg</span> <span class="o">*</span> <span class="p">(</span><span class="n">tau_w</span><span class="o">.</span><span class="n">tau_reg_pvalues</span><span class="o">&lt;</span><span class="mf">0.05</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1397,17 +1400,6 @@ array([[ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
 </div>
 <p>The table below displays the inter- and intra-regional decomposition matrix of Kendall’s <span class="math notranslate nohighlight">\(\tau\)</span> for US states over 1929-2009 based on the 8 BEA regions. Bold numbers indicate significance at the <span class="math notranslate nohighlight">\(5\%\)</span> significance level. The negative and significant intra-Southeast concordance statistic (<span class="math notranslate nohighlight">\(-0.486\)</span>) indicates that the rank exchanges within Southeast region is significantly more frequent than those between states within and out of Southeast region.</p>
 <table class="docutils align-default">
-<colgroup>
-<col style="width: 19%" />
-<col style="width: 19%" />
-<col style="width: 9%" />
-<col style="width: 9%" />
-<col style="width: 9%" />
-<col style="width: 9%" />
-<col style="width: 9%" />
-<col style="width: 9%" />
-<col style="width: 9%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Region</p></th>
 <th class="head"><p>New England</p></th>
@@ -1509,9 +1501,9 @@ array([[ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="Local-Kendall-Tau">
-<h3>Local Kendall Tau<a class="headerlink" href="#Local-Kendall-Tau" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="Local-Kendall-Tau">
+<h3>Local Kendall Tau<a class="headerlink" href="#Local-Kendall-Tau" title="Permalink to this heading">¶</a></h3>
 <p>Local Kendall’s <span class="math notranslate nohighlight">\(\tau\)</span> is a local decomposition of classic Kendall’s <span class="math notranslate nohighlight">\(\tau\)</span> which provides an indication of the contribution of spatial unit <span class="math notranslate nohighlight">\(r\)</span>’s rank changes to the overall level of exchange mobility (Rey, 2016). Focusing on spatial unit <span class="math notranslate nohighlight">\(r\)</span>, we formally define it as follows:</p>
 <p><span class="math">\begin{equation}
 \tau_{r} = \frac{c_r - d_r}{n-1}
@@ -1525,8 +1517,7 @@ array([[ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tau_r</span> <span class="o">=</span> <span class="n">giddy</span><span class="o">.</span><span class="n">rank</span><span class="o">.</span><span class="n">Tau_Local</span><span class="p">(</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;1929&quot;</span><span class="p">],</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;2009&quot;</span><span class="p">])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau_r</span> <span class="o">=</span> <span class="n">giddy</span><span class="o">.</span><span class="n">rank</span><span class="o">.</span><span class="n">Tau_Local</span><span class="p">(</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;1929&quot;</span><span class="p">],</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;2009&quot;</span><span class="p">])</span>
 <span class="n">tau_r</span>
 </pre></div>
 </div>
@@ -1544,8 +1535,7 @@ array([[ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;STATE_NAME&quot;</span><span class="p">:</span><span class="n">complete_table</span><span class="p">[</span><span class="s1">&#39;STATE_NAME&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">tau_r$&quot;</span><span class="p">:</span><span class="n">tau_r</span><span class="o">.</span><span class="n">tau_local</span><span class="p">})</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;STATE_NAME&quot;</span><span class="p">:</span><span class="n">complete_table</span><span class="p">[</span><span class="s1">&#39;STATE_NAME&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">tau_r$&quot;</span><span class="p">:</span><span class="n">tau_r</span><span class="o">.</span><span class="n">tau_local</span><span class="p">})</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1607,12 +1597,12 @@ array([[ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
 </div></div>
 </div>
 <p>Therefore, local concordance measure produces a negative value for North Dakota (-0.0213) indicating that North Dakota exchanged ranks with a lot of states across 1929-2000. On the contrary, the local <span class="math notranslate nohighlight">\(\tau\)</span> statistic is quite high for Washington (0.617) highlighting a high stability of Washington.</p>
-</div>
-<div class="section" id="Local-indicator-of-mobility-association-LIMA">
-<h3>Local indicator of mobility association-LIMA<a class="headerlink" href="#Local-indicator-of-mobility-association-LIMA" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="Local-indicator-of-mobility-association-LIMA">
+<h3>Local indicator of mobility association-LIMA<a class="headerlink" href="#Local-indicator-of-mobility-association-LIMA" title="Permalink to this heading">¶</a></h3>
 <p>To reveal the role of space in shaping the exchange mobility pattern for each spatial unit, two spatial variants of local Kendall’s <span class="math notranslate nohighlight">\(\tau\)</span> could be utilized: neighbor set LIMA and neighborhood set LIMA (Rey, 2016). The latter is also the result of a decomposition of local Kendall’s <span class="math notranslate nohighlight">\(\tau\)</span> (into neighboring and nonneighboring parts) as well as a decompostion of spatial Kendall’s <span class="math notranslate nohighlight">\(\tau\)</span> (into its local components).</p>
-<div class="section" id="Neighbor-set-LIMA">
-<h4>Neighbor set LIMA<a class="headerlink" href="#Neighbor-set-LIMA" title="Permalink to this headline">¶</a></h4>
+<section id="Neighbor-set-LIMA">
+<h4>Neighbor set LIMA<a class="headerlink" href="#Neighbor-set-LIMA" title="Permalink to this heading">¶</a></h4>
 <p>Instead of examining the concordance relationship between a focal spatial unit <span class="math notranslate nohighlight">\(r\)</span> and all the other units as what local <span class="math notranslate nohighlight">\(\tau\)</span> does, neighbor set LIMA focuses on the concordance relationship between a focal spatial unit <span class="math notranslate nohighlight">\(r\)</span> and its neighbors only. It is formally defined as follows:</p>
 <p><span class="math">\begin{equation}
 \tilde{\tau}_{r} = \frac{\sum_b w_{r,b} s_{r,b}}{\sum_b w_{r,b}}
@@ -1624,8 +1614,7 @@ array([[ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tau_wr</span> <span class="o">=</span> <span class="n">giddy</span><span class="o">.</span><span class="n">rank</span><span class="o">.</span><span class="n">Tau_Local_Neighbor</span><span class="p">(</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;1929&quot;</span><span class="p">],</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;2009&quot;</span><span class="p">],</span><span class="n">w</span><span class="p">,</span><span class="mi">999</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau_wr</span> <span class="o">=</span> <span class="n">giddy</span><span class="o">.</span><span class="n">rank</span><span class="o">.</span><span class="n">Tau_Local_Neighbor</span><span class="p">(</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;1929&quot;</span><span class="p">],</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;2009&quot;</span><span class="p">],</span><span class="n">w</span><span class="p">,</span><span class="mi">999</span><span class="p">)</span>
 <span class="n">tau_wr</span>
 </pre></div>
 </div>
@@ -1643,8 +1632,7 @@ array([[ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tau_wr</span><span class="o">.</span><span class="n">tau_ln</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau_wr</span><span class="o">.</span><span class="n">tau_ln</span>
 </pre></div>
 </div>
 </div>
@@ -1671,8 +1659,7 @@ array([ 0.33333333,  1.        ,  1.        , -0.66666667,  0.        ,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;tau_ln&quot;</span><span class="p">]</span> <span class="o">=</span><span class="n">tau_wr</span><span class="o">.</span><span class="n">tau_ln</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;tau_ln&quot;</span><span class="p">]</span> <span class="o">=</span><span class="n">tau_wr</span><span class="o">.</span><span class="n">tau_ln</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 <span class="n">ln_map</span> <span class="o">=</span> <span class="n">complete_table</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s2">&quot;tau_ln&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="s1">&#39;equal_interval&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">leg</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span>
@@ -1695,8 +1682,7 @@ array([ 0.33333333,  1.        ,  1.        , -0.66666667,  0.        ,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tau_wr</span><span class="o">.</span><span class="n">tau_ln_pvalues</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau_wr</span><span class="o">.</span><span class="n">tau_ln_pvalues</span>
 </pre></div>
 </div>
 </div>
@@ -1718,8 +1704,7 @@ array([0.463, 0.256, 0.165, 0.101, 0.316, 0.336, 0.237, 0.614, 0.292,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sig_wr</span> <span class="o">=</span> <span class="n">tau_wr</span><span class="o">.</span><span class="n">tau_ln</span> <span class="o">*</span> <span class="p">(</span><span class="n">tau_wr</span><span class="o">.</span><span class="n">tau_ln_pvalues</span><span class="o">&lt;</span><span class="mf">0.05</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sig_wr</span> <span class="o">=</span> <span class="n">tau_wr</span><span class="o">.</span><span class="n">tau_ln</span> <span class="o">*</span> <span class="p">(</span><span class="n">tau_wr</span><span class="o">.</span><span class="n">tau_ln_pvalues</span><span class="o">&lt;</span><span class="mf">0.05</span><span class="p">)</span>
 <span class="n">sig_wr</span>
 </pre></div>
 </div>
@@ -1746,8 +1731,7 @@ array([ 0.        ,  0.        ,  0.        , -0.        ,  0.        ,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;sig_wr&quot;</span><span class="p">]</span> <span class="o">=</span><span class="n">sig_wr</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;sig_wr&quot;</span><span class="p">]</span> <span class="o">=</span><span class="n">sig_wr</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 <span class="n">complete_table</span><span class="p">[</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;sig_wr&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
 <span class="n">sig_ln_map</span> <span class="o">=</span> <span class="n">complete_table</span><span class="p">[</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;sig_wr&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="s2">&quot;sig_wr&quot;</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span><span class="n">scheme</span><span class="o">=</span><span class="s1">&#39;equal_interval&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1766,9 +1750,9 @@ array([ 0.        ,  0.        ,  0.        , -0.        ,  0.        ,
 </div>
 </div>
 <p>Thus, Arizona and Missouri have significant and negative neighbor set LIMA values, and can be considered as hotspots of rank exchanges. This means that Arizona (or Missouri) tended to exchange ranks with its neighbors than with others over 1929-2009. On the contrary, Virgina has significant and large positive neighbor set LIMA value indicating that it tended to exchange ranks with its nonneighbors than with neighbors.</p>
-</div>
-<div class="section" id="Neighborhood-set-LIMA">
-<h4>Neighborhood set LIMA<a class="headerlink" href="#Neighborhood-set-LIMA" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="Neighborhood-set-LIMA">
+<h4>Neighborhood set LIMA<a class="headerlink" href="#Neighborhood-set-LIMA" title="Permalink to this heading">¶</a></h4>
 <p>Neighborhood set LIMA extends neighbor set LIMA <span class="math notranslate nohighlight">\(\tilde{\tau}_{r}\)</span> to consider the concordance relationships between any two spatial units in the subset which is composed of the focal unit <span class="math notranslate nohighlight">\(r\)</span> and its neighbors.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">giddy</span><span class="o">.</span><span class="n">rank</span><span class="o">.</span><span class="n">Tau_Local_Neighborhood</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">permutations</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
@@ -1777,8 +1761,7 @@ array([ 0.        ,  0.        ,  0.        , -0.        ,  0.        ,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tau_wwr</span> <span class="o">=</span> <span class="n">giddy</span><span class="o">.</span><span class="n">rank</span><span class="o">.</span><span class="n">Tau_Local_Neighborhood</span><span class="p">(</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;1929&quot;</span><span class="p">],</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;2009&quot;</span><span class="p">],</span><span class="n">w</span><span class="p">,</span><span class="mi">999</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau_wwr</span> <span class="o">=</span> <span class="n">giddy</span><span class="o">.</span><span class="n">rank</span><span class="o">.</span><span class="n">Tau_Local_Neighborhood</span><span class="p">(</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;1929&quot;</span><span class="p">],</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;2009&quot;</span><span class="p">],</span><span class="n">w</span><span class="p">,</span><span class="mi">999</span><span class="p">)</span>
 <span class="n">tau_wwr</span>
 </pre></div>
 </div>
@@ -1796,8 +1779,7 @@ array([ 0.        ,  0.        ,  0.        , -0.        ,  0.        ,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tau_wwr</span><span class="o">.</span><span class="n">tau_lnhood</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau_wwr</span><span class="o">.</span><span class="n">tau_lnhood</span>
 </pre></div>
 </div>
 </div>
@@ -1823,8 +1805,7 @@ array([ 0.66666667,  0.8       ,  0.86666667, -0.14285714, -0.14285714,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;tau_lnhood&quot;</span><span class="p">]</span> <span class="o">=</span><span class="n">tau_wwr</span><span class="o">.</span><span class="n">tau_lnhood</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;tau_lnhood&quot;</span><span class="p">]</span> <span class="o">=</span><span class="n">tau_wwr</span><span class="o">.</span><span class="n">tau_lnhood</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 <span class="n">ln_map</span> <span class="o">=</span> <span class="n">complete_table</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s2">&quot;tau_lnhood&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="s1">&#39;equal_interval&#39;</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">leg</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span>
@@ -1845,8 +1826,7 @@ array([ 0.66666667,  0.8       ,  0.86666667, -0.14285714, -0.14285714,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">tau_wwr</span><span class="o">.</span><span class="n">tau_lnhood_pvalues</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tau_wwr</span><span class="o">.</span><span class="n">tau_lnhood_pvalues</span>
 </pre></div>
 </div>
 </div>
@@ -1868,8 +1848,7 @@ array([0.585, 0.278, 0.104, 0.032, 0.024, 0.295, 0.43 , 0.225, 0.167,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">sig_lnhood</span> <span class="o">=</span> <span class="n">tau_wwr</span><span class="o">.</span><span class="n">tau_lnhood</span> <span class="o">*</span> <span class="p">(</span><span class="n">tau_wwr</span><span class="o">.</span><span class="n">tau_lnhood_pvalues</span><span class="o">&lt;</span><span class="mf">0.05</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sig_lnhood</span> <span class="o">=</span> <span class="n">tau_wwr</span><span class="o">.</span><span class="n">tau_lnhood</span> <span class="o">*</span> <span class="p">(</span><span class="n">tau_wwr</span><span class="o">.</span><span class="n">tau_lnhood_pvalues</span><span class="o">&lt;</span><span class="mf">0.05</span><span class="p">)</span>
 <span class="n">sig_lnhood</span>
 </pre></div>
 </div>
@@ -1896,8 +1875,7 @@ array([ 0.        ,  0.        ,  0.        , -0.14285714, -0.14285714,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[38]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;sig_lnhood&quot;</span><span class="p">]</span> <span class="o">=</span><span class="n">sig_lnhood</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;sig_lnhood&quot;</span><span class="p">]</span> <span class="o">=</span><span class="n">sig_lnhood</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 <span class="n">complete_table</span><span class="p">[</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;sig_lnhood&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span><span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
 <span class="n">sig_ln_map</span> <span class="o">=</span> <span class="n">complete_table</span><span class="p">[</span><span class="n">complete_table</span><span class="p">[</span><span class="s2">&quot;sig_lnhood&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span><span class="n">column</span><span class="o">=</span><span class="s2">&quot;sig_lnhood&quot;</span><span class="p">,</span><span class="n">categorical</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1915,20 +1893,20 @@ array([ 0.        ,  0.        ,  0.        , -0.14285714, -0.14285714,
 <img alt="_images/RankBasedMethods_72_0.png" src="_images/RankBasedMethods_72_0.png" />
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="Theta-statistic-of-exchange-mobility">
-<h2>Theta statistic of exchange mobility<a class="headerlink" href="#Theta-statistic-of-exchange-mobility" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="Next-steps">
-<h2>Next steps<a class="headerlink" href="#Next-steps" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="Theta-statistic-of-exchange-mobility">
+<h2>Theta statistic of exchange mobility<a class="headerlink" href="#Theta-statistic-of-exchange-mobility" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="Next-steps">
+<h2>Next steps<a class="headerlink" href="#Next-steps" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>theta statistic</p></li>
 </ul>
-</div>
-<div class="section" id="References">
-<h2>References<a class="headerlink" href="#References" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="References">
+<h2>References<a class="headerlink" href="#References" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Rey, Sergio J., and Myrna L. Sastré-Gutiérrez. 2010. “<a class="reference external" href="http://www.tandfonline.com/doi/abs/10.1080/17421772.2010.493955">Interregional Inequality Dynamics in Mexico</a>.” Spatial Economic Analysis 5 (3). Taylor &amp; Francis: 277–98.</p></li>
 <li><p>Rey, Sergio J. 2014. “<a class="reference external" href="https://link.springer.com/article/10.1007/s00180-013-0461-2">Fast Algorithms for a Space-Time Concordance Measure</a>.” Computational Statistics 29 (3-4). Springer: 799–811.</p></li>
@@ -1938,13 +1916,12 @@ array([ 0.        ,  0.        ,  0.        , -0.14285714, -0.14285714,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
     </div>
@@ -1966,7 +1943,7 @@ array([ 0.        ,  0.        ,  0.        , -0.14285714, -0.14285714,
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br/>
     </p>
   </div>
 </footer>
