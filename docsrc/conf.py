@@ -52,10 +52,6 @@ extensions = [  #'sphinx_gallery.gen_gallery',
 # New in Version 2.0.0 of sphinxcontrib.bibtex
 bibtex_bibfiles = ["_static/references.bib"]
 
-mathjax_config = {
-    "TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": True}},
-}
-
 # sphinx_gallery_conf = {
 #      # path to your examples scripts
 #      'examples_dirs': '../examples',
@@ -95,7 +91,7 @@ release = giddy.__version__
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = en
+language = 'en'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -329,7 +325,3 @@ nbsphinx_execute_arguments = [
     "--InlineBackend.figure_formats={'svg', 'pdf'}",
     "--InlineBackend.rc={'figure.dpi': 96}",
 ]
-
-mathjax_config = {
-    "TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": True}},
-}
