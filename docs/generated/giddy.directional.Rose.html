@@ -1,33 +1,34 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>giddy.directional.Rose &#8212; giddy v2.3.3 Manual</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="shortcut icon" href="../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="giddy.mobility.markov_mobility" href="giddy.mobility.markov_mobility.html" />
-    <link rel="prev" title="giddy.ergodic.var_fmpt_ergodic" href="giddy.ergodic.var_fmpt_ergodic.html" />
+    <link rel="prev" title="giddy.ergodic.var_mfpt_ergodic" href="giddy.ergodic.var_mfpt_ergodic.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -62,7 +63,7 @@
      href="../index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-released-version">Installing released version</a></li>
@@ -131,16 +132,16 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="giddy-directional-rose">
-<h1>giddy.directional.Rose<a class="headerlink" href="#giddy-directional-rose" title="Permalink to this headline">¶</a></h1>
+  <section id="giddy-directional-rose">
+<h1>giddy.directional.Rose<a class="headerlink" href="#giddy-directional-rose" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
-<dt id="giddy.directional.Rose">
-<em class="property">class </em><code class="sig-prename descclassname">giddy.directional.</code><code class="sig-name descname">Rose</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Y</span></em>, <em class="sig-param"><span class="n">w</span></em>, <em class="sig-param"><span class="n">k</span><span class="o">=</span><span class="default_value">8</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.directional.Rose" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="giddy.directional.Rose">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">giddy.directional.</span></span><span class="sig-name descname"><span class="pre">Rose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.directional.Rose" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rose diagram based inference for directional LISAs.</p>
 <p>For n units with LISA values at two points in time, the Rose class provides
 the LISA vectors, their visualization, and computationally based inference.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>Y</strong><span class="classifier">array (n,2)</span></dt><dd><p>Columns correspond to end-point time periods to calculate LISA vectors for n object.</p>
 </dd>
@@ -150,7 +151,7 @@ the LISA vectors, their visualization, and computationally based inference.</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Attributes</dt>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt><strong>cuts</strong><span class="classifier">(k, 1) ndarray</span></dt><dd><p>Radian cuts for rose diagram (circular histogram).</p>
 </dd>
@@ -178,12 +179,12 @@ the LISA vectors, their visualization, and computationally based inference.</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="giddy.directional.Rose.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Y</span></em>, <em class="sig-param"><span class="n">w</span></em>, <em class="sig-param"><span class="n">k</span><span class="o">=</span><span class="default_value">8</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.directional.Rose.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="giddy.directional.Rose.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.directional.Rose.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculation of rose diagram for local indicators of spatial
 association.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>Y</strong><span class="classifier">(n, 2) ndarray</span></dt><dd><p>Variable observed on n spatial units over 2 time periods</p>
 </dd>
@@ -195,7 +196,7 @@ association.</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<p>Based on <span id="id1">[<a class="reference internal" href="../references.html#id7"><span>RMA11</span></a>]</span>.</p>
+<p>Based on <span id="id1">[<a class="reference internal" href="../references.html#id7" title="Sergio J. Rey, Alan T. Murray, and Luc Anselin. Visualizing regional income distribution dynamics. Letters in Spatial and Resource Sciences, 4(1):81–90, 2011. URL: https://doi.org/10.1007/s12076-010-0048-2, doi:10.1007/s12076-010-0048-2.">RMA11</a>]</span>.</p>
 <p class="rubric">Examples</p>
 <p>Constructing data for illustration of directional LISA analytics.
 Data is for the 48 lower US states over the period 1969-2009 and
@@ -314,17 +315,13 @@ rose diagram conditional on the starting relative income:</p>
 </pre></div>
 </div>
 <p>(<a class="reference external" href="../generated/giddy-directional-Rose-1.py">Source code</a>, <a class="reference external" href="../generated/giddy-directional-Rose-1.png">png</a>, <a class="reference external" href="../generated/giddy-directional-Rose-1.hires.png">hires.png</a>, <a class="reference external" href="../generated/giddy-directional-Rose-1.pdf">pdf</a>)</p>
-<div class="figure align-default">
-<img alt="../_images/giddy-directional-Rose-1.png" src="../_images/giddy-directional-Rose-1.png" />
-</div>
+<figure class="align-default">
+<img alt="../_images/giddy-directional-Rose-1.png" class="plot-directive" src="../_images/giddy-directional-Rose-1.png" />
+</figure>
 </dd></dl>
 
 <p class="rubric">Methods</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#giddy.directional.Rose.__init__" title="giddy.directional.Rose.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(Y, w[, k])</p></td>
 <td><p>Calculation of rose diagram for local indicators of spatial association.</p></td>
@@ -344,11 +341,11 @@ rose diagram conditional on the starting relative income:</p>
 </tbody>
 </table>
 <dl class="py method">
-<dt id="giddy.directional.Rose.permute">
-<code class="sig-name descname">permute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">permutations</span><span class="o">=</span><span class="default_value">99</span></em>, <em class="sig-param"><span class="n">alternative</span><span class="o">=</span><span class="default_value">'two.sided'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose.permute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.directional.Rose.permute" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="giddy.directional.Rose.permute">
+<span class="sig-name descname"><span class="pre">permute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">permutations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">99</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alternative</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'two.sided'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose.permute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.directional.Rose.permute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate ransom spatial permutations for inference on LISA vectors.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>permutations</strong><span class="classifier">int, optional</span></dt><dd><p>Number of random permutations of observations.</p>
 </dd>
@@ -366,11 +363,11 @@ the interval.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="giddy.directional.Rose.plot">
-<code class="sig-name descname">plot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">attribute</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose.plot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.directional.Rose.plot" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="giddy.directional.Rose.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose.plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.directional.Rose.plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot the rose diagram.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>attribute</strong><span class="classifier">(n,) ndarray, optional</span></dt><dd><p>Variable to specify colors of the colorbars.</p>
 </dd>
@@ -382,7 +379,7 @@ Note: ‘c’ and ‘color’ cannot be passed when attribute is not None</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt><strong>fig</strong><span class="classifier">Matplotlib Figure instance</span></dt><dd><p>Moran scatterplot figure</p>
 </dd>
@@ -394,19 +391,19 @@ Note: ‘c’ and ‘color’ cannot be passed when attribute is not None</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="giddy.directional.Rose.plot_origin">
-<code class="sig-name descname">plot_origin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose.plot_origin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.directional.Rose.plot_origin" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="giddy.directional.Rose.plot_origin">
+<span class="sig-name descname"><span class="pre">plot_origin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose.plot_origin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.directional.Rose.plot_origin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot vectors of positional transition of LISA values starting
 from the same origin.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="giddy.directional.Rose.plot_vectors">
-<code class="sig-name descname">plot_vectors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arrows</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose.plot_vectors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.directional.Rose.plot_vectors" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="giddy.directional.Rose.plot_vectors">
+<span class="sig-name descname"><span class="pre">plot_vectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arrows</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose.plot_vectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.directional.Rose.plot_vectors" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot vectors of positional transition of LISA values
 within quadrant in scatterplot in a polar plot.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>ax</strong><span class="classifier">Matplotlib Axes instance, optional</span></dt><dd><p>If given, the figure will be created inside this axis.
 Default =None.</p>
@@ -418,7 +415,7 @@ Note: ‘c’ and ‘color’ cannot be passed when attribute is not None</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt><strong>fig</strong><span class="classifier">Matplotlib Figure instance</span></dt><dd><p>Moran scatterplot figure</p>
 </dd>
@@ -431,7 +428,7 @@ Note: ‘c’ and ‘color’ cannot be passed when attribute is not None</p>
 
 </dd></dl>
 
-</div>
+</section>
 
 
     </div>
@@ -453,7 +450,7 @@ Note: ‘c’ and ‘color’ cannot be passed when attribute is not None</p>
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br/>
     </p>
   </div>
 </footer>

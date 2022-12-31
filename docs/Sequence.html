@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>Alignment-based sequence methods &#8212; giddy v2.3.3 Manual</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="_static/pysal-styles.css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -24,10 +27,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -62,7 +65,7 @@
      href="index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#installing-released-version">Installing released version</a></li>
@@ -143,21 +146,35 @@
 /* CSS for nbsphinx extension */
 
 /* remove conflicting styling from Sphinx themes */
-div.nbinput.container,
-div.nbinput.container div.prompt,
-div.nbinput.container div.input_area,
-div.nbinput.container div[class*=highlight],
-div.nbinput.container div[class*=highlight] pre,
-div.nboutput.container,
-div.nboutput.container div.prompt,
-div.nboutput.container div.output_area,
-div.nboutput.container div[class*=highlight],
-div.nboutput.container div[class*=highlight] pre {
-    background: none;
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
     border: none;
-    padding: 0 0;
+    padding: 0;
     margin: 0;
     box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
 }
 
 /* avoid gaps between output lines */
@@ -234,10 +251,11 @@ div.nboutput.container div.prompt > div {
     }
 }
 
-/* disable scrollbars on prompts */
+/* disable scrollbars and line breaks on prompts */
 div.nbinput.container div.prompt pre,
 div.nboutput.container div.prompt pre {
     overflow: hidden;
+    white-space: pre;
 }
 
 /* input/output area */
@@ -258,7 +276,7 @@ div.nboutput.container div.output_area {
 div.nbinput.container div.input_area {
     border: 1px solid #e0e0e0;
     border-radius: 2px;
-    background: #f5f5f5;
+    /*background: #f5f5f5;*/
 }
 
 /* override MathJax center alignment in output cells */
@@ -324,6 +342,7 @@ div.nboutput.container div.output_area.rendered_html,
 div.nboutput.container div.output_area > div.output_javascript,
 div.nboutput.container div.output_area:not(.rendered_html) > img{
     padding: 5px;
+    margin: 0;
 }
 
 /* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
@@ -333,11 +352,12 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt a.copybtn {
+.prompt .copybtn {
     display: none;
 }
 
 /* Some additional styling taken form the Jupyter notebook CSS */
+.jp-RenderedHTMLCommon table,
 div.rendered_html table {
   border: none;
   border-collapse: collapse;
@@ -346,10 +366,14 @@ div.rendered_html table {
   font-size: 12px;
   table-layout: fixed;
 }
+.jp-RenderedHTMLCommon thead,
 div.rendered_html thead {
   border-bottom: 1px solid black;
   vertical-align: bottom;
 }
+.jp-RenderedHTMLCommon tr,
+.jp-RenderedHTMLCommon th,
+.jp-RenderedHTMLCommon td,
 div.rendered_html tr,
 div.rendered_html th,
 div.rendered_html td {
@@ -361,33 +385,35 @@ div.rendered_html td {
   max-width: none;
   border: none;
 }
+.jp-RenderedHTMLCommon th,
 div.rendered_html th {
   font-weight: bold;
 }
+.jp-RenderedHTMLCommon tbody tr:nth-child(odd),
 div.rendered_html tbody tr:nth-child(odd) {
   background: #f5f5f5;
 }
+.jp-RenderedHTMLCommon tbody tr:hover,
 div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
 <div class="admonition note">
-<p>This page was generated from <a class="reference external" href="https://github.com/pysal/giddy/tree/master/notebooks/Sequence.ipynb">Sequence.ipynb</a>.
+<p>This page was generated from <a class="reference external" href="https://github.com/pysal/giddy//Users/wk0110/MyDrive(weikang9009&#64;gmail.com)/python_repos/pysal-refactor/giddy/docsrc/Sequence.ipynb">Sequence.ipynb</a>.
 Interactive online version:
 <span class="raw-html"><a href="https://mybinder.org/v2/gh/pysal/giddy/master?filepath=Sequence.ipynb"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a></span></p>
 </div>
-<div class="section" id="Alignment-based-sequence-methods">
-<h1>Alignment-based sequence methods<a class="headerlink" href="#Alignment-based-sequence-methods" title="Permalink to this headline">¶</a></h1>
+<section id="Alignment-based-sequence-methods">
+<h1>Alignment-based sequence methods<a class="headerlink" href="#Alignment-based-sequence-methods" title="Permalink to this heading">¶</a></h1>
 <p>This notebook introduces the alignment-based sequence methods (operationalized by the Optimal Matching (OM) algorithm), which was originally developed for matching protein and DNA sequences in biology and used extensively for analyzing strings in computer science and recently widely applied to explore the neighborhood change.</p>
 <p>It generally works by finding the minimum cost for aligning one sequence to match another using a combination of operations including substitution, insertion, deletion and transposition. The cost of each operation can be parameterized diferently and may be theory-driven or data-driven. The minimum cost is considered as the distance between the two sequences.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">sequence</span></code> module in <code class="docutils literal notranslate"><span class="pre">giddy</span></code> provides a suite of alignment-based sequence methods.</p>
-<p><strong>Author: Wei Kang</strong><a class="reference external" href="mailto:weikang9009&#37;&#52;&#48;gmail&#46;com">weikang9009<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+<p><strong>Author: Wei Kang</strong> <a class="reference external" href="mailto:weikang9009&#37;&#52;&#48;gmail&#46;com">weikang9009<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </pre></div>
 </div>
@@ -396,8 +422,7 @@ Interactive online version:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">libpysal</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">libpysal</span>
 <span class="kn">import</span> <span class="nn">mapclassify</span> <span class="k">as</span> <span class="nn">mc</span>
 <span class="n">f</span> <span class="o">=</span> <span class="n">libpysal</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">libpysal</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;usjoin.csv&quot;</span><span class="p">))</span>
 <span class="n">pci</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">by_col</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1929</span><span class="p">,</span><span class="mi">2010</span><span class="p">)])</span>
@@ -434,8 +459,7 @@ array([[0, 0, 0, ..., 0, 0, 0],
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">q5</span><span class="o">.</span><span class="n">shape</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q5</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
 </div>
@@ -453,13 +477,12 @@ array([[0, 0, 0, ..., 0, 0, 0],
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">giddy.sequence</span> <span class="kn">import</span> <span class="n">Sequence</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">giddy.sequence</span> <span class="kn">import</span> <span class="n">Sequence</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="“hamming”">
-<h2>“hamming”<a class="headerlink" href="#“hamming”" title="Permalink to this headline">¶</a></h2>
+<section id="“hamming”">
+<h2>“hamming”<a class="headerlink" href="#“hamming”" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>substitution cost = 1</p></li>
 <li><p>insertion/deletion cost = <span class="math notranslate nohighlight">\(\infty\)</span></p></li>
@@ -468,8 +491,7 @@ array([[0, 0, 0, ..., 0, 0, 0],
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">seq_hamming</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">(</span><span class="n">q5</span><span class="p">,</span> <span class="n">dist_type</span><span class="o">=</span><span class="s2">&quot;hamming&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_hamming</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">(</span><span class="n">q5</span><span class="p">,</span> <span class="n">dist_type</span><span class="o">=</span><span class="s2">&quot;hamming&quot;</span><span class="p">)</span>
 <span class="n">seq_hamming</span>
 </pre></div>
 </div>
@@ -487,8 +509,7 @@ array([[0, 0, 0, ..., 0, 0, 0],
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">seq_hamming</span><span class="o">.</span><span class="n">seq_dis_mat</span> <span class="c1">#pairwise sequence distance matrix</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_hamming</span><span class="o">.</span><span class="n">seq_dis_mat</span> <span class="c1">#pairwise sequence distance matrix</span>
 </pre></div>
 </div>
 </div>
@@ -507,9 +528,9 @@ array([[ 0., 75.,  7., ..., 21., 81., 78.],
        [78., 73., 81., ..., 81., 51.,  0.]])
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="“interval”">
-<h2>“interval”<a class="headerlink" href="#“interval”" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="“interval”">
+<h2>“interval”<a class="headerlink" href="#“interval”" title="Permalink to this heading">¶</a></h2>
 <p>Assuming there are <span class="math notranslate nohighlight">\(k\)</span> states in the sequences and they are ordinal/continuous.</p>
 <ul class="simple">
 <li><p>substitution cost = differences between states</p></li>
@@ -519,8 +540,7 @@ array([[ 0., 75.,  7., ..., 21., 81., 78.],
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">seq_interval</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">(</span><span class="n">q5</span><span class="p">,</span> <span class="n">dist_type</span><span class="o">=</span><span class="s2">&quot;interval&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_interval</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">(</span><span class="n">q5</span><span class="p">,</span> <span class="n">dist_type</span><span class="o">=</span><span class="s2">&quot;interval&quot;</span><span class="p">)</span>
 <span class="n">seq_interval</span>
 </pre></div>
 </div>
@@ -538,8 +558,7 @@ array([[ 0., 75.,  7., ..., 21., 81., 78.],
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">seq_interval</span><span class="o">.</span><span class="n">seq_dis_mat</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_interval</span><span class="o">.</span><span class="n">seq_dis_mat</span>
 </pre></div>
 </div>
 </div>
@@ -558,9 +577,9 @@ array([[  0., 123.,   7., ...,  21., 190., 225.],
        [225., 108., 232., ..., 218.,  61.,   0.]])
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="“arbitrary”">
-<h2>“arbitrary”<a class="headerlink" href="#“arbitrary”" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="“arbitrary”">
+<h2>“arbitrary”<a class="headerlink" href="#“arbitrary”" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>substitution cost = 0.5</p></li>
 <li><p>insertion/deletion cost = 1</p></li>
@@ -569,8 +588,7 @@ array([[  0., 123.,   7., ...,  21., 190., 225.],
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">seq_arbitrary</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">(</span><span class="n">q5</span><span class="p">,</span> <span class="n">dist_type</span><span class="o">=</span><span class="s2">&quot;arbitrary&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_arbitrary</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">(</span><span class="n">q5</span><span class="p">,</span> <span class="n">dist_type</span><span class="o">=</span><span class="s2">&quot;arbitrary&quot;</span><span class="p">)</span>
 <span class="n">seq_arbitrary</span>
 </pre></div>
 </div>
@@ -588,8 +606,7 @@ array([[  0., 123.,   7., ...,  21., 190., 225.],
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">seq_arbitrary</span><span class="o">.</span><span class="n">seq_dis_mat</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_arbitrary</span><span class="o">.</span><span class="n">seq_dis_mat</span>
 </pre></div>
 </div>
 </div>
@@ -608,9 +625,9 @@ array([[ 0. , 37.5,  3.5, ..., 10.5, 40.5, 39. ],
        [39. , 36.5, 40.5, ..., 40.5, 25.5,  0. ]])
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="“markov”">
-<h2>“markov”<a class="headerlink" href="#“markov”" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="“markov”">
+<h2>“markov”<a class="headerlink" href="#“markov”" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>substitution cost = <span class="math notranslate nohighlight">\(1-\frac{p_{ij}+p_{ji}}{2}\)</span> where <span class="math notranslate nohighlight">\(p_{ij}\)</span> is the empirical rate of transitioning from state <span class="math notranslate nohighlight">\(i\)</span> to <span class="math notranslate nohighlight">\(j\)</span></p></li>
 <li><p>insertion/deletion cost = 1</p></li>
@@ -619,8 +636,7 @@ array([[ 0. , 37.5,  3.5, ..., 10.5, 40.5, 39. ],
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">seq_markov</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">(</span><span class="n">q5</span><span class="p">,</span> <span class="n">dist_type</span><span class="o">=</span><span class="s2">&quot;markov&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_markov</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">(</span><span class="n">q5</span><span class="p">,</span> <span class="n">dist_type</span><span class="o">=</span><span class="s2">&quot;markov&quot;</span><span class="p">)</span>
 <span class="n">seq_markov</span>
 </pre></div>
 </div>
@@ -638,8 +654,7 @@ array([[ 0. , 37.5,  3.5, ..., 10.5, 40.5, 39. ],
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">seq_markov</span><span class="o">.</span><span class="n">seq_dis_mat</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_markov</span><span class="o">.</span><span class="n">seq_dis_mat</span>
 </pre></div>
 </div>
 </div>
@@ -664,16 +679,15 @@ array([[ 0.        , 72.31052406,  6.34073233, ..., 19.02219698,
         41.57088046,  0.        ]])
 </pre></div></div>
 </div>
-</div>
-<div class="section" id="“tran”">
-<h2>“tran”<a class="headerlink" href="#“tran”" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="“tran”">
+<h2>“tran”<a class="headerlink" href="#“tran”" title="Permalink to this heading">¶</a></h2>
 <p>Biemann, T. (2011). A Transition-Oriented Approach to Optimal Matching. Sociological Methodology, 41(1), 195–221. <a class="reference external" href="https://doi.org/10.1111/j.1467-9531.2011.01235.x">https://doi.org/10.1111/j.1467-9531.2011.01235.x</a></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">seq_tran</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">(</span><span class="n">q5</span><span class="p">,</span> <span class="n">dist_type</span><span class="o">=</span><span class="s2">&quot;tran&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_tran</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">(</span><span class="n">q5</span><span class="p">,</span> <span class="n">dist_type</span><span class="o">=</span><span class="s2">&quot;tran&quot;</span><span class="p">)</span>
 <span class="n">seq_tran</span>
 </pre></div>
 </div>
@@ -691,8 +705,7 @@ array([[ 0.        , 72.31052406,  6.34073233, ..., 19.02219698,
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">seq_tran</span><span class="o">.</span><span class="n">seq_dis_mat</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_tran</span><span class="o">.</span><span class="n">seq_dis_mat</span>
 </pre></div>
 </div>
 </div>
@@ -715,8 +728,7 @@ array([[ 0., 23.,  8., ..., 12., 24., 21.],
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">seq_tran</span><span class="o">.</span><span class="n">seq_dis_mat</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_tran</span><span class="o">.</span><span class="n">seq_dis_mat</span>
 </pre></div>
 </div>
 </div>
@@ -739,13 +751,12 @@ array([[  0., 220.,  25., ...,  55., 220., 220.],
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
     </div>
@@ -767,7 +778,7 @@ array([[  0., 220.,  25., ...,  55., 220., 220.],
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br/>
     </p>
   </div>
 </footer>

@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>API reference &#8212; giddy v2.3.3 Manual</title>
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="_static/pysal-styles.css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="shortcut icon" href="_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -24,10 +25,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -62,7 +63,7 @@
      href="index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#installing-released-version">Installing released version</a></li>
@@ -139,29 +140,25 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="api-reference">
-<span id="api-ref"></span><h1>API reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="markov-methods">
-<span id="markov-api"></span><h2>Markov Methods<a class="headerlink" href="#markov-methods" title="Permalink to this headline">¶</a></h2>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+  <section id="api-reference">
+<span id="api-ref"></span><h1>API reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">¶</a></h1>
+<section id="markov-methods">
+<span id="markov-api"></span><h2>Markov Methods<a class="headerlink" href="#markov-methods" title="Permalink to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.markov.Markov.html#giddy.markov.Markov" title="giddy.markov.Markov"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.Markov</span></code></a>(class_ids[, classes, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.markov.Markov.html#giddy.markov.Markov" title="giddy.markov.Markov"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.Markov</span></code></a>(class_ids[, classes, ...])</p></td>
 <td><p>Classic Markov Chain estimation.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.markov.Spatial_Markov.html#giddy.markov.Spatial_Markov" title="giddy.markov.Spatial_Markov"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.Spatial_Markov</span></code></a>(y, w[, k, m, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.markov.Spatial_Markov.html#giddy.markov.Spatial_Markov" title="giddy.markov.Spatial_Markov"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.Spatial_Markov</span></code></a>(y, w[, k, m, ...])</p></td>
 <td><p>Markov transitions conditioned on the value of the spatial lag.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.markov.LISA_Markov.html#giddy.markov.LISA_Markov" title="giddy.markov.LISA_Markov"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.LISA_Markov</span></code></a>(y, w[, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.markov.LISA_Markov.html#giddy.markov.LISA_Markov" title="giddy.markov.LISA_Markov"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.LISA_Markov</span></code></a>(y, w[, ...])</p></td>
 <td><p>Markov for Local Indicators of Spatial Association</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.markov.FullRank_Markov.html#giddy.markov.FullRank_Markov" title="giddy.markov.FullRank_Markov"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.FullRank_Markov</span></code></a>(y[, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.markov.FullRank_Markov.html#giddy.markov.FullRank_Markov" title="giddy.markov.FullRank_Markov"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.FullRank_Markov</span></code></a>(y[, ...])</p></td>
 <td><p>Full Rank Markov in which ranks are considered as Markov states rather than quantiles or other discretized classes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.markov.GeoRank_Markov.html#giddy.markov.GeoRank_Markov" title="giddy.markov.GeoRank_Markov"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.GeoRank_Markov</span></code></a>(y[, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.markov.GeoRank_Markov.html#giddy.markov.GeoRank_Markov" title="giddy.markov.GeoRank_Markov"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.GeoRank_Markov</span></code></a>(y[, ...])</p></td>
 <td><p>Geographic Rank Markov.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.markov.kullback.html#giddy.markov.kullback" title="giddy.markov.kullback"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.kullback</span></code></a>(F)</p></td>
@@ -176,99 +173,79 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.markov.sojourn_time.html#giddy.markov.sojourn_time" title="giddy.markov.sojourn_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.markov.sojourn_time</span></code></a>(p[, summary])</p></td>
 <td><p>Calculate sojourn time based on a given transition probability matrix.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.ergodic.steady_state.html#giddy.ergodic.steady_state" title="giddy.ergodic.steady_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.ergodic.steady_state</span></code></a>(P[, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.ergodic.steady_state.html#giddy.ergodic.steady_state" title="giddy.ergodic.steady_state"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.ergodic.steady_state</span></code></a>(P[, ...])</p></td>
 <td><p>Generalized function for calculating the steady state distribution for a regular or reducible Markov transition matrix P.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.ergodic.fmpt.html#giddy.ergodic.fmpt" title="giddy.ergodic.fmpt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.ergodic.fmpt</span></code></a>(P[, fill_empty_classes])</p></td>
-<td><p>Generalized function for calculating first mean passage times for an ergodic or non-ergodic transition probability matrix.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.ergodic.mfpt.html#giddy.ergodic.mfpt" title="giddy.ergodic.mfpt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.ergodic.mfpt</span></code></a>(P[, fill_empty_classes])</p></td>
+<td><p>Generalized function for calculating mean first passage times for an ergodic or non-ergodic transition probability matrix.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.ergodic.var_fmpt_ergodic.html#giddy.ergodic.var_fmpt_ergodic" title="giddy.ergodic.var_fmpt_ergodic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.ergodic.var_fmpt_ergodic</span></code></a>(P)</p></td>
-<td><p>Variances of first mean passage times for an ergodic transition probability matrix.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.ergodic.var_mfpt_ergodic.html#giddy.ergodic.var_mfpt_ergodic" title="giddy.ergodic.var_mfpt_ergodic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.ergodic.var_mfpt_ergodic</span></code></a>(p)</p></td>
+<td><p>Variances of mean first passage times for an ergodic transition probability matrix.</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="directional-lisa">
-<span id="directional-api"></span><h2>Directional LISA<a class="headerlink" href="#directional-lisa" title="Permalink to this headline">¶</a></h2>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+</section>
+<section id="directional-lisa">
+<span id="directional-api"></span><h2>Directional LISA<a class="headerlink" href="#directional-lisa" title="Permalink to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.directional.Rose.html#giddy.directional.Rose" title="giddy.directional.Rose"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.directional.Rose</span></code></a>(Y, w[, k])</p></td>
 <td><p>Rose diagram based inference for directional LISAs.</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="economic-mobility-indices">
-<span id="mobility-api"></span><h2>Economic Mobility Indices<a class="headerlink" href="#economic-mobility-indices" title="Permalink to this headline">¶</a></h2>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+</section>
+<section id="economic-mobility-indices">
+<span id="mobility-api"></span><h2>Economic Mobility Indices<a class="headerlink" href="#economic-mobility-indices" title="Permalink to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.mobility.markov_mobility.html#giddy.mobility.markov_mobility" title="giddy.mobility.markov_mobility"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.mobility.markov_mobility</span></code></a>(p[, measure, ini])</p></td>
 <td><p>Markov-based mobility index.</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="exchange-mobility-methods">
-<span id="rank-api"></span><h2>Exchange Mobility Methods<a class="headerlink" href="#exchange-mobility-methods" title="Permalink to this headline">¶</a></h2>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+</section>
+<section id="exchange-mobility-methods">
+<span id="rank-api"></span><h2>Exchange Mobility Methods<a class="headerlink" href="#exchange-mobility-methods" title="Permalink to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.rank.Theta.html#giddy.rank.Theta" title="giddy.rank.Theta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.rank.Theta</span></code></a>(y, regime[, permutations])</p></td>
 <td><p>Regime mobility measure.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.rank.Tau.html#giddy.rank.Tau" title="giddy.rank.Tau"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.rank.Tau</span></code></a>(x, y)</p></td>
-<td><p>Kendall’s Tau is based on a comparison of the number of pairs of n observations that have concordant ranks between two variables.</p></td>
+<td><p>Kendall's Tau is based on a comparison of the number of pairs of n observations that have concordant ranks between two variables.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.rank.SpatialTau.html#giddy.rank.SpatialTau" title="giddy.rank.SpatialTau"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.rank.SpatialTau</span></code></a>(x, y, w[, permutations])</p></td>
-<td><p>Spatial version of Kendall’s rank correlation statistic.</p></td>
+<td><p>Spatial version of Kendall's rank correlation statistic.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.rank.Tau_Local.html#giddy.rank.Tau_Local" title="giddy.rank.Tau_Local"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.rank.Tau_Local</span></code></a>(x, y)</p></td>
 <td><p>Local version of the classic Tau.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.rank.Tau_Local_Neighbor.html#giddy.rank.Tau_Local_Neighbor" title="giddy.rank.Tau_Local_Neighbor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.rank.Tau_Local_Neighbor</span></code></a>(x, y, w[, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.rank.Tau_Local_Neighbor.html#giddy.rank.Tau_Local_Neighbor" title="giddy.rank.Tau_Local_Neighbor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.rank.Tau_Local_Neighbor</span></code></a>(x, y, w[, ...])</p></td>
 <td><p>Neighbor set LIMA.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.rank.Tau_Local_Neighborhood.html#giddy.rank.Tau_Local_Neighborhood" title="giddy.rank.Tau_Local_Neighborhood"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.rank.Tau_Local_Neighborhood</span></code></a>(x, y, w[, …])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/giddy.rank.Tau_Local_Neighborhood.html#giddy.rank.Tau_Local_Neighborhood" title="giddy.rank.Tau_Local_Neighborhood"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.rank.Tau_Local_Neighborhood</span></code></a>(x, y, w[, ...])</p></td>
 <td><p>Neighborhood set LIMA.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.rank.Tau_Regional.html#giddy.rank.Tau_Regional" title="giddy.rank.Tau_Regional"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.rank.Tau_Regional</span></code></a>(x, y, regime[, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.rank.Tau_Regional.html#giddy.rank.Tau_Regional" title="giddy.rank.Tau_Regional"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.rank.Tau_Regional</span></code></a>(x, y, regime[, ...])</p></td>
 <td><p>Inter and intraregional decomposition of the classic Tau.</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="alignment-based-sequence-methods">
-<span id="sequence-api"></span><h2>Alignment-based Sequence Methods<a class="headerlink" href="#alignment-based-sequence-methods" title="Permalink to this headline">¶</a></h2>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+</section>
+<section id="alignment-based-sequence-methods">
+<span id="sequence-api"></span><h2>Alignment-based Sequence Methods<a class="headerlink" href="#alignment-based-sequence-methods" title="Permalink to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.sequence.Sequence.html#giddy.sequence.Sequence" title="giddy.sequence.Sequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.sequence.Sequence</span></code></a>(y[, subs_mat, …])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.sequence.Sequence.html#giddy.sequence.Sequence" title="giddy.sequence.Sequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.sequence.Sequence</span></code></a>(y[, subs_mat, ...])</p></td>
 <td><p>Pairwise sequence analysis.</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="utility-functions">
-<span id="utility-api"></span><h2>Utility Functions<a class="headerlink" href="#utility-functions" title="Permalink to this headline">¶</a></h2>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+</section>
+<section id="utility-functions">
+<span id="utility-api"></span><h2>Utility Functions<a class="headerlink" href="#utility-functions" title="Permalink to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/giddy.util.shuffle_matrix.html#giddy.util.shuffle_matrix" title="giddy.util.shuffle_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">giddy.util.shuffle_matrix</span></code></a>(X, ids)</p></td>
 <td><p>Random permutation of rows and columns of a matrix</p></td>
@@ -281,8 +258,8 @@
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+</section>
+</section>
 
 
     </div>
@@ -304,7 +281,7 @@
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br/>
     </p>
   </div>
 </footer>

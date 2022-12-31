@@ -1,4 +1,4 @@
-giddy.markov.GeoRank\_Markov
+﻿giddy.markov.GeoRank\_Markov
 ============================
 
 .. currentmodule:: giddy.markov
@@ -23,7 +23,7 @@ giddy.markov.GeoRank\_Markov
 
    .. autosummary::
    
-      ~GeoRank_Markov.fmpt
+      ~GeoRank_Markov.mfpt
       ~GeoRank_Markov.sojourn_time
       ~GeoRank_Markov.steady_state
    

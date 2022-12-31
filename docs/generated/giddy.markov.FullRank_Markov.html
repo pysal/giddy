@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>giddy.markov.FullRank_Markov &#8212; giddy v2.3.3 Manual</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="shortcut icon" href="../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -24,10 +25,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -62,7 +63,7 @@
      href="../index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-released-version">Installing released version</a></li>
@@ -131,16 +132,16 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="giddy-markov-fullrank-markov">
-<h1>giddy.markov.FullRank_Markov<a class="headerlink" href="#giddy-markov-fullrank-markov" title="Permalink to this headline">¶</a></h1>
+  <section id="giddy-markov-fullrank-markov">
+<h1>giddy.markov.FullRank_Markov<a class="headerlink" href="#giddy-markov-fullrank-markov" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
-<dt id="giddy.markov.FullRank_Markov">
-<em class="property">class </em><code class="sig-prename descclassname">giddy.markov.</code><code class="sig-name descname">FullRank_Markov</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">fill_empty_classes</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">summary</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/markov.html#FullRank_Markov"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.markov.FullRank_Markov" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="giddy.markov.FullRank_Markov">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">giddy.markov.</span></span><span class="sig-name descname"><span class="pre">FullRank_Markov</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_empty_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/markov.html#FullRank_Markov"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.markov.FullRank_Markov" title="Permalink to this definition">¶</a></dt>
 <dd><p>Full Rank Markov in which ranks are considered as Markov states rather
 than quantiles or other discretized classes. This is one way to avoid
 issues associated with discretization.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>y</strong><span class="classifier">array</span></dt><dd><p>(n, t) with t&gt;&gt;n, one row per observation (n total),
 one column recording the value of each observation,
@@ -157,7 +158,7 @@ initialization. Default is True.</p>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<p>Refer to <span id="id1">[<a class="reference internal" href="../references.html#id5"><span>Rey14b</span></a>]</span> Equation (11) for details. Ties are resolved by
+<p>Refer to <span id="id1">[<a class="reference internal" href="../references.html#id5" title="Sergio J. Rey. Rank-based Markov chains for regional income distribution dynamics. Journal of Geographical Systems, 16(2):115-137, 2014.">Rey14b</a>]</span> Equation (11) for details. Ties are resolved by
 assigning distinct ranks, corresponding to the order that the values occur
 in each cross section.</p>
 <p class="rubric">Examples</p>
@@ -184,14 +185,14 @@ in each cross section.</p>
 <span class="go">       [ 0.,  0.,  0., ...,  2.,  1., 77.]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="mi">5</span><span class="p">]</span>
 <span class="go">array([0.825 , 0.0625, 0.0625, 0.025 , 0.025 ])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">fmpt</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">mfpt</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="mi">5</span><span class="p">]</span>
 <span class="go">array([48.        , 87.96280048, 68.1089084 , 58.83306575, 41.77250827])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">m</span><span class="o">.</span><span class="n">sojourn_time</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
 <span class="go">array([5.71428571, 2.75862069, 2.22222222, 1.77777778, 1.66666667])</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Attributes</dt>
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>ranks</strong><span class="classifier">array</span></dt><dd><p>ranks of the original y array (by columns): higher values
 rank higher, e.g. the largest value in a column ranks 1.</p>
@@ -203,7 +204,7 @@ Rank Markov.</p>
 </dd>
 <dt><strong>transitions</strong><span class="classifier">array</span></dt><dd><p>(n, n), count of transitions between each rank i and j</p>
 </dd>
-<dt><strong>fmpt</strong><span class="classifier">array</span></dt><dd><p>(n, n), first mean passage times.</p>
+<dt><strong>mfpt</strong><span class="classifier">array</span></dt><dd><p>(n, n), mean first passage times.</p>
 </dd>
 <dt><strong>sojourn_time</strong><span class="classifier">array</span></dt><dd><p>(n, ), sojourn times.</p>
 </dd>
@@ -211,31 +212,22 @@ Rank Markov.</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="giddy.markov.FullRank_Markov.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">fill_empty_classes</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">summary</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/markov.html#FullRank_Markov.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.markov.FullRank_Markov.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
-</dd></dl>
+<dt class="sig sig-object py" id="giddy.markov.FullRank_Markov.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_empty_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/markov.html#FullRank_Markov.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.markov.FullRank_Markov.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <p class="rubric">Methods</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#giddy.markov.FullRank_Markov.__init__" title="giddy.markov.FullRank_Markov.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(y[, fill_empty_classes, summary])</p></td>
-<td><p>Initialize self.</p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Attributes</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">fmpt</span></code></p></td>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">mfpt</span></code></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sojourn_time</span></code></p></td>
@@ -248,7 +240,7 @@ Rank Markov.</p>
 </table>
 </dd></dl>
 
-</div>
+</section>
 
 
     </div>
@@ -270,7 +262,7 @@ Rank Markov.</p>
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br/>
     </p>
   </div>
 </footer>

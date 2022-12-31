@@ -1,33 +1,34 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>giddy.ergodic.steady_state &#8212; giddy v2.3.3 Manual</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="shortcut icon" href="../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="giddy.ergodic.fmpt" href="giddy.ergodic.fmpt.html" />
+    <link rel="next" title="giddy.ergodic.mfpt" href="giddy.ergodic.mfpt.html" />
     <link rel="prev" title="giddy.markov.sojourn_time" href="giddy.markov.sojourn_time.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -62,7 +63,7 @@
      href="../index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-released-version">Installing released version</a></li>
@@ -131,15 +132,15 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="giddy-ergodic-steady-state">
-<h1>giddy.ergodic.steady_state<a class="headerlink" href="#giddy-ergodic-steady-state" title="Permalink to this headline">¶</a></h1>
+  <section id="giddy-ergodic-steady-state">
+<h1>giddy.ergodic.steady_state<a class="headerlink" href="#giddy-ergodic-steady-state" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
-<dt id="giddy.ergodic.steady_state">
-<code class="sig-prename descclassname">giddy.ergodic.</code><code class="sig-name descname">steady_state</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">P</span></em>, <em class="sig-param"><span class="n">fill_empty_classes</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/ergodic.html#steady_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.ergodic.steady_state" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="giddy.ergodic.steady_state">
+<span class="sig-prename descclassname"><span class="pre">giddy.ergodic.</span></span><span class="sig-name descname"><span class="pre">steady_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_empty_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/ergodic.html#steady_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.ergodic.steady_state" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generalized function for calculating the steady state distribution
 for a regular or reducible Markov transition matrix P.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>P</strong><span class="classifier">array</span></dt><dd><p>(k, k), an ergodic or non-ergodic Markov transition probability
 matrix.</p>
@@ -150,7 +151,7 @@ stochastic one. Default is False.</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt>: array</dt><dd><p>If the Markov chain is irreducible, meaning that
 there is only one communicating class, there is one unique
@@ -173,24 +174,26 @@ will of (num_rclasses, k) dimension.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">giddy.ergodic</span> <span class="kn">import</span> <span class="n">steady_state</span>
 </pre></div>
 </div>
-<p>Irreducible Markov chain
-&gt;&gt;&gt; p = np.array([[.5, .25, .25],[.5,0,.5],[.25,.25,.5]])
-&gt;&gt;&gt; steady_state(p)
-array([0.4, 0.2, 0.4])</p>
-<p>Reducible Markov chain: two communicating classes
-&gt;&gt;&gt; p = np.array([[.5, .5, 0],[.2,0.8,0],[0,0,1]])
-&gt;&gt;&gt; steady_state(p)
-array([[0.28571429, 0.71428571, 0.        ],</p>
-<blockquote>
-<div><p>[0.        , 0.        , 1.        ]])</p>
-</div></blockquote>
-<p>Reducible Markov chain: two communicating classes
-&gt;&gt;&gt; p = np.array([[.5, .5, 0],[.2,0.8,0],[0,0,0]])
-&gt;&gt;&gt; steady_state(p, fill_empty_classes = True)
-array([[0.28571429, 0.71428571, 0.        ],</p>
-<blockquote>
-<div><p>[0.        , 0.        , 1.        ]])</p>
-</div></blockquote>
+<p>Irreducible Markov chain</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.25</span><span class="p">,</span> <span class="mf">.25</span><span class="p">],[</span><span class="mf">.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">.5</span><span class="p">],[</span><span class="mf">.25</span><span class="p">,</span><span class="mf">.25</span><span class="p">,</span><span class="mf">.5</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">steady_state</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="go">array([0.4, 0.2, 0.4])</span>
+</pre></div>
+</div>
+<p>Reducible Markov chain: two communicating classes</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="mf">.2</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">steady_state</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="go">array([[0.28571429, 0.71428571, 0.        ],</span>
+<span class="go">       [0.        , 0.        , 1.        ]])</span>
+</pre></div>
+</div>
+<p>Reducible Markov chain: two communicating classes</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="mf">.2</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">steady_state</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">fill_empty_classes</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="go">array([[0.28571429, 0.71428571, 0.        ],</span>
+<span class="go">       [0.        , 0.        , 1.        ]])</span>
+</pre></div>
+</div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">steady_state</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">fill_empty_classes</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 <span class="gt">Traceback (most recent call last):</span>
     <span class="o">...</span>
@@ -199,7 +202,7 @@ array([[0.28571429, 0.71428571, 0.        ],</p>
 </div>
 </dd></dl>
 
-</div>
+</section>
 
 
     </div>
@@ -221,7 +224,7 @@ array([[0.28571429, 0.71428571, 0.        ],</p>
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br/>
     </p>
   </div>
 </footer>

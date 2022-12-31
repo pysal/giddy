@@ -100,17 +100,20 @@ def steady_state(P, fill_empty_classes=False):
     >>> from giddy.ergodic import steady_state
 
     Irreducible Markov chain
+
     >>> p = np.array([[.5, .25, .25],[.5,0,.5],[.25,.25,.5]])
     >>> steady_state(p)
     array([0.4, 0.2, 0.4])
 
     Reducible Markov chain: two communicating classes
+
     >>> p = np.array([[.5, .5, 0],[.2,0.8,0],[0,0,1]])
     >>> steady_state(p)
     array([[0.28571429, 0.71428571, 0.        ],
            [0.        , 0.        , 1.        ]])
 
     Reducible Markov chain: two communicating classes
+
     >>> p = np.array([[.5, .5, 0],[.2,0.8,0],[0,0,0]])
     >>> steady_state(p, fill_empty_classes = True)
     array([[0.28571429, 0.71428571, 0.        ],
@@ -244,6 +247,7 @@ def mfpt(P, fill_empty_classes=False):
     >>> np.set_printoptions(suppress=True) #prevent scientific format
 
     Irreducible Markov chain
+
     >>> p = np.array([[.5, .25, .25],[.5,0,.5],[.25,.25,.5]])
     >>> fm = mfpt(p)
     >>> fm
@@ -259,6 +263,7 @@ def mfpt(P, fill_empty_classes=False):
 
     Reducible Markov chain: two communicating classes (this is an
     artificial example)
+
     >>> p = np.array([[.5, .5, 0],[.2,0.8,0],[0,0,1]])
     >>> mfpt(p)
     array([[3.5, 2. , inf],

@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>giddy.markov.Markov &#8212; giddy v2.3.3 Manual</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="shortcut icon" href="../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -24,10 +25,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -62,7 +63,7 @@
      href="../index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-released-version">Installing released version</a></li>
@@ -131,14 +132,14 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="giddy-markov-markov">
-<h1>giddy.markov.Markov<a class="headerlink" href="#giddy-markov-markov" title="Permalink to this headline">¶</a></h1>
+  <section id="giddy-markov-markov">
+<h1>giddy.markov.Markov<a class="headerlink" href="#giddy-markov-markov" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
-<dt id="giddy.markov.Markov">
-<em class="property">class </em><code class="sig-prename descclassname">giddy.markov.</code><code class="sig-name descname">Markov</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">class_ids</span></em>, <em class="sig-param"><span class="n">classes</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fill_empty_classes</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">summary</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/markov.html#Markov"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.markov.Markov" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="giddy.markov.Markov">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">giddy.markov.</span></span><span class="sig-name descname"><span class="pre">Markov</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_empty_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/markov.html#Markov"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.markov.Markov" title="Permalink to this definition">¶</a></dt>
 <dd><p>Classic Markov Chain estimation.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>class_ids</strong><span class="classifier">array</span></dt><dd><p>(n, t), one row per observation, one column recording the
 state of each observation, with as many columns as time
@@ -242,7 +243,7 @@ initialization. Default is True.</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Attributes</dt>
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>k</strong><span class="classifier">int</span></dt><dd><p>Number of Markov states.</p>
 </dd>
@@ -274,31 +275,22 @@ will be of (num_rclasses, k) dimension.</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="giddy.markov.Markov.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">class_ids</span></em>, <em class="sig-param"><span class="n">classes</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fill_empty_classes</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">summary</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/markov.html#Markov.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.markov.Markov.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
-</dd></dl>
+<dt class="sig sig-object py" id="giddy.markov.Markov.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_empty_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/markov.html#Markov.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.markov.Markov.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <p class="rubric">Methods</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#giddy.markov.Markov.__init__" title="giddy.markov.Markov.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(class_ids[, classes, …])</p></td>
-<td><p>Initialize self.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#giddy.markov.Markov.__init__" title="giddy.markov.Markov.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(class_ids[, classes, ...])</p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Attributes</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#giddy.markov.Markov.fmpt" title="giddy.markov.Markov.fmpt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fmpt</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#giddy.markov.Markov.mfpt" title="giddy.markov.Markov.mfpt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mfpt</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#giddy.markov.Markov.sojourn_time" title="giddy.markov.Markov.sojourn_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sojourn_time</span></code></a></p></td>
@@ -309,24 +301,24 @@ will be of (num_rclasses, k) dimension.</p>
 </tr>
 </tbody>
 </table>
-<dl class="py method">
-<dt id="giddy.markov.Markov.fmpt">
-<em class="property">property </em><code class="sig-name descname">fmpt</code><a class="headerlink" href="#giddy.markov.Markov.fmpt" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="giddy.markov.Markov.mfpt">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mfpt</span></span><a class="headerlink" href="#giddy.markov.Markov.mfpt" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="giddy.markov.Markov.sojourn_time">
-<em class="property">property </em><code class="sig-name descname">sojourn_time</code><a class="headerlink" href="#giddy.markov.Markov.sojourn_time" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="giddy.markov.Markov.sojourn_time">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sojourn_time</span></span><a class="headerlink" href="#giddy.markov.Markov.sojourn_time" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt id="giddy.markov.Markov.steady_state">
-<em class="property">property </em><code class="sig-name descname">steady_state</code><a class="headerlink" href="#giddy.markov.Markov.steady_state" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="giddy.markov.Markov.steady_state">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">steady_state</span></span><a class="headerlink" href="#giddy.markov.Markov.steady_state" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-</div>
+</section>
 
 
     </div>
@@ -348,7 +340,7 @@ will be of (num_rclasses, k) dimension.</p>
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br/>
     </p>
   </div>
 </footer>

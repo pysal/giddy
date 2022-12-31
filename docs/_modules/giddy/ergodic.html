@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>giddy.ergodic &#8212; giddy v2.3.3 Manual</title>
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/pysal-styles.css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="shortcut icon" href="../../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -22,10 +22,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -60,7 +60,7 @@
      href="../../index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../installation.html#installing-released-version">Installing released version</a></li>
@@ -132,11 +132,12 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Sergio J. Rey &lt;sjsrey@gmail.com&gt;, Wei Kang &lt;weikang9009@gmail.com&gt;&quot;</span>
 
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;steady_state&quot;</span><span class="p">,</span> <span class="s2">&quot;var_fmpt_ergodic&quot;</span><span class="p">,</span> <span class="s2">&quot;fmpt&quot;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;steady_state&quot;</span><span class="p">,</span> <span class="s2">&quot;var_mfpt_ergodic&quot;</span><span class="p">,</span> <span class="s2">&quot;mfpt&quot;</span><span class="p">]</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">numpy.linalg</span> <span class="k">as</span> <span class="nn">la</span>
 <span class="kn">import</span> <span class="nn">quantecon</span> <span class="k">as</span> <span class="nn">qe</span>
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
 <span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">fill_empty_diagonals</span>
 
 
@@ -228,17 +229,20 @@
 <span class="sd">    &gt;&gt;&gt; from giddy.ergodic import steady_state</span>
 
 <span class="sd">    Irreducible Markov chain</span>
+
 <span class="sd">    &gt;&gt;&gt; p = np.array([[.5, .25, .25],[.5,0,.5],[.25,.25,.5]])</span>
 <span class="sd">    &gt;&gt;&gt; steady_state(p)</span>
 <span class="sd">    array([0.4, 0.2, 0.4])</span>
 
 <span class="sd">    Reducible Markov chain: two communicating classes</span>
+
 <span class="sd">    &gt;&gt;&gt; p = np.array([[.5, .5, 0],[.2,0.8,0],[0,0,1]])</span>
 <span class="sd">    &gt;&gt;&gt; steady_state(p)</span>
 <span class="sd">    array([[0.28571429, 0.71428571, 0.        ],</span>
 <span class="sd">           [0.        , 0.        , 1.        ]])</span>
 
 <span class="sd">    Reducible Markov chain: two communicating classes</span>
+
 <span class="sd">    &gt;&gt;&gt; p = np.array([[.5, .5, 0],[.2,0.8,0],[0,0,0]])</span>
 <span class="sd">    &gt;&gt;&gt; steady_state(p, fill_empty_classes = True)</span>
 <span class="sd">    array([[0.28571429, 0.71428571, 0.        ],</span>
@@ -273,8 +277,14 @@
 
 
 <span class="k">def</span> <span class="nf">_fmpt_ergodic</span><span class="p">(</span><span class="n">P</span><span class="p">):</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;_fmpt_ergodic is deprecated. It will be replaced in giddy 2.5 with _mfpt_&#39;</span><span class="p">,</span>
+         <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_mfpt_ergodic</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_mfpt_ergodic</span><span class="p">(</span><span class="n">P</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Calculates the matrix of first mean passage times for an ergodic transition</span>
+<span class="sd">    Calculates the matrix of mean first passage times for an ergodic transition</span>
 <span class="sd">    probability matrix.</span>
 
 <span class="sd">    Parameters</span>
@@ -294,7 +304,7 @@
 <span class="sd">    &gt;&gt;&gt; import numpy as np</span>
 <span class="sd">    &gt;&gt;&gt; import giddy</span>
 <span class="sd">    &gt;&gt;&gt; p=np.array([[.5, .25, .25],[.5,0,.5],[.25,.25,.5]])</span>
-<span class="sd">    &gt;&gt;&gt; fm = giddy.ergodic._fmpt_ergodic(p)</span>
+<span class="sd">    &gt;&gt;&gt; fm = giddy.ergodic._mfpt_ergodic(p)</span>
 <span class="sd">    &gt;&gt;&gt; fm</span>
 <span class="sd">    array([[2.5       , 4.        , 3.33333333],</span>
 <span class="sd">           [2.66666667, 5.        , 2.66666667],</span>
@@ -332,8 +342,14 @@
 
 
 <div class="viewcode-block" id="fmpt"><a class="viewcode-back" href="../../generated/giddy.ergodic.fmpt.html#giddy.ergodic.fmpt">[docs]</a><span class="k">def</span> <span class="nf">fmpt</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">fill_empty_classes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;fmpt is deprecated. It will be replaced in giddy 2.5 with mfpt&#39;</span><span class="p">,</span>
+         <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mfpt</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">fill_empty_classes</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="mfpt"><a class="viewcode-back" href="../../generated/giddy.ergodic.mfpt.html#giddy.ergodic.mfpt">[docs]</a><span class="k">def</span> <span class="nf">mfpt</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">fill_empty_classes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Generalized function for calculating first mean passage times for an</span>
+<span class="sd">    Generalized function for calculating mean first passage times for an</span>
 <span class="sd">    ergodic or non-ergodic transition probability matrix.</span>
 
 <span class="sd">    Parameters</span>
@@ -348,7 +364,7 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    fmpt_all : array</span>
+<span class="sd">    mfpt_all : array</span>
 <span class="sd">               (k, k), elements are the expected value for the number of</span>
 <span class="sd">               intervals required for a chain starting in state i to first</span>
 <span class="sd">               enter state j. If i=j then this is the recurrence time.</span>
@@ -356,12 +372,13 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; import numpy as np</span>
-<span class="sd">    &gt;&gt;&gt; from giddy.ergodic import fmpt</span>
+<span class="sd">    &gt;&gt;&gt; from giddy.ergodic import mfpt</span>
 <span class="sd">    &gt;&gt;&gt; np.set_printoptions(suppress=True) #prevent scientific format</span>
 
 <span class="sd">    Irreducible Markov chain</span>
+
 <span class="sd">    &gt;&gt;&gt; p = np.array([[.5, .25, .25],[.5,0,.5],[.25,.25,.5]])</span>
-<span class="sd">    &gt;&gt;&gt; fm = fmpt(p)</span>
+<span class="sd">    &gt;&gt;&gt; fm = mfpt(p)</span>
 <span class="sd">    &gt;&gt;&gt; fm</span>
 <span class="sd">    array([[2.5       , 4.        , 3.33333333],</span>
 <span class="sd">           [2.66666667, 5.        , 2.66666667],</span>
@@ -375,8 +392,9 @@
 
 <span class="sd">    Reducible Markov chain: two communicating classes (this is an</span>
 <span class="sd">    artificial example)</span>
+
 <span class="sd">    &gt;&gt;&gt; p = np.array([[.5, .5, 0],[.2,0.8,0],[0,0,1]])</span>
-<span class="sd">    &gt;&gt;&gt; fmpt(p)</span>
+<span class="sd">    &gt;&gt;&gt; mfpt(p)</span>
 <span class="sd">    array([[3.5, 2. , inf],</span>
 <span class="sd">           [5. , 1.4, inf],</span>
 <span class="sd">           [inf, inf, 1. ]])</span>
@@ -388,13 +406,13 @@
 
 
 <span class="sd">    &gt;&gt;&gt; p = np.array([[.5, .5, 0],[.2,0.8,0],[0,0,0]])</span>
-<span class="sd">    &gt;&gt;&gt; fmpt(p, fill_empty_classes=True)</span>
+<span class="sd">    &gt;&gt;&gt; mfpt(p, fill_empty_classes=True)</span>
 <span class="sd">    array([[3.5, 2. , inf],</span>
 <span class="sd">           [5. , 1.4, inf],</span>
 <span class="sd">           [inf, inf, 1. ]])</span>
 
 <span class="sd">    &gt;&gt;&gt; p = np.array([[.5, .5, 0],[.2,0.8,0],[0,0,0]])</span>
-<span class="sd">    &gt;&gt;&gt; fmpt(p, fill_empty_classes=False)</span>
+<span class="sd">    &gt;&gt;&gt; mfpt(p, fill_empty_classes=False)</span>
 <span class="sd">    Traceback (most recent call last):</span>
 <span class="sd">        ...</span>
 <span class="sd">    ValueError: Input transition probability matrix has 1 rows full of 0s. Please set fill_empty_classes=True to set diagonal elements for these rows to be 1 to make sure the matrix is stochastic.</span>
@@ -416,10 +434,10 @@
     <span class="n">mc</span> <span class="o">=</span> <span class="n">qe</span><span class="o">.</span><span class="n">MarkovChain</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
     <span class="n">num_classes</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">num_communication_classes</span>
     <span class="k">if</span> <span class="n">num_classes</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">fmpt_all</span> <span class="o">=</span> <span class="n">_fmpt_ergodic</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+        <span class="n">mfpt_all</span> <span class="o">=</span> <span class="n">_mfpt_ergodic</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>  <span class="c1"># deal with non-ergodic Markov chains</span>
         <span class="n">k</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">fmpt_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
+        <span class="n">mfpt_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">desti</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
             <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
             <span class="n">p_sub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">desti</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">desti</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -450,15 +468,21 @@
                 <span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
                 <span class="o">+</span> <span class="mi">1</span>
             <span class="p">)</span>
-            <span class="n">fmpt_all</span><span class="p">[:,</span> <span class="n">desti</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">desti</span><span class="p">,</span> <span class="n">recc</span><span class="p">)</span>
-            <span class="n">fmpt_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">fmpt_all</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">1e16</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">fmpt_all</span><span class="p">)</span>
-            <span class="n">fmpt_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">fmpt_all</span> <span class="o">&gt;</span> <span class="mf">1e16</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">fmpt_all</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">fmpt_all</span></div>
+            <span class="n">mfpt_all</span><span class="p">[:,</span> <span class="n">desti</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">desti</span><span class="p">,</span> <span class="n">recc</span><span class="p">)</span>
+            <span class="n">mfpt_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mfpt_all</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mf">1e16</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">mfpt_all</span><span class="p">)</span>
+            <span class="n">mfpt_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mfpt_all</span> <span class="o">&gt;</span> <span class="mf">1e16</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">mfpt_all</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mfpt_all</span></div>
 
 
-<div class="viewcode-block" id="var_fmpt_ergodic"><a class="viewcode-back" href="../../generated/giddy.ergodic.var_fmpt_ergodic.html#giddy.ergodic.var_fmpt_ergodic">[docs]</a><span class="k">def</span> <span class="nf">var_fmpt_ergodic</span><span class="p">(</span><span class="n">P</span><span class="p">):</span>
+<div class="viewcode-block" id="var_fmpt_ergodic"><a class="viewcode-back" href="../../generated/giddy.ergodic.var_fmpt_ergodic.html#giddy.ergodic.var_fmpt_ergodic">[docs]</a><span class="k">def</span> <span class="nf">var_fmpt_ergodic</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+    <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;var_fmpt_ergodic is deprecated. It will be replaced in giddy 2.5 with var_fmpt_ergodic&#39;</span><span class="p">,</span>
+         <span class="ne">DeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">var_mfpt_ergodic</span><span class="p">(</span><span class="n">p</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="var_mfpt_ergodic"><a class="viewcode-back" href="../../generated/giddy.ergodic.var_mfpt_ergodic.html#giddy.ergodic.var_mfpt_ergodic">[docs]</a><span class="k">def</span> <span class="nf">var_mfpt_ergodic</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Variances of first mean passage times for an ergodic transition</span>
+<span class="sd">    Variances of mean first passage times for an ergodic transition</span>
 <span class="sd">    probability matrix.</span>
 
 <span class="sd">    Parameters</span>
@@ -475,9 +499,9 @@
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
 <span class="sd">    &gt;&gt;&gt; import numpy as np</span>
-<span class="sd">    &gt;&gt;&gt; from giddy.ergodic import var_fmpt_ergodic</span>
+<span class="sd">    &gt;&gt;&gt; from giddy.ergodic import var_mfpt_ergodic</span>
 <span class="sd">    &gt;&gt;&gt; p=np.array([[.5, .25, .25],[.5,0,.5],[.25,.25,.5]])</span>
-<span class="sd">    &gt;&gt;&gt; vfm=var_fmpt_ergodic(p)</span>
+<span class="sd">    &gt;&gt;&gt; vfm=var_mfpt_ergodic(p)</span>
 <span class="sd">    &gt;&gt;&gt; vfm</span>
 <span class="sd">    array([[ 5.58333333, 12.        ,  6.88888889],</span>
 <span class="sd">           [ 6.22222222, 12.        ,  6.22222222],</span>
@@ -490,7 +514,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
     <span class="n">k</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">A</span> <span class="o">=</span> <span class="n">_steady_state_ergodic</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
     <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
@@ -521,7 +545,7 @@
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br/>
     </p>
   </div>
 </footer>

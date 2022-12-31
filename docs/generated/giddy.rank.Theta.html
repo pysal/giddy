@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>giddy.rank.Theta &#8212; giddy v2.3.3 Manual</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="shortcut icon" href="../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -24,10 +25,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -62,7 +63,7 @@
      href="../index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-released-version">Installing released version</a></li>
@@ -131,19 +132,19 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="giddy-rank-theta">
-<h1>giddy.rank.Theta<a class="headerlink" href="#giddy-rank-theta" title="Permalink to this headline">¶</a></h1>
+  <section id="giddy-rank-theta">
+<h1>giddy.rank.Theta<a class="headerlink" href="#giddy-rank-theta" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
-<dt id="giddy.rank.Theta">
-<em class="property">class </em><code class="sig-prename descclassname">giddy.rank.</code><code class="sig-name descname">Theta</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">regime</span></em>, <em class="sig-param"><span class="n">permutations</span><span class="o">=</span><span class="default_value">999</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/rank.html#Theta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.rank.Theta" title="Permalink to this definition">¶</a></dt>
-<dd><p>Regime mobility measure. <span id="id1">[<a class="reference internal" href="../references.html#id10"><span>Rey04</span></a>]</span></p>
+<dt class="sig sig-object py" id="giddy.rank.Theta">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">giddy.rank.</span></span><span class="sig-name descname"><span class="pre">Theta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">999</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/rank.html#Theta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.rank.Theta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Regime mobility measure. <span id="id1">[<a class="reference internal" href="../references.html#id10" title="Sergio J. Rey. Spatial dependence in the evolution of regional income distributions. In A. Getis, J. Múr, and H. Zoeller, editors, Spatial econometrics and spatial statistics, pages 193-213. Palgrave, Hampshire, 2004.">Rey04</a>]</span></p>
 <p>For sequence of time periods Theta measures the extent to which rank
 changes for a variable measured over n locations are in the same direction
 within mutually exclusive and exhaustive partitions (regimes) of the n locations.</p>
 <p>Theta is defined as the sum of the absolute sum of rank changes within
 the regimes over the sum of all absolute rank changes.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>y</strong><span class="classifier">array</span></dt><dd><p>(n, k) with k&gt;=2, successive columns of y are later moments
 in time (years, months, etc).</p>
@@ -179,7 +180,7 @@ computationally based inference.</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Attributes</dt>
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>ranks</strong><span class="classifier">array</span></dt><dd><p>ranks of the original y array (by columns).</p>
 </dd>
@@ -205,26 +206,21 @@ greater than its expectation under complete spatial randomness.</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="giddy.rank.Theta.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">regime</span></em>, <em class="sig-param"><span class="n">permutations</span><span class="o">=</span><span class="default_value">999</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/rank.html#Theta.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.rank.Theta.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
-</dd></dl>
+<dt class="sig sig-object py" id="giddy.rank.Theta.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">999</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/rank.html#Theta.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.rank.Theta.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <p class="rubric">Methods</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#giddy.rank.Theta.__init__" title="giddy.rank.Theta.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(y, regime[, permutations])</p></td>
-<td><p>Initialize self.</p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
-</div>
+</section>
 
 
     </div>
@@ -246,7 +242,7 @@ greater than its expectation under complete spatial randomness.</p>
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br/>
     </p>
   </div>
 </footer>

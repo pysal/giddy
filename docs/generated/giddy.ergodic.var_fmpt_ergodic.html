@@ -1,33 +1,32 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>giddy.ergodic.var_fmpt_ergodic &#8212; giddy v2.3.3 Manual</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
     <link rel="shortcut icon" href="../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="giddy.directional.Rose" href="giddy.directional.Rose.html" />
-    <link rel="prev" title="giddy.ergodic.fmpt" href="giddy.ergodic.fmpt.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -62,8 +61,8 @@
      href="../index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-released-version">Installing released version</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-development-version">Installing development version</a></li>
@@ -78,8 +77,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../Sequence.html">Alignment-based sequence methods</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="../api.html#markov-methods">Markov Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#markov-methods">Markov Methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#directional-lisa">Directional LISA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#economic-mobility-indices">Economic Mobility Indices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api.html#exchange-mobility-methods">Exchange Mobility Methods</a></li>
@@ -131,44 +130,14 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="giddy-ergodic-var-fmpt-ergodic">
-<h1>giddy.ergodic.var_fmpt_ergodic<a class="headerlink" href="#giddy-ergodic-var-fmpt-ergodic" title="Permalink to this headline">¶</a></h1>
+  <section id="giddy-ergodic-var-fmpt-ergodic">
+<h1>giddy.ergodic.var_fmpt_ergodic<a class="headerlink" href="#giddy-ergodic-var-fmpt-ergodic" title="Permalink to this heading">¶</a></h1>
 <dl class="py function">
-<dt id="giddy.ergodic.var_fmpt_ergodic">
-<code class="sig-prename descclassname">giddy.ergodic.</code><code class="sig-name descname">var_fmpt_ergodic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">P</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/ergodic.html#var_fmpt_ergodic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#giddy.ergodic.var_fmpt_ergodic" title="Permalink to this definition">¶</a></dt>
-<dd><p>Variances of first mean passage times for an ergodic transition
-probability matrix.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>P</strong><span class="classifier">array</span></dt><dd><p>(k, k), an ergodic Markov transition probability matrix.</p>
-</dd>
-</dl>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><dl class="simple">
-<dt>: array</dt><dd><p>(k, k), elements are the variances for the number of intervals
-required for a chain starting in state i to first enter state j.</p>
-</dd>
-</dl>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>Uses formulation (and examples on p. 83) in <span id="id1">[<a class="reference internal" href="../references.html#id16"><span>KS67</span></a>]</span>.</p>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">giddy.ergodic</span> <span class="kn">import</span> <span class="n">var_fmpt_ergodic</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">],[</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">],[</span><span class="o">.</span><span class="mi">25</span><span class="p">,</span><span class="o">.</span><span class="mi">25</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">vfm</span><span class="o">=</span><span class="n">var_fmpt_ergodic</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">vfm</span>
-<span class="go">array([[ 5.58333333, 12.        ,  6.88888889],</span>
-<span class="go">       [ 6.22222222, 12.        ,  6.22222222],</span>
-<span class="go">       [ 6.88888889, 12.        ,  5.58333333]])</span>
-</pre></div>
-</div>
-</dd></dl>
+<dt class="sig sig-object py" id="giddy.ergodic.var_fmpt_ergodic">
+<span class="sig-prename descclassname"><span class="pre">giddy.ergodic.</span></span><span class="sig-name descname"><span class="pre">var_fmpt_ergodic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/ergodic.html#var_fmpt_ergodic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.ergodic.var_fmpt_ergodic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
-</div>
+</section>
 
 
     </div>
@@ -190,7 +159,7 @@ required for a chain starting in state i to first enter state j.</p>
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.2.<br/>
     </p>
   </div>
 </footer>
