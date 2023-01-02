@@ -66,7 +66,7 @@ def setup_package():
         maintainer="Wei Kang",
         maintainer_email="weikang9009@gmail.com",
         py_modules=["giddy"],
-        python_requires=">3.5",
+        python_requires=">3.6",
         # setup_requires=["pytest-runner"],
         # tests_require=["pytest"],
         keywords="spatial statistics, spatiotemporal analysis",
