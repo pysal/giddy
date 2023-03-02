@@ -1,5 +1,5 @@
-GeospatIal Distribution DYnamics (giddy) in PySAL
-=================================================
+PySAL-giddy for exploratory spatiotemporal data analysis
+========================================================
 
 ![Continuous Integration](https://github.com/pysal/giddy/actions/workflows/unittests.yml/badge.svg)
 [![codecov](https://codecov.io/gh/pysal/giddy/branch/master/graph/badge.svg)](https://codecov.io/gh/pysal/giddy)
@@ -9,9 +9,9 @@ GeospatIal Distribution DYnamics (giddy) in PySAL
 [![badge](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pysal/giddy/master)
 [![Downloads](https://static.pepy.tech/badge/giddy)](https://pepy.tech/project/giddy)
 
-Giddy is an open-source python library for the analysis of dynamics of
-longitudinal spatial data. Originating from the spatial dynamics module
-in [PySAL (Python Spatial Analysis Library)](http://pysal.org/), it is under active development
+Giddy is an open-source python library for exploratory spatiotemporal data analysis and the analysis of 
+geospatial distribution dynamics. 
+It is under active development
 for the inclusion of newly proposed analytics that consider the
 role of space in the evolution of distributions over time.
 
@@ -46,6 +46,8 @@ Features
 [![us_neigborsetLIMA](figs/us_neigborsetLIMA.png)](notebooks/RankBasedMethods.ipynb)
 
 - Income mobility measures
+- Alignment-based sequence analysis methods
+
 
 Examples
 --------
