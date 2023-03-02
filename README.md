@@ -1,20 +1,21 @@
-GeospatIal Distribution DYnamics (giddy) in PySAL
-=================================================
+PySAL-giddy for exploratory spatiotemporal data analysis
+========================================================
 
-![.github/workflows/unittests.yml](https://github.com/pysal/giddy/workflows/.github/workflows/unittests.yml/badge.svg?branch=master)
+![Continuous Integration](https://github.com/pysal/giddy/actions/workflows/unittests.yml/badge.svg)
 [![codecov](https://codecov.io/gh/pysal/giddy/branch/master/graph/badge.svg)](https://codecov.io/gh/pysal/giddy)
 [![Gitter room](https://badges.gitter.im/pysal/giddy.svg)](https://gitter.im/pysal/giddy)
 [![PyPI version](https://badge.fury.io/py/giddy.svg)](https://badge.fury.io/py/giddy)
 [![DOI](https://zenodo.org/badge/91390088.svg)](https://zenodo.org/badge/latestdoi/91390088)
 [![badge](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pysal/giddy/master)
+[![Downloads](https://static.pepy.tech/badge/giddy)](https://pepy.tech/project/giddy)
 
-Giddy is an open-source python library for the analysis of dynamics of
-longitudinal spatial data. Originating from the spatial dynamics module
-in [PySAL (Python Spatial Analysis Library)](http://pysal.org/), it is under active development
+Giddy is an open-source python library for exploratory spatiotemporal data analysis and the analysis of 
+geospatial distribution dynamics. 
+It is under active development
 for the inclusion of newly proposed analytics that consider the
 role of space in the evolution of distributions over time.
 
-*Below are six choropleth maps of US state per-capita incomes from 1929 to 2004 at a fifteen-year interval.*
+*Below are six choropleth maps of U.S. state per-capita incomes from 1929 to 2004 at a fifteen-year interval.*
 
 ![us_qunitile_maps](figs/us_qunitile_maps.png)
 
@@ -45,6 +46,8 @@ Features
 [![us_neigborsetLIMA](figs/us_neigborsetLIMA.png)](notebooks/RankBasedMethods.ipynb)
 
 - Income mobility measures
+- Alignment-based sequence analysis methods
+
 
 Examples
 --------
@@ -68,7 +71,7 @@ pip install giddy
 Install the development version on [pysal/giddy](https://github.com/pysal/giddy):
 
 ```
-pip install https://github.com/pysal/giddy/archive/master.zip
+pip install https://github.com/pysal/giddy/archive/main.zip
 ```
 
 #### Requirements

@@ -54,7 +54,7 @@ jobs:
       - name: install bleeding edge libpysal, esda, mapclassify & splot (Ubuntu / Python 3.10)
         shell: bash -l {0}
         run: |
-          pip install git+https://github.com/pysal/libpysal.git@master
+          pip install git+https://github.com/pysal/libpysal.git@main
           pip install git+https://github.com/pysal/esda.git@main
           pip install git+https://github.com/pysal/mapclassify.git@main
           pip install git+https://github.com/pysal/splot.git@main
