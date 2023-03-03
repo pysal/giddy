@@ -1,3 +1,64 @@
+# Version 2.3.4 (2023-03-02)
+
+We closed a total of 49 issues (enhancements and bug fixes) through 20 pull requests, since our last release on 2020-06-10.
+
+## Issues Closed
+  - small edits to long description (#187)
+  - update github action for release (#186)
+  - Update bleeding edge `libpysal` in dev envs (#185)
+  - Prepare for v2.3.4 release (#182)
+  - Adjust and update docs  (#180)
+  - changing configuration for the testing action (#181)
+  - default esda branch master -> main (#178)
+  - CI needs redesign (#172)
+  - change master to main (#174)
+  - Main (#177)
+  - refactor: deprecate fmpt and replace with mfpt (#171)
+  - update dev branches; test shapely dev (#176)
+  - Spatial_Markov gives its own set of 'k' classes even though explicitly mentioned as paramter value (#175)
+  - CI update & redesign (#173)
+  - [WIP] Add test for Python 3.9 (#164)
+  - add custom codecov schema (#167)
+  - Update docs (#170)
+  - update pysal favicon (#169)
+  - update release_and_publish.yml (#166)
+  - removing unused docs materials (#168)
+  - (doc) remove unused requirements for doc building (#165)
+  - (docs) fix docs for spatial Markov (#163)
+  - (docs) remove redirection to readthedocs as the docs are now hosted on github page (#162)
+  - allow users to pass manually calcualted spatial  lags (#88)
+  - fix for v2.3.3 docs (#160)
+  - Follow up work for release of giddy 2.3.3 (#159)
+
+## Pull Requests
+  - small edits to long description (#187)
+  - update github action for release (#186)
+  - Prepare for v2.3.4 release (#182)
+  - Adjust and update docs  (#180)
+  - changing configuration for the testing action (#181)
+  - default esda branch master -> main (#178)
+  - Main (#177)
+  - refactor: deprecate fmpt and replace with mfpt (#171)
+  - update dev branches; test shapely dev (#176)
+  - CI update & redesign (#173)
+  - add custom codecov schema (#167)
+  - Update docs (#170)
+  - update pysal favicon (#169)
+  - update release_and_publish.yml (#166)
+  - removing unused docs materials (#168)
+  - (doc) remove unused requirements for doc building (#165)
+  - (docs) fix docs for spatial Markov (#163)
+  - (docs) remove redirection to readthedocs as the docs are now hosted on github page (#162)
+  - fix for v2.3.3 docs (#160)
+  - Follow up work for release of giddy 2.3.3 (#159)
+
+The following individuals contributed to this release:
+
+  - Wei Kang
+  - James Gaboardi
+  - Serge Rey
+
+
 # Version 2.3.3 (2020-06-10)
 
 This release does not add new functionalities for spatiotemporal analytics. Instead, it features the additional support of python 3.8 and the migration of the documentation website host from readthedocs to GitHub Page. The new docs website is http://pysal.org/giddy. 

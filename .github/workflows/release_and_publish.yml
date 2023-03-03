@@ -36,25 +36,25 @@ jobs:
           python -m pip install --upgrade pip
           pip install setuptools wheel twine jupyter urllib3 pandas pyyaml
           python setup.py sdist bdist_wheel
-      - name: Run Changelog
-        run: |
-          jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.kernel_name=python3 tools/gitcount.ipynb
-      - name: Cat Changelog
-        uses: pCYSl5EDgo/cat@master
-        id: changetxt
-        with:
-          path: ./tools/changelog.md
-        env:
-          TEXT: ${{ steps.changetxt.outputs.text }}
-      - name: Create Release Notes
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            await github.request(`POST /repos/${{ github.repository }}/releases`, {
-              tag_name: "${{ github.ref }}",
-              generate_release_notes: true
-            });
+#      - name: Run Changelog
+#        run: |
+#          jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=-1 --ExecutePreprocessor.kernel_name=python3 tools/gitcount.ipynb
+#      - name: Cat Changelog
+#        uses: pCYSl5EDgo/cat@master
+#        id: changetxt
+#        with:
+#          path: ./tools/changelog.md
+#        env:
+#          TEXT: ${{ steps.changetxt.outputs.text }}
+#      - name: Create Release Notes
+#        uses: actions/github-script@v6
+#        with:
+#          github-token: ${{secrets.GITHUB_TOKEN}}
+#          script: |
+#            await github.request(`POST /repos/${{ github.repository }}/releases`, {
+#              tag_name: "${{ github.ref }}",
+#              generate_release_notes: true
+#            });
 #      - name: Create Release
 #        id: create_release
 #        uses: actions/create-release@v1
