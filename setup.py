@@ -1,8 +1,7 @@
-"""GIDDY: GeospatIal Distribution DYnamics
+"""GIDDY: GeospatIal Distribution DYnamics and Spatiotemporal Anl
 
-Giddy is an open-source python library for the analysis of dynamics of
-longitudinal spatial data. Originating from the spatial dynamics module
-in PySAL (Python Spatial Analysis Library), it is under active development
+Giddy is an open-source python library for exploratory spatiotemporal data analysis
+and the analysis of geospatial distribution dynamics. It is under active development
 for the inclusion of many newly proposed analytics that consider the
 role of space in the evolution of distributions over time and has
 several new features including inter- and intra-regional decomposition
