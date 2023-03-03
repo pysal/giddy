@@ -1,4 +1,4 @@
-"""GIDDY: GeospatIal Distribution DYnamics and Spatiotemporal Anl
+"""GIDDY: GeospatIal Distribution DYnamics and Exploratory SpatioTemporal Data Analysis (ESTDA)
 
 Giddy is an open-source python library for exploratory spatiotemporal data analysis
 and the analysis of geospatial distribution dynamics. It is under active development
