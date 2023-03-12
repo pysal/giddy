@@ -1,11 +1,11 @@
 PySAL-giddy for exploratory spatiotemporal data analysis
 ========================================================
 
-![Continuous Integration](https://github.com/pysal/giddy/actions/workflows/unittests.yml/badge.svg)
+[![Continuous Integration](https://github.com/pysal/giddy/actions/workflows/unittests.yml/badge.svg)](https://github.com/pysal/giddy/actions/workflows/unittests.yml)
 [![codecov](https://codecov.io/gh/pysal/giddy/branch/master/graph/badge.svg)](https://codecov.io/gh/pysal/giddy)
 [![Gitter room](https://badges.gitter.im/pysal/giddy.svg)](https://gitter.im/pysal/giddy)
 [![PyPI version](https://badge.fury.io/py/giddy.svg)](https://badge.fury.io/py/giddy)
-[![DOI](https://zenodo.org/badge/91390088.svg)](https://zenodo.org/badge/latestdoi/91390088)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7693957.svg)](https://doi.org/10.5281/zenodo.7693957)
 [![badge](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pysal/giddy/master)
 [![Downloads](https://static.pepy.tech/badge/giddy)](https://pepy.tech/project/giddy)
 
@@ -104,24 +104,24 @@ BibTeX Citation
 ---------------
 
 ```
-@software{wei_kang_2020_3887455,
+@software{wei_kang_2023_7693957,
   author       = {Wei Kang and
                   Sergio Rey and
                   Philip Stephens and
-                  Nicholas Malizia and
                   James Gaboardi and
+                  Nicholas Malizia and
                   Stefanie Lumnitz and
                   Levi John Wolf and
                   Charles Schmidt and
                   Jay Laura and
                   Eli Knaap},
-  title        = {pysal/giddy: Release v2.3.3},
-  month        = jun,
-  year         = 2020,
+  title        = {pysal/giddy: v2.3.4},
+  month        = mar,
+  year         = 2023,
   publisher    = {Zenodo},
-  version      = {v2.3.3},
-  doi          = {10.5281/zenodo.3887455},
-  url          = {https://doi.org/10.5281/zenodo.3887455}
+  version      = {v2.3.4},
+  doi          = {10.5281/zenodo.7693957},
+  url          = {https://doi.org/10.5281/zenodo.7693957}
 }
 ```
 
