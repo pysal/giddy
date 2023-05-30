@@ -861,7 +861,7 @@ class Spatial_Markov(object):
             for i, p in enumerate(self.P):
                 _S.append(steady_state(p))
             # if np.array(_S).dtype is np.dtype('O'):
-            self._S = np.asarray(_S)
+            self._S = np.asarray(_S, dtype=object)
         return self._S
 
     @property

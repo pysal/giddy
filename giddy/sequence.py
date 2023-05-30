@@ -11,7 +11,6 @@ import numpy as np
 import scipy.spatial.distance as d
 from .markov import Markov
 
-
 class Sequence(object):
     """
     Pairwise sequence analysis.
@@ -168,7 +167,7 @@ class Sequence(object):
         y_int = []
         for yi in y:
             y_int.append(list(map(self.label_dict.get, yi)))
-        y_int = np.array(y_int)
+        y_int = np.array(y_int, dtype=object)
 
         if subs_mat is None or indel is None:
             if dist_type is None:
