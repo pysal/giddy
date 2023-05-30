@@ -11,7 +11,6 @@ import numpy as np
 import scipy.spatial.distance as d
 from .markov import Markov
 
-
 class Sequence(object):
     """
     Pairwise sequence analysis.
