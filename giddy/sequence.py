@@ -191,7 +191,8 @@ class Sequence(object):
                             "hamming distance cannot be calculated for "
                             "sequences of unequal lengths!"
                         )
-                    hamming_dist = d.pdist(y_int, metric="hamming") * y_int.shape[1]
+
+                    hamming_dist = d.pdist(y_int.astype(int), metric="hamming") * y_int.shape[1]
                     self.seq_dis_mat = d.squareform(hamming_dist)
 
                 elif dist_type.lower() == "arbitrary":

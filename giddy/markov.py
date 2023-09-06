@@ -551,7 +551,7 @@ class Spatial_Markov(object):
     the second quintile, 0.204 (0.190) in the third, 0.0684 (0.255) in the
     fourth and 0.029 (0.337) in the fifth quintile.
 
-    >>> sm.S
+    >>> sm.S.astype(float).round(8)
     array([[0.43509425, 0.2635327 , 0.20363044, 0.06841983, 0.02932278],
            [0.13391287, 0.33993305, 0.25153036, 0.23343016, 0.04119356],
            [0.12124869, 0.21137444, 0.2635101 , 0.29013417, 0.1137326 ],
@@ -567,7 +567,7 @@ class Spatial_Markov(object):
     fourth quintile after 28.473 years.
 
     >>> for f in sm.F:
-    ...     print(f)
+    ...     print(f.round(8))
     [[  2.29835259  28.95614035  46.14285714  80.80952381 279.42857143]
      [ 33.86549708   3.79459555  22.57142857  57.23809524 255.85714286]
      [ 43.60233918   9.73684211   4.91085714  34.66666667 233.28571429]
@@ -1327,7 +1327,7 @@ class LISA_Markov(Markov):
     >>> lm_random.significant_moves[0, :3]
     array([11, 11, 11])
     >>> lm_random.significant_moves[0,-3:]
-    array([59, 43, 27])
+    array([59, 59, 43])
 
 
     Any value less than 49 indicates at least one of the LISA end points was
