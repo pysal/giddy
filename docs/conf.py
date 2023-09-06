@@ -20,7 +20,7 @@ import sys, os
 import sphinx_bootstrap_theme
 
 
-sys.path.insert(0, os.path.abspath("../../"))
+sys.path.insert(0, os.path.abspath("../"))
 
 import giddy
 
@@ -289,7 +289,7 @@ intersphinx_mapping = {
 # This is processed by Jinja2 and inserted before each notebook
 nbsphinx_prolog = r"""
 {% set docname = env.doc2path(env.docname, base=None).replace("nblink","ipynb") %}
-{% set fullpath = env.doc2path(env.docname, base='tree/master/notebooks/').replace("nblink","ipynb") %}
+{% set fullpath = env.doc2path(env.docname, base='tree/main/notebooks/').replace("nblink","ipynb") %}
 
 .. only:: html
 
@@ -300,7 +300,7 @@ nbsphinx_prolog = r"""
 
         This page was generated from `{{ docname }}`__.
         Interactive online version:
-        :raw-html:`<a href="https://mybinder.org/v2/gh/pysal/giddy/master?filepath={{ docname }}"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a>`
+        :raw-html:`<a href="https://mybinder.org/v2/gh/pysal/giddy/main?filepath={{ docname }}"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a>`
 
     __ https://github.com/pysal/giddy/{{ fullpath }}
 
