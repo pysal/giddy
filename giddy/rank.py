@@ -95,7 +95,7 @@ class Theta:
         n, k = y.shape
         ranks_d = ranks[:, list(range(1, k))] - ranks[:, list(range(k - 1))]
         self.ranks_d = ranks_d
-        regimes = sp.unique(regime)
+        regimes = np.unique(regime)
         self.regimes = regimes
         self.total = sum(abs(ranks_d))
         self.max_total = sum([abs(i - n + i - 1) for i in range(1, n + 1)])
@@ -152,15 +152,15 @@ class Tau:
     >>> x1 = [12, 2, 1, 12, 2]
     >>> x2 = [1, 4, 7, 1, 0]
     >>> kt = Tau(x1,x2)
-    >>> kt.tau
-    -0.47140452079103173
-    >>> kt.tau_p
-    0.24821309157521476
+    >>> print("%.5f" % kt.tau)
+    -0.47140
+    >>> print("%.5f" % kt.tau_p)
+    0.24821
     >>> tau, p = kendalltau(x1,x2)
-    >>> tau
-    -0.4714045207910316
-    >>> p
-    0.2827454599327748
+    >>> print("%.5f" % tau)
+    -0.47140
+    >>> print("%.5f" % p)
+    0.28275
 
     """
 
