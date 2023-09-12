@@ -19,7 +19,6 @@ dependencies:
   - pytest-xdist
   # docs (this env only)
   - nbsphinx
-  - nbsphinx-link
   - numpydoc
   - sphinx>=1.4.3
   - sphinxcontrib-bibtex
