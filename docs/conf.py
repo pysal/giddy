@@ -45,7 +45,6 @@ extensions = [  #'sphinx_gallery.gen_gallery',
     #'sphinx.ext.napoleon',
     "matplotlib.sphinxext.plot_directive",
     "nbsphinx",
-    "nbsphinx_link",
 ]
 
 # Configure the extension for sphinxcontrib.bibtex: set bibtex_bibfiles to the list of bib files.
@@ -118,7 +117,7 @@ todo_include_todos = False
 # html_theme = 'alabaster'
 html_theme = "bootstrap"
 html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
-html_title = "%s v%s Manual" % (project, version)
+html_title = f"{project} v{version} Manual"
 
 # (Optional) Logo. Should be small enough to fit the navbar (ideally 24x24).
 # Path should be relative to the ``_static`` files directory.
@@ -288,8 +287,7 @@ intersphinx_mapping = {
 
 # This is processed by Jinja2 and inserted before each notebook
 nbsphinx_prolog = r"""
-{% set docname = env.doc2path(env.docname, base=None).replace("nblink","ipynb") %}
-{% set fullpath = env.doc2path(env.docname, base='tree/main/notebooks/').replace("nblink","ipynb") %}
+{% set docname = env.doc2path(env.docname, base=None) %}
 
 .. only:: html
 
@@ -302,7 +300,7 @@ nbsphinx_prolog = r"""
         Interactive online version:
         :raw-html:`<a href="https://mybinder.org/v2/gh/pysal/giddy/main?filepath={{ docname }}"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a>`
 
-    __ https://github.com/pysal/giddy/{{ fullpath }}
+    __ https://github.com/pysal/giddy/blob/main/{{ docname }}
 
 .. raw:: latex
 
@@ -325,3 +323,8 @@ nbsphinx_execute_arguments = [
     "--InlineBackend.figure_formats={'svg', 'pdf'}",
     "--InlineBackend.rc={'figure.dpi': 96}",
 ]
+
+
+mathjax3_config = {
+    "TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": True}},
+}
