@@ -1,4 +1,4 @@
-/* Make thumbnails with equal heights */
+/* Make thumbnails with equal heights  */
 @media only screen and (min-width : 481px) {
     .row.equal-height {
         display: flex;
