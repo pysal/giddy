@@ -11,6 +11,7 @@ import numpy as np
 import scipy.spatial.distance as d
 from .markov import Markov
 
+
 class Sequence(object):
     """
     Pairwise sequence analysis.
@@ -153,7 +154,6 @@ class Sequence(object):
     """
 
     def __init__(self, y, subs_mat=None, dist_type=None, indel=None, cluster_type=None):
-
         y = np.asarray(y)
         merged = list(itertools.chain.from_iterable(y))
         self.classes = np.unique(merged)
@@ -192,7 +192,9 @@ class Sequence(object):
                             "sequences of unequal lengths!"
                         )
 
-                    hamming_dist = d.pdist(y_int.astype(int), metric="hamming") * y_int.shape[1]
+                    hamming_dist = (
+                        d.pdist(y_int.astype(int), metric="hamming") * y_int.shape[1]
+                    )
                     self.seq_dis_mat = d.squareform(hamming_dist)
 
                 elif dist_type.lower() == "arbitrary":
