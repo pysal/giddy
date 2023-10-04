@@ -124,7 +124,7 @@ def steady_state(P, fill_empty_classes=False):
         ...
     ValueError: Input transition probability matrix has 1 rows full of 0s. Please set fill_empty_classes=True to set diagonal elements for these rows to be 1 to make sure the matrix is stochastic.
 
-    """
+    """  # noqa E501
 
     P = np.asarray(P)
     rows0 = (P.sum(axis=1) == 0).sum()
@@ -204,7 +204,7 @@ def _mfpt_ergodic(P):
     for i in range(k):
         A[:, i] = ss
     A = A.transpose()
-    I = np.identity(k)
+    I = np.identity(k)  # noqa E741
     Z = la.inv(I - P + A)
     E = np.ones_like(Z)
     A_diag = np.diag(A)
@@ -293,7 +293,7 @@ def mfpt(P, fill_empty_classes=False):
     Traceback (most recent call last):
         ...
     ValueError: Input transition probability matrix has 1 rows full of 0s. Please set fill_empty_classes=True to set diagonal elements for these rows to be 1 to make sure the matrix is stochastic.
-    """
+    """  # noqa E501
 
     P = np.asarray(P)
     rows0 = (P.sum(axis=1) == 0).sum()
@@ -353,7 +353,10 @@ def mfpt(P, fill_empty_classes=False):
 
 def var_fmpt_ergodic(p):
     warn(
-        "var_fmpt_ergodic is deprecated. It will be replaced in giddy 2.5 with var_fmpt_ergodic",
+        (
+            "var_fmpt_ergodic is deprecated. It will be "
+            "replaced in giddy 2.5 with var_fmpt_ergodic"
+        ),
         DeprecationWarning,
         stacklevel=2,
     )
@@ -398,7 +401,7 @@ def var_mfpt_ergodic(p):
     k = P.shape[0]
     A = _steady_state_ergodic(P)
     A = np.tile(A, (k, 1))
-    I = np.identity(k)
+    I = np.identity(k)  # noqa E741
     Z = la.inv(I - P + A)
     E = np.ones_like(Z)
     D = np.diag(1.0 / np.diag(A))
