@@ -16,7 +16,6 @@ __all__ = [
 from scipy.stats.mstats import rankdata
 from scipy.special import erfc
 import numpy as np
-import scipy as sp
 from libpysal import weights
 
 
@@ -184,7 +183,7 @@ class Tau:
         n = len(y)
         perm = list(range(n))
         perm.sort(key=lambda a: (x[a], y[a]))
-        vals = y[perm]
+        #vals = y[perm]
         ExtraY = 0
         ExtraX = 0
         ACount = 0
@@ -315,8 +314,9 @@ class SpatialTau(object):
     taus               : float
                          spatial tau values for permuted samples (if permutations>0).
     tau_spatial_psim   : float
-                         one-sided pseudo p-value for observed tau_spatial under the null
-                         of spatial randomness of rank exchanges (if permutations>0).
+                         one-sided pseudo p-value for observed tau_spatial
+                         under the null of spatial randomness of rank exchanges
+                         (if permutations>0).
 
     Notes
     -----
