@@ -19,7 +19,6 @@ import numpy as np
 from .ergodic import steady_state, mfpt
 from .util import fill_empty_diagonals
 from .components import Graph
-from warnings import warn
 from scipy import stats
 from scipy.stats import rankdata
 from operator import gt
@@ -282,12 +281,12 @@ class Markov(object):
                     )
                 print(*self.astates_indices, sep=", ")
 
-    @property
-    def mfpt(self):
-        warn("self._mfpt is deprecated. Please use self._mfpt")
-        if not hasattr(self, "_mfpt"):
-            self._mfpt = mfpt(self.p, fill_empty_classes=True)
-        return self._mfpt
+    #@property
+    #def mfpt(self):
+    #    warn("self._mfpt is deprecated. Please use self._mfpt")
+    #    if not hasattr(self, "_mfpt"):
+    #        self._mfpt = mfpt(self.p, fill_empty_classes=True)
+    #    return self._mfpt
 
     @property
     def mfpt(self):
@@ -708,7 +707,9 @@ class Spatial_Markov(object):
     We can easily adjust this assigning `fill_empty_classes = True` when initializing
     `Spatial_Markov`.
 
-    >>> sm = Spatial_Markov(rpci, w, cutoffs=cc, lag_cutoffs=cc, fill_empty_classes=True)
+    >>> sm = Spatial_Markov(
+    ...     rpci, w, cutoffs=cc, lag_cutoffs=cc, fill_empty_classes=True
+    ... )
     >>> for p in sm.P:
     ...     print(p)
     [[0.96703297 0.03296703 0.         0.         0.        ]
@@ -1127,7 +1128,7 @@ def chi2(T1, T2):
 
     .. math::
 
-            E_{i,j} = \sum_j T1_{i,j} * T2_{i,j}/\sum_j T2_{i,j}
+            E_{i,j} = \\sum_j T1_{i,j} * T2_{i,j}/\\sum_j T2_{i,j}
 
     Degrees of freedom corrected for any rows in either T1 or T2 that have
     zero total transitions.
@@ -1849,7 +1850,7 @@ class Homogeneity_Results:
         lead = "-" * width
         head = title.center(width)
         contents = [lead, head, lead]
-        l = "Number of regimes: %d" % int(self.m)
+        l = "Number of regimes: %d" % int(self.m)  # noqa E741
         k = "Number of classes: %d" % int(self.k)
         r = "Regime names: "
         r += ", ".join(regime_names)
@@ -2085,13 +2086,13 @@ def sojourn_time(p, summary=True):
     >>> sojourn_time(p)
     Sojourn times are infinite for absorbing states! In this Markov Chain, states [2] are absorbing states.
     array([ 2.,  1., inf])
-    """
+    """  # noqa E501
 
     p = np.asarray(p)
     if (p.sum(axis=1) == 0).sum() > 0:
         p = fill_empty_diagonals(p)
 
-    markovchain = qe.MarkovChain(p)
+    #markovchain = qe.MarkovChain(p)
     pii = p.diagonal()
 
     if not (1 - pii).all():
@@ -2212,8 +2213,10 @@ class GeoRank_Markov(Markov):
     """
 
     def __init__(self, y, fill_empty_classes=False, summary=True):
+
         y = np.asarray(y)
-        n = y.shape[0]
+        #n = y.shape[0]
+
         # resolve ties: All values are given a distinct rank, corresponding
         # to the order that the values occur in each cross section.
         ranks = np.array([rankdata(col, method="ordinal") for col in y.T]).T
