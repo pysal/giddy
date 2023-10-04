@@ -84,7 +84,14 @@ class Sequence(object):
 
     1.2 User-defined substitution cost matrix and indel cost
 
-    >>> subs_mat = np.array([[0, 0.76, 0.29, 0.05],[0.30, 0, 0.40, 0.60],[0.16, 0.61, 0, 0.26],[0.38, 0.20, 0.12, 0]])
+    >>> subs_mat = np.array(
+    ...     [
+    ...         [0, 0.76, 0.29, 0.05],
+    ...         [0.30, 0, 0.40, 0.60],
+    ...         [0.16, 0.61, 0, 0.26],
+    ...         [0.38, 0.20, 0.12, 0]
+    ...     ]
+    ... )
     >>> indel = subs_mat.max()
     >>> seqAna = Sequence([seq1,seq2,seq3], subs_mat=subs_mat, indel=indel)
     >>> seqAna.seq_dis_mat
@@ -117,7 +124,14 @@ class Sequence(object):
     between different types is always 1 and indel cost is 2) - give the same
     sequence distance matrix as "hamming" distance
 
-    >>> subs_mat = np.array([[0., 1., 1., 1.],[1., 0., 1., 1.],[1., 1., 0., 1.],[1., 1., 1., 0.]])
+    >>> subs_mat = np.array(
+    ...     [
+    ...         [0., 1., 1., 1.],
+    ...         [1., 0., 1., 1.],
+    ...         [1., 1., 0., 1.],
+    ...         [1., 1., 1., 0.]
+    ...     ]
+    ... )
     >>> indel = 2
     >>> seqAna = Sequence([seq1,seq2,seq3], subs_mat=subs_mat, indel=indel)
     >>> seqAna.seq_dis_mat
@@ -130,7 +144,14 @@ class Sequence(object):
     slightly different sequence distance matrix from "hamming" distance since
     insertion and deletion is happening
 
-    >>> subs_mat = np.array([[0., 1., 1., 1.],[1., 0., 1., 1.],[1., 1., 0.,1.],[1., 1., 1., 0.]])
+    >>> subs_mat = np.array(
+    ...     [
+    ...         [0., 1., 1., 1.],
+    ...         [1., 0., 1., 1.],
+    ...         [1., 1., 0., 1.],
+    ...         [1., 1., 1., 0.]
+    ...     ]
+    ... )
     >>> indel = 1
     >>> seqAna = Sequence([seq1,seq2,seq3], subs_mat=subs_mat, indel=indel)
     >>> seqAna.seq_dis_mat
@@ -151,7 +172,7 @@ class Sequence(object):
     >>> seqAna = Sequence([seq1,seq2,seq3], indel=indel)
     Traceback (most recent call last):
     ValueError: Please specify a proper `dist_type` or `subs_mat` and `indel` to proceed!
-    """
+    """  # noqa E501
 
     def __init__(self, y, subs_mat=None, dist_type=None, indel=None, cluster_type=None):
         y = np.asarray(y)
