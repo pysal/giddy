@@ -7,10 +7,10 @@ __version__ = "2.3.4"
 
 """
 
-from . import directional
-from . import ergodic
-from . import markov
-from . import mobility
-from . import rank
-from . import util
-from . import sequence
+from . import directional  # noqa F401, E402
+from . import ergodic  # noqa F401, E402
+from . import markov  # noqa F401, E402
+from . import mobility  # noqa F401, E402
+from . import rank  # noqa F401, E402
+from . import util  # noqa F401, E402
+from . import sequence  # noqa F401, E402
