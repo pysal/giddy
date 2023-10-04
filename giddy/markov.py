@@ -281,8 +281,8 @@ class Markov(object):
                     )
                 print(*self.astates_indices, sep=", ")
 
-    #@property
-    #def mfpt(self):
+    # @property
+    # def mfpt(self):
     #    warn("self._mfpt is deprecated. Please use self._mfpt")
     #    if not hasattr(self, "_mfpt"):
     #        self._mfpt = mfpt(self.p, fill_empty_classes=True)
@@ -2092,7 +2092,7 @@ def sojourn_time(p, summary=True):
     if (p.sum(axis=1) == 0).sum() > 0:
         p = fill_empty_diagonals(p)
 
-    #markovchain = qe.MarkovChain(p)
+    # markovchain = qe.MarkovChain(p)
     pii = p.diagonal()
 
     if not (1 - pii).all():
@@ -2213,9 +2213,8 @@ class GeoRank_Markov(Markov):
     """
 
     def __init__(self, y, fill_empty_classes=False, summary=True):
-
         y = np.asarray(y)
-        #n = y.shape[0]
+        # n = y.shape[0]
 
         # resolve ties: All values are given a distinct rank, corresponding
         # to the order that the values occur in each cross section.

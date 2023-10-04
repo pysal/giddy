@@ -183,7 +183,7 @@ class Tau:
         n = len(y)
         perm = list(range(n))
         perm.sort(key=lambda a: (x[a], y[a]))
-        #vals = y[perm]
+        # vals = y[perm]
         ExtraY = 0
         ExtraX = 0
         ACount = 0
