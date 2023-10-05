@@ -284,7 +284,7 @@ class Markov(object):
 
     @property
     def mfpt(self):
-        warn('self._mfpt is deprecated. Please use self._mfpt')
+        warn("self._mfpt is deprecated. Please use self._mfpt")
         if not hasattr(self, "_mfpt"):
             self._mfpt = mfpt(self.p, fill_empty_classes=True)
         return self._mfpt
@@ -800,7 +800,6 @@ class Spatial_Markov(object):
         variable_name=None,
         fill_empty_classes=False,
     ):
-
         y = np.asarray(y)
         self.fixed = fixed
         self.discrete = discrete
@@ -2038,7 +2037,6 @@ class FullRank_Markov(Markov):
     """
 
     def __init__(self, y, fill_empty_classes=False, summary=True):
-
         y = np.asarray(y)
         # resolve ties: All values are given a distinct rank, corresponding
         # to the order that the values occur in each cross section.

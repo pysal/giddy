@@ -351,7 +351,6 @@ class SpatialTau(object):
     """
 
     def __init__(self, x, y, w, permutations=0):
-
         w.transform = "b"
         self.n = len(x)
         res = Tau(x, y)
@@ -478,7 +477,6 @@ class Tau_Local:
     """
 
     def __init__(self, x, y):
-
         self.n = len(x)
         x = np.asarray(x)
         y = np.asarray(y)
@@ -596,7 +594,6 @@ class Tau_Local_Neighbor:
     """
 
     def __init__(self, x, y, w, permutations=0):
-
         x = np.asarray(x)
         y = np.asarray(y)
         self.n = len(x)
@@ -751,7 +748,6 @@ class Tau_Local_Neighborhood:
     """
 
     def __init__(self, x, y, w, permutations=0):
-
         x = np.asarray(x)
         y = np.asarray(y)
         res = Tau_Local(x, y)
@@ -885,7 +881,6 @@ class Tau_Regional:
     """
 
     def __init__(self, x, y, regime, permutations=0):
-
         x = np.asarray(x)
         y = np.asarray(y)
         res = Tau_Local(x, y)
@@ -926,7 +921,6 @@ class Tau_Regional:
             self.tau_reg_pvalues = pvalues
 
     def _calc(self, W, WH, P, S):
-
         nomi = np.dot(P, np.dot(S, P.T))
         denomi = np.dot(P, np.dot(W, P.T)) + np.dot(P, np.dot(WH, P.T))
         T = nomi / denomi

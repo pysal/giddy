@@ -148,8 +148,11 @@ def steady_state(P, fill_empty_classes=False):
 
 
 def _fmpt_ergodic(P):
-    warn('_fmpt_ergodic is deprecated. It will be replaced in giddy 2.5 with _mfpt_',
-         DeprecationWarning, stacklevel=2)
+    warn(
+        "_fmpt_ergodic is deprecated. It will be replaced in giddy 2.5 with _mfpt_",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return _mfpt_ergodic(P)
 
 
@@ -213,8 +216,11 @@ def _mfpt_ergodic(P):
 
 
 def fmpt(P, fill_empty_classes=False):
-    warn('fmpt is deprecated. It will be replaced in giddy 2.5 with mfpt',
-         DeprecationWarning, stacklevel=2)
+    warn(
+        "fmpt is deprecated. It will be replaced in giddy 2.5 with mfpt",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return mfpt(P, fill_empty_classes)
 
 
@@ -346,8 +352,11 @@ def mfpt(P, fill_empty_classes=False):
 
 
 def var_fmpt_ergodic(p):
-    warn('var_fmpt_ergodic is deprecated. It will be replaced in giddy 2.5 with var_fmpt_ergodic',
-         DeprecationWarning, stacklevel=2)
+    warn(
+        "var_fmpt_ergodic is deprecated. It will be replaced in giddy 2.5 with var_fmpt_ergodic",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return var_mfpt_ergodic(p)
 
 
