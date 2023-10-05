@@ -1076,7 +1076,7 @@ class Spatial_Markov(object):
 
 
 def chi2(T1, T2):
-    """
+    r"""
     chi-squared test of difference between two transition matrices.
 
     Parameters
@@ -1128,7 +1128,7 @@ def chi2(T1, T2):
 
     .. math::
 
-            E_{i,j} = \\sum_j T1_{i,j} * T2_{i,j}/\\sum_j T2_{i,j}
+            E_{i,j} = \sum_j T1_{i,j} * T2_{i,j}/\sum_j T2_{i,j}
 
     Degrees of freedom corrected for any rows in either T1 or T2 that have
     zero total transitions.
