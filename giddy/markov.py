@@ -281,13 +281,6 @@ class Markov(object):
                     )
                 print(*self.astates_indices, sep=", ")
 
-    # @property
-    # def mfpt(self):
-    #    warn("self._mfpt is deprecated. Please use self._mfpt")
-    #    if not hasattr(self, "_mfpt"):
-    #        self._mfpt = mfpt(self.p, fill_empty_classes=True)
-    #    return self._mfpt
-
     @property
     def mfpt(self):
         if not hasattr(self, "_mfpt"):
@@ -1850,14 +1843,14 @@ class Homogeneity_Results:
         lead = "-" * width
         head = title.center(width)
         contents = [lead, head, lead]
-        l = "Number of regimes: %d" % int(self.m)  # noqa E741
+        L = "Number of regimes: %d" % int(self.m)
         k = "Number of classes: %d" % int(self.k)
         r = "Regime names: "
         r += ", ".join(regime_names)
         t = "Number of transitions: %d" % int(self.t_total)
         contents.append(k)
         contents.append(t)
-        contents.append(l)
+        contents.append(L)
         contents.append(r)
         contents.append(lead)
         h = "%7s %20s %20s" % ("Test", "LR", "Chi-2")
@@ -2086,7 +2079,7 @@ def sojourn_time(p, summary=True):
     >>> sojourn_time(p)
     Sojourn times are infinite for absorbing states! In this Markov Chain, states [2] are absorbing states.
     array([ 2.,  1., inf])
-    """  # noqa E501
+    """
 
     p = np.asarray(p)
     if (p.sum(axis=1) == 0).sum() > 0:

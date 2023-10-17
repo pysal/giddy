@@ -172,7 +172,7 @@ class Sequence(object):
     >>> seqAna = Sequence([seq1,seq2,seq3], indel=indel)
     Traceback (most recent call last):
     ValueError: Please specify a proper `dist_type` or `subs_mat` and `indel` to proceed!
-    """  # noqa E501
+    """
 
     def __init__(self, y, subs_mat=None, dist_type=None, indel=None, cluster_type=None):
         y = np.asarray(y)
