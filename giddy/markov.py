@@ -19,7 +19,6 @@ import numpy as np
 from .ergodic import steady_state, mfpt
 from .util import fill_empty_diagonals
 from .components import Graph
-from warnings import warn
 from scipy import stats
 from scipy.stats import rankdata
 from operator import gt
@@ -281,13 +280,6 @@ class Markov(object):
                         )
                     )
                 print(*self.astates_indices, sep=", ")
-
-    @property
-    def mfpt(self):
-        warn("self._mfpt is deprecated. Please use self._mfpt")
-        if not hasattr(self, "_mfpt"):
-            self._mfpt = mfpt(self.p, fill_empty_classes=True)
-        return self._mfpt
 
     @property
     def mfpt(self):
@@ -708,7 +700,9 @@ class Spatial_Markov(object):
     We can easily adjust this assigning `fill_empty_classes = True` when initializing
     `Spatial_Markov`.
 
-    >>> sm = Spatial_Markov(rpci, w, cutoffs=cc, lag_cutoffs=cc, fill_empty_classes=True)
+    >>> sm = Spatial_Markov(
+    ...     rpci, w, cutoffs=cc, lag_cutoffs=cc, fill_empty_classes=True
+    ... )
     >>> for p in sm.P:
     ...     print(p)
     [[0.96703297 0.03296703 0.         0.         0.        ]
@@ -1075,7 +1069,7 @@ class Spatial_Markov(object):
 
 
 def chi2(T1, T2):
-    """
+    r"""
     chi-squared test of difference between two transition matrices.
 
     Parameters
@@ -1849,14 +1843,14 @@ class Homogeneity_Results:
         lead = "-" * width
         head = title.center(width)
         contents = [lead, head, lead]
-        l = "Number of regimes: %d" % int(self.m)
+        L = "Number of regimes: %d" % int(self.m)
         k = "Number of classes: %d" % int(self.k)
         r = "Regime names: "
         r += ", ".join(regime_names)
         t = "Number of transitions: %d" % int(self.t_total)
         contents.append(k)
         contents.append(t)
-        contents.append(l)
+        contents.append(L)
         contents.append(r)
         contents.append(lead)
         h = "%7s %20s %20s" % ("Test", "LR", "Chi-2")
@@ -2091,7 +2085,7 @@ def sojourn_time(p, summary=True):
     if (p.sum(axis=1) == 0).sum() > 0:
         p = fill_empty_diagonals(p)
 
-    markovchain = qe.MarkovChain(p)
+    # markovchain = qe.MarkovChain(p)
     pii = p.diagonal()
 
     if not (1 - pii).all():
@@ -2213,7 +2207,8 @@ class GeoRank_Markov(Markov):
 
     def __init__(self, y, fill_empty_classes=False, summary=True):
         y = np.asarray(y)
-        n = y.shape[0]
+        # n = y.shape[0]
+
         # resolve ties: All values are given a distinct rank, corresponding
         # to the order that the values occur in each cross section.
         ranks = np.array([rankdata(col, method="ordinal") for col in y.T]).T

@@ -6,7 +6,7 @@ __author__ = "Sergio J. Rey <sjsrey@gmail.com>"
 
 __all__ = ["Rose"]
 
-import warnings
+
 import numpy as np
 from libpysal import weights
 from libpysal.common import requires as _requires
@@ -27,7 +27,8 @@ class Rose(object):
     Parameters
     ----------
     Y : array (n,2)
-        Columns correspond to end-point time periods to calculate LISA vectors for n object.
+        Columns correspond to end-point time periods to
+        calculate LISA vectors for n object.
     w : PySAL W
         Spatial weights object.
     k : int
@@ -349,10 +350,8 @@ class Rose(object):
         Plot vectors of positional transition of LISA values starting
         from the same origin.
         """
-        import matplotlib.cm as cm
         import matplotlib.pyplot as plt
 
-        ax = plt.subplot(111)
         xlim = [self._dx.min(), self._dx.max()]
         ylim = [self._dy.min(), self._dy.max()]
         for x, y in zip(self._dx, self._dy):
