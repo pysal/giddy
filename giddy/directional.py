@@ -350,10 +350,8 @@ class Rose(object):
         Plot vectors of positional transition of LISA values starting
         from the same origin.
         """
-        # import matplotlib.cm as cm
         import matplotlib.pyplot as plt
 
-        # ax = plt.subplot(111)
         xlim = [self._dx.min(), self._dx.max()]
         ylim = [self._dy.min(), self._dy.max()]
         for x, y in zip(self._dx, self._dy):
