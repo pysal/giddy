@@ -13,10 +13,10 @@ __all__ = [
     "Tau_Regional",
 ]
 
-from scipy.stats.mstats import rankdata
-from scipy.special import erfc
 import numpy as np
 from libpysal import weights
+from scipy.special import erfc
+from scipy.stats.mstats import rankdata
 
 
 class Theta:
@@ -264,7 +264,7 @@ class Tau:
         return tau, pval, Concordant, Discordant, ExtraX, ExtraY
 
 
-class SpatialTau(object):
+class SpatialTau:
     """
     Spatial version of Kendall's rank correlation statistic.
 
@@ -415,7 +415,7 @@ def pseudop(sim, observed, nperm):
     return psim
 
 
-class Tau_Local:
+class Tau_Local:  # noqa N801 – Class name should use CapWords convention
     """
     Local version of the classic Tau.
 
@@ -491,7 +491,7 @@ class Tau_Local:
         self.tau_local = si * 1.0 / (self.n - 1)
 
 
-class Tau_Local_Neighbor:
+class Tau_Local_Neighbor:  # noqa N801 – Class name should use CapWords convention
     """
     Neighbor set LIMA.
 
@@ -628,7 +628,7 @@ class Tau_Local_Neighbor:
             self.tau_ln_sim = tau_ln_sim
             self.tau_ln_pvalues = tau_ln_pvalues
 
-    def _calc_r(self, xi, yi, xj, yj, w):
+    def _calc_r(self, xi, yi, xj, yj, w):  # noqa ARG002 – Unused method argument: `w`
         dx = xi - xj
         dy = yi - yj
         dxdy = dx * dy
@@ -659,7 +659,7 @@ class Tau_Local_Neighbor:
             return tau_ln, tau_ln_weights
 
 
-class Tau_Local_Neighborhood:
+class Tau_Local_Neighborhood:  # noqa N801 – Class name should use CapWords convention
     """
     Neighborhood set LIMA.
 
@@ -796,7 +796,7 @@ class Tau_Local_Neighborhood:
             self.tau_lnhood_pvalues = tau_lnhood_pvalues
 
 
-class Tau_Regional:
+class Tau_Regional:  # noqa N801 – Class name should use CapWords convention
     """
     Inter and intraregional decomposition of the classic Tau.
 
