@@ -1,0 +1,108 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+
+[project]
+name = "giddy"
+dynamic = ["version"]
+maintainers = [
+    {name = "Wei Kang", email = "weikang9009@gmail.com"},
+]
+license = {text = "BSD 3-Clause"}
+description = "PySAL-giddy for exploratory spatiotemporal data analysis"
+keywords = ["spatial statistics", "spatiotemporal analysis"]
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: GIS",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "esda>=2.1.1",
+    "libpysal>=4.0.1",
+    "quantecon>=0.4.7",
+    "scipy>=1.3",
+]
+
+[project.urls]
+Home = "https://pysal.org/giddy/"
+Repository = "https://github.com/pysal/giddy"
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "ruff",
+    "pre-commit",
+]
+docs = [
+    "nbsphinx",
+    "numpydoc",
+    "sphinx",
+    "sphinxcontrib-bibtex",
+    "sphinx_bootstrap_theme",
+]
+tests = [
+    "codecov",
+    "ipywidgets",
+    "matplotlib",
+    "pytest",
+    "pytest-cov",
+    "pytest-xdist",
+    "splot",
+]
+
+[tool.setuptools.packages.find]
+include = [
+    "giddy",
+    "giddy.*",
+]
+
+[tool.black]
+line-length = 88
+extend-exclude = '''
+(
+  docs/conf.py
+)
+#'''
+
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "W", "I", "UP", "N", "B", "A", "C4", "SIM", "ARG"]
+target-version = "py39"
+ignore = [
+    "B006",
+    "B008",
+    "B009",
+    "B010",
+    "C408",
+    "E731",
+    "F401",
+    "F403",
+    "N803",
+    "N806",
+    "N999",
+    "UP007"
+]
+exclude = ["giddy/tests/*", "docs/*"]
+
+[tool.coverage.run]
+source = ["./giddy"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "if self.debug:",
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "except ModuleNotFoundError:",
+    "except ImportError",
+]
+ignore_errors = true
+omit = ["giddy/tests/*", "docs/conf.py"]
