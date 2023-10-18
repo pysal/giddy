@@ -5,10 +5,12 @@ __author__ = "Sergio J. Rey <sjsrey@gmail.com>, Wei Kang <weikang9009@gmail.com>
 
 __all__ = ["steady_state", "var_mfpt_ergodic", "mfpt"]
 
+from warnings import warn
+
 import numpy as np
 import numpy.linalg as la
 import quantecon as qe
-from warnings import warn
+
 from .util import fill_empty_diagonals
 
 
@@ -124,7 +126,7 @@ def steady_state(P, fill_empty_classes=False):
         ...
     ValueError: Input transition probability matrix has 1 rows full of 0s. Please set fill_empty_classes=True to set diagonal elements for these rows to be 1 to make sure the matrix is stochastic.
 
-    """
+    """  # noqa E501
 
     P = np.asarray(P)
     rows0 = (P.sum(axis=1) == 0).sum()
@@ -293,7 +295,7 @@ def mfpt(P, fill_empty_classes=False):
     Traceback (most recent call last):
         ...
     ValueError: Input transition probability matrix has 1 rows full of 0s. Please set fill_empty_classes=True to set diagonal elements for these rows to be 1 to make sure the matrix is stochastic.
-    """
+    """  # noqa E501
 
     P = np.asarray(P)
     rows0 = (P.sum(axis=1) == 0).sum()
@@ -325,20 +327,19 @@ def mfpt(P, fill_empty_classes=False):
             try:
                 m[none0] = np.linalg.solve(p_calc, b)
             except np.linalg.LinAlgError as err:
-                if "Singular matrix" in str(err):
-                    if (row0 == 0).sum() > 0:
-                        index0 = set(np.argwhere(row0 == 0).flatten())
+                if "Singular matrix" in str(err) and (row0 == 0).sum() > 0:
+                    index0 = set(np.argwhere(row0 == 0).flatten())
+                    x = (p_calc[:, list(index0)] != 0).sum(axis=1)
+                    setx = set(np.argwhere(x).flatten())
+                    while not setx.issubset(index0):
+                        index0 = index0.union(setx)
                         x = (p_calc[:, list(index0)] != 0).sum(axis=1)
                         setx = set(np.argwhere(x).flatten())
-                        while not setx.issubset(index0):
-                            index0 = index0.union(setx)
-                            x = (p_calc[:, list(index0)] != 0).sum(axis=1)
-                            setx = set(np.argwhere(x).flatten())
-                        none0 = np.asarray(list(set(none0).difference(index0)))
-                        if len(none0) >= 1:
-                            p_calc = p_calc[none0, :][:, none0]
-                            b = b[none0]
-                            m[none0] = np.linalg.solve(p_calc, b)
+                    none0 = np.asarray(list(set(none0).difference(index0)))
+                    if len(none0) >= 1:
+                        p_calc = p_calc[none0, :][:, none0]
+                        b = b[none0]
+                        m[none0] = np.linalg.solve(p_calc, b)
             recc = (
                 np.nan_to_num(
                     (np.delete(P, desti, 1)[desti] * m), 0, posinf=np.inf
