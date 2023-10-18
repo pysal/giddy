@@ -15,18 +15,20 @@ __all__ = [
     "GeoRank_Markov",
 ]
 
+import itertools
+from operator import gt
+
+import mapclassify as mc
 import numpy as np
-from .ergodic import steady_state, mfpt
-from .util import fill_empty_diagonals
-from .components import Graph
+import quantecon as qe
+from esda.moran import Moran_Local
+from libpysal import weights
 from scipy import stats
 from scipy.stats import rankdata
-from operator import gt
-from libpysal import weights
-from esda.moran import Moran_Local
-import mapclassify as mc
-import itertools
-import quantecon as qe
+
+from .components import Graph
+from .ergodic import mfpt, steady_state
+from .util import fill_empty_diagonals
 
 # TT predefine LISA transitions
 # TT[i,j] is the transition type from i to j
@@ -61,7 +63,7 @@ for i, sig_key in enumerate(sig_keys):
             c += 1
 
 
-class Markov(object):
+class Markov:
     """
     Classic Markov Chain estimation.
 
@@ -239,8 +241,8 @@ class Markov(object):
 
         self.cclasses_indices = markovchain.communication_classes_indices
         self.rclasses_indices = markovchain.recurrent_classes_indices
-        transient = set(list(map(tuple, self.cclasses_indices))).difference(
-            set(list(map(tuple, self.rclasses_indices)))
+        transient = set(map(tuple, self.cclasses_indices)).difference(
+            set(map(tuple, self.rclasses_indices))
         )
         self.num_tclasses = len(transient)
         if len(transient):
@@ -258,7 +260,7 @@ class Markov(object):
             if self.num_rclasses == 1:
                 print("1 Recurrent class (indices):")
             else:
-                print("{0} Recurrent classes (indices):".format(self.num_rclasses))
+                print(f"{self.num_rclasses} Recurrent classes (indices):")
             print(*self.rclasses_indices, sep=", ")
             if self.num_tclasses == 0:
                 print("0 Transient classes.")
@@ -266,7 +268,7 @@ class Markov(object):
                 if self.num_tclasses == 1:
                     print("1 Transient class (indices):")
                 else:
-                    print("{0} Transient classes (indices):".format(self.num_tclasses))
+                    print(f"{self.num_tclasses} Transient classes (indices):")
                 print(*self.tclasses_indices, sep=", ")
             if self.num_astates == 0:
                 print("The Markov Chain has 0 absorbing states.")
@@ -275,9 +277,8 @@ class Markov(object):
                     print("The Markov Chain has 1 absorbing state (index):")
                 else:
                     print(
-                        "The Markov Chain has {0} absorbing states (indices):".format(
-                            self.num_astates
-                        )
+                        f"The Markov Chain has {self.num_astates} "
+                        "absorbing states (indices):"
                     )
                 print(*self.astates_indices, sep=", ")
 
@@ -300,7 +301,7 @@ class Markov(object):
         return self._st
 
 
-class Spatial_Markov(object):
+class Spatial_Markov:  # noqa N801 – Class name should use CapWords convention
     """
     Markov transitions conditioned on the value of the spatial lag.
 
@@ -848,10 +849,10 @@ class Spatial_Markov(object):
         return self._s
 
     @property
-    def S(self):
+    def S(self):  # noqa N802 – Function name should be lowercase
         if not hasattr(self, "_S"):
             _S = []
-            for i, p in enumerate(self.P):
+            for p in self.P:
                 _S.append(steady_state(p))
             # if np.array(_S).dtype is np.dtype('O'):
             self._S = np.asarray(_S, dtype=object)
@@ -864,7 +865,7 @@ class Spatial_Markov(object):
         return self._f
 
     @property
-    def F(self):
+    def F(self):  # noqa N802 – Function name should be lowercase
         if not hasattr(self, "_F"):
             F = np.zeros_like(self.P)
             for i, p in enumerate(self.P):
@@ -880,23 +881,23 @@ class Spatial_Markov(object):
         return self._ht
 
     @property
-    def Q(self):
+    def Q(self):  # noqa N802 – Function name should be lowercase
         if not hasattr(self, "_Q"):
             self._Q = self.ht.Q
         return self._Q
 
     @property
-    def Q_p_value(self):
+    def Q_p_value(self):  # noqa N802 – Function name should be lowercase
         self._Q_p_value = self.ht.Q_p_value
         return self._Q_p_value
 
     @property
-    def LR(self):
+    def LR(self):  # noqa N802 – Function name should be lowercase
         self._LR = self.ht.LR
         return self._LR
 
     @property
-    def LR_p_value(self):
+    def LR_p_value(self):  # noqa N802 – Function name should be lowercase
         self._LR_p_value = self.ht.LR_p_value
         return self._LR_p_value
 
@@ -1145,7 +1146,7 @@ def chi2(T1, T2):
     return chi2, pvalue, dof
 
 
-class LISA_Markov(Markov):
+class LISA_Markov(Markov):  # noqa N801 – Class name should use CapWords convention
     """
     Markov for Local Indicators of Spatial Association
 
@@ -1529,8 +1530,8 @@ class LISA_Markov(Markov):
                             spill_ids.append(j)
                             break
                 for spill_id in spill_ids:
-                    id = self.w.id2i[spill_id]
-                    spill_over[id, t] = 1
+                    id_ = self.w.id2i[spill_id]
+                    spill_over[id_, t] = 1
                 for c, component in enumerate(components1):
                     for i in component:
                         ii = self.w.id2i[i]
@@ -1725,7 +1726,7 @@ def homogeneity(
     )
 
 
-class Homogeneity_Results:
+class Homogeneity_Results:  # noqa N801 – Class name should use CapWords convention
     """
     Wrapper class to present homogeneity results.
 
@@ -1861,7 +1862,7 @@ class Homogeneity_Results:
         contents.append(stat)
         stat = "%7s %20.3f %20.3f" % ("p-value", self.LR_p_value, self.Q_p_value)
         contents.append(stat)
-        print(("\n".join(contents)))
+        print("\n".join(contents))
         print(lead)
 
         cols = ["P(%s)" % str(regime) for regime in self.regime_names]
@@ -1874,14 +1875,14 @@ class Homogeneity_Results:
         p0 = []
         line0 = ["{s: <{w}}".format(s="P(H0)", w=col_width)]
         line0.extend(
-            (["{s: >{w}}".format(s=cname, w=col_width) for cname in self.class_names])
+            ["{s: >{w}}".format(s=cname, w=col_width) for cname in self.class_names]
         )
-        print(("    ".join(line0)))
+        print("    ".join(line0))
         p0.append("&".join(line0))
         for i, row in enumerate(self.p_h0):
             line = ["%*s" % (col_width, str(self.class_names[i]))]
             line.extend(["%*.3f" % (col_width, v) for v in row])
-            print(("    ".join(line)))
+            print("    ".join(line))
             p0.append("&".join(line))
         pmats = [p0]
 
@@ -1890,19 +1891,19 @@ class Homogeneity_Results:
             p0 = []
             line0 = ["{s: <{w}}".format(s="P(%s)" % regime_names[r], w=col_width)]
             line0.extend(
-                (
+
                     [
                         "{s: >{w}}".format(s=cname, w=col_width)
                         for cname in self.class_names
                     ]
-                )
+
             )
-            print(("    ".join(line0)))
+            print("    ".join(line0))
             p0.append("&".join(line0))
             for i, row in enumerate(p1):
                 line = ["%*s" % (col_width, str(self.class_names[i]))]
                 line.extend(["%*.3f" % (col_width, v) for v in row])
-                print(("    ".join(line)))
+                print("    ".join(line))
                 p0.append("&".join(line))
             pmats.append(p0)
             print(lead)
@@ -1910,22 +1911,22 @@ class Homogeneity_Results:
         if file_name:
             k = self.k
             ks = str(k + 1)
-            with open(file_name, "w") as f:
+            with open(file_name + ".tex", "w") as f:
                 c = []
                 fmt = "r" * (k + 1)
                 s = "\\begin{tabular}{|%s|}\\hline\n" % fmt
-                s += "\\multicolumn{%s}{|c|}{%s}" % (ks, title)
+                s += "\\multicolumn{%s}{|c|}{%s}" % (ks, title)  # noqa UP031
                 c.append(s)
                 s = "Number of classes: %d" % int(self.k)
-                c.append("\\hline\\multicolumn{%s}{|l|}{%s}" % (ks, s))
+                c.append("\\hline\\multicolumn{%s}{|l|}{%s}" % (ks, s))  # noqa UP031
                 s = "Number of transitions: %d" % int(self.t_total)
-                c.append("\\multicolumn{%s}{|l|}{%s}" % (ks, s))
+                c.append("\\multicolumn{%s}{|l|}{%s}" % (ks, s))  # noqa UP031
                 s = "Number of regimes: %d" % int(self.m)
-                c.append("\\multicolumn{%s}{|l|}{%s}" % (ks, s))
+                c.append("\\multicolumn{%s}{|l|}{%s}" % (ks, s))  # noqa UP031
                 s = "Regime names: "
                 s += ", ".join(regime_names)
-                c.append("\\multicolumn{%s}{|l|}{%s}" % (ks, s))
-                s = "\\hline\\multicolumn{2}{|l}{%s}" % ("Test")
+                c.append("\\multicolumn{%s}{|l|}{%s}" % (ks, s))  # noqa UP031
+                s = "\\hline\\multicolumn{2}{|l}{%s}" % ("Test")  # noqa UP031
                 s += "&\\multicolumn{2}{r}{LR}&\\multicolumn{2}{r|}{Q}"
                 c.append(s)
                 s = "Stat."
@@ -1933,11 +1934,11 @@ class Homogeneity_Results:
                 s += "&\\multicolumn{2}{r}{%.3f}" % self.LR
                 s += "&\\multicolumn{2}{r|}{%.3f}" % self.Q
                 c.append(s)
-                s = "\\multicolumn{2}{|l}{%s}" % ("DOF")
+                s = "\\multicolumn{2}{|l}{%s}" % ("DOF")  # noqa UP031
                 s += "&\\multicolumn{2}{r}{%d}" % int(self.dof)
                 s += "&\\multicolumn{2}{r|}{%d}" % int(self.dof)
                 c.append(s)
-                s = "\\multicolumn{2}{|l}{%s}" % ("p-value")
+                s = "\\multicolumn{2}{|l}{%s}" % ("p-value")  # noqa UP031
                 s += "&\\multicolumn{2}{r}{%.3f}" % self.LR_p_value
                 s += "&\\multicolumn{2}{r|}{%.3f}" % self.Q_p_value
                 c.append(s)
@@ -1954,7 +1955,7 @@ class Homogeneity_Results:
                 f.write(s1 + s2)
 
 
-class FullRank_Markov(Markov):
+class FullRank_Markov(Markov):  # noqa N801 – Class name should use CapWords convention
     """
     Full Rank Markov in which ranks are considered as Markov states rather
     than quantiles or other discretized classes. This is one way to avoid
@@ -2037,7 +2038,7 @@ class FullRank_Markov(Markov):
         r_asc = np.array([rankdata(col, method="ordinal") for col in y.T]).T
         # ranks by high (1) to low (n)
         self.ranks = r_asc.shape[0] - r_asc + 1
-        super(FullRank_Markov, self).__init__(
+        super().__init__(
             self.ranks, fill_empty_classes=fill_empty_classes, summary=summary
         )
 
@@ -2079,7 +2080,7 @@ def sojourn_time(p, summary=True):
     >>> sojourn_time(p)
     Sojourn times are infinite for absorbing states! In this Markov Chain, states [2] are absorbing states.
     array([ 2.,  1., inf])
-    """
+    """  # noqa E501
 
     p = np.asarray(p)
     if (p.sum(axis=1) == 0).sum() > 0:
@@ -2095,9 +2096,7 @@ def sojourn_time(p, summary=True):
         if summary:
             print(
                 "Sojourn times are infinite for absorbing states! In this "
-                "Markov Chain, states {} are absorbing states.".format(
-                    list(absorbing_states)
-                )
+                f"Markov Chain, states {list(absorbing_states)} are absorbing states."
             )
         st[non_absorbing_states] = 1 / (1 - pii[non_absorbing_states])
     else:
@@ -2105,7 +2104,7 @@ def sojourn_time(p, summary=True):
     return st
 
 
-class GeoRank_Markov(Markov):
+class GeoRank_Markov(Markov):  # noqa N801 – Class name should use CapWords convention
     """
     Geographic Rank Markov.
     Geographic units are considered as Markov states.
@@ -2213,6 +2212,6 @@ class GeoRank_Markov(Markov):
         # to the order that the values occur in each cross section.
         ranks = np.array([rankdata(col, method="ordinal") for col in y.T]).T
         geo_ranks = np.argsort(ranks, axis=0) + 1
-        super(GeoRank_Markov, self).__init__(
+        super().__init__(
             geo_ranks, fill_empty_classes=fill_empty_classes, summary=summary
         )
