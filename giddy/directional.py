@@ -200,7 +200,12 @@ class Rose:
         rose diagram conditional on the starting relative income:
 
         >>> fig1, _ = r8.plot(attribute=Y[:,0])
-        >>> plt.show()
+        >>> plt.show(block=False)
+
+        Close plot when finished viewing.
+
+        >>> plt.close("all")
+
         """
 
         self.Y = Y
