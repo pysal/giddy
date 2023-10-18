@@ -1,6 +1,3 @@
-__version__ = "2.3.4"
-# __version__ has to be defined in the first line
-
 """
 :mod:`giddy` --- Spatial Dynamics and Mobility
 ==============================================
