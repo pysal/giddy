@@ -17,7 +17,7 @@ _NEG8 = 1 - _POS8
 _NEG4 = 1 - _POS4
 
 
-class Rose(object):
+class Rose:
     """
     Rose diagram based inference for directional LISAs.
 
@@ -292,9 +292,9 @@ class Rose(object):
             P = NEG * L + (1 - NEG) * S
             self.p = P
         else:
-            print(("Bad option for alternative: %s." % alternative))
+            print("Bad option for alternative: %s." % alternative)
 
-    def _calc(self, Y, w, k):
+    def _calc(self, Y, w, k):  # noqa ARG002 – Unused method argument: `k`
         wY = weights.lag_spatial(w, Y)
         dx = Y[:, -1] - Y[:, 0]
         dy = wY[:, -1] - wY[:, 0]
