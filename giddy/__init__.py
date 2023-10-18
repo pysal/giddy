@@ -4,10 +4,4 @@
 
 """
 
-from . import directional
-from . import ergodic
-from . import markov
-from . import mobility
-from . import rank
-from . import util
-from . import sequence
+from . import directional, ergodic, markov, mobility, rank, sequence, util
