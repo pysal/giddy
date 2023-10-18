@@ -4,8 +4,9 @@ Utilities for the spatial dynamics module.
 
 __all__ = ["shuffle_matrix", "get_lower", "fill_empty_diagonals"]
 
-import numpy as np
 import copy
+
+import numpy as np
 
 
 def shuffle_matrix(X, ids):
