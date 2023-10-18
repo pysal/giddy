@@ -11,7 +11,7 @@ import numpy.linalg as la
 
 
 def markov_mobility(p, measure="P", ini=None):
-    """
+    r"""
     Markov-based mobility index.
 
     Parameters
