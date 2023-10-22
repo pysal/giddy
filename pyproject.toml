@@ -92,6 +92,18 @@ ignore = [
     "UP007"
 ]
 exclude = ["giddy/tests/*", "docs/*"]
+[tool.ruff.per-file-ignores]
+"giddy/directional.py" = [
+    "ARG002",  # Unused method argument
+]
+"giddy/markov.py" = [
+    "N801",  # Class name should use CapWords convention
+    "N802",  # Function name should be lowercase
+]
+"giddy/rank.py" = [
+    "N801",
+    "ARG002",
+]
 
 [tool.coverage.run]
 source = ["./giddy"]

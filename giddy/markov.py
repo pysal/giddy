@@ -301,7 +301,7 @@ class Markov:
         return self._st
 
 
-class Spatial_Markov:  # noqa N801 – Class name should use CapWords convention
+class Spatial_Markov:
     """
     Markov transitions conditioned on the value of the spatial lag.
 
@@ -849,7 +849,7 @@ class Spatial_Markov:  # noqa N801 – Class name should use CapWords convention
         return self._s
 
     @property
-    def S(self):  # noqa N802 – Function name should be lowercase
+    def S(self):
         if not hasattr(self, "_S"):
             _S = []
             for p in self.P:
@@ -865,7 +865,7 @@ class Spatial_Markov:  # noqa N801 – Class name should use CapWords convention
         return self._f
 
     @property
-    def F(self):  # noqa N802 – Function name should be lowercase
+    def F(self):
         if not hasattr(self, "_F"):
             F = np.zeros_like(self.P)
             for i, p in enumerate(self.P):
@@ -881,23 +881,23 @@ class Spatial_Markov:  # noqa N801 – Class name should use CapWords convention
         return self._ht
 
     @property
-    def Q(self):  # noqa N802 – Function name should be lowercase
+    def Q(self):
         if not hasattr(self, "_Q"):
             self._Q = self.ht.Q
         return self._Q
 
     @property
-    def Q_p_value(self):  # noqa N802 – Function name should be lowercase
+    def Q_p_value(self):
         self._Q_p_value = self.ht.Q_p_value
         return self._Q_p_value
 
     @property
-    def LR(self):  # noqa N802 – Function name should be lowercase
+    def LR(self):
         self._LR = self.ht.LR
         return self._LR
 
     @property
-    def LR_p_value(self):  # noqa N802 – Function name should be lowercase
+    def LR_p_value(self):
         self._LR_p_value = self.ht.LR_p_value
         return self._LR_p_value
 
@@ -1146,7 +1146,7 @@ def chi2(T1, T2):
     return chi2, pvalue, dof
 
 
-class LISA_Markov(Markov):  # noqa N801 – Class name should use CapWords convention
+class LISA_Markov(Markov):
     """
     Markov for Local Indicators of Spatial Association
 
@@ -1726,7 +1726,7 @@ def homogeneity(
     )
 
 
-class Homogeneity_Results:  # noqa N801 – Class name should use CapWords convention
+class Homogeneity_Results:
     """
     Wrapper class to present homogeneity results.
 
@@ -1891,12 +1891,7 @@ class Homogeneity_Results:  # noqa N801 – Class name should use CapWords conve
             p0 = []
             line0 = ["{s: <{w}}".format(s="P(%s)" % regime_names[r], w=col_width)]
             line0.extend(
-
-                    [
-                        "{s: >{w}}".format(s=cname, w=col_width)
-                        for cname in self.class_names
-                    ]
-
+                ["{s: >{w}}".format(s=cname, w=col_width) for cname in self.class_names]
             )
             print("    ".join(line0))
             p0.append("&".join(line0))
@@ -1955,7 +1950,7 @@ class Homogeneity_Results:  # noqa N801 – Class name should use CapWords conve
                 f.write(s1 + s2)
 
 
-class FullRank_Markov(Markov):  # noqa N801 – Class name should use CapWords convention
+class FullRank_Markov(Markov):
     """
     Full Rank Markov in which ranks are considered as Markov states rather
     than quantiles or other discretized classes. This is one way to avoid
@@ -2104,7 +2099,7 @@ def sojourn_time(p, summary=True):
     return st
 
 
-class GeoRank_Markov(Markov):  # noqa N801 – Class name should use CapWords convention
+class GeoRank_Markov(Markov):
     """
     Geographic Rank Markov.
     Geographic units are considered as Markov states.

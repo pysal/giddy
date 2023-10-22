@@ -415,7 +415,7 @@ def pseudop(sim, observed, nperm):
     return psim
 
 
-class Tau_Local:  # noqa N801 – Class name should use CapWords convention
+class Tau_Local:
     """
     Local version of the classic Tau.
 
@@ -491,7 +491,7 @@ class Tau_Local:  # noqa N801 – Class name should use CapWords convention
         self.tau_local = si * 1.0 / (self.n - 1)
 
 
-class Tau_Local_Neighbor:  # noqa N801 – Class name should use CapWords convention
+class Tau_Local_Neighbor:
     """
     Neighbor set LIMA.
 
@@ -628,7 +628,7 @@ class Tau_Local_Neighbor:  # noqa N801 – Class name should use CapWords conven
             self.tau_ln_sim = tau_ln_sim
             self.tau_ln_pvalues = tau_ln_pvalues
 
-    def _calc_r(self, xi, yi, xj, yj, w):  # noqa ARG002 – Unused method argument: `w`
+    def _calc_r(self, xi, yi, xj, yj, w):
         dx = xi - xj
         dy = yi - yj
         dxdy = dx * dy
@@ -659,7 +659,7 @@ class Tau_Local_Neighbor:  # noqa N801 – Class name should use CapWords conven
             return tau_ln, tau_ln_weights
 
 
-class Tau_Local_Neighborhood:  # noqa N801 – Class name should use CapWords convention
+class Tau_Local_Neighborhood:
     """
     Neighborhood set LIMA.
 
@@ -796,7 +796,7 @@ class Tau_Local_Neighborhood:  # noqa N801 – Class name should use CapWords co
             self.tau_lnhood_pvalues = tau_lnhood_pvalues
 
 
-class Tau_Regional:  # noqa N801 – Class name should use CapWords convention
+class Tau_Regional:
     """
     Inter and intraregional decomposition of the classic Tau.
 
