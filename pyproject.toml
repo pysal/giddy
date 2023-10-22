@@ -122,7 +122,7 @@ omit = ["giddy/tests/*", "docs/conf.py"]
 [tool.pytest.ini_options]
 filterwarnings = [
     "ignore:The weights matrix is not fully connected",             # libpysal
-    "ignore:Objects based on the `Geometry` class will deprecated", # libpysa
+    "ignore:Objects based on the `Geometry` class will deprecated", # libpysal
     "ignore:divide by zero encountered",
     "ignore:invalid value encountered",
     "ignore:numba.generated_jit is deprecated.",                    # numba/quantecon
