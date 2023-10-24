@@ -124,9 +124,11 @@ def steady_state(P, fill_empty_classes=False):
     >>> steady_state(p, fill_empty_classes = False)
     Traceback (most recent call last):
         ...
-    ValueError: Input transition probability matrix has 1 rows full of 0s. Please set fill_empty_classes=True to set diagonal elements for these rows to be 1 to make sure the matrix is stochastic.
+    ValueError: Input transition probability matrix has 1 rows full of 0s. \
+Please set fill_empty_classes=True to set diagonal elements for these \
+rows to be 1 to make sure the matrix is stochastic.
 
-    """  # noqa E501
+    """
 
     P = np.asarray(P)
     rows0 = (P.sum(axis=1) == 0).sum()
@@ -294,8 +296,10 @@ def mfpt(P, fill_empty_classes=False):
     >>> mfpt(p, fill_empty_classes=False)
     Traceback (most recent call last):
         ...
-    ValueError: Input transition probability matrix has 1 rows full of 0s. Please set fill_empty_classes=True to set diagonal elements for these rows to be 1 to make sure the matrix is stochastic.
-    """  # noqa E501
+    ValueError: Input transition probability matrix has 1 rows full of 0s. \
+Please set fill_empty_classes=True to set diagonal elements for these \
+rows to be 1 to make sure the matrix is stochastic.
+    """  
 
     P = np.asarray(P)
     rows0 = (P.sum(axis=1) == 0).sum()
