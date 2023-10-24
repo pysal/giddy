@@ -1910,18 +1910,18 @@ class Homogeneity_Results:
                 c = []
                 fmt = "r" * (k + 1)
                 s = "\\begin{tabular}{|%s|}\\hline\n" % fmt
-                s += "\\multicolumn{%s}{|c|}{%s}" % (ks, title)  # noqa UP031
+                s += "\\multicolumn{%s}{|c|}{%s}" % (ks, title)
                 c.append(s)
                 s = "Number of classes: %d" % int(self.k)
-                c.append("\\hline\\multicolumn{%s}{|l|}{%s}" % (ks, s))  # noqa UP031
+                c.append("\\hline\\multicolumn{%s}{|l|}{%s}" % (ks, s))
                 s = "Number of transitions: %d" % int(self.t_total)
-                c.append("\\multicolumn{%s}{|l|}{%s}" % (ks, s))  # noqa UP031
+                c.append("\\multicolumn{%s}{|l|}{%s}" % (ks, s))
                 s = "Number of regimes: %d" % int(self.m)
-                c.append("\\multicolumn{%s}{|l|}{%s}" % (ks, s))  # noqa UP031
+                c.append("\\multicolumn{%s}{|l|}{%s}" % (ks, s))
                 s = "Regime names: "
                 s += ", ".join(regime_names)
-                c.append("\\multicolumn{%s}{|l|}{%s}" % (ks, s))  # noqa UP031
-                s = "\\hline\\multicolumn{2}{|l}{%s}" % ("Test")  # noqa UP031
+                c.append("\\multicolumn{%s}{|l|}{%s}" % (ks, s))
+                s = "\\hline\\multicolumn{2}{|l}{%s}" % ("Test")
                 s += "&\\multicolumn{2}{r}{LR}&\\multicolumn{2}{r|}{Q}"
                 c.append(s)
                 s = "Stat."
@@ -1929,11 +1929,11 @@ class Homogeneity_Results:
                 s += "&\\multicolumn{2}{r}{%.3f}" % self.LR
                 s += "&\\multicolumn{2}{r|}{%.3f}" % self.Q
                 c.append(s)
-                s = "\\multicolumn{2}{|l}{%s}" % ("DOF")  # noqa UP031
+                s = "\\multicolumn{2}{|l}{%s}" % ("DOF")
                 s += "&\\multicolumn{2}{r}{%d}" % int(self.dof)
                 s += "&\\multicolumn{2}{r|}{%d}" % int(self.dof)
                 c.append(s)
-                s = "\\multicolumn{2}{|l}{%s}" % ("p-value")  # noqa UP031
+                s = "\\multicolumn{2}{|l}{%s}" % ("p-value")
                 s += "&\\multicolumn{2}{r}{%.3f}" % self.LR_p_value
                 s += "&\\multicolumn{2}{r|}{%.3f}" % self.Q_p_value
                 c.append(s)
