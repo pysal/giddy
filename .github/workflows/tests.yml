@@ -18,8 +18,6 @@ on:
 
 jobs:
   unittests:
-    env:
-      RUN_TEST: pytest giddy --cov giddy -v -n auto -r a --cov-config .coveragerc --cov-report xml --color yes --cov-append --cov-report term-missing
     name: ${{ matrix.os }}, ${{ matrix.environment-file }}
     runs-on: ${{ matrix.os }}
     defaults:
@@ -30,7 +28,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         environment-file:
-          - ci/39.yaml
+          - ci/39-MIN.yaml
           - ci/310.yaml
           - ci/311.yaml
           - ci/311-DEV.yaml
@@ -72,7 +70,7 @@ jobs:
         if: contains(matrix.environment-file, 'DEV')
       
       - name: run tests
-        run: ${{ env.RUN_TEST }}
+        run: pytest giddy --cov giddy -v -n auto -r a --doctest-modules --color yes --cov-report term-missing --cov-report xml
       
       - name: codecov
         uses: codecov/codecov-action@v3

@@ -17,7 +17,7 @@ _NEG8 = 1 - _POS8
 _NEG4 = 1 - _POS4
 
 
-class Rose(object):
+class Rose:
     """
     Rose diagram based inference for directional LISAs.
 
@@ -200,7 +200,12 @@ class Rose(object):
         rose diagram conditional on the starting relative income:
 
         >>> fig1, _ = r8.plot(attribute=Y[:,0])
-        >>> plt.show()
+        >>> plt.show(block=False)
+
+        Close plot when finished viewing.
+
+        >>> plt.close("all")
+
         """
 
         self.Y = Y
@@ -292,7 +297,7 @@ class Rose(object):
             P = NEG * L + (1 - NEG) * S
             self.p = P
         else:
-            print(("Bad option for alternative: %s." % alternative))
+            print("Bad option for alternative: %s." % alternative)
 
     def _calc(self, Y, w, k):
         wY = weights.lag_spatial(w, Y)

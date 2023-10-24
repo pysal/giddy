@@ -13,10 +13,10 @@ __all__ = [
     "Tau_Regional",
 ]
 
-from scipy.stats.mstats import rankdata
-from scipy.special import erfc
 import numpy as np
 from libpysal import weights
+from scipy.special import erfc
+from scipy.stats.mstats import rankdata
 
 
 class Theta:
@@ -264,7 +264,7 @@ class Tau:
         return tau, pval, Concordant, Discordant, ExtraX, ExtraY
 
 
-class SpatialTau(object):
+class SpatialTau:
     """
     Spatial version of Kendall's rank correlation statistic.
 

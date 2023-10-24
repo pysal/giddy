@@ -1,16 +1,13 @@
-__version__ = "2.3.4"
-# __version__ has to be defined in the first line
-
 """
 :mod:`giddy` --- Spatial Dynamics and Mobility
 ==============================================
 
 """
 
-from . import directional
-from . import ergodic
-from . import markov
-from . import mobility
-from . import rank
-from . import util
-from . import sequence
+import contextlib
+from importlib.metadata import PackageNotFoundError, version
+
+from . import directional, ergodic, markov, mobility, rank, sequence, util
+
+with contextlib.suppress(PackageNotFoundError):
+    __version__ = version("giddy")

@@ -1,3 +1,4 @@
+import pytest
 import unittest
 from .. import ergodic
 import numpy as np
@@ -58,7 +59,8 @@ class Mfpt_Tester(unittest.TestCase):
         )
         np.testing.assert_array_almost_equal(exp, obs)
 
-        obs = ergodic.fmpt(self.p2)
+        with pytest.warns(DeprecationWarning, match="fmpt is deprecated."):
+            obs = ergodic.fmpt(self.p2)
         exp = np.array(
             [
                 [2.66666667, 2.0, np.inf],
