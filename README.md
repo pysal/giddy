@@ -1,11 +1,11 @@
 PySAL-giddy for exploratory spatiotemporal data analysis
 ============================================
 
-[![Continuous Integration](https://github.com/pysal/giddy/actions/workflows/testing.yml/badge.svg)](https://github.com/pysal/giddy/actions/workflows/testing.yml)
+[![Continuous Integration](https://github.com/pysal/giddy/actions/workflows/tests.yml/badge.svg)](https://github.com/pysal/giddy/actions/workflows/tests.yml)
 [![codecov](https://codecov.io/gh/pysal/giddy/branch/main/graph/badge.svg)](https://codecov.io/gh/pysal/giddy)
 [![Gitter room](https://badges.gitter.im/pysal/giddy.svg)](https://gitter.im/pysal/giddy)
 [![PyPI version](https://badge.fury.io/py/giddy.svg)](https://badge.fury.io/py/giddy)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7693957.svg)](https://doi.org/10.5281/zenodo.7693957)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1322825.svg)](https://doi.org/10.5281/zenodo.1322825)
 [![badge](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pysal/giddy/main)
 [![Downloads](https://static.pepy.tech/badge/giddy)](https://pepy.tech/project/giddy)
 
