@@ -60,24 +60,24 @@ If you use PySAL-giddy in a scientific publication, we would appreciate using th
 
 Bibtex entry::
 
-   @software{wei_kang_2020_3887455,
+   @software{wei_kang_2024_10520458,
      author       = {Wei Kang and
                      Sergio Rey and
+                     James Gaboardi and
                      Philip Stephens and
                      Nicholas Malizia and
-                     James Gaboardi and
                      Stefanie Lumnitz and
                      Levi John Wolf and
                      Charles Schmidt and
                      Jay Laura and
-                     Eli Knaap},
-     title        = {pysal/giddy: Release v2.3.3},
-     month        = jun,
-     year         = 2020,
+                     eli knaap},
+     title        = {pysal/giddy: v2.3.5},
+     month        = jan,
+     year         = 2024,
      publisher    = {Zenodo},
-     version      = {v2.3.3},
-     doi          = {10.5281/zenodo.3887455},
-     url          = {https://doi.org/10.5281/zenodo.3887455}
+     version      = {v2.3.5},
+     doi          = {10.5281/zenodo.10520458},
+     url          = {https://doi.org/10.5281/zenodo.10520458}
    }
 
 .. toctree::
