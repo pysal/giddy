@@ -111,7 +111,7 @@ BibTeX Citation
                   Levi John Wolf and
                   Charles Schmidt and
                   Jay Laura and
-                  eli knaap},
+                  Eli Knaap},
   title        = {pysal/giddy: v2.3.5},
   month        = jan,
   year         = 2024,
