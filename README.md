@@ -112,13 +112,10 @@ BibTeX Citation
                   Charles Schmidt and
                   Jay Laura and
                   Eli Knaap},
-  title        = {pysal/giddy: v2.3.5},
-  month        = jan,
-  year         = 2024,
+  title        = {pysal/giddy},
   publisher    = {Zenodo},
-  version      = {v2.3.5},
-  doi          = {10.5281/zenodo.10520458},
-  url          = {https://doi.org/10.5281/zenodo.10520458}
+  doi          = {10.5281/zenodo.1322825},
+  url          = {https://doi.org/10.5281/zenodo.1322825}
 }
 ```
 
