@@ -101,24 +101,21 @@ BibTeX Citation
 ---------------------
 
 ```
-@software{wei_kang_2023_7693957,
+@software{wei_kang_2024_10520458,
   author       = {Wei Kang and
                   Sergio Rey and
-                  Philip Stephens and
                   James Gaboardi and
+                  Philip Stephens and
                   Nicholas Malizia and
                   Stefanie Lumnitz and
                   Levi John Wolf and
                   Charles Schmidt and
                   Jay Laura and
                   Eli Knaap},
-  title        = {pysal/giddy: v2.3.4},
-  month        = mar,
-  year         = 2023,
+  title        = {pysal/giddy},
   publisher    = {Zenodo},
-  version      = {v2.3.4},
-  doi          = {10.5281/zenodo.7693957},
-  url          = {https://doi.org/10.5281/zenodo.7693957}
+  doi          = {10.5281/zenodo.1322825},
+  url          = {https://doi.org/10.5281/zenodo.1322825}
 }
 ```
 

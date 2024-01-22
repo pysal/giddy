@@ -23,7 +23,7 @@ addition to space-time LISA and spatial markov methods.
         <div class="col-sm-1 col-xs-hidden">
         </div>
         <div class="col-md-3 col-xs-12">
-            <a href="http://nbviewer.jupyter.org/github/pysal/giddy/blob/master/notebooks/DirectionalLISA.ipynb" class="thumbnail">
+            <a href="http://nbviewer.jupyter.org/github/pysal/giddy/blob/main/notebooks/DirectionalLISA.ipynb" class="thumbnail">
                 <img src="_static/images/rose_conditional.png" class="img-responsive center-block">
                 <div class="caption text-center">
                 <h6>Rose diagram (directional LISAs)</h6>
@@ -31,7 +31,7 @@ addition to space-time LISA and spatial markov methods.
             </a>
         </div>
         <div class="col-sm-3 col-xs-12">
-            <a href="http://nbviewer.jupyter.org/github/pysal/giddy/blob/master/notebooks/MarkovBasedMethods.ipynb" class="thumbnail">
+            <a href="http://nbviewer.jupyter.org/github/pysal/giddy/blob/main/notebooks/MarkovBasedMethods.ipynb" class="thumbnail">
                 <img src="_static/images/spatial_markov_us.png" class="img-responsive center-block">
                 <div class="caption text-center">
                 <h6>Spatial Markov Chain</h6>
@@ -39,7 +39,7 @@ addition to space-time LISA and spatial markov methods.
             </a>
         </div>
         <div class="col-sm-3 col-xs-12">
-            <a href="http://nbviewer.jupyter.org/github/pysal/giddy/blob/master/notebooks/RankBasedMethods.ipynb" class="thumbnail">
+            <a href="http://nbviewer.jupyter.org/github/pysal/giddy/blob/main/notebooks/RankBasedMethods.ipynb" class="thumbnail">
                 <img src="_static/images/neighboorsetLIMA_US.png"
                 class="img-responsive center-block">
                 <div class="caption text-center">
@@ -60,24 +60,21 @@ If you use PySAL-giddy in a scientific publication, we would appreciate using th
 
 Bibtex entry::
 
-   @software{wei_kang_2020_3887455,
+   @software{wei_kang_2024_10520458,
      author       = {Wei Kang and
                      Sergio Rey and
+                     James Gaboardi and
                      Philip Stephens and
                      Nicholas Malizia and
-                     James Gaboardi and
                      Stefanie Lumnitz and
                      Levi John Wolf and
                      Charles Schmidt and
                      Jay Laura and
                      Eli Knaap},
-     title        = {pysal/giddy: Release v2.3.3},
-     month        = jun,
-     year         = 2020,
+     title        = {pysal/giddy},
      publisher    = {Zenodo},
-     version      = {v2.3.3},
-     doi          = {10.5281/zenodo.3887455},
-     url          = {https://doi.org/10.5281/zenodo.3887455}
+     doi          = {10.5281/zenodo.1322825},
+     url          = {https://doi.org/10.5281/zenodo.1322825}
    }
 
 .. toctree::
