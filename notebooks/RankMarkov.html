@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Full Rank Markov and Geographic Rank Markov &#8212; giddy v0.1.dev1+g6468f09 Manual</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=9afac83c" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css?v=14ca3da1" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+    <script src="../_static/documentation_options.js?v=8f3e3400"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="icon" href="../_static/pysal_favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Measures of Income Mobility" href="MobilityMeasures.html" />
+    <link rel="prev" title="Spatially Explicit Markov Methods" href="MarkovBasedMethods.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          giddy</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.dev1+g6468f09</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../installation.html">Installation</a></li>
+                <li><a href="../tutorial.html">Tutorial</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="../references.html">References</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-released-version">Installing released version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-development-version">Installing development version</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorial.html">Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="MarkovBasedMethods.html">Spatially Explicit Markov Methods</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Full Rank Markov and Geographic Rank Markov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MobilityMeasures.html">Measures of Income Mobility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DirectionalLISA.html">Directional Analysis of Dynamic LISAs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RankBasedMethods.html">Rank based Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Sequence.html">Alignment-based sequence methods</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#markov-methods">Markov Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#directional-lisa">Directional LISA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#economic-mobility-indices">Economic Mobility Indices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#exchange-mobility-methods">Exchange Mobility Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#alignment-based-sequence-methods">Alignment-based Sequence Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#utility-functions">Utility Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Full Rank Markov and Geographic Rank Markov</a><ul>
+<li><a class="reference internal" href="#Full-Rank-Markov">Full Rank Markov</a></li>
+<li><a class="reference internal" href="#Geographic-Rank-Markov">Geographic Rank Markov</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="admonition note">
+<p>This page was generated from <a class="reference external" href="https://github.com/pysal/giddy/blob/main/notebooks/RankMarkov.ipynb">notebooks/RankMarkov.ipynb</a>.
+Interactive online version:
+<span class="raw-html"><a href="https://mybinder.org/v2/gh/pysal/giddy/main?filepath=notebooks/RankMarkov.ipynb"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a></span></p>
+</div>
+<section id="Full-Rank-Markov-and-Geographic-Rank-Markov">
+<h1>Full Rank Markov and Geographic Rank Markov<a class="headerlink" href="#Full-Rank-Markov-and-Geographic-Rank-Markov" title="Link to this heading">¶</a></h1>
+<p><strong>Author: Wei Kang</strong> <a class="reference external" href="mailto:weikang9009&#37;&#52;&#48;gmail&#46;com">weikang9009<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+    <span class="c1"># ignore NumbaDeprecationWarning: gh-pysal/libpysal#560</span>
+    <span class="kn">import</span> <span class="nn">libpysal</span> <span class="k">as</span> <span class="nn">ps</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+</pre></div>
+</div>
+</div>
+<section id="Full-Rank-Markov">
+<h2>Full Rank Markov<a class="headerlink" href="#Full-Rank-Markov" title="Link to this heading">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+    <span class="c1"># ignore NumbaDeprecationWarning: gh-pysal/libpysal#560</span>
+    <span class="kn">from</span> <span class="nn">giddy.markov</span> <span class="kn">import</span> <span class="n">FullRank_Markov</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">income_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ps</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;usjoin.csv&quot;</span><span class="p">))</span>
+<span class="n">income_table</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>STATE_FIPS</th>
+      <th>1929</th>
+      <th>1930</th>
+      <th>1931</th>
+      <th>1932</th>
+      <th>1933</th>
+      <th>1934</th>
+      <th>1935</th>
+      <th>1936</th>
+      <th>...</th>
+      <th>2000</th>
+      <th>2001</th>
+      <th>2002</th>
+      <th>2003</th>
+      <th>2004</th>
+      <th>2005</th>
+      <th>2006</th>
+      <th>2007</th>
+      <th>2008</th>
+      <th>2009</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Alabama</td>
+      <td>1</td>
+      <td>323</td>
+      <td>267</td>
+      <td>224</td>
+      <td>162</td>
+      <td>166</td>
+      <td>211</td>
+      <td>217</td>
+      <td>251</td>
+      <td>...</td>
+      <td>23471</td>
+      <td>24467</td>
+      <td>25161</td>
+      <td>26065</td>
+      <td>27665</td>
+      <td>29097</td>
+      <td>30634</td>
+      <td>31988</td>
+      <td>32819</td>
+      <td>32274</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Arizona</td>
+      <td>4</td>
+      <td>600</td>
+      <td>520</td>
+      <td>429</td>
+      <td>321</td>
+      <td>308</td>
+      <td>362</td>
+      <td>416</td>
+      <td>462</td>
+      <td>...</td>
+      <td>25578</td>
+      <td>26232</td>
+      <td>26469</td>
+      <td>27106</td>
+      <td>28753</td>
+      <td>30671</td>
+      <td>32552</td>
+      <td>33470</td>
+      <td>33445</td>
+      <td>32077</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Arkansas</td>
+      <td>5</td>
+      <td>310</td>
+      <td>228</td>
+      <td>215</td>
+      <td>157</td>
+      <td>157</td>
+      <td>187</td>
+      <td>207</td>
+      <td>247</td>
+      <td>...</td>
+      <td>22257</td>
+      <td>23532</td>
+      <td>23929</td>
+      <td>25074</td>
+      <td>26465</td>
+      <td>27512</td>
+      <td>29041</td>
+      <td>31070</td>
+      <td>31800</td>
+      <td>31493</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>California</td>
+      <td>6</td>
+      <td>991</td>
+      <td>887</td>
+      <td>749</td>
+      <td>580</td>
+      <td>546</td>
+      <td>603</td>
+      <td>660</td>
+      <td>771</td>
+      <td>...</td>
+      <td>32275</td>
+      <td>32750</td>
+      <td>32900</td>
+      <td>33801</td>
+      <td>35663</td>
+      <td>37463</td>
+      <td>40169</td>
+      <td>41943</td>
+      <td>42377</td>
+      <td>40902</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Colorado</td>
+      <td>8</td>
+      <td>634</td>
+      <td>578</td>
+      <td>471</td>
+      <td>354</td>
+      <td>353</td>
+      <td>368</td>
+      <td>444</td>
+      <td>542</td>
+      <td>...</td>
+      <td>32949</td>
+      <td>34228</td>
+      <td>33963</td>
+      <td>34092</td>
+      <td>35543</td>
+      <td>37388</td>
+      <td>39662</td>
+      <td>41165</td>
+      <td>41719</td>
+      <td>40093</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 83 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pci</span> <span class="o">=</span> <span class="n">income_table</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1929</span><span class="p">,</span> <span class="mi">2010</span><span class="p">)))]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">pci</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[  323,   267,   224, ..., 31988, 32819, 32274],
+       [  600,   520,   429, ..., 33470, 33445, 32077],
+       [  310,   228,   215, ..., 31070, 31800, 31493],
+       ...,
+       [  460,   408,   356, ..., 29769, 31265, 31843],
+       [  673,   588,   469, ..., 35839, 36594, 35676],
+       [  675,   585,   476, ..., 43453, 45177, 42504]])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">FullRank_Markov</span><span class="p">(</span><span class="n">pci</span><span class="p">)</span>
+<span class="n">m</span><span class="o">.</span><span class="n">ranks</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The Markov Chain is irreducible and is composed by:
+1 Recurrent class (indices):
+[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+ 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47]
+0 Transient classes.
+The Markov Chain has 0 absorbing states.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[45, 45, 44, ..., 41, 40, 39],
+       [24, 25, 25, ..., 36, 38, 41],
+       [46, 47, 45, ..., 43, 43, 43],
+       ...,
+       [34, 34, 34, ..., 47, 46, 42],
+       [17, 17, 22, ..., 25, 26, 25],
+       [16, 18, 19, ...,  6,  6,  7]])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">transitions</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[66.,  5.,  5., ...,  0.,  0.,  0.],
+       [ 8., 51.,  9., ...,  0.,  0.,  0.],
+       [ 2., 13., 44., ...,  0.,  0.,  0.],
+       ...,
+       [ 0.,  0.,  0., ..., 40., 17.,  0.],
+       [ 0.,  0.,  0., ..., 15., 54.,  2.],
+       [ 0.,  0.,  0., ...,  2.,  1., 77.]])
+</pre></div></div>
+</div>
+<p>Full rank Markov transition probability matrix</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">p</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[0.825 , 0.0625, 0.0625, ..., 0.    , 0.    , 0.    ],
+       [0.1   , 0.6375, 0.1125, ..., 0.    , 0.    , 0.    ],
+       [0.025 , 0.1625, 0.55  , ..., 0.    , 0.    , 0.    ],
+       ...,
+       [0.    , 0.    , 0.    , ..., 0.5   , 0.2125, 0.    ],
+       [0.    , 0.    , 0.    , ..., 0.1875, 0.675 , 0.025 ],
+       [0.    , 0.    , 0.    , ..., 0.025 , 0.0125, 0.9625]])
+</pre></div></div>
+</div>
+<p>Full rank mean first passage times</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">mfpt</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[  48.        ,   87.96280048,   68.1089084 , ...,  443.76689275,
+         518.31000749, 1628.59025557],
+       [ 225.92564594,   48.        ,   78.75804364, ...,  440.0173313 ,
+         514.56045127, 1624.84070661],
+       [ 271.55443692,  102.484092  ,   48.        , ...,  438.93288204,
+         513.47599512, 1623.75624059],
+       ...,
+       [ 727.11189921,  570.15910508,  546.61934646, ...,   48.        ,
+         117.41906375, 1278.96860316],
+       [ 730.40467469,  573.45179415,  549.91216045, ...,   49.70722573,
+          48.        , 1202.06279368],
+       [ 754.8761577 ,  597.92333477,  574.38361779, ...,   43.23574191,
+         104.9460425 ,   48.        ]])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span><span class="o">.</span><span class="n">sojourn_time</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([ 5.71428571,  2.75862069,  2.22222222,  1.77777778,  1.66666667,
+        1.73913043,  1.53846154,  1.53846154,  1.53846154,  1.42857143,
+        1.42857143,  1.56862745,  1.53846154,  1.40350877,  1.29032258,
+        1.21212121,  1.31147541,  1.37931034,  1.29032258,  1.25      ,
+        1.15942029,  1.12676056,  1.25      ,  1.17647059,  1.19402985,
+        1.08108108,  1.19402985,  1.25      ,  1.25      ,  1.14285714,
+        1.33333333,  1.26984127,  1.25      ,  1.37931034,  1.42857143,
+        1.31147541,  1.26984127,  1.25      ,  1.31147541,  1.25      ,
+        1.19402985,  1.25      ,  1.53846154,  1.6       ,  1.86046512,
+        2.        ,  3.07692308, 26.66666667])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_fullrank</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(),</span> <span class="n">m</span><span class="o">.</span><span class="n">sojourn_time</span><span class="p">],</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Staying Probability&quot;</span><span class="p">,</span> <span class="s2">&quot;Sojourn Time&quot;</span><span class="p">],</span>
+    <span class="n">index</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">df_fullrank</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Staying Probability</th>
+      <th>Sojourn Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>0.8250</td>
+      <td>5.714286</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.6375</td>
+      <td>2.758621</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.5500</td>
+      <td>2.222222</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.4375</td>
+      <td>1.777778</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.4000</td>
+      <td>1.666667</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_fullrank</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[&lt;Axes: &gt;, &lt;Axes: &gt;]], dtype=object)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_RankMarkov_14_1.png" class="no-scaled-link" src="../_images/notebooks_RankMarkov_14_1.png" style="width: 1219px; height: 431px;" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+    <span class="c1"># ignore -- seaborn/_oldcore.py:1498: FutureWarning: is_categorical_dtype is deprecated</span>
+    <span class="c1"># and will be removed in a future version. Use isinstance(dtype, CategoricalDtype) instead</span>
+
+    <span class="c1"># ignore -- seaborn/_oldcore.py:1119: FutureWarning: use_inf_as_na option is deprecated</span>
+    <span class="c1"># and will be removed in a future version. Convert inf values to NaN before operating instead.</span>
+
+    <span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">mfpt</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">kde</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_RankMarkov_15_0.png" class="no-scaled-link" src="../_images/notebooks_RankMarkov_15_0.png" style="width: 489px; height: 489px;" />
+</div>
+</div>
+</section>
+<section id="Geographic-Rank-Markov">
+<h2>Geographic Rank Markov<a class="headerlink" href="#Geographic-Rank-Markov" title="Link to this heading">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">giddy.markov</span> <span class="kn">import</span> <span class="n">GeoRank_Markov</span><span class="p">,</span> <span class="n">Markov</span><span class="p">,</span> <span class="n">sojourn_time</span>
+
+<span class="n">gm</span> <span class="o">=</span> <span class="n">GeoRank_Markov</span><span class="p">(</span><span class="n">pci</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The Markov Chain is irreducible and is composed by:
+1 Recurrent class (indices):
+[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+ 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47]
+0 Transient classes.
+The Markov Chain has 0 absorbing states.
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">transitions</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[38.,  0.,  8., ...,  0.,  0.,  0.],
+       [ 0., 15.,  0., ...,  0.,  1.,  0.],
+       [ 6.,  0., 44., ...,  5.,  0.,  0.],
+       ...,
+       [ 2.,  0.,  5., ..., 34.,  0.,  0.],
+       [ 0.,  0.,  0., ...,  0., 18.,  2.],
+       [ 0.,  0.,  0., ...,  0.,  3., 14.]])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">p</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[0.475 , 0.    , 0.1   , ..., 0.    , 0.    , 0.    ],
+       [0.    , 0.1875, 0.    , ..., 0.    , 0.0125, 0.    ],
+       [0.075 , 0.    , 0.55  , ..., 0.0625, 0.    , 0.    ],
+       ...,
+       [0.025 , 0.    , 0.0625, ..., 0.425 , 0.    , 0.    ],
+       [0.    , 0.    , 0.    , ..., 0.    , 0.225 , 0.025 ],
+       [0.    , 0.    , 0.    , ..., 0.    , 0.0375, 0.175 ]])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">sojourn_time</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([1.9047619 , 1.23076923, 2.22222222, 1.73913043, 1.15942029,
+       3.80952381, 1.70212766, 1.25      , 1.31147541, 1.11111111])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">sojourn_time</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([ 1.9047619 ,  1.23076923,  2.22222222,  1.73913043,  1.15942029,
+        3.80952381,  1.70212766,  1.25      ,  1.31147541,  1.11111111,
+        1.73913043,  1.37931034,  1.17647059,  1.21212121,  1.33333333,
+        1.37931034,  1.09589041,  2.10526316,  2.        ,  1.45454545,
+        1.26984127, 26.66666667,  1.19402985,  1.23076923,  1.09589041,
+        1.56862745,  1.26984127,  2.42424242,  1.50943396,  2.        ,
+        1.29032258,  1.09589041,  1.6       ,  1.42857143,  1.25      ,
+        1.45454545,  1.29032258,  1.6       ,  1.17647059,  1.56862745,
+        1.25      ,  1.37931034,  1.45454545,  1.42857143,  1.29032258,
+        1.73913043,  1.29032258,  1.21212121])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gm</span><span class="o">.</span><span class="n">mfpt</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[ 48.        ,  63.35532038,  92.75274652, ...,  82.47515731,
+         71.01114491,  68.65737127],
+       [108.25928005,  48.        , 127.99032986, ...,  92.03098299,
+         63.36652935,  61.82733039],
+       [ 76.96801786,  64.7713783 ,  48.        , ...,  73.84595169,
+         72.24682723,  69.77497173],
+       ...,
+       [ 93.3107474 ,  62.47670463, 105.80634118, ...,  48.        ,
+         69.30121319,  67.08838421],
+       [113.65278078,  61.1987031 , 133.57991745, ...,  96.0103924 ,
+         48.        ,  56.74165107],
+       [114.71894813,  63.4019776 , 134.73381719, ...,  97.287895  ,
+         61.45565054,  48.        ]])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">income_table</span><span class="p">[</span><span class="s2">&quot;geo_sojourn_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">sojourn_time</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">income_table</span><span class="p">[</span><span class="s2">&quot;Name&quot;</span><span class="p">]:</span>
+    <span class="n">income_table</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;geo_mfpt_to_</span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">mfpt</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span>
+    <span class="n">income_table</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;geo_mfpt_from_</span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gm</span><span class="o">.</span><span class="n">mfpt</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">income_table</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>STATE_FIPS</th>
+      <th>1929</th>
+      <th>1930</th>
+      <th>1931</th>
+      <th>1932</th>
+      <th>1933</th>
+      <th>1934</th>
+      <th>1935</th>
+      <th>1936</th>
+      <th>...</th>
+      <th>geo_mfpt_to_Virginia</th>
+      <th>geo_mfpt_from_Virginia</th>
+      <th>geo_mfpt_to_Washington</th>
+      <th>geo_mfpt_from_Washington</th>
+      <th>geo_mfpt_to_West Virginia</th>
+      <th>geo_mfpt_from_West Virginia</th>
+      <th>geo_mfpt_to_Wisconsin</th>
+      <th>geo_mfpt_from_Wisconsin</th>
+      <th>geo_mfpt_to_Wyoming</th>
+      <th>geo_mfpt_from_Wyoming</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Alabama</td>
+      <td>1</td>
+      <td>323</td>
+      <td>267</td>
+      <td>224</td>
+      <td>162</td>
+      <td>166</td>
+      <td>211</td>
+      <td>217</td>
+      <td>251</td>
+      <td>...</td>
+      <td>72.186055</td>
+      <td>109.828532</td>
+      <td>82.994754</td>
+      <td>118.769984</td>
+      <td>82.475157</td>
+      <td>93.310747</td>
+      <td>71.011145</td>
+      <td>113.652781</td>
+      <td>68.657371</td>
+      <td>114.718948</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Arizona</td>
+      <td>4</td>
+      <td>600</td>
+      <td>520</td>
+      <td>429</td>
+      <td>321</td>
+      <td>308</td>
+      <td>362</td>
+      <td>416</td>
+      <td>462</td>
+      <td>...</td>
+      <td>67.544447</td>
+      <td>60.838807</td>
+      <td>76.090895</td>
+      <td>66.729262</td>
+      <td>92.030983</td>
+      <td>62.476705</td>
+      <td>63.366529</td>
+      <td>61.198703</td>
+      <td>61.827330</td>
+      <td>63.401978</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Arkansas</td>
+      <td>5</td>
+      <td>310</td>
+      <td>228</td>
+      <td>215</td>
+      <td>157</td>
+      <td>157</td>
+      <td>187</td>
+      <td>207</td>
+      <td>247</td>
+      <td>...</td>
+      <td>73.650943</td>
+      <td>129.533691</td>
+      <td>84.071211</td>
+      <td>138.692513</td>
+      <td>73.845952</td>
+      <td>105.806341</td>
+      <td>72.246827</td>
+      <td>133.579917</td>
+      <td>69.774972</td>
+      <td>134.733817</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>California</td>
+      <td>6</td>
+      <td>991</td>
+      <td>887</td>
+      <td>749</td>
+      <td>580</td>
+      <td>546</td>
+      <td>603</td>
+      <td>660</td>
+      <td>771</td>
+      <td>...</td>
+      <td>71.377700</td>
+      <td>111.644884</td>
+      <td>62.230417</td>
+      <td>97.908341</td>
+      <td>104.922271</td>
+      <td>121.670243</td>
+      <td>69.368408</td>
+      <td>110.668388</td>
+      <td>59.998457</td>
+      <td>105.965215</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Colorado</td>
+      <td>8</td>
+      <td>634</td>
+      <td>578</td>
+      <td>471</td>
+      <td>354</td>
+      <td>353</td>
+      <td>368</td>
+      <td>444</td>
+      <td>542</td>
+      <td>...</td>
+      <td>69.627179</td>
+      <td>57.106339</td>
+      <td>66.353930</td>
+      <td>52.229230</td>
+      <td>98.797636</td>
+      <td>66.464398</td>
+      <td>60.762589</td>
+      <td>52.324565</td>
+      <td>55.559020</td>
+      <td>53.872702</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 180 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">geo_table</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">ps</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;us48.shp&quot;</span><span class="p">))</span>
+<span class="n">complete_table</span> <span class="o">=</span> <span class="n">geo_table</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">income_table</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s2">&quot;STATE_NAME&quot;</span><span class="p">,</span> <span class="n">right_on</span><span class="o">=</span><span class="s2">&quot;Name&quot;</span><span class="p">)</span>
+<span class="n">complete_table</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>AREA</th>
+      <th>PERIMETER</th>
+      <th>STATE_</th>
+      <th>STATE_ID</th>
+      <th>STATE_NAME</th>
+      <th>STATE_FIPS_x</th>
+      <th>SUB_REGION</th>
+      <th>STATE_ABBR</th>
+      <th>geometry</th>
+      <th>Name</th>
+      <th>...</th>
+      <th>geo_mfpt_to_Virginia</th>
+      <th>geo_mfpt_from_Virginia</th>
+      <th>geo_mfpt_to_Washington</th>
+      <th>geo_mfpt_from_Washington</th>
+      <th>geo_mfpt_to_West Virginia</th>
+      <th>geo_mfpt_from_West Virginia</th>
+      <th>geo_mfpt_to_Wisconsin</th>
+      <th>geo_mfpt_from_Wisconsin</th>
+      <th>geo_mfpt_to_Wyoming</th>
+      <th>geo_mfpt_from_Wyoming</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>20.750</td>
+      <td>34.956</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Washington</td>
+      <td>53</td>
+      <td>Pacific</td>
+      <td>WA</td>
+      <td>MULTIPOLYGON (((-122.40075 48.22540, -122.4615...</td>
+      <td>Washington</td>
+      <td>...</td>
+      <td>71.663055</td>
+      <td>73.756804</td>
+      <td>48.000000</td>
+      <td>48.000000</td>
+      <td>101.592400</td>
+      <td>81.692586</td>
+      <td>65.219124</td>
+      <td>70.701226</td>
+      <td>53.126177</td>
+      <td>64.476985</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>45.132</td>
+      <td>34.527</td>
+      <td>2</td>
+      <td>2</td>
+      <td>Montana</td>
+      <td>30</td>
+      <td>Mtn</td>
+      <td>MT</td>
+      <td>POLYGON ((-111.47463 44.70224, -111.48001 44.6...</td>
+      <td>Montana</td>
+      <td>...</td>
+      <td>69.918931</td>
+      <td>59.067897</td>
+      <td>76.184088</td>
+      <td>64.710823</td>
+      <td>90.781850</td>
+      <td>58.795201</td>
+      <td>63.455248</td>
+      <td>58.975522</td>
+      <td>60.881954</td>
+      <td>60.553000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9.571</td>
+      <td>18.899</td>
+      <td>3</td>
+      <td>3</td>
+      <td>Maine</td>
+      <td>23</td>
+      <td>N Eng</td>
+      <td>ME</td>
+      <td>MULTIPOLYGON (((-69.77779 44.07407, -69.86044 ...</td>
+      <td>Maine</td>
+      <td>...</td>
+      <td>69.431862</td>
+      <td>53.872836</td>
+      <td>77.512381</td>
+      <td>62.862378</td>
+      <td>87.734760</td>
+      <td>54.244823</td>
+      <td>66.257807</td>
+      <td>56.905741</td>
+      <td>61.978506</td>
+      <td>58.336426</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>21.874</td>
+      <td>21.353</td>
+      <td>4</td>
+      <td>4</td>
+      <td>North Dakota</td>
+      <td>38</td>
+      <td>W N Cen</td>
+      <td>ND</td>
+      <td>POLYGON ((-98.73006 45.93830, -99.00645 45.939...</td>
+      <td>North Dakota</td>
+      <td>...</td>
+      <td>69.441690</td>
+      <td>56.526347</td>
+      <td>76.659646</td>
+      <td>62.823668</td>
+      <td>85.031218</td>
+      <td>49.511240</td>
+      <td>67.362718</td>
+      <td>58.717458</td>
+      <td>64.386382</td>
+      <td>59.728719</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>22.598</td>
+      <td>22.746</td>
+      <td>5</td>
+      <td>5</td>
+      <td>South Dakota</td>
+      <td>46</td>
+      <td>W N Cen</td>
+      <td>SD</td>
+      <td>POLYGON ((-102.78793 42.99532, -103.00541 42.9...</td>
+      <td>South Dakota</td>
+      <td>...</td>
+      <td>68.229894</td>
+      <td>61.548209</td>
+      <td>78.886304</td>
+      <td>68.794083</td>
+      <td>88.192659</td>
+      <td>55.754109</td>
+      <td>66.187694</td>
+      <td>63.802359</td>
+      <td>64.336311</td>
+      <td>65.070022</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 189 columns</p>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">complete_table</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Index([&#39;AREA&#39;, &#39;PERIMETER&#39;, &#39;STATE_&#39;, &#39;STATE_ID&#39;, &#39;STATE_NAME&#39;, &#39;STATE_FIPS_x&#39;,
+       &#39;SUB_REGION&#39;, &#39;STATE_ABBR&#39;, &#39;geometry&#39;, &#39;Name&#39;,
+       ...
+       &#39;geo_mfpt_to_Virginia&#39;, &#39;geo_mfpt_from_Virginia&#39;,
+       &#39;geo_mfpt_to_Washington&#39;, &#39;geo_mfpt_from_Washington&#39;,
+       &#39;geo_mfpt_to_West Virginia&#39;, &#39;geo_mfpt_from_West Virginia&#39;,
+       &#39;geo_mfpt_to_Wisconsin&#39;, &#39;geo_mfpt_from_Wisconsin&#39;,
+       &#39;geo_mfpt_to_Wyoming&#39;, &#39;geo_mfpt_from_Wyoming&#39;],
+      dtype=&#39;object&#39;, length=189)
+</pre></div></div>
+</div>
+<p>Visualizing mean first passage time from/to California/Mississippi:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+    <span class="c1"># ignore geopandas/plotting.py:732:</span>
+    <span class="c1"># FutureWarning: is_categorical_dtype is deprecated and will be removed in a future version.</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+    <span class="n">target_states</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;California&quot;</span><span class="p">,</span> <span class="s2">&quot;Mississippi&quot;</span><span class="p">]</span>
+    <span class="n">directions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;from&quot;</span><span class="p">,</span> <span class="s2">&quot;to&quot;</span><span class="p">]</span>
+    <span class="n">plt_kws</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;OrRd&quot;</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;quantiles&quot;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">direction</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">directions</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">target</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">target_states</span><span class="p">):</span>
+            <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span>
+            <span class="n">col</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">direction</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">complete_table</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;geo_mfpt_</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">plt_kws</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean First Passage Time </span><span class="si">{</span><span class="n">direction</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+            <span class="n">leg</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span>
+            <span class="n">leg</span><span class="o">.</span><span class="n">set_bbox_to_anchor</span><span class="p">((</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.16</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_RankMarkov_27_0.png" class="no-scaled-link" src="../_images/notebooks_RankMarkov_27_0.png" style="width: 1451px; height: 688px;" />
+</div>
+</div>
+<p>Visualizing sojourn time for each US state:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+    <span class="c1"># ignore geopandas/plotting.py:732:</span>
+    <span class="c1"># FutureWarning: is_categorical_dtype is deprecated and will be removed in a future version.</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+    <span class="n">schemes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Quantiles&quot;</span><span class="p">,</span> <span class="s2">&quot;Equal_Interval&quot;</span><span class="p">]</span>
+    <span class="n">plt_kws</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;OrRd&quot;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="s2">&quot;geo_sojourn_time&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">scheme</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">schemes</span><span class="p">):</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">complete_table</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">scheme</span><span class="o">=</span><span class="n">scheme</span><span class="p">,</span> <span class="o">**</span><span class="n">plt_kws</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Rank Sojourn Time (</span><span class="si">{</span><span class="n">scheme</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+        <span class="n">leg</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend</span><span class="p">()</span>
+        <span class="n">leg</span><span class="o">.</span><span class="n">set_bbox_to_anchor</span><span class="p">((</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.16</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_RankMarkov_29_0.png" class="no-scaled-link" src="../_images/notebooks_RankMarkov_29_0.png" style="width: 1489px; height: 357px;" />
+</div>
+</div>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/notebooks/RankMarkov.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018-, pysal developers.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

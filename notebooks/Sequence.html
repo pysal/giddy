@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Alignment-based sequence methods &#8212; giddy v0.1.dev1+g6468f09 Manual</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=9afac83c" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css?v=14ca3da1" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+    <script src="../_static/documentation_options.js?v=8f3e3400"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="icon" href="../_static/pysal_favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API reference" href="../api.html" />
+    <link rel="prev" title="Rank based Methods" href="RankBasedMethods.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          giddy</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.dev1+g6468f09</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../installation.html">Installation</a></li>
+                <li><a href="../tutorial.html">Tutorial</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="../references.html">References</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-released-version">Installing released version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-development-version">Installing development version</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorial.html">Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="MarkovBasedMethods.html">Spatially Explicit Markov Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RankMarkov.html">Full Rank Markov and Geographic Rank Markov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MobilityMeasures.html">Measures of Income Mobility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DirectionalLISA.html">Directional Analysis of Dynamic LISAs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RankBasedMethods.html">Rank based Methods</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Alignment-based sequence methods</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#markov-methods">Markov Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#directional-lisa">Directional LISA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#economic-mobility-indices">Economic Mobility Indices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#exchange-mobility-methods">Exchange Mobility Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#alignment-based-sequence-methods">Alignment-based Sequence Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#utility-functions">Utility Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Alignment-based sequence methods</a><ul>
+<li><a class="reference internal" href="#%22hamming%22"><code class="docutils literal notranslate"><span class="pre">&quot;hamming&quot;</span></code></a></li>
+<li><a class="reference internal" href="#%22interval%22"><code class="docutils literal notranslate"><span class="pre">&quot;interval&quot;</span></code></a></li>
+<li><a class="reference internal" href="#%22arbitrary%22"><code class="docutils literal notranslate"><span class="pre">&quot;arbitrary&quot;</span></code></a></li>
+<li><a class="reference internal" href="#%22markov%22"><code class="docutils literal notranslate"><span class="pre">&quot;markov&quot;</span></code></a></li>
+<li><a class="reference internal" href="#%22tran%22"><code class="docutils literal notranslate"><span class="pre">&quot;tran&quot;</span></code></a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="admonition note">
+<p>This page was generated from <a class="reference external" href="https://github.com/pysal/giddy/blob/main/notebooks/Sequence.ipynb">notebooks/Sequence.ipynb</a>.
+Interactive online version:
+<span class="raw-html"><a href="https://mybinder.org/v2/gh/pysal/giddy/main?filepath=notebooks/Sequence.ipynb"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a></span></p>
+</div>
+<section id="Alignment-based-sequence-methods">
+<h1>Alignment-based sequence methods<a class="headerlink" href="#Alignment-based-sequence-methods" title="Link to this heading">¶</a></h1>
+<p>This notebook introduces the alignment-based sequence methods (operationalized by the Optimal Matching (OM) algorithm), which was originally developed for matching protein and DNA sequences in biology and used extensively for analyzing strings in computer science and recently widely applied to explore the neighborhood change.</p>
+<p>It generally works by finding the minimum cost for aligning one sequence to match another using a combination of operations including substitution, insertion, deletion and transposition. The cost of each operation can be parameterized diferently and may be theory-driven or data-driven. The minimum cost is considered as the distance between the two sequences.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">sequence</span></code> module in <code class="docutils literal notranslate"><span class="pre">giddy</span></code> provides a suite of alignment-based sequence methods.</p>
+<p><strong>Author: Wei Kang</strong> <a class="reference external" href="mailto:weikang9009&#37;&#52;&#48;gmail&#46;com">weikang9009<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+    <span class="c1"># ignore NumbaDeprecationWarning: gh-pysal/libpysal#560</span>
+    <span class="kn">import</span> <span class="nn">libpysal</span>
+    <span class="kn">import</span> <span class="nn">mapclassify</span> <span class="k">as</span> <span class="nn">mc</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="n">libpysal</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">libpysal</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;usjoin.csv&quot;</span><span class="p">))</span>
+<span class="n">pci</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">by_col</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1929</span><span class="p">,</span> <span class="mi">2010</span><span class="p">)])</span>
+<span class="n">q5</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mc</span><span class="o">.</span><span class="n">Quantiles</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">yb</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">pci</span><span class="p">])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+<span class="n">q5</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[0, 0, 0, ..., 0, 0, 0],
+       [2, 2, 2, ..., 1, 1, 0],
+       [0, 0, 0, ..., 0, 0, 0],
+       ...,
+       [1, 1, 1, ..., 0, 0, 0],
+       [3, 3, 2, ..., 2, 2, 2],
+       [3, 3, 3, ..., 4, 4, 4]])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">q5</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(48, 81)
+</pre></div></div>
+</div>
+<p>Import <code class="docutils literal notranslate"><span class="pre">Sequence</span></code> class from <code class="docutils literal notranslate"><span class="pre">giddy.sequence</span></code>:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+    <span class="c1"># ignore NumbaDeprecationWarning: gh-pysal/libpysal#560</span>
+    <span class="kn">from</span> <span class="nn">giddy.sequence</span> <span class="kn">import</span> <span class="n">Sequence</span>
+</pre></div>
+</div>
+</div>
+<section id="%22hamming%22">
+<h2><code class="docutils literal notranslate"><span class="pre">&quot;hamming&quot;</span></code><a class="headerlink" href="#%22hamming%22" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>substitution cost = 1</p></li>
+<li><p>insertion/deletion cost = <span class="math notranslate nohighlight">\(\infty\)</span></p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_hamming</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">(</span><span class="n">q5</span><span class="p">,</span> <span class="n">dist_type</span><span class="o">=</span><span class="s2">&quot;hamming&quot;</span><span class="p">)</span>
+<span class="n">seq_hamming</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;giddy.sequence.Sequence at 0x164aaa8d0&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_hamming</span><span class="o">.</span><span class="n">seq_dis_mat</span>  <span class="c1"># pairwise sequence distance matrix</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[ 0., 75.,  7., ..., 21., 81., 78.],
+       [75.,  0., 80., ..., 79., 57., 73.],
+       [ 7., 80.,  0., ..., 14., 81., 81.],
+       ...,
+       [21., 79., 14., ...,  0., 81., 81.],
+       [81., 57., 81., ..., 81.,  0., 51.],
+       [78., 73., 81., ..., 81., 51.,  0.]])
+</pre></div></div>
+</div>
+</section>
+<section id="%22interval%22">
+<h2><code class="docutils literal notranslate"><span class="pre">&quot;interval&quot;</span></code><a class="headerlink" href="#%22interval%22" title="Link to this heading">¶</a></h2>
+<p>Assuming there are <span class="math notranslate nohighlight">\(k\)</span> states in the sequences and they are ordinal/continuous.</p>
+<ul class="simple">
+<li><p>substitution cost = differences between states</p></li>
+<li><p>insertion/deletion cost = <span class="math notranslate nohighlight">\(k-1\)</span></p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_interval</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">(</span><span class="n">q5</span><span class="p">,</span> <span class="n">dist_type</span><span class="o">=</span><span class="s2">&quot;interval&quot;</span><span class="p">)</span>
+<span class="n">seq_interval</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;giddy.sequence.Sequence at 0x164ab8a10&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_interval</span><span class="o">.</span><span class="n">seq_dis_mat</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[  0., 123.,   7., ...,  21., 190., 225.],
+       [123.,   0., 130., ..., 116.,  69., 108.],
+       [  7., 130.,   0., ...,  14., 197., 232.],
+       ...,
+       [ 21., 116.,  14., ...,   0., 183., 218.],
+       [190.,  69., 197., ..., 183.,   0.,  61.],
+       [225., 108., 232., ..., 218.,  61.,   0.]])
+</pre></div></div>
+</div>
+</section>
+<section id="%22arbitrary%22">
+<h2><code class="docutils literal notranslate"><span class="pre">&quot;arbitrary&quot;</span></code><a class="headerlink" href="#%22arbitrary%22" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>substitution cost = 0.5</p></li>
+<li><p>insertion/deletion cost = 1</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_arbitrary</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">(</span><span class="n">q5</span><span class="p">,</span> <span class="n">dist_type</span><span class="o">=</span><span class="s2">&quot;arbitrary&quot;</span><span class="p">)</span>
+<span class="n">seq_arbitrary</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;giddy.sequence.Sequence at 0x164abbc50&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_arbitrary</span><span class="o">.</span><span class="n">seq_dis_mat</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[ 0. , 37.5,  3.5, ..., 10.5, 40.5, 39. ],
+       [37.5,  0. , 40. , ..., 39.5, 28.5, 36.5],
+       [ 3.5, 40. ,  0. , ...,  7. , 40.5, 40.5],
+       ...,
+       [10.5, 39.5,  7. , ...,  0. , 40.5, 40.5],
+       [40.5, 28.5, 40.5, ..., 40.5,  0. , 25.5],
+       [39. , 36.5, 40.5, ..., 40.5, 25.5,  0. ]])
+</pre></div></div>
+</div>
+</section>
+<section id="%22markov%22">
+<h2><code class="docutils literal notranslate"><span class="pre">&quot;markov&quot;</span></code><a class="headerlink" href="#%22markov%22" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>substitution cost = <span class="math notranslate nohighlight">\(1-\frac{p_{ij}+p_{ji}}{2}\)</span> where <span class="math notranslate nohighlight">\(p_{ij}\)</span> is the empirical rate of transitioning from state <span class="math notranslate nohighlight">\(i\)</span> to <span class="math notranslate nohighlight">\(j\)</span></p></li>
+<li><p>insertion/deletion cost = 1</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_markov</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">(</span><span class="n">q5</span><span class="p">,</span> <span class="n">dist_type</span><span class="o">=</span><span class="s2">&quot;markov&quot;</span><span class="p">)</span>
+<span class="n">seq_markov</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+The Markov Chain is irreducible and is composed by:
+1 Recurrent class (indices):
+[0 1 2 3 4]
+0 Transient classes.
+The Markov Chain has 0 absorbing states.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;giddy.sequence.Sequence at 0x164ae5090&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_markov</span><span class="o">.</span><span class="n">seq_dis_mat</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[ 0.        , 72.31052406,  6.34073233, ..., 19.02219698,
+        80.2334688 , 77.48002783],
+       [72.31052406,  0.        , 77.05042347, ..., 74.77437281,
+        50.75696949, 65.9128181 ],
+       [ 6.34073233, 77.05042347,  0.        , ..., 12.68146465,
+        80.97128589, 80.51785856],
+       ...,
+       [19.02219698, 74.77437281, 12.68146465, ...,  0.        ,
+        80.10306616, 80.46369148],
+       [80.2334688 , 50.75696949, 80.97128589, ..., 80.10306616,
+         0.        , 41.57088046],
+       [77.48002783, 65.9128181 , 80.51785856, ..., 80.46369148,
+        41.57088046,  0.        ]])
+</pre></div></div>
+</div>
+</section>
+<section id="%22tran%22">
+<h2><code class="docutils literal notranslate"><span class="pre">&quot;tran&quot;</span></code><a class="headerlink" href="#%22tran%22" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Biemann, T.</strong> (2011). A Transition-Oriented Approach to Optimal Matching. Sociological Methodology, 41(1), 195–221. DOI: <a class="reference external" href="https://doi.org/10.1111/j.1467-9531.2011.01235.x">10.1111/j.1467-9531.2011.01235.x</a></p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_tran</span> <span class="o">=</span> <span class="n">Sequence</span><span class="p">(</span><span class="n">q5</span><span class="p">,</span> <span class="n">dist_type</span><span class="o">=</span><span class="s2">&quot;tran&quot;</span><span class="p">)</span>
+<span class="n">seq_tran</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;giddy.sequence.Sequence at 0x164ae6290&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_tran</span><span class="o">.</span><span class="n">seq_dis_mat</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[ 0., 23.,  8., ..., 12., 24., 21.],
+       [23.,  0., 17., ..., 16., 28., 22.],
+       [ 8., 17.,  0., ...,  4., 18., 16.],
+       ...,
+       [12., 16.,  4., ...,  0., 21., 15.],
+       [24., 28., 18., ..., 21.,  0., 23.],
+       [21., 22., 16., ..., 15., 23.,  0.]])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">seq_tran</span><span class="o">.</span><span class="n">seq_dis_mat</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[ 0., 23.,  8., ..., 12., 24., 21.],
+       [23.,  0., 17., ..., 16., 28., 22.],
+       [ 8., 17.,  0., ...,  4., 18., 16.],
+       ...,
+       [12., 16.,  4., ...,  0., 21., 15.],
+       [24., 28., 18., ..., 21.,  0., 23.],
+       [21., 22., 16., ..., 15., 23.,  0.]])
+</pre></div></div>
+</div>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/notebooks/Sequence.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018-, pysal developers.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

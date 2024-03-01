@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Directional Analysis of Dynamic LISAs &#8212; giddy v0.1.dev1+g6468f09 Manual</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=9afac83c" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css?v=14ca3da1" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+    <script src="../_static/documentation_options.js?v=8f3e3400"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="icon" href="../_static/pysal_favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Rank based Methods" href="RankBasedMethods.html" />
+    <link rel="prev" title="Measures of Income Mobility" href="MobilityMeasures.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          giddy</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.dev1+g6468f09</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../installation.html">Installation</a></li>
+                <li><a href="../tutorial.html">Tutorial</a></li>
+                <li><a href="../api.html">API</a></li>
+                <li><a href="../references.html">References</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-released-version">Installing released version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installing-development-version">Installing development version</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorial.html">Tutorial</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="MarkovBasedMethods.html">Spatially Explicit Markov Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RankMarkov.html">Full Rank Markov and Geographic Rank Markov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MobilityMeasures.html">Measures of Income Mobility</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Directional Analysis of Dynamic LISAs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RankBasedMethods.html">Rank based Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Sequence.html">Alignment-based sequence methods</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#markov-methods">Markov Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#directional-lisa">Directional LISA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#economic-mobility-indices">Economic Mobility Indices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#exchange-mobility-methods">Exchange Mobility Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#alignment-based-sequence-methods">Alignment-based Sequence Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html#utility-functions">Utility Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Directional Analysis of Dynamic LISAs</a><ul>
+<li><a class="reference internal" href="#Visualization">Visualization</a></li>
+<li><a class="reference internal" href="#Inference">Inference</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="admonition note">
+<p>This page was generated from <a class="reference external" href="https://github.com/pysal/giddy/blob/main/notebooks/DirectionalLISA.ipynb">notebooks/DirectionalLISA.ipynb</a>.
+Interactive online version:
+<span class="raw-html"><a href="https://mybinder.org/v2/gh/pysal/giddy/main?filepath=notebooks/DirectionalLISA.ipynb"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a></span></p>
+</div>
+<section id="Directional-Analysis-of-Dynamic-LISAs">
+<h1>Directional Analysis of Dynamic LISAs<a class="headerlink" href="#Directional-Analysis-of-Dynamic-LISAs" title="Link to this heading">¶</a></h1>
+<p>This notebook demonstrates how to use Rose diagram based inference for directional LISAs.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+    <span class="c1"># ignore NumbaDeprecationWarning: gh-pysal/libpysal#560</span>
+    <span class="kn">import</span> <span class="nn">libpysal</span>
+    <span class="kn">from</span> <span class="nn">giddy.directional</span> <span class="kn">import</span> <span class="n">Rose</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">libpysal</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;spi_download.csv&quot;</span><span class="p">),</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">]</span>
+<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">5</span><span class="p">]]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">line</span><span class="p">[</span><span class="mi">3</span><span class="p">:]))</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">5</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">60</span><span class="p">))</span>
+<span class="n">out</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;&quot;United States 3/&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;&quot;Alaska 3/&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;&quot;District of Columbia&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;&quot;Hawaii 3/&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;&quot;New England&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;&quot;Mideast&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;&quot;Great Lakes&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;&quot;Plains&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;&quot;Southeast&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;&quot;Southwest&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;&quot;Rocky Mountain&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;&quot;Far West 3/&quot;&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">snames</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">out</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sids</span> <span class="o">=</span> <span class="p">[</span><span class="n">names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">snames</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">states</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">sids</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">us</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">years</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1969</span><span class="p">,</span> <span class="mi">2009</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rel</span> <span class="o">=</span> <span class="n">states</span> <span class="o">/</span> <span class="p">(</span><span class="n">us</span> <span class="o">*</span> <span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gal</span> <span class="o">=</span> <span class="n">libpysal</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">libpysal</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;states48.gal&quot;</span><span class="p">))</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">gal</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">w</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="s2">&quot;r&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span> <span class="o">=</span> <span class="n">rel</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(48, 2)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Y</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([[0.71272158, 0.83983287],
+       [0.91110532, 0.85393454],
+       [0.68196038, 0.80573518],
+       [1.181439  , 1.08538102],
+       [0.96115746, 1.06906586],
+       [1.25677789, 1.39952248],
+       [1.14859228, 1.00773478],
+       [0.9535975 , 0.9765967 ],
+       [0.82090719, 0.86781238],
+       [0.85088634, 0.82257262],
+       [1.12956204, 1.05319837],
+       [0.9624609 , 0.86064962],
+       [0.95542231, 0.93021289],
+       [0.92674661, 0.96547951],
+       [0.77267987, 0.79775169],
+       [0.75234619, 0.90588938],
+       [0.81803962, 0.90671011],
+       [1.09462982, 1.20319339],
+       [1.09098019, 1.27472145],
+       [1.08107404, 0.86920513],
+       [0.98409802, 1.07035913],
+       [0.62643379, 0.75604357],
+       [0.93039625, 0.9110376 ],
+       [0.85870699, 0.86161958],
+       [0.93091762, 0.97368683],
+       [1.18091762, 1.02422404],
+       [0.97627737, 1.08493335],
+       [1.17309698, 1.277308  ],
+       [0.76120959, 0.83142658],
+       [1.19212722, 1.2125199 ],
+       [0.79405631, 0.87902905],
+       [0.80787278, 0.99159371],
+       [1.01955162, 0.89586649],
+       [0.83524505, 0.89497115],
+       [0.9580292 , 0.9027308 ],
+       [0.99165798, 0.99830879],
+       [1.00286757, 1.02884998],
+       [0.73540146, 0.81242539],
+       [0.7898853 , 0.96152507],
+       [0.77085506, 0.86987664],
+       [0.87695516, 0.93946478],
+       [0.80943691, 0.79446876],
+       [0.88112617, 0.96214684],
+       [0.92805005, 1.09988062],
+       [1.06491137, 1.06588241],
+       [0.7278415 , 0.78693295],
+       [0.97679875, 0.93929069],
+       [0.93508863, 1.20891365]])
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">r4</span> <span class="o">=</span> <span class="n">Rose</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<section id="Visualization">
+<h2>Visualization<a class="headerlink" href="#Visualization" title="Link to this heading">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r4</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(&lt;Figure size 640x480 with 1 Axes&gt;, &lt;PolarAxes: &gt;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_DirectionalLISA_15_1.png" class="no-scaled-link" src="../_images/notebooks_DirectionalLISA_15_1.png" style="width: 453px; height: 442px;" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r4</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Y</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>  <span class="c1"># condition on starting relative income</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(&lt;Figure size 640x480 with 2 Axes&gt;, &lt;PolarAxes: &gt;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_DirectionalLISA_16_1.png" class="no-scaled-link" src="../_images/notebooks_DirectionalLISA_16_1.png" style="width: 500px; height: 442px;" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r4</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">attribute</span><span class="o">=</span><span class="n">r4</span><span class="o">.</span><span class="n">lag</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">)</span>  <span class="c1"># condition on the spatial lag of starting relative income</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(&lt;Figure size 640x480 with 2 Axes&gt;, &lt;PolarAxes: &gt;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_DirectionalLISA_17_1.png" class="no-scaled-link" src="../_images/notebooks_DirectionalLISA_17_1.png" style="width: 509px; height: 442px;" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r4</span><span class="o">.</span><span class="n">plot_vectors</span><span class="p">()</span>  <span class="c1"># lisa vectors</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(&lt;Figure size 640x480 with 1 Axes&gt;, &lt;Axes: &gt;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_DirectionalLISA_18_1.png" class="no-scaled-link" src="../_images/notebooks_DirectionalLISA_18_1.png" style="width: 547px; height: 413px;" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r4</span><span class="o">.</span><span class="n">plot_vectors</span><span class="p">(</span><span class="n">arrows</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(&lt;Figure size 640x480 with 1 Axes&gt;, &lt;Axes: &gt;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_DirectionalLISA_19_1.png" class="no-scaled-link" src="../_images/notebooks_DirectionalLISA_19_1.png" style="width: 547px; height: 413px;" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r4</span><span class="o">.</span><span class="n">plot_origin</span><span class="p">()</span>  <span class="c1"># origin standardized</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/notebooks_DirectionalLISA_20_0.png" class="no-scaled-link" src="../_images/notebooks_DirectionalLISA_20_0.png" style="width: 568px; height: 413px;" />
+</div>
+</div>
+</section>
+<section id="Inference">
+<h2>Inference<a class="headerlink" href="#Inference" title="Link to this heading">¶</a></h2>
+<p>The Rose class contains methods to carry out inference on the circular distribution of the LISA vectors. The first approach is based on a two-sided alternative where the null is that the distribution of the vectors across the segments reflects independence in the movements of the focal unit and its spatial lag. Inference is based on random spatial permutations under the null.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r4</span><span class="o">.</span><span class="n">cuts</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([0.        , 1.57079633, 3.14159265, 4.71238898, 6.28318531])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r4</span><span class="o">.</span><span class="n">counts</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([32,  5,  9,  2])
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r4</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="n">permutations</span><span class="o">=</span><span class="mi">999</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r4</span><span class="o">.</span><span class="n">p</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([0.028, 0.   , 0.002, 0.004])
+</pre></div></div>
+</div>
+<p>Here all the four sector counts are signficantly different from their expectation under the null.</p>
+<p>A directional test can also be implemented. Here the direction of the departure from the null due to positive co-movement of a focal unit and its spatial lag over the time period results in two two general cases. For sectors in the positive quadrants (I and III), the observed counts are considered extreme if they are larger than expectation, while for the negative quadrants (II, IV) the observed counts are considered extreme if they are small than the expected counts under the null.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r4</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="n">alternative</span><span class="o">=</span><span class="s2">&quot;positive&quot;</span><span class="p">,</span> <span class="n">permutations</span><span class="o">=</span><span class="mi">999</span><span class="p">)</span>
+<span class="n">r4</span><span class="o">.</span><span class="n">p</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([0.013, 0.001, 0.001, 0.013])
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r4</span><span class="o">.</span><span class="n">expected_perm</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([27.24824825, 11.56556557,  2.43443443,  6.75175175])
+</pre></div></div>
+</div>
+<p>Finally, a directional alternative reflecting negative association between the movement of the focal unit and its lag has the complimentary interpretation to the positive alternative: lower counts in I and III, and higher counts in II and IV relative to the null.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r4</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="n">alternative</span><span class="o">=</span><span class="s2">&quot;negative&quot;</span><span class="p">,</span> <span class="n">permutations</span><span class="o">=</span><span class="mi">999</span><span class="p">)</span>
+<span class="n">r4</span><span class="o">.</span><span class="n">p</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+array([0.996, 1.   , 1.   , 0.996])
+</pre></div></div>
+</div>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/notebooks/DirectionalLISA.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018-, pysal developers.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

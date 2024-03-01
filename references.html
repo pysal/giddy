@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>References &#8212; giddy v0.1.dev1+g6468f09 Manual</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=9afac83c" />
+    <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pysal-styles.css?v=14ca3da1" />
+    <script src="_static/documentation_options.js?v=8f3e3400"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="icon" href="_static/pysal_favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="giddy.util.fill_empty_diagonals" href="generated/giddy.util.fill_empty_diagonals.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          giddy</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.1.dev1+g6468f09</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="installation.html">Installation</a></li>
+                <li><a href="tutorial.html">Tutorial</a></li>
+                <li><a href="api.html">API</a></li>
+                <li><a href="#">References</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installing-released-version">Installing released version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installing-development-version">Installing development version</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/MarkovBasedMethods.html">Spatially Explicit Markov Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/RankMarkov.html">Full Rank Markov and Geographic Rank Markov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/MobilityMeasures.html">Measures of Income Mobility</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/DirectionalLISA.html">Directional Analysis of Dynamic LISAs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/RankBasedMethods.html">Rank based Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/Sequence.html">Alignment-based sequence methods</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#markov-methods">Markov Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#directional-lisa">Directional LISA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#economic-mobility-indices">Economic Mobility Indices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#exchange-mobility-methods">Exchange Mobility Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#alignment-based-sequence-methods">Alignment-based Sequence Methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#utility-functions">Utility Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">References</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">References</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section id="references">
+<h1>References<a class="headerlink" href="#references" title="Link to this heading">¶</a></h1>
+<div class="docutils container" id="id1">
+<div role="list" class="citation-list">
+<div class="citation" id="id15" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>BB03<span class="fn-bracket">]</span></span>
+<p>Frank Bickenbach and Eckhardt Bode. Evaluating the Markov property in studies of economic convergence. <em>International Regional Science Review</em>, 26(3):363–392, 2003. URL: <a class="reference external" href="https://doi.org/10.1177/0160017603253789">https://doi.org/10.1177/0160017603253789</a>, <a class="reference external" href="https://doi.org/10.1177/0160017603253789">doi:10.1177/0160017603253789</a>.</p>
+</div>
+<div class="citation" id="id2" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Bie11<span class="fn-bracket">]</span></span>
+<p>Torsten Biemann. A transition-oriented approach to optimal matching. <em>Sociological Methodology</em>, 41(1):195–221, 2011. URL: <a class="reference external" href="https://doi.org/10.1111/j.1467-9531.2011.01235.x">https://doi.org/10.1111/j.1467-9531.2011.01235.x</a>, <a class="reference external" href="https://doi.org/10.1111/j.1467-9531.2011.01235.x">doi:10.1111/j.1467-9531.2011.01235.x</a>.</p>
+</div>
+<div class="citation" id="id13" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Chr05<span class="fn-bracket">]</span></span>
+<p>David Christensen. Fast algorithms for the calculation of kendall's τ. <em>Computational Statistics</em>, 20(1):51–62, Mar 2005. URL: <a class="reference external" href="https://doi.org/10.1007/BF02736122&quot;">https://doi.org/10.1007/BF02736122&quot;</a>, <a class="reference external" href="https://doi.org/10.1007/BF02736122">doi:10.1007/BF02736122</a>.</p>
+</div>
+<div class="citation" id="id6" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>FSZ04<span class="fn-bracket">]</span></span>
+<p>John P. Formby, W. James Smith, and Buhong Zheng. Mobility measurement, transition matrices and statistical inference. <em>Journal of Econometrics</em>, 120(1):181–205, 2004. URL: <a class="reference external" href="http://www.sciencedirect.com/science/article/pii/S0304407603002112">http://www.sciencedirect.com/science/article/pii/S0304407603002112</a>, <a class="reference external" href="https://doi.org/https://doi.org/10.1016/S0304-4076(03)00211-2">doi:https://doi.org/10.1016/S0304-4076(03)00211-2</a>.</p>
+</div>
+<div class="citation" id="id4" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Ibe09<span class="fn-bracket">]</span></span>
+<p>Oliver Ibe. <em>Markov processes for stochastic modeling</em>. Elsevier Academic Press, Amsterdam, 2009.</p>
+</div>
+<div class="citation" id="id3" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>KR18<span class="fn-bracket">]</span></span>
+<p>Wei Kang and Sergio J. Rey. Conditional and joint tests for spatial effects in discrete markov chain models of regional income distribution dynamics. <em>The Annals of Regional Science</em>, 61(1):73–93, Jul 2018. URL: <a class="reference external" href="https://doi.org/10.1007/s00168-017-0859-9">https://doi.org/10.1007/s00168-017-0859-9</a>, <a class="reference external" href="https://doi.org/10.1007/s00168-017-0859-9">doi:10.1007/s00168-017-0859-9</a>.</p>
+</div>
+<div class="citation" id="id16" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>KS67<span class="fn-bracket">]</span></span>
+<p>John G. Kemeny and James Laurie Snell. <em>Finite markov chains</em>. Van Nostrand, 1967.</p>
+</div>
+<div class="citation" id="id14" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>KKK62<span class="fn-bracket">]</span></span>
+<p>S. Kullback, M. Kupperman, and H. H. Ku. Tests for contingency tables and Markov chains. <em>Technometrics</em>, 4(4):573–608, 1962. URL: <a class="reference external" href="http://www.jstor.org/stable/1266291">http://www.jstor.org/stable/1266291</a>, <a class="reference external" href="https://doi.org/10.2307/1266291">doi:10.2307/1266291</a>.</p>
+</div>
+<div class="citation" id="id12" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>PTVF07<span class="fn-bracket">]</span></span>
+<p>William H Press, Saul A Teukolsky, William T Vetterling, and Brian P Flannery. <em>Numerical recipes: the art of scientific computing</em>. Cambridge Univ Pr, Cambridge, 3rd edition, 2007.</p>
+</div>
+<div class="citation" id="id17" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Rey01<span class="fn-bracket">]</span></span>
+<p>Sergio J. Rey. Spatial empirics for economic growth and convergence. <em>Geographical Analysis</em>, 33(3):195–214, 2001. URL: <a class="reference external" href="https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1538-4632.2001.tb00444.x">https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1538-4632.2001.tb00444.x</a>, <a class="reference external" href="https://doi.org/10.1111/j.1538-4632.2001.tb00444.x">doi:10.1111/j.1538-4632.2001.tb00444.x</a>.</p>
+</div>
+<div class="citation" id="id10" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Rey04<span class="fn-bracket">]</span></span>
+<p>Sergio J. Rey. Spatial dependence in the evolution of regional income distributions. In A. Getis, J. Múr, and H. Zoeller, editors, <em>Spatial econometrics and spatial statistics</em>, pages 193–213. Palgrave, Hampshire, 2004.</p>
+</div>
+<div class="citation" id="id11" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Rey14a<span class="fn-bracket">]</span></span>
+<p>Sergio J. Rey. Fast algorithms for a space-time concordance measure. <em>Computational Statistics</em>, 29(3-4):799–811, 2014. URL: <a class="reference external" href="https://doi.org/10.1007/s00180-013-0461-2">https://doi.org/10.1007/s00180-013-0461-2</a>, <a class="reference external" href="https://doi.org/10.1007/s00180-013-0461-2">doi:10.1007/s00180-013-0461-2</a>.</p>
+</div>
+<div class="citation" id="id5" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Rey14b<span class="fn-bracket">]</span></span>
+<p>Sergio J. Rey. Rank-based Markov chains for regional income distribution dynamics. <em>Journal of Geographical Systems</em>, 16(2):115–137, 2014.</p>
+</div>
+<div class="citation" id="id9" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>Rey16<span class="fn-bracket">]</span></span>
+<p>Sergio J. Rey. Space–time patterns of rank concordance: local indicators of mobility association with application to spatial income inequality dynamics. <em>Annals of the American Association of Geographers</em>, 106(4):788–803, 2016. URL: <a class="reference external" href="https://doi.org/10.1080/24694452.2016.1151336">https://doi.org/10.1080/24694452.2016.1151336</a>, <a class="reference external" href="https://doi.org/10.1080/24694452.2016.1151336">doi:10.1080/24694452.2016.1151336</a>.</p>
+</div>
+<div class="citation" id="id8" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>RKW16<span class="fn-bracket">]</span></span>
+<p>Sergio J. Rey, Wei Kang, and Levi Wolf. The properties of tests for spatial effects in discrete Markov chain models of regional income distribution dynamics. <em>Journal of Geographical Systems</em>, 18(4):377–398, 2016. URL: <a class="reference external" href="http://dx.doi.org/10.1007/s10109-016-0234-x">http://dx.doi.org/10.1007/s10109-016-0234-x</a>, <a class="reference external" href="https://doi.org/10.1007/s10109-016-0234-x">doi:10.1007/s10109-016-0234-x</a>.</p>
+</div>
+<div class="citation" id="id7" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>RMA11<span class="fn-bracket">]</span></span>
+<p>Sergio J. Rey, Alan T. Murray, and Luc Anselin. Visualizing regional income distribution dynamics. <em>Letters in Spatial and Resource Sciences</em>, 4(1):81–90, 2011. URL: <a class="reference external" href="https://doi.org/10.1007/s12076-010-0048-2">https://doi.org/10.1007/s12076-010-0048-2</a>, <a class="reference external" href="https://doi.org/10.1007/s12076-010-0048-2">doi:10.1007/s12076-010-0048-2</a>.</p>
+</div>
+</div>
+</div>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="_sources/references.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018-, pysal developers.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
