@@ -1,6 +1,7 @@
 """
 Markov based methods for spatial dynamics.
 """
+
 __author__ = "Sergio J. Rey <sjsrey@gmail.com>, Wei Kang <weikang9009@gmail.com>"
 
 __all__ = [

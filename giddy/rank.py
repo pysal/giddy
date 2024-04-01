@@ -1,6 +1,7 @@
 """
 Rank and spatial rank mobility measures.
 """
+
 __author__ = "Sergio J. Rey <sjsrey@gmail.com>, Wei Kang <weikang9009@gmail.com>"
 
 __all__ = [
