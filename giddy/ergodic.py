@@ -1,6 +1,7 @@
 """
 Summary measures for ergodic Markov chains.
 """
+
 __author__ = "Sergio J. Rey <sjsrey@gmail.com>, Wei Kang <weikang9009@gmail.com>"
 
 __all__ = ["steady_state", "var_mfpt_ergodic", "mfpt"]

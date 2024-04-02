@@ -2,6 +2,7 @@
 Directional Analysis of Dynamic LISAs
 
 """
+
 __author__ = "Sergio J. Rey <sjsrey@gmail.com>"
 
 __all__ = ["Rose"]
