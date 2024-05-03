@@ -1,15 +1,14 @@
-name: binder-env
+name: giddy
 channels:
   - conda-forge
 dependencies:
-  - python=3.11
+  - python
+  - jupyterlab
+  - esda
+  - libpysal
+  - quantecon
+  - scipy
   - geopandas
-  - libspatialindex
-  - matplotlib
-  - rtree
-  - seaborn
   - splot
-  - watermark
   - pip
-  - pip:
-    - git+https://github.com/pysal/giddy.git@main
+
