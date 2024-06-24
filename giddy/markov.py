@@ -740,7 +740,14 @@ class Spatial_Markov:
 
     (4) `Spatial_Markov` also accepts discrete time series and calculates
     categorical spatial lags on which several transition probability matrices
-    are conditioned.
+    are conditioned. The categorical spatial lag is defined as the most common
+    categories of neighboring observations, weighted by their weight strengths.
+
+    Please note that occasionally there are ties for the "most common categories"
+    in the calculation of the categorical spatial lag. To break the tie, the
+    category of the focal observation is included with its neighbors. If this
+    does not resolve the tie, a winner is chosen randomly.
+
     Let's still use the US state income time series to demonstrate. We first
     discretize them into categories and then pass them to `Spatial_Markov`.
 
