@@ -469,7 +469,7 @@ class Tau_Local:
             0.48387097,  0.93548387,  0.61290323,  0.74193548,  0.41935484,
             0.61290323,  0.61290323])
     >>> tau_local.tau
-    0.6612903225806451
+    np.float64(0.6612903225806451)
     >>> tau_classic = Tau(r[:,0],r[:,1])
     >>> tau_classic.tau
     0.6612903225806451
@@ -586,7 +586,7 @@ class Tau_Local_Neighbor:
     array([-1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,
             1,  1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1])
     >>> (res.tau_ln * res.tau_ln_weights).sum() #global spatial tau
-    0.39682539682539675
+    np.float64(0.39682539682539675)
     >>> res1 = SpatialTau(r[:,0],r[:,1],w,permutations=999)
     >>> res1.tau_spatial
     0.3968253968253968
