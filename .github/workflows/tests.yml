@@ -81,7 +81,7 @@ jobs:
           -n auto \
           --color yes \
           --cov giddy --cov-report xml --cov-append \
-          --doctest-only giddy
+          --doctest-only --doctest-continue-on-failure giddy
 
       - name: codecov
         uses: codecov/codecov-action@v3
