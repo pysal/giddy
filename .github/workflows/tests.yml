@@ -69,9 +69,20 @@ jobs:
         run: 'python -c "import geopandas; geopandas.show_versions();"'
         if: contains(matrix.environment-file, 'DEV')
       
-      - name: run tests
-        run: pytest giddy --cov giddy -v -n auto -r a --doctest-modules --color yes --cov-report term-missing --cov-report xml
-      
+      - name: run pytest
+        run: pytest giddy -r a -v -n auto --cov giddy --cov-report xml --color yes --cov-append --cov-report term-missing
+
+      - name: run docstring tests
+        if: contains(matrix.environment-file, '311-DEV') && contains(matrix.os, 'ubuntu')
+        run: |
+          pytest \
+          -v \
+          -r a \
+          -n auto \
+          --color yes \
+          --cov giddy --cov-report xml --cov-append \
+          --doctest-only giddy
+
       - name: codecov
         uses: codecov/codecov-action@v3
         with:
