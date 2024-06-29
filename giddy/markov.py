@@ -1119,7 +1119,7 @@ def chi2(T1, T2):
            [  1.,  92., 815.,  51.],
            [  1.,   0.,  60., 903.]])
     >>> chi2(T1,T2)
-    (np.float64(23.39728441473295), np.float64(0.005363116704861337), np.int64(9))
+    (23.39728441473295, 0.005363116704861337, 9)
 
     Notes
     -----
@@ -1468,7 +1468,7 @@ class LISA_Markov(Markov):
         >>> lm_random = LISA_Markov(pci, w, permutations=99)
         >>> r = lm_random.spillover()
         >>> (r['components'][:, 12] > 0).sum()
-        np.int64(17)
+        17
         >>> (r['components'][:, 13]>0).sum()
         23
         >>> (r['spill_over'][:,12]>0).sum()
@@ -2081,7 +2081,7 @@ def sojourn_time(p, summary=True):
 
     >>> p = np.array([[.5, .25, .25], [.5, 0, .5],[ 0, 0, 0]])
     >>> sojourn_time(p)
-    Sojourn times are infinite for absorbing states! In this Markov Chain, states [np.int64(2)] are absorbing states.
+    Sojourn times are infinite for absorbing states! In this Markov Chain, states [2] are absorbing states.
     array([ 2.,  1., inf])
     """  # noqa E501
 
