@@ -38,7 +38,6 @@ Repository = "https://github.com/pysal/giddy"
 
 [project.optional-dependencies]
 dev = [
-    "black",
     "ruff",
     "pre-commit",
 ]
@@ -65,20 +64,12 @@ include = [
     "giddy.*",
 ]
 
-[tool.black]
-line-length = 88
-extend-exclude = '''
-(
-  docs/conf.py
-)
-#'''
-
 [tool.ruff]
 line-length = 88
-select = ["E", "F", "W", "I", "UP", "N", "B", "A", "C4", "SIM", "ARG"]
-target-version = "py39"
+lint.select = ["E", "F", "W", "I", "UP", "N", "B", "A", "C4", "SIM", "ARG"]
 exclude = ["giddy/tests/*", "docs/*"]
-[tool.ruff.per-file-ignores]
+
+[tool.ruff.lint.per-file-ignores]
 "__init__.py" = [
     "F401"      # imported but unused
 ]
@@ -96,6 +87,7 @@ exclude = ["giddy/tests/*", "docs/*"]
 "giddy/{ergodic,markov,sequence}.py" = [
     "E501",     # Line too long
 ]
+
 
 [tool.coverage.run]
 source = ["./giddy"]
