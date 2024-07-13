@@ -23,8 +23,8 @@ classifiers = [
 ]
 requires-python = ">=3.9"
 dependencies = [
-    "esda>=2.1.1",
-    "libpysal>=4.0.1",
+    "esda>=2.4.2",
+    "libpysal>=4.8",
     "quantecon>=0.7",
     "scipy>=1.8",
 ]
