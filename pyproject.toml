@@ -25,7 +25,7 @@ requires-python = ">=3.9"
 dependencies = [
     "esda>=2.4",
     "libpysal>=4.8",
-    "mapclassify>=2.5"
+    "mapclassify>=2.5",
     "quantecon>=0.7",
     "scipy>=1.8",
 ]
