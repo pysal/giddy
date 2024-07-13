@@ -4,11 +4,10 @@ channels:
 dependencies:
   - python=3.11
   # required
-  - esda>=2.1.1
-  - libpysal>=4.0.1
-  - mapclassify>=2.1.1
-  - quantecon>=0.4.7
-  - scipy>=1.3.0
+  - esda
+  - libpysal
+  - quantecon
+  - scipy
   - splot
   # testing
   - codecov
