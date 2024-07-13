@@ -35,11 +35,11 @@ jobs:
           - ci/312-latest.yaml
           - ci/312-dev.yaml
         include:
-          - environment-file: ci/312.yaml
+          - environment-file: ci/312-latest.yaml
             os: macos-13 # Intel
-          - environment-file: ci/312.yaml
+          - environment-file: ci/312-latest.yaml
             os: macos-14 # Apple Silicon
-          - environment-file: ci/312.yaml
+          - environment-file: ci/312-latest.yaml
             os: windows-latest
       fail-fast: false
   
