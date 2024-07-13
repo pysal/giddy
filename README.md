@@ -73,11 +73,11 @@ pip install git+https://github.com/pysal/giddy
 
 #### Requirements
 
-- scipy>=1.3.0
-- libpysal>=4.0.1
-- mapclassify>=2.1.1
-- esda>=2.1.1
-- quantecon>=0.4.7
+- scipy>=1.8
+- libpysal>=4.8
+- mapclassify>=2.5
+- esda>=2.4
+- quantecon>=0.7
 
 Contribute
 --------------

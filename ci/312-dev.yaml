@@ -5,12 +5,10 @@ dependencies:
   - python=3.12
   # required
   - pip
-  - quantecon
   # testing
   - codecov
   - ipywidgets
   - matplotlib
-  - pandas
   - pytest
   - pytest-cov
   - pytest-xdist
@@ -24,9 +22,10 @@ dependencies:
     - pandas
     - scipy
     - git+https://github.com/pysal/esda.git@main
-    - git+https://github.com/geopandas/geopandas.git
+    - git+https://github.com/geopandas/geopandas.git@main
     - git+https://github.com/pysal/libpysal.git@main
     - git+https://github.com/pysal/mapclassify.git@main
+    - git+https://QuantEcon/QuantEcon.py.git@main
     - git+https://github.com/pysal/splot.git@main
 
   

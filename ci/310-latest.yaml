@@ -6,6 +6,7 @@ dependencies:
   # required
   - esda
   - libpysal
+  - mapclassify
   - quantecon
   - scipy
   - splot
