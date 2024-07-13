@@ -6,7 +6,7 @@ dependencies:
   # required
   - esda=2.1.1
   - libpysal=4.0.1
-  - quantecon=0.5.2
+  - quantecon=0.7
   - scipy=1.8
   - splot
   # testing
