@@ -179,7 +179,7 @@ def _fill_empty_diagonal_3d(p):
     p0 = p_temp.sum(axis=2) == 0
     if p0.sum() > 0:
         rows, cols = np.where(p0)
-        row_zero_i = list(zip(rows, cols))
+        row_zero_i = list(zip(rows, cols, strict=False))
         for row in row_zero_i:
             i, j = row
             p_temp[i, j, j] = 1

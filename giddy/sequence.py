@@ -185,7 +185,7 @@ class Sequence:
         self.indel = indel
         self.subs_mat = subs_mat
         self.cluster_type = cluster_type
-        self.label_dict = dict(zip(self.classes, range(self.k)))
+        self.label_dict = dict(zip(self.classes, range(self.k), strict=False))
 
         y_int = []
         for yi in y:
@@ -267,7 +267,11 @@ class Sequence:
                     y_tran_index = np.zeros_like(y_int)
                     y_tran = []
                     for i in range(y_int.shape[1]):
-                        y_tran.append(list(zip(y_int_ext[:, i], y_int_ext[:, i + 1])))
+                        y_tran.append(
+                            list(
+                                zip(y_int_ext[:, i], y_int_ext[:, i + 1], strict=False)
+                            )
+                        )
                     for i in range(y_int.shape[0]):
                         for j in range(y_int.shape[1]):
                             y_tran_index[i, j] = dict_trans_state[y_tran[j][i]]
@@ -337,7 +341,7 @@ class Sequence:
         moves_str, unique_indices = np.unique(y_str, axis=0, return_index=True)
         moves_int = y_int[unique_indices]
         uni_num = len(moves_str)
-        dict_move_index = dict(zip(map(tuple, moves_int), range(uni_num)))
+        dict_move_index = dict(zip(map(tuple, moves_int), range(uni_num), strict=False))
 
         # dict_move_index = dict(zip(map(tuple, moves_str), range(uni_num)))
 
