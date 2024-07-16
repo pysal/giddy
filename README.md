@@ -3,7 +3,7 @@ PySAL-giddy for exploratory spatiotemporal data analysis
 
 [![Continuous Integration](https://github.com/pysal/giddy/actions/workflows/tests.yml/badge.svg)](https://github.com/pysal/giddy/actions/workflows/tests.yml)
 [![codecov](https://codecov.io/gh/pysal/giddy/branch/main/graph/badge.svg)](https://codecov.io/gh/pysal/giddy)
-[![Gitter room](https://badges.gitter.im/pysal/giddy.svg)](https://gitter.im/pysal/giddy)
+[![Discord](https://img.shields.io/badge/Discord-join%20chat-7289da?style=flat&logo=discord&logoColor=cccccc&link=https://discord.gg/qUvMmdEmnp)](https://discord.gg/qUvMmdEmnp)
 [![PyPI version](https://badge.fury.io/py/giddy.svg)](https://badge.fury.io/py/giddy)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1322825.svg)](https://doi.org/10.5281/zenodo.1322825)
 [![badge](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pysal/giddy/main)
@@ -89,7 +89,7 @@ If you have any suggestion, feature request, or bug report, please open a new [i
 Support
 -----------
 
-If you are having issues, please talk to us in the [gitter room](https://gitter.im/pysal/giddy).
+If you are having issues, please talk to us in the [discord channel](https://discord.gg/qUvMmdEmnp).
 
 License
 ----------
