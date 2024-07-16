@@ -3,12 +3,11 @@ channels:
   - conda-forge
 dependencies:
   - python
-  - jupyterlab
   - esda
+  - geopandas
+  - jupyterlab
   - libpysal
+  - mapclassify
   - quantecon
   - scipy
-  - geopandas
   - splot
-  - pip
-

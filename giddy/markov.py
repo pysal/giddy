@@ -817,7 +817,7 @@ class Spatial_Markov:
             self.classes = classes
             self.k = len(classes)
             self.m = self.k
-            label_dict = dict(zip(classes, range(self.k)))
+            label_dict = dict(zip(classes, range(self.k), strict=False))
             y_int = []
             for yi in y:
                 y_int.append(list(map(label_dict.get, yi)))

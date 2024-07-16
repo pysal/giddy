@@ -360,7 +360,7 @@ class Rose:
 
         xlim = [self._dx.min(), self._dx.max()]
         ylim = [self._dy.min(), self._dy.max()]
-        for x, y in zip(self._dx, self._dy):
+        for x, y in zip(self._dx, self._dy, strict=False):
             xs = [0, x]
             ys = [0, y]
             plt.plot(xs, ys, "-b")  # TODO change this to scale with attribute
