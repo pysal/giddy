@@ -1,0 +1,19 @@
+name: test
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  # required
+  - esda
+  - libpysal
+  - mapclassify
+  - quantecon
+  - scipy
+  - splot
+  # testing
+  - codecov
+  - ipywidgets
+  - matplotlib
+  - pytest
+  - pytest-cov
+  - pytest-xdist
