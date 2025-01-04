@@ -27,11 +27,11 @@ ESDA_GE_270 = Version(esda.__version__) >= Version("2.7.0")
 
 def _moran_hot_cold_spots(moran_loc, p=0.05):
     sig = 1 * (moran_loc.p_sim < p)
-    HH = 1 * (sig * moran_loc.q == 1)
-    LL = 3 * (sig * moran_loc.q == 3)
-    LH = 2 * (sig * moran_loc.q == 2)
-    HL = 4 * (sig * moran_loc.q == 4)
-    cluster = HH + LL + LH + HL
+    hh = 1 * (sig * moran_loc.q == 1)
+    ll = 3 * (sig * moran_loc.q == 3)
+    lh = 2 * (sig * moran_loc.q == 2)
+    hl = 4 * (sig * moran_loc.q == 4)
+    cluster = hh + ll + lh + hl
     return cluster
 
 
@@ -290,7 +290,7 @@ def dynamic_lisa_rose(rose, attribute=None, ax=None, **kwargs):
     if attribute is None:
         c = ax.scatter(rose.theta, rose.r, alpha=alpha, cmap=cmap, **kwargs)
     else:
-        if "c" in kwargs.keys() or "color" in kwargs.keys():
+        if "c" in kwargs or "color" in kwargs:
             raise ValueError(
                 "c and color are not valid keywords here; "
                 "attribute is used for coloring"
@@ -309,7 +309,7 @@ def dynamic_lisa_rose(rose, attribute=None, ax=None, **kwargs):
     return fig, ax
 
 
-def _add_arrow(line, position=None, direction="right", size=15, color=None):
+def _add_arrow(line, size=15, color=None):
     """
     add an arrow to a line.
 
@@ -336,7 +336,7 @@ def _add_arrow(line, position=None, direction="right", size=15, color=None):
         "",
         xytext=(xdata[0], ydata[0]),
         xy=(xdata[1], ydata[1]),
-        arrowprops=dict(arrowstyle="->", color=color),
+        arrowprops={"arrowstyle": "->", "color": color},
         size=size,
     )
 
@@ -429,7 +429,7 @@ def dynamic_lisa_vectors(rose, ax=None, arrows=True, **kwargs):
     xlim = [rose.Y.min(), rose.Y.max()]
     ylim = [rose.wY.min(), rose.wY.max()]
 
-    if "c" in kwargs.keys():
+    if "c" in kwargs:
         color = kwargs.pop("c", "b")
         can_insert_colorbar = False
     else:
@@ -626,8 +626,8 @@ def _dynamic_lisa_widget_update(
     # which comes from interact widgets
     y1 = gdf[start_time].values
     y2 = gdf[end_time].values
-    Y = np.array([y1, y2]).T
-    rose_update = Rose(Y, rose.w, k=5)
+    y = np.array([y1, y2]).T
+    rose_update = Rose(y, rose.w, k=5)
 
     fig, _ = dynamic_lisa_composite(rose_update, gdf, p=p, figsize=figsize)
 
@@ -711,13 +711,13 @@ def dynamic_lisa_composite_explore(rose, gdf, pattern="", p=0.05, figsize=(13, 1
     """
     try:
         from ipywidgets import fixed, interact
-    except (ImportError, ModuleNotFoundError):
+    except (ImportError, ModuleNotFoundError) as err:
         raise ImportError(
             "`ipywidgets` package is required to use "
             "dynamic_lisa_composite_explore."
             "You can install it using `conda install ipywidgets` "
             "or `pip install ipywidgets`."
-        )
+        ) from err
     coldict = {col: col for col in gdf.columns if col.endswith(pattern)}
     interact(
         _dynamic_lisa_widget_update,
