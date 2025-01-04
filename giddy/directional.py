@@ -321,7 +321,6 @@ class Rose:
         results["dy"] = dy
         return results
 
-    @_requires("splot")
     def plot(self, attribute=None, ax=None, **kwargs):
         """
         Plot the rose diagram.
@@ -346,7 +345,7 @@ class Rose:
 
         """
 
-        from splot.giddy import dynamic_lisa_rose
+        from .plotting import dynamic_lisa_rose
 
         fig, ax = dynamic_lisa_rose(self, attribute=attribute, ax=ax, **kwargs)
         return fig, ax
@@ -368,7 +367,6 @@ class Rose:
         plt.xlim(xlim)
         plt.ylim(ylim)
 
-    @_requires("splot")
     def plot_vectors(self, arrows=True):
         """
         Plot vectors of positional transition of LISA values
@@ -394,7 +392,7 @@ class Rose:
 
         """
 
-        from splot.giddy import dynamic_lisa_vectors
+        from .plotting import dynamic_lisa_vectors
 
         fig, ax = dynamic_lisa_vectors(self, arrows=arrows)
         return fig, ax
