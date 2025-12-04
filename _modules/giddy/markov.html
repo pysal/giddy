@@ -4,14 +4,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>giddy.markov &#8212; giddy v0.1.dev1+g6468f09 Manual</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <title>giddy.markov &#8212; giddy v2.3.7 Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=9afac83c" />
     <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/pysal-styles.css?v=14ca3da1" />
-    <script src="../../_static/documentation_options.js?v=8f3e3400"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/documentation_options.js?v=08413e95"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="../../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -38,7 +38,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           giddy</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.dev1+g6468f09</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.3.7</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -128,6 +128,7 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Markov based methods for spatial dynamics.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Sergio J. Rey &lt;sjsrey@gmail.com&gt;, Wei Kang &lt;weikang9009@gmail.com&gt;&quot;</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
@@ -142,20 +143,20 @@
     <span class="s2">&quot;GeoRank_Markov&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
-<span class="kn">import</span> <span class="nn">itertools</span>
-<span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">gt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">operator</span><span class="w"> </span><span class="kn">import</span> <span class="n">gt</span>
 
-<span class="kn">import</span> <span class="nn">mapclassify</span> <span class="k">as</span> <span class="nn">mc</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">quantecon</span> <span class="k">as</span> <span class="nn">qe</span>
-<span class="kn">from</span> <span class="nn">esda.moran</span> <span class="kn">import</span> <span class="n">Moran_Local</span>
-<span class="kn">from</span> <span class="nn">libpysal</span> <span class="kn">import</span> <span class="n">weights</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">rankdata</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapclassify</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">quantecon</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qe</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">esda.moran</span><span class="w"> </span><span class="kn">import</span> <span class="n">Moran_Local</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">libpysal</span><span class="w"> </span><span class="kn">import</span> <span class="n">weights</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">rankdata</span>
 
-<span class="kn">from</span> <span class="nn">.components</span> <span class="kn">import</span> <span class="n">Graph</span>
-<span class="kn">from</span> <span class="nn">.ergodic</span> <span class="kn">import</span> <span class="n">mfpt</span><span class="p">,</span> <span class="n">steady_state</span>
-<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">fill_empty_diagonals</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.components</span><span class="w"> </span><span class="kn">import</span> <span class="n">Graph</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.ergodic</span><span class="w"> </span><span class="kn">import</span> <span class="n">mfpt</span><span class="p">,</span> <span class="n">steady_state</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">fill_empty_diagonals</span>
 
 <span class="c1"># TT predefine LISA transitions</span>
 <span class="c1"># TT[i,j] is the transition type from i to j</span>
@@ -192,7 +193,7 @@
 
 <div class="viewcode-block" id="Markov">
 <a class="viewcode-back" href="../../generated/giddy.markov.Markov.html#giddy.markov.Markov">[docs]</a>
-<span class="k">class</span> <span class="nc">Markov</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Markov</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Classic Markov Chain estimation.</span>
 
@@ -330,7 +331,7 @@
 
 <div class="viewcode-block" id="Markov.__init__">
 <a class="viewcode-back" href="../../generated/giddy.markov.Markov.html#giddy.markov.Markov.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">class_ids</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fill_empty_classes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">class_ids</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fill_empty_classes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">classes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">classes</span> <span class="o">=</span> <span class="n">classes</span>
         <span class="k">else</span><span class="p">:</span>
@@ -415,19 +416,19 @@
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">mfpt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">mfpt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_mfpt&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_mfpt</span> <span class="o">=</span> <span class="n">mfpt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="n">fill_empty_classes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mfpt</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">steady_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">steady_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_steady_state&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_steady_state</span> <span class="o">=</span> <span class="n">steady_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="n">fill_empty_classes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_steady_state</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">sojourn_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">sojourn_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_st&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_st</span> <span class="o">=</span> <span class="n">sojourn_time</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_st</span></div>
@@ -436,7 +437,7 @@
 
 <div class="viewcode-block" id="Spatial_Markov">
 <a class="viewcode-back" href="../../generated/giddy.markov.Spatial_Markov.html#giddy.markov.Spatial_Markov">[docs]</a>
-<span class="k">class</span> <span class="nc">Spatial_Markov</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Spatial_Markov</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Markov transitions conditioned on the value of the spatial lag.</span>
 
@@ -874,7 +875,14 @@
 
 <span class="sd">    (4) `Spatial_Markov` also accepts discrete time series and calculates</span>
 <span class="sd">    categorical spatial lags on which several transition probability matrices</span>
-<span class="sd">    are conditioned.</span>
+<span class="sd">    are conditioned. The categorical spatial lag is defined as the most common</span>
+<span class="sd">    categories of neighboring observations, weighted by their weight strengths.</span>
+
+<span class="sd">    Please note that occasionally there are ties for the &quot;most common categories&quot;</span>
+<span class="sd">    in the calculation of the categorical spatial lag. To break the tie, the</span>
+<span class="sd">    category of the focal observation is included with its neighbors. If this</span>
+<span class="sd">    does not resolve the tie, a winner is chosen randomly.</span>
+
 <span class="sd">    Let&#39;s still use the US state income time series to demonstrate. We first</span>
 <span class="sd">    discretize them into categories and then pass them to `Spatial_Markov`.</span>
 
@@ -918,7 +926,7 @@
 
 <div class="viewcode-block" id="Spatial_Markov.__init__">
 <a class="viewcode-back" href="../../generated/giddy.markov.Spatial_Markov.html#giddy.markov.Spatial_Markov.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">y</span><span class="p">,</span>
         <span class="n">w</span><span class="p">,</span>
@@ -946,7 +954,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">classes</span> <span class="o">=</span> <span class="n">classes</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">classes</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span>
-            <span class="n">label_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">classes</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">)))</span>
+            <span class="n">label_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">classes</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">),</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
             <span class="n">y_int</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">yi</span> <span class="ow">in</span> <span class="n">y</span><span class="p">:</span>
                 <span class="n">y_int</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">label_dict</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="n">yi</span><span class="p">)))</span>
@@ -981,13 +989,13 @@
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">s</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">s</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_s&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_s</span> <span class="o">=</span> <span class="n">steady_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_s</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">S</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">S</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_S&quot;</span><span class="p">):</span>
             <span class="n">_S</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="p">:</span>
@@ -997,13 +1005,13 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_S</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_f&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_f</span> <span class="o">=</span> <span class="n">mfpt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_f</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">F</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">F</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_F&quot;</span><span class="p">):</span>
             <span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="p">):</span>
@@ -1013,70 +1021,70 @@
 
     <span class="c1"># bickenbach and bode tests</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">ht</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ht</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_ht&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_ht</span> <span class="o">=</span> <span class="n">homogeneity</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ht</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">Q</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">Q</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_Q&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_Q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ht</span><span class="o">.</span><span class="n">Q</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Q</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">Q_p_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">Q_p_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_Q_p_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ht</span><span class="o">.</span><span class="n">Q_p_value</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Q_p_value</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">LR</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">LR</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_LR</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ht</span><span class="o">.</span><span class="n">LR</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_LR</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">LR_p_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">LR_p_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_LR_p_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ht</span><span class="o">.</span><span class="n">LR_p_value</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_LR_p_value</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">dof_hom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dof_hom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dof_hom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ht</span><span class="o">.</span><span class="n">dof</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dof_hom</span>
 
     <span class="c1"># shtests</span>
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">shtest</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">shtest</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_shtest&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_shtest</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mn_test</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shtest</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">chi2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">chi2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_chi2&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_chi2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chi2_test</span><span class="p">()</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chi2</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">x2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">x2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_x2&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_x2</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">chi2</span><span class="p">])</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x2</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">x2_pvalue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">x2_pvalue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_x2_pvalue&quot;</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_x2_pvalue</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">stats</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x2_dof</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x2_pvalue</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">x2_dof</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">x2_dof</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_x2_dof&quot;</span><span class="p">):</span>
             <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_x2_dof</span> <span class="o">=</span> <span class="n">k</span> <span class="o">*</span> <span class="p">(</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_x2_dof</span>
 
-    <span class="k">def</span> <span class="nf">_calc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">fill_empty_classes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_calc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">fill_empty_classes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Helper to estimate spatial lag conditioned Markov transition</span>
 <span class="sd">        probability matrices based on maximum likelihood techniques.</span>
 
@@ -1114,7 +1122,7 @@
             <span class="n">P</span> <span class="o">=</span> <span class="n">fill_empty_diagonals</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">T</span><span class="p">,</span> <span class="n">P</span>
 
-    <span class="k">def</span> <span class="nf">_mn_test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_mn_test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        helper to calculate tests of differences between steady state</span>
 <span class="sd">        distributions from the conditional and overall distributions.</span>
@@ -1124,7 +1132,7 @@
         <span class="n">mat</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_ssmnp_test</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rn</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">mat</span>
 
-    <span class="k">def</span> <span class="nf">_ssmnp_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">nt</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_ssmnp_test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">nt</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Steady state multinomial probability difference test.</span>
 
@@ -1153,7 +1161,7 @@
         <span class="n">pvalue</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">stats</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">chi2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">chi2</span><span class="p">,</span> <span class="n">pvalue</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_chi2_test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_chi2_test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        helper to calculate tests of differences between the conditional</span>
 <span class="sd">        transition matrices and the overall transitions matrix.</span>
@@ -1165,7 +1173,7 @@
 
 <div class="viewcode-block" id="Spatial_Markov.summary">
 <a class="viewcode-back" href="../../generated/giddy.markov.Spatial_Markov.html#giddy.markov.Spatial_Markov.summary">[docs]</a>
-    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        A summary method to call the Markov homogeneity test to test for</span>
 <span class="sd">        temporally lagged spatial dependence.</span>
@@ -1186,7 +1194,7 @@
             <span class="n">ht</span><span class="o">.</span><span class="n">summary</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_maybe_classify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">cutoffs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_maybe_classify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">cutoffs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Helper method for classifying continuous data.&quot;&quot;&quot;</span>
 
         <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span>
@@ -1211,7 +1219,7 @@
 
 
 
-<span class="k">def</span> <span class="nf">chi2</span><span class="p">(</span><span class="n">T1</span><span class="p">,</span> <span class="n">T2</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">chi2</span><span class="p">(</span><span class="n">T1</span><span class="p">,</span> <span class="n">T2</span><span class="p">):</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    chi-squared test of difference between two transition matrices.</span>
 
@@ -1253,7 +1261,7 @@
 <span class="sd">           [  1.,  92., 815.,  51.],</span>
 <span class="sd">           [  1.,   0.,  60., 903.]])</span>
 <span class="sd">    &gt;&gt;&gt; chi2(T1,T2)</span>
-<span class="sd">    (23.39728441473295, 0.005363116704861337, 9)</span>
+<span class="sd">    (np.float64(23.39728441473295), np.float64(0.005363116704861337), np.int64(9))</span>
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
@@ -1290,7 +1298,7 @@
 
 <div class="viewcode-block" id="LISA_Markov">
 <a class="viewcode-back" href="../../generated/giddy.markov.LISA_Markov.html#giddy.markov.LISA_Markov">[docs]</a>
-<span class="k">class</span> <span class="nc">LISA_Markov</span><span class="p">(</span><span class="n">Markov</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LISA_Markov</span><span class="p">(</span><span class="n">Markov</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Markov for Local Indicators of Spatial Association</span>
 
@@ -1510,7 +1518,7 @@
 
 <div class="viewcode-block" id="LISA_Markov.__init__">
 <a class="viewcode-back" href="../../generated/giddy.markov.LISA_Markov.html#giddy.markov.LISA_Markov.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">permutations</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">significance_level</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">geoda_quads</span><span class="o">=</span><span class="kc">False</span>
     <span class="p">):</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
@@ -1570,7 +1578,7 @@
 
 <div class="viewcode-block" id="LISA_Markov.spillover">
 <a class="viewcode-back" href="../../generated/giddy.markov.LISA_Markov.html#giddy.markov.LISA_Markov.spillover">[docs]</a>
-    <span class="k">def</span> <span class="nf">spillover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quadrant</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">neighbors_on</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">spillover</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quadrant</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">neighbors_on</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Detect spillover locations for diffusion in LISA Markov.</span>
 
@@ -1609,20 +1617,20 @@
 <span class="sd">        &gt;&gt;&gt; lm_random = LISA_Markov(pci, w, permutations=99)</span>
 <span class="sd">        &gt;&gt;&gt; r = lm_random.spillover()</span>
 <span class="sd">        &gt;&gt;&gt; (r[&#39;components&#39;][:, 12] &gt; 0).sum()</span>
-<span class="sd">        17</span>
+<span class="sd">        np.int64(17)</span>
 <span class="sd">        &gt;&gt;&gt; (r[&#39;components&#39;][:, 13]&gt;0).sum()</span>
-<span class="sd">        23</span>
+<span class="sd">        np.int64(23)</span>
 <span class="sd">        &gt;&gt;&gt; (r[&#39;spill_over&#39;][:,12]&gt;0).sum()</span>
-<span class="sd">        6</span>
+<span class="sd">        np.int64(6)</span>
 
 <span class="sd">        Including neighbors of core neighbors</span>
 <span class="sd">        &gt;&gt;&gt; rn = lm_random.spillover(neighbors_on=True)</span>
 <span class="sd">        &gt;&gt;&gt; (rn[&#39;components&#39;][:, 12] &gt; 0).sum()</span>
-<span class="sd">        26</span>
+<span class="sd">        np.int64(26)</span>
 <span class="sd">        &gt;&gt;&gt; (rn[&quot;components&quot;][:, 13] &gt; 0).sum()</span>
-<span class="sd">        34</span>
+<span class="sd">        np.int64(34)</span>
 <span class="sd">        &gt;&gt;&gt; (rn[&quot;spill_over&quot;][:, 12] &gt; 0).sum()</span>
-<span class="sd">        8</span>
+<span class="sd">        np.int64(8)</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">n</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="o">.</span><span class="n">shape</span>
@@ -1698,7 +1706,7 @@
 
 <div class="viewcode-block" id="kullback">
 <a class="viewcode-back" href="../../generated/giddy.markov.kullback.html#giddy.markov.kullback">[docs]</a>
-<span class="k">def</span> <span class="nf">kullback</span><span class="p">(</span><span class="n">F</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">kullback</span><span class="p">(</span><span class="n">F</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Kullback information based test of Markov Homogeneity.</span>
 
@@ -1793,7 +1801,7 @@
 
 <div class="viewcode-block" id="prais">
 <a class="viewcode-back" href="../../generated/giddy.markov.prais.html#giddy.markov.prais">[docs]</a>
-<span class="k">def</span> <span class="nf">prais</span><span class="p">(</span><span class="n">pmat</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">prais</span><span class="p">(</span><span class="n">pmat</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Prais conditional mobility measure.</span>
 
@@ -1848,7 +1856,7 @@
 
 <div class="viewcode-block" id="homogeneity">
 <a class="viewcode-back" href="../../generated/giddy.markov.homogeneity.html#giddy.markov.homogeneity">[docs]</a>
-<span class="k">def</span> <span class="nf">homogeneity</span><span class="p">(</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">homogeneity</span><span class="p">(</span>
     <span class="n">transition_matrices</span><span class="p">,</span>
     <span class="n">regime_names</span><span class="o">=</span><span class="p">[],</span>
     <span class="n">class_names</span><span class="o">=</span><span class="p">[],</span>
@@ -1886,7 +1894,7 @@
 
 
 
-<span class="k">class</span> <span class="nc">Homogeneity_Results</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Homogeneity_Results</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrapper class to present homogeneity results.</span>
 
@@ -1917,7 +1925,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">transition_matrices</span><span class="p">,</span>
         <span class="n">regime_names</span><span class="o">=</span><span class="p">[],</span>
@@ -1929,7 +1937,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">class_names</span> <span class="o">=</span> <span class="n">class_names</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
 
-    <span class="k">def</span> <span class="nf">_homogeneity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transition_matrices</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_homogeneity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">transition_matrices</span><span class="p">):</span>
         <span class="c1"># form null transition probability matrix</span>
         <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">transition_matrices</span><span class="p">)</span>
         <span class="n">m</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">shape</span>
@@ -1989,7 +1997,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">p_h0</span> <span class="o">=</span> <span class="n">p_ij</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">p_h1</span> <span class="o">=</span> <span class="n">p_ijm</span>
 
-    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Markov Homogeneity Test&quot;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Markov Homogeneity Test&quot;</span><span class="p">):</span>
         <span class="n">regime_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m</span><span class="p">)]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">regime_names</span><span class="p">:</span>
             <span class="n">regime_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">regime_names</span>
@@ -2112,7 +2120,7 @@
 
 <div class="viewcode-block" id="FullRank_Markov">
 <a class="viewcode-back" href="../../generated/giddy.markov.FullRank_Markov.html#giddy.markov.FullRank_Markov">[docs]</a>
-<span class="k">class</span> <span class="nc">FullRank_Markov</span><span class="p">(</span><span class="n">Markov</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FullRank_Markov</span><span class="p">(</span><span class="n">Markov</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Full Rank Markov in which ranks are considered as Markov states rather</span>
 <span class="sd">    than quantiles or other discretized classes. This is one way to avoid</span>
@@ -2178,7 +2186,7 @@
 <span class="sd">           ...,</span>
 <span class="sd">           [ 0.,  0.,  0., ..., 40., 17.,  0.],</span>
 <span class="sd">           [ 0.,  0.,  0., ..., 15., 54.,  2.],</span>
-<span class="sd">           [ 0.,  0.,  0., ...,  2.,  1., 77.]])</span>
+<span class="sd">           [ 0.,  0.,  0., ...,  2.,  1., 77.]], shape=(48, 48))</span>
 <span class="sd">    &gt;&gt;&gt; m.p[0, :5]</span>
 <span class="sd">    array([0.825 , 0.0625, 0.0625, 0.025 , 0.025 ])</span>
 <span class="sd">    &gt;&gt;&gt; m.mfpt[0, :5]</span>
@@ -2190,7 +2198,7 @@
 
 <div class="viewcode-block" id="FullRank_Markov.__init__">
 <a class="viewcode-back" href="../../generated/giddy.markov.FullRank_Markov.html#giddy.markov.FullRank_Markov.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">fill_empty_classes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">fill_empty_classes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
         <span class="c1"># resolve ties: All values are given a distinct rank, corresponding</span>
         <span class="c1"># to the order that the values occur in each cross section.</span>
@@ -2206,7 +2214,7 @@
 
 <div class="viewcode-block" id="sojourn_time">
 <a class="viewcode-back" href="../../generated/giddy.markov.sojourn_time.html#giddy.markov.sojourn_time">[docs]</a>
-<span class="k">def</span> <span class="nf">sojourn_time</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">sojourn_time</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate sojourn time based on a given transition probability matrix.</span>
 
@@ -2241,7 +2249,7 @@
 
 <span class="sd">    &gt;&gt;&gt; p = np.array([[.5, .25, .25], [.5, 0, .5],[ 0, 0, 0]])</span>
 <span class="sd">    &gt;&gt;&gt; sojourn_time(p)</span>
-<span class="sd">    Sojourn times are infinite for absorbing states! In this Markov Chain, states [2] are absorbing states.</span>
+<span class="sd">    Sojourn times are infinite for absorbing states! In this Markov Chain, states [np.int64(2)] are absorbing states.</span>
 <span class="sd">    array([ 2.,  1., inf])</span>
 <span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa E501</span>
 
@@ -2270,7 +2278,7 @@
 
 <div class="viewcode-block" id="GeoRank_Markov">
 <a class="viewcode-back" href="../../generated/giddy.markov.GeoRank_Markov.html#giddy.markov.GeoRank_Markov">[docs]</a>
-<span class="k">class</span> <span class="nc">GeoRank_Markov</span><span class="p">(</span><span class="n">Markov</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">GeoRank_Markov</span><span class="p">(</span><span class="n">Markov</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Geographic Rank Markov.</span>
 <span class="sd">    Geographic units are considered as Markov states.</span>
@@ -2333,7 +2341,7 @@
 <span class="sd">           ...,</span>
 <span class="sd">           [ 2.,  0.,  5., ..., 34.,  0.,  0.],</span>
 <span class="sd">           [ 0.,  0.,  0., ...,  0., 18.,  2.],</span>
-<span class="sd">           [ 0.,  0.,  0., ...,  0.,  3., 14.]])</span>
+<span class="sd">           [ 0.,  0.,  0., ...,  0.,  3., 14.]], shape=(48, 48))</span>
 <span class="sd">    &gt;&gt;&gt; m.p</span>
 <span class="sd">    array([[0.475 , 0.    , 0.1   , ..., 0.    , 0.    , 0.    ],</span>
 <span class="sd">           [0.    , 0.1875, 0.    , ..., 0.    , 0.0125, 0.    ],</span>
@@ -2341,7 +2349,8 @@
 <span class="sd">           ...,</span>
 <span class="sd">           [0.025 , 0.    , 0.0625, ..., 0.425 , 0.    , 0.    ],</span>
 <span class="sd">           [0.    , 0.    , 0.    , ..., 0.    , 0.225 , 0.025 ],</span>
-<span class="sd">           [0.    , 0.    , 0.    , ..., 0.    , 0.0375, 0.175 ]])</span>
+<span class="sd">           [0.    , 0.    , 0.    , ..., 0.    , 0.0375, 0.175 ]],</span>
+<span class="sd">          shape=(48, 48))</span>
 <span class="sd">    &gt;&gt;&gt; m.mfpt</span>
 <span class="sd">    array([[ 48.        ,  63.35532038,  92.75274652, ...,  82.47515731,</span>
 <span class="sd">             71.01114491,  68.65737127],</span>
@@ -2355,7 +2364,7 @@
 <span class="sd">           [113.65278078,  61.1987031 , 133.57991745, ...,  96.0103924 ,</span>
 <span class="sd">             48.        ,  56.74165107],</span>
 <span class="sd">           [114.71894813,  63.4019776 , 134.73381719, ...,  97.287895  ,</span>
-<span class="sd">             61.45565054,  48.        ]])</span>
+<span class="sd">             61.45565054,  48.        ]], shape=(48, 48))</span>
 <span class="sd">    &gt;&gt;&gt; m.sojourn_time</span>
 <span class="sd">    array([ 1.9047619 ,  1.23076923,  2.22222222,  1.73913043,  1.15942029,</span>
 <span class="sd">            3.80952381,  1.70212766,  1.25      ,  1.31147541,  1.11111111,</span>
@@ -2372,7 +2381,7 @@
 
 <div class="viewcode-block" id="GeoRank_Markov.__init__">
 <a class="viewcode-back" href="../../generated/giddy.markov.GeoRank_Markov.html#giddy.markov.GeoRank_Markov.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">fill_empty_classes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">fill_empty_classes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
         <span class="c1"># n = y.shape[0]</span>
 
@@ -2402,7 +2411,7 @@
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.0.4.<br/>
     </p>
   </div>
 </footer>

@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>giddy.directional.Rose &#8212; giddy v0.1.dev1+g6468f09 Manual</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <title>giddy.directional.Rose &#8212; giddy v2.3.7 Manual</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=9afac83c" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css?v=14ca3da1" />
-    <script src="../_static/documentation_options.js?v=8f3e3400"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=08413e95"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -41,7 +41,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           giddy</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.dev1+g6468f09</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.3.7</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -144,7 +144,7 @@
 <h1>giddy.directional.Rose<a class="headerlink" href="#giddy-directional-rose" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="giddy.directional.Rose">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">giddy.directional.</span></span><span class="sig-name descname"><span class="pre">Rose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.directional.Rose" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">giddy.directional.</span></span><span class="sig-name descname"><span class="pre">Rose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/directional.html#Rose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.directional.Rose" title="Link to this definition">¶</a></dt>
 <dd><p>Rose diagram based inference for directional LISAs.</p>
 <p>For n units with LISA values at two points in time, the Rose class provides
 the LISA vectors, their visualization, and computationally based inference.</p>
@@ -211,10 +211,10 @@ association.</p>
 Data is for the 48 lower US states over the period 1969-2009 and
 includes per capita income normalized to the national average.</p>
 <p>Load comma delimited data file in and convert to a numpy array</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libpysal</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">giddy.directional</span> <span class="kn">import</span> <span class="n">Rose</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">libpysal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">giddy.directional</span><span class="w"> </span><span class="kn">import</span> <span class="n">Rose</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">file_path</span> <span class="o">=</span> <span class="n">libpysal</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;spi_download.csv&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lines</span><span class="o">=</span><span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
@@ -327,7 +327,7 @@ rose diagram conditional on the starting relative income:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>(<a class="reference download internal" download="" href="../_downloads/a4f325ff771069e8492daf4d52f33d69/giddy-directional-Rose-1.py"><code class="xref download docutils literal notranslate"><span class="pre">Source</span> <span class="pre">code</span></code></a>)</p>
+<p>(<a class="reference download internal" download="" href="../_downloads/2fc8b613483f5ea2525c00c48438c359/giddy-directional-Rose-1.py"><code class="xref download docutils literal notranslate"><span class="pre">Source</span> <span class="pre">code</span></code></a>)</p>
 </dd></dl>
 
 <p class="rubric">Methods</p>
@@ -460,7 +460,7 @@ Note: ‘c’ and ‘color’ cannot be passed when attribute is not None</p>
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.0.4.<br/>
     </p>
   </div>
 </footer>

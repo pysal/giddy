@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>giddy.rank.Theta &#8212; giddy v0.1.dev1+g6468f09 Manual</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <title>giddy.rank.Theta &#8212; giddy v2.3.7 Manual</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=9afac83c" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css?v=14ca3da1" />
-    <script src="../_static/documentation_options.js?v=8f3e3400"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=08413e95"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -41,7 +41,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           giddy</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.dev1+g6468f09</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.3.7</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -140,7 +140,7 @@
 <h1>giddy.rank.Theta<a class="headerlink" href="#giddy-rank-theta" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="giddy.rank.Theta">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">giddy.rank.</span></span><span class="sig-name descname"><span class="pre">Theta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">999</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/rank.html#Theta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.rank.Theta" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">giddy.rank.</span></span><span class="sig-name descname"><span class="pre">Theta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">999</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/rank.html#Theta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.rank.Theta" title="Link to this definition">¶</a></dt>
 <dd><p>Regime mobility measure. <span id="id1">[<a class="reference internal" href="../references.html#id10" title="Sergio J. Rey. Spatial dependence in the evolution of regional income distributions. In A. Getis, J. Múr, and H. Zoeller, editors, Spatial econometrics and spatial statistics, pages 193-213. Palgrave, Hampshire, 2004.">Rey04</a>]</span></p>
 <p>For sequence of time periods Theta measures the extent to which rank
 changes for a variable measured over n locations are in the same direction
@@ -161,31 +161,8 @@ computationally based inference.</p>
 </dd>
 </dl>
 </dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libpysal</span> <span class="k">as</span> <span class="nn">ps</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">giddy.rank</span> <span class="kn">import</span> <span class="n">Theta</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">=</span><span class="n">ps</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">ps</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;mexico.csv&quot;</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">vnames</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;pcgdp</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">dec</span> <span class="k">for</span> <span class="n">dec</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1940</span><span class="p">,</span><span class="mi">2010</span><span class="p">,</span><span class="mi">10</span><span class="p">)]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">by_col</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vnames</span><span class="p">]))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">regime</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">by_col</span><span class="p">[</span><span class="s1">&#39;esquivel99&#39;</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">=</span><span class="n">Theta</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">regime</span><span class="p">,</span><span class="mi">999</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">theta</span>
-<span class="go">array([[0.41538462, 0.28070175, 0.61363636, 0.62222222, 0.33333333,</span>
-<span class="go">        0.47222222]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">pvalue_left</span>
-<span class="go">array([0.307, 0.077, 0.823, 0.552, 0.045, 0.735])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">total</span>
-<span class="go">array([130., 114.,  88.,  90.,  90.,  72.])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">max_total</span>
-<span class="go">512</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
 <dt><strong>ranks</strong><span class="classifier">array</span></dt><dd><p>ranks of the original y array (by columns).</p>
 </dd>
 <dt><strong>regimes</strong><span class="classifier">array</span></dt><dd><p>the original regimes array.</p>
@@ -209,6 +186,27 @@ greater than its expectation under complete spatial randomness.</p>
 </dl>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">libpysal</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ps</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">giddy.rank</span><span class="w"> </span><span class="kn">import</span> <span class="n">Theta</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">=</span><span class="n">ps</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">ps</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;mexico.csv&quot;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vnames</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;pcgdp</span><span class="si">%d</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">dec</span> <span class="k">for</span> <span class="n">dec</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1940</span><span class="p">,</span><span class="mi">2010</span><span class="p">,</span><span class="mi">10</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">by_col</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vnames</span><span class="p">]))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">regime</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">by_col</span><span class="p">[</span><span class="s1">&#39;esquivel99&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">=</span><span class="n">Theta</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">regime</span><span class="p">,</span><span class="mi">999</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">theta</span>
+<span class="go">array([[0.41538462, 0.28070175, 0.61363636, 0.62222222, 0.33333333,</span>
+<span class="go">        0.47222222]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">pvalue_left</span>
+<span class="go">array([0.307, 0.077, 0.823, 0.552, 0.045, 0.735])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">total</span>
+<span class="go">array([130., 114.,  88.,  90.,  90.,  72.])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span><span class="o">.</span><span class="n">max_total</span>
+<span class="go">512</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="giddy.rank.Theta.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">999</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/rank.html#Theta.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.rank.Theta.__init__" title="Link to this definition">¶</a></dt>
@@ -246,7 +244,7 @@ greater than its expectation under complete spatial randomness.</p>
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.0.4.<br/>
     </p>
   </div>
 </footer>

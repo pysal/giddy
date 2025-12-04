@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>giddy.markov.Spatial_Markov &#8212; giddy v0.1.dev1+g6468f09 Manual</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <title>giddy.markov.Spatial_Markov &#8212; giddy v2.3.7 Manual</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=9afac83c" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css?v=14ca3da1" />
-    <script src="../_static/documentation_options.js?v=8f3e3400"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=08413e95"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -41,7 +41,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           giddy</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.dev1+g6468f09</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.3.7</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -156,7 +156,7 @@
 <h1>giddy.markov.Spatial_Markov<a class="headerlink" href="#giddy-markov-spatial-markov" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="giddy.markov.Spatial_Markov">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">giddy.markov.</span></span><span class="sig-name descname"><span class="pre">Spatial_Markov</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discrete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoffs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lag_cutoffs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_empty_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/markov.html#Spatial_Markov"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.markov.Spatial_Markov" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">giddy.markov.</span></span><span class="sig-name descname"><span class="pre">Spatial_Markov</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discrete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoffs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lag_cutoffs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_empty_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/markov.html#Spatial_Markov"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.markov.Spatial_Markov" title="Link to this definition">¶</a></dt>
 <dd><p>Markov transitions conditioned on the value of the spatial lag.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -208,17 +208,103 @@ staying at that state is 1.</p>
 </dd>
 </dl>
 </dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>class_ids</strong><span class="classifier">array</span></dt><dd><p>(n, t), discretized series if y is continuous. Otherwise
+it is identical to y.</p>
+</dd>
+<dt><strong>classes</strong><span class="classifier">array</span></dt><dd><p>(k, 1), all different classes (bins).</p>
+</dd>
+<dt><strong>lclass_ids</strong><span class="classifier">array</span></dt><dd><p>(n, t), spatial lag series.</p>
+</dd>
+<dt><strong>lclasses</strong><span class="classifier">array</span></dt><dd><p>(k, 1), all different classes (bins) for
+spatial lags.</p>
+</dd>
+<dt><strong>p</strong><span class="classifier">array</span></dt><dd><p>(k, k), transition probability matrix for a-spatial
+Markov.</p>
+</dd>
+<dt><strong>s</strong><span class="classifier">array</span></dt><dd><p>(k, ), steady state distribution for a-spatial Markov.</p>
+</dd>
+<dt><strong>f</strong><span class="classifier">array</span></dt><dd><p>(k, k), first mean passage times for a-spatial Markov.</p>
+</dd>
+<dt><strong>transitions</strong><span class="classifier">array</span></dt><dd><p>(k, k), counts of transitions between each state i and j
+for a-spatial Markov.</p>
+</dd>
+<dt><strong>T</strong><span class="classifier">array</span></dt><dd><p>(m, k, k), counts of transitions for each conditional
+Markov.  T[0] is the matrix of transitions for
+observations with lags in the 0th quantile; T[m-1] is the
+transitions for the observations with lags in the m-1th.</p>
+</dd>
+<dt><strong>P</strong><span class="classifier">array</span></dt><dd><p>(m, k, k), transition probability matrix for spatial
+Markov first dimension is the conditioned on the lag.</p>
+</dd>
+<dt><strong>S</strong><span class="classifier">arraylike</span></dt><dd><p>(m, k), steady state distributions for spatial Markov.
+Each row is a conditional steady state distribution.
+If one (or more) spatially conditional Markov chain is
+reducible (having more than 1 steady state distribution),
+this attribute is an array of m arrays of varying
+dimensions.</p>
+</dd>
+<dt><strong>F</strong><span class="classifier">array</span></dt><dd><p>(m, k, k),first mean passage times.
+First dimension is conditioned on the spatial lag.</p>
+</dd>
+<dt><strong>shtest</strong><span class="classifier">list</span></dt><dd><p>(k elements), each element of the list is a tuple for a
+multinomial difference test between the steady state
+distribution from a conditional distribution versus the
+overall steady state distribution: first element of the
+tuple is the chi2 value, second its p-value and the third
+the degrees of freedom.</p>
+</dd>
+<dt><strong>chi2</strong><span class="classifier">list</span></dt><dd><p>(k elements), each element of the list is a tuple for a
+chi-squared test of the difference between the
+conditional transition matrix against the overall
+transition matrix: first element of the tuple is the chi2
+value, second its p-value and the third the degrees of
+freedom.</p>
+</dd>
+<dt><strong>x2</strong><span class="classifier">float</span></dt><dd><p>sum of the chi2 values for each of the conditional tests.
+Has an asymptotic chi2 distribution with k(k-1)(k-1)
+degrees of freedom. Under the null that transition
+probabilities are spatially homogeneous.
+(see chi2 above)</p>
+</dd>
+<dt><strong>x2_dof</strong><span class="classifier">int</span></dt><dd><p>degrees of freedom for homogeneity test.</p>
+</dd>
+<dt><strong>x2_pvalue</strong><span class="classifier">float</span></dt><dd><p>pvalue for homogeneity test based on analytic.
+distribution</p>
+</dd>
+<dt><strong>x2_rpvalue</strong><span class="classifier">float</span></dt><dd><p>(if permutations&gt;0)
+pseudo p-value for x2 based on random spatial
+permutations of the rows of the original transitions.</p>
+</dd>
+<dt><strong>x2_realizations</strong><span class="classifier">array</span></dt><dd><p>(permutations,1), the values of x2 for the random
+permutations.</p>
+</dd>
+<dt><strong>Q</strong><span class="classifier">float</span></dt><dd><p>Chi-square test of homogeneity across lag classes based
+on <span id="id1">[<a class="reference internal" href="../references.html#id15" title="Frank Bickenbach and Eckhardt Bode. Evaluating the Markov property in studies of economic convergence. International Regional Science Review, 26(3):363-392, 2003. URL: https://doi.org/10.1177/0160017603253789, doi:10.1177/0160017603253789.">BB03</a>]</span>.</p>
+</dd>
+<dt><strong>Q_p_value</strong><span class="classifier">float</span></dt><dd><p>p-value for Q.</p>
+</dd>
+<dt><strong>LR</strong><span class="classifier">float</span></dt><dd><p>Likelihood ratio statistic for homogeneity across lag
+classes based on <span id="id2">[<a class="reference internal" href="../references.html#id15" title="Frank Bickenbach and Eckhardt Bode. Evaluating the Markov property in studies of economic convergence. International Regional Science Review, 26(3):363-392, 2003. URL: https://doi.org/10.1177/0160017603253789, doi:10.1177/0160017603253789.">BB03</a>]</span>.</p>
+</dd>
+<dt><strong>LR_p_value</strong><span class="classifier">float</span></dt><dd><p>p-value for LR.</p>
+</dd>
+<dt><strong>dof_hom</strong><span class="classifier">int</span></dt><dd><p>degrees of freedom for LR and Q, corrected for 0 cells.</p>
+</dd>
+</dl>
+</dd>
 </dl>
 <p class="rubric">Notes</p>
-<p>Based on <span id="id1">[<a class="reference internal" href="../references.html#id17" title="Sergio J. Rey. Spatial empirics for economic growth and convergence. Geographical Analysis, 33(3):195–214, 2001. URL: https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1538-4632.2001.tb00444.x, doi:10.1111/j.1538-4632.2001.tb00444.x.">Rey01</a>]</span>.</p>
+<p>Based on <span id="id3">[<a class="reference internal" href="../references.html#id17" title="Sergio J. Rey. Spatial empirics for economic growth and convergence. Geographical Analysis, 33(3):195–214, 2001. URL: https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1538-4632.2001.tb00444.x, doi:10.1111/j.1538-4632.2001.tb00444.x.">Rey01</a>]</span>.</p>
 <p>The shtest and chi2 tests should be used with caution as they are based on
 classic theory assuming random transitions. The x2 based test is
 preferable since it simulates the randomness under the null. It is an
 experimental test requiring further analysis.</p>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libpysal</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">giddy.markov</span> <span class="kn">import</span> <span class="n">Spatial_Markov</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">libpysal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">giddy.markov</span><span class="w"> </span><span class="kn">import</span> <span class="n">Spatial_Markov</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">libpysal</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">libpysal</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;usjoin.csv&quot;</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pci</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">by_col</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1929</span><span class="p">,</span><span class="mi">2010</span><span class="p">)])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pci</span> <span class="o">=</span> <span class="n">pci</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
@@ -499,10 +585,15 @@ We can easily adjust this assigning <cite>fill_empty_classes = True</cite> when 
 </div>
 <p>(4) <cite>Spatial_Markov</cite> also accepts discrete time series and calculates
 categorical spatial lags on which several transition probability matrices
-are conditioned.
-Let’s still use the US state income time series to demonstrate. We first
+are conditioned. The categorical spatial lag is defined as the most common
+categories of neighboring observations, weighted by their weight strengths.</p>
+<p>Please note that occasionally there are ties for the “most common categories”
+in the calculation of the categorical spatial lag. To break the tie, the
+category of the focal observation is included with its neighbors. If this
+does not resolve the tie, a winner is chosen randomly.</p>
+<p>Let’s still use the US state income time series to demonstrate. We first
 discretize them into categories and then pass them to <cite>Spatial_Markov</cite>.</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">mapclassify</span> <span class="k">as</span> <span class="nn">mc</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">mapclassify</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mc</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">Quantiles</span><span class="p">(</span><span class="n">rpci</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">yb</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">rpci</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">sm</span> <span class="o">=</span> <span class="n">Spatial_Markov</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">discrete</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">variable_name</span><span class="o">=</span><span class="s1">&#39;discretized rpci&#39;</span><span class="p">)</span>
@@ -539,94 +630,6 @@ discretize them into categories and then pass them to <cite>Spatial_Markov</cite
 <span class="go"> [0.         0.         0.         0.03891051 0.96108949]]</span>
 </pre></div>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>class_ids</strong><span class="classifier">array</span></dt><dd><p>(n, t), discretized series if y is continuous. Otherwise
-it is identical to y.</p>
-</dd>
-<dt><strong>classes</strong><span class="classifier">array</span></dt><dd><p>(k, 1), all different classes (bins).</p>
-</dd>
-<dt><strong>lclass_ids</strong><span class="classifier">array</span></dt><dd><p>(n, t), spatial lag series.</p>
-</dd>
-<dt><strong>lclasses</strong><span class="classifier">array</span></dt><dd><p>(k, 1), all different classes (bins) for
-spatial lags.</p>
-</dd>
-<dt><strong>p</strong><span class="classifier">array</span></dt><dd><p>(k, k), transition probability matrix for a-spatial
-Markov.</p>
-</dd>
-<dt><strong>s</strong><span class="classifier">array</span></dt><dd><p>(k, ), steady state distribution for a-spatial Markov.</p>
-</dd>
-<dt><strong>f</strong><span class="classifier">array</span></dt><dd><p>(k, k), first mean passage times for a-spatial Markov.</p>
-</dd>
-<dt><strong>transitions</strong><span class="classifier">array</span></dt><dd><p>(k, k), counts of transitions between each state i and j
-for a-spatial Markov.</p>
-</dd>
-<dt><strong>T</strong><span class="classifier">array</span></dt><dd><p>(m, k, k), counts of transitions for each conditional
-Markov.  T[0] is the matrix of transitions for
-observations with lags in the 0th quantile; T[m-1] is the
-transitions for the observations with lags in the m-1th.</p>
-</dd>
-<dt><strong>P</strong><span class="classifier">array</span></dt><dd><p>(m, k, k), transition probability matrix for spatial
-Markov first dimension is the conditioned on the lag.</p>
-</dd>
-<dt><strong>S</strong><span class="classifier">arraylike</span></dt><dd><p>(m, k), steady state distributions for spatial Markov.
-Each row is a conditional steady state distribution.
-If one (or more) spatially conditional Markov chain is
-reducible (having more than 1 steady state distribution),
-this attribute is an array of m arrays of varying
-dimensions.</p>
-</dd>
-<dt><strong>F</strong><span class="classifier">array</span></dt><dd><p>(m, k, k),first mean passage times.
-First dimension is conditioned on the spatial lag.</p>
-</dd>
-<dt><strong>shtest</strong><span class="classifier">list</span></dt><dd><p>(k elements), each element of the list is a tuple for a
-multinomial difference test between the steady state
-distribution from a conditional distribution versus the
-overall steady state distribution: first element of the
-tuple is the chi2 value, second its p-value and the third
-the degrees of freedom.</p>
-</dd>
-<dt><strong>chi2</strong><span class="classifier">list</span></dt><dd><p>(k elements), each element of the list is a tuple for a
-chi-squared test of the difference between the
-conditional transition matrix against the overall
-transition matrix: first element of the tuple is the chi2
-value, second its p-value and the third the degrees of
-freedom.</p>
-</dd>
-<dt><strong>x2</strong><span class="classifier">float</span></dt><dd><p>sum of the chi2 values for each of the conditional tests.
-Has an asymptotic chi2 distribution with k(k-1)(k-1)
-degrees of freedom. Under the null that transition
-probabilities are spatially homogeneous.
-(see chi2 above)</p>
-</dd>
-<dt><strong>x2_dof</strong><span class="classifier">int</span></dt><dd><p>degrees of freedom for homogeneity test.</p>
-</dd>
-<dt><strong>x2_pvalue</strong><span class="classifier">float</span></dt><dd><p>pvalue for homogeneity test based on analytic.
-distribution</p>
-</dd>
-<dt><strong>x2_rpvalue</strong><span class="classifier">float</span></dt><dd><p>(if permutations&gt;0)
-pseudo p-value for x2 based on random spatial
-permutations of the rows of the original transitions.</p>
-</dd>
-<dt><strong>x2_realizations</strong><span class="classifier">array</span></dt><dd><p>(permutations,1), the values of x2 for the random
-permutations.</p>
-</dd>
-<dt><strong>Q</strong><span class="classifier">float</span></dt><dd><p>Chi-square test of homogeneity across lag classes based
-on <span id="id2">[<a class="reference internal" href="../references.html#id15" title="Frank Bickenbach and Eckhardt Bode. Evaluating the Markov property in studies of economic convergence. International Regional Science Review, 26(3):363-392, 2003. URL: https://doi.org/10.1177/0160017603253789, doi:10.1177/0160017603253789.">BB03</a>]</span>.</p>
-</dd>
-<dt><strong>Q_p_value</strong><span class="classifier">float</span></dt><dd><p>p-value for Q.</p>
-</dd>
-<dt><strong>LR</strong><span class="classifier">float</span></dt><dd><p>Likelihood ratio statistic for homogeneity across lag
-classes based on <span id="id3">[<a class="reference internal" href="../references.html#id15" title="Frank Bickenbach and Eckhardt Bode. Evaluating the Markov property in studies of economic convergence. International Regional Science Review, 26(3):363-392, 2003. URL: https://doi.org/10.1177/0160017603253789, doi:10.1177/0160017603253789.">BB03</a>]</span>.</p>
-</dd>
-<dt><strong>LR_p_value</strong><span class="classifier">float</span></dt><dd><p>p-value for LR.</p>
-</dd>
-<dt><strong>dof_hom</strong><span class="classifier">int</span></dt><dd><p>degrees of freedom for LR and Q, corrected for 0 cells.</p>
-</dd>
-</dl>
-</dd>
-</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="giddy.markov.Spatial_Markov.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">discrete</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoffs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lag_cutoffs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_empty_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/markov.html#Spatial_Markov.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.markov.Spatial_Markov.__init__" title="Link to this definition">¶</a></dt>
@@ -695,62 +698,62 @@ classes based on <span id="id3">[<a class="reference internal" href="../referenc
 </table>
 <dl class="py property">
 <dt class="sig sig-object py" id="giddy.markov.Spatial_Markov.F">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">F</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.F" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">F</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.F" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="giddy.markov.Spatial_Markov.LR">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LR</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.LR" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">LR</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.LR" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="giddy.markov.Spatial_Markov.LR_p_value">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LR_p_value</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.LR_p_value" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">LR_p_value</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.LR_p_value" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="giddy.markov.Spatial_Markov.Q">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Q</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.Q" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Q</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.Q" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="giddy.markov.Spatial_Markov.Q_p_value">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Q_p_value</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.Q_p_value" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Q_p_value</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.Q_p_value" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="giddy.markov.Spatial_Markov.S">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">S</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.S" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">S</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.S" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="giddy.markov.Spatial_Markov.chi2">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">chi2</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.chi2" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">chi2</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.chi2" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="giddy.markov.Spatial_Markov.dof_hom">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dof_hom</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.dof_hom" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">dof_hom</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.dof_hom" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="giddy.markov.Spatial_Markov.f">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">f</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.f" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">f</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.f" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="giddy.markov.Spatial_Markov.ht">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ht</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.ht" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ht</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.ht" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="giddy.markov.Spatial_Markov.s">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">s</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.s" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">s</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.s" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="giddy.markov.Spatial_Markov.shtest">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shtest</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.shtest" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">shtest</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.shtest" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -764,17 +767,17 @@ temporally lagged spatial dependence.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="giddy.markov.Spatial_Markov.x2">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">x2</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.x2" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">x2</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.x2" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="giddy.markov.Spatial_Markov.x2_dof">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">x2_dof</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.x2_dof" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">x2_dof</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.x2_dof" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="giddy.markov.Spatial_Markov.x2_pvalue">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">x2_pvalue</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.x2_pvalue" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">x2_pvalue</span></span><a class="headerlink" href="#giddy.markov.Spatial_Markov.x2_pvalue" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -801,7 +804,7 @@ temporally lagged spatial dependence.</p>
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.0.4.<br/>
     </p>
   </div>
 </footer>

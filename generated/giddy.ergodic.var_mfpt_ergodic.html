@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>giddy.ergodic.var_mfpt_ergodic &#8212; giddy v0.1.dev1+g6468f09 Manual</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <title>giddy.ergodic.var_mfpt_ergodic &#8212; giddy v2.3.7 Manual</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=9afac83c" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css?v=14ca3da1" />
-    <script src="../_static/documentation_options.js?v=8f3e3400"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=08413e95"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -41,7 +41,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           giddy</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.dev1+g6468f09</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.3.7</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -158,8 +158,8 @@ required for a chain starting in state i to first enter state j.</p>
 <p class="rubric">Notes</p>
 <p>Uses formulation (and examples on p. 83) in <span id="id1">[<a class="reference internal" href="../references.html#id16" title="John G. Kemeny and James Laurie Snell. Finite markov chains. Van Nostrand, 1967.">KS67</a>]</span>.</p>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">giddy.ergodic</span> <span class="kn">import</span> <span class="n">var_mfpt_ergodic</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">giddy.ergodic</span><span class="w"> </span><span class="kn">import</span> <span class="n">var_mfpt_ergodic</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.25</span><span class="p">,</span> <span class="mf">.25</span><span class="p">],[</span><span class="mf">.5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">.5</span><span class="p">],[</span><span class="mf">.25</span><span class="p">,</span><span class="mf">.25</span><span class="p">,</span><span class="mf">.5</span><span class="p">]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vfm</span><span class="o">=</span><span class="n">var_mfpt_ergodic</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">vfm</span>
@@ -192,7 +192,7 @@ required for a chain starting in state i to first enter state j.</p>
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.0.4.<br/>
     </p>
   </div>
 </footer>

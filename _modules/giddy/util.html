@@ -4,14 +4,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>giddy.util &#8212; giddy v0.1.dev1+g6468f09 Manual</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <title>giddy.util &#8212; giddy v2.3.7 Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=9afac83c" />
     <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/pysal-styles.css?v=14ca3da1" />
-    <script src="../../_static/documentation_options.js?v=8f3e3400"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/documentation_options.js?v=08413e95"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="../../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -38,7 +38,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           giddy</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.dev1+g6468f09</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.3.7</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -131,14 +131,14 @@
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;shuffle_matrix&quot;</span><span class="p">,</span> <span class="s2">&quot;get_lower&quot;</span><span class="p">,</span> <span class="s2">&quot;fill_empty_diagonals&quot;</span><span class="p">]</span>
 
-<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 
 <div class="viewcode-block" id="shuffle_matrix">
 <a class="viewcode-back" href="../../generated/giddy.util.shuffle_matrix.html#giddy.util.shuffle_matrix">[docs]</a>
-<span class="k">def</span> <span class="nf">shuffle_matrix</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">ids</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">shuffle_matrix</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">ids</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Random permutation of rows and columns of a matrix</span>
 
@@ -175,7 +175,7 @@
 
 <div class="viewcode-block" id="get_lower">
 <a class="viewcode-back" href="../../generated/giddy.util.get_lower.html#giddy.util.get_lower">[docs]</a>
-<span class="k">def</span> <span class="nf">get_lower</span><span class="p">(</span><span class="n">matrix</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_lower</span><span class="p">(</span><span class="n">matrix</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Flattens the lower part of an n x n matrix into an n*(n-1)/2 x 1 vector.</span>
 
@@ -213,7 +213,7 @@
 
 <div class="viewcode-block" id="fill_empty_diagonals">
 <a class="viewcode-back" href="../../generated/giddy.util.fill_empty_diagonals.html#giddy.util.fill_empty_diagonals">[docs]</a>
-<span class="k">def</span> <span class="nf">fill_empty_diagonals</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fill_empty_diagonals</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Assign 1 to diagonal elements which fall in rows full of 0s to ensure</span>
 <span class="sd">    the transition probability matrix is a stochastic one. Currently</span>
@@ -258,12 +258,12 @@
         <span class="k">return</span> <span class="n">_fill_empty_diagonal_2d</span><span class="p">(</span><span class="n">p_temp</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
-            <span class="s2">&quot;Filling empty diagonals is &quot;</span> <span class="s2">&quot;only implemented for 2/3d matrices.&quot;</span>
+            <span class="s2">&quot;Filling empty diagonals is only implemented for 2/3d matrices.&quot;</span>
         <span class="p">)</span></div>
 
 
 
-<span class="k">def</span> <span class="nf">_fill_empty_diagonal_2d</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_fill_empty_diagonal_2d</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Assign 1 to diagonal elements which fall in rows full of 0s to ensure</span>
 <span class="sd">    the transition probability matrix is a stochastic one.</span>
@@ -291,7 +291,7 @@
     <span class="k">return</span> <span class="n">p_temp</span>
 
 
-<span class="k">def</span> <span class="nf">_fill_empty_diagonal_3d</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_fill_empty_diagonal_3d</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Assign 1 to diagonal elements which fall in rows full of 0s to ensure</span>
 <span class="sd">    the conditional transition probability matrices is are stochastic matrices.</span>
@@ -315,7 +315,7 @@
     <span class="n">p0</span> <span class="o">=</span> <span class="n">p_temp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
     <span class="k">if</span> <span class="n">p0</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">rows</span><span class="p">,</span> <span class="n">cols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">p0</span><span class="p">)</span>
-        <span class="n">row_zero_i</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">))</span>
+        <span class="n">row_zero_i</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">row_zero_i</span><span class="p">:</span>
             <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">row</span>
             <span class="n">p_temp</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
@@ -337,7 +337,7 @@
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.0.4.<br/>
     </p>
   </div>
 </footer>

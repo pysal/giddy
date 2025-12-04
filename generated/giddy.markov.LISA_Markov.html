@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>giddy.markov.LISA_Markov &#8212; giddy v0.1.dev1+g6468f09 Manual</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <title>giddy.markov.LISA_Markov &#8212; giddy v2.3.7 Manual</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=9afac83c" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css?v=14ca3da1" />
-    <script src="../_static/documentation_options.js?v=8f3e3400"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=08413e95"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -41,7 +41,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           giddy</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.dev1+g6468f09</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.3.7</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -141,9 +141,9 @@
 <h1>giddy.markov.LISA_Markov<a class="headerlink" href="#giddy-markov-lisa-markov" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="giddy.markov.LISA_Markov">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">giddy.markov.</span></span><span class="sig-name descname"><span class="pre">LISA_Markov</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">significance_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geoda_quads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/markov.html#LISA_Markov"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.markov.LISA_Markov" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">giddy.markov.</span></span><span class="sig-name descname"><span class="pre">LISA_Markov</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">significance_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geoda_quads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/markov.html#LISA_Markov"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.markov.LISA_Markov" title="Link to this definition">¶</a></dt>
 <dd><p>Markov for Local Indicators of Spatial Association</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>y</strong><span class="classifier">array</span></dt><dd><p>(n, t), n cross-sectional units observed over t time
@@ -164,87 +164,8 @@ If False use PySAL Scheme: HH=1, LH=2, LL=3, HL=4.
 </dd>
 </dl>
 </dd>
-</dl>
-<p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libpysal</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">giddy.markov</span> <span class="kn">import</span> <span class="n">LISA_Markov</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#prevent scientific format</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">libpysal</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">libpysal</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;usjoin.csv&quot;</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">years</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1929</span><span class="p">,</span> <span class="mi">2010</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pci</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">by_col</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">years</span><span class="p">])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">w</span> <span class="o">=</span> <span class="n">libpysal</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">libpysal</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;states48.gal&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span> <span class="o">=</span> <span class="n">LISA_Markov</span><span class="p">(</span><span class="n">pci</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">classes</span>
-<span class="go">array([1, 2, 3, 4])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">steady_state</span>
-<span class="go">array([0.28561505, 0.14190226, 0.40493672, 0.16754598])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">transitions</span>
-<span class="go">array([[1087.,   44.,    4.,   34.],</span>
-<span class="go">       [  41.,  470.,   36.,    1.],</span>
-<span class="go">       [   5.,   34., 1422.,   39.],</span>
-<span class="go">       [  30.,    1.,   40.,  552.]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">p</span>
-<span class="go">array([[0.92985458, 0.03763901, 0.00342173, 0.02908469],</span>
-<span class="go">       [0.07481752, 0.85766423, 0.06569343, 0.00182482],</span>
-<span class="go">       [0.00333333, 0.02266667, 0.948     , 0.026     ],</span>
-<span class="go">       [0.04815409, 0.00160514, 0.06420546, 0.88603531]])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">move_types</span><span class="p">[</span><span class="mi">0</span><span class="p">,:</span><span class="mi">3</span><span class="p">]</span>
-<span class="go">array([11, 11, 11])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">move_types</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span>
-<span class="go">array([11, 11, 11])</span>
-</pre></div>
-</div>
-<p>Now consider only moves with one, or both, of the LISA end points being
-significant</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">lm_random</span> <span class="o">=</span> <span class="n">LISA_Markov</span><span class="p">(</span><span class="n">pci</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">permutations</span><span class="o">=</span><span class="mi">99</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">lm_random</span><span class="o">.</span><span class="n">significant_moves</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span>
-<span class="go">array([11, 11, 11])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">lm_random</span><span class="o">.</span><span class="n">significant_moves</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span>
-<span class="go">array([59, 59, 43])</span>
-</pre></div>
-</div>
-<p>Any value less than 49 indicates at least one of the LISA end points was
-significant. So for example, the first spatial unit experienced a
-transition of type 11 (LL, LL)  during the first three and last tree
-intervals (according to lm.move_types), however, the last three of these
-transitions involved insignificant LISAS in both the start and ending year
-of each transition.</p>
-<p>Test whether the moves of y are independent of the moves of wy</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;Chi2: </span><span class="si">%8.3f</span><span class="s2">, p: </span><span class="si">%5.2f</span><span class="s2">, dof: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">lm</span><span class="o">.</span><span class="n">chi_2</span>
-<span class="go">&#39;Chi2: 1058.208, p:  0.00, dof: 9&#39;</span>
-</pre></div>
-</div>
-<p>Actual transitions of LISAs</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">transitions</span>
-<span class="go">array([[1087.,   44.,    4.,   34.],</span>
-<span class="go">       [  41.,  470.,   36.,    1.],</span>
-<span class="go">       [   5.,   34., 1422.,   39.],</span>
-<span class="go">       [  30.,    1.,   40.,  552.]])</span>
-</pre></div>
-</div>
-<p>Expected transitions of LISAs under the null y and wy are moving
-independently of one another</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">expected_t</span>
-<span class="go">array([[1123.2809778 ,   11.53773565,    0.34752216,   33.83376439],</span>
-<span class="go">       [   3.50272664,  528.47388155,   15.917888  ,    0.10550381],</span>
-<span class="go">       [   0.15387808,   23.21635562, 1466.90710117,    9.72266513],</span>
-<span class="go">       [   9.60775143,    0.09868563,    6.23537392,  607.05818902]])</span>
-</pre></div>
-</div>
-<p>If the LISA classes are to be defined according to GeoDa, the <cite>geoda_quad</cite>
-option has to be set to true</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
-<span class="go">array([3, 2, 3, 1, 4])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span> <span class="o">=</span> <span class="n">LISA_Markov</span><span class="p">(</span><span class="n">pci</span><span class="p">,</span><span class="n">w</span><span class="p">,</span> <span class="n">geoda_quads</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
-<span class="go">array([2, 3, 2, 1, 4])</span>
-</pre></div>
-</div>
-<dl class="field-list">
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl>
 <dt><strong>chi_2</strong><span class="classifier">tuple</span></dt><dd><p>(3 elements)
 (chi square test statistic, p-value, degrees of freedom) for
 test that dynamics of y are independent of dynamics of wy.</p>
@@ -593,6 +514,83 @@ significant in period t, else st=0 (if permutations &gt;
 </dl>
 </dd>
 </dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">libpysal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">giddy.markov</span><span class="w"> </span><span class="kn">import</span> <span class="n">LISA_Markov</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">#prevent scientific format</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">libpysal</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">libpysal</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;usjoin.csv&quot;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">years</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1929</span><span class="p">,</span> <span class="mi">2010</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pci</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">by_col</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">years</span><span class="p">])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">w</span> <span class="o">=</span> <span class="n">libpysal</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">libpysal</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;states48.gal&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span> <span class="o">=</span> <span class="n">LISA_Markov</span><span class="p">(</span><span class="n">pci</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">classes</span>
+<span class="go">array([1, 2, 3, 4])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">steady_state</span>
+<span class="go">array([0.28561505, 0.14190226, 0.40493672, 0.16754598])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">transitions</span>
+<span class="go">array([[1087.,   44.,    4.,   34.],</span>
+<span class="go">       [  41.,  470.,   36.,    1.],</span>
+<span class="go">       [   5.,   34., 1422.,   39.],</span>
+<span class="go">       [  30.,    1.,   40.,  552.]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">p</span>
+<span class="go">array([[0.92985458, 0.03763901, 0.00342173, 0.02908469],</span>
+<span class="go">       [0.07481752, 0.85766423, 0.06569343, 0.00182482],</span>
+<span class="go">       [0.00333333, 0.02266667, 0.948     , 0.026     ],</span>
+<span class="go">       [0.04815409, 0.00160514, 0.06420546, 0.88603531]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">move_types</span><span class="p">[</span><span class="mi">0</span><span class="p">,:</span><span class="mi">3</span><span class="p">]</span>
+<span class="go">array([11, 11, 11])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">move_types</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span>
+<span class="go">array([11, 11, 11])</span>
+</pre></div>
+</div>
+<p>Now consider only moves with one, or both, of the LISA end points being
+significant</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lm_random</span> <span class="o">=</span> <span class="n">LISA_Markov</span><span class="p">(</span><span class="n">pci</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">permutations</span><span class="o">=</span><span class="mi">99</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lm_random</span><span class="o">.</span><span class="n">significant_moves</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+<span class="go">array([11, 11, 11])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lm_random</span><span class="o">.</span><span class="n">significant_moves</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span>
+<span class="go">array([59, 59, 43])</span>
+</pre></div>
+</div>
+<p>Any value less than 49 indicates at least one of the LISA end points was
+significant. So for example, the first spatial unit experienced a
+transition of type 11 (LL, LL)  during the first three and last tree
+intervals (according to lm.move_types), however, the last three of these
+transitions involved insignificant LISAS in both the start and ending year
+of each transition.</p>
+<p>Test whether the moves of y are independent of the moves of wy</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;Chi2: </span><span class="si">%8.3f</span><span class="s2">, p: </span><span class="si">%5.2f</span><span class="s2">, dof: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">lm</span><span class="o">.</span><span class="n">chi_2</span>
+<span class="go">&#39;Chi2: 1058.208, p:  0.00, dof: 9&#39;</span>
+</pre></div>
+</div>
+<p>Actual transitions of LISAs</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">transitions</span>
+<span class="go">array([[1087.,   44.,    4.,   34.],</span>
+<span class="go">       [  41.,  470.,   36.,    1.],</span>
+<span class="go">       [   5.,   34., 1422.,   39.],</span>
+<span class="go">       [  30.,    1.,   40.,  552.]])</span>
+</pre></div>
+</div>
+<p>Expected transitions of LISAs under the null y and wy are moving
+independently of one another</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">expected_t</span>
+<span class="go">array([[1123.2809778 ,   11.53773565,    0.34752216,   33.83376439],</span>
+<span class="go">       [   3.50272664,  528.47388155,   15.917888  ,    0.10550381],</span>
+<span class="go">       [   0.15387808,   23.21635562, 1466.90710117,    9.72266513],</span>
+<span class="go">       [   9.60775143,    0.09868563,    6.23537392,  607.05818902]])</span>
+</pre></div>
+</div>
+<p>If the LISA classes are to be defined according to GeoDa, the <cite>geoda_quad</cite>
+option has to be set to true</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([3, 2, 3, 1, 4])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span> <span class="o">=</span> <span class="n">LISA_Markov</span><span class="p">(</span><span class="n">pci</span><span class="p">,</span><span class="n">w</span><span class="p">,</span> <span class="n">geoda_quads</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lm</span><span class="o">.</span><span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">array([2, 3, 2, 1, 4])</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt class="sig sig-object py" id="giddy.markov.LISA_Markov.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">significance_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geoda_quads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/markov.html#LISA_Markov.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.markov.LISA_Markov.__init__" title="Link to this definition">¶</a></dt>
@@ -655,8 +653,8 @@ previously existing cluster.</p>
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libpysal</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">giddy.markov</span> <span class="kn">import</span> <span class="n">LISA_Markov</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">libpysal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">giddy.markov</span><span class="w"> </span><span class="kn">import</span> <span class="n">LISA_Markov</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">libpysal</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">libpysal</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;usjoin.csv&quot;</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">years</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1929</span><span class="p">,</span> <span class="mi">2010</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pci</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">by_col</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">years</span><span class="p">])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
@@ -665,21 +663,21 @@ previously existing cluster.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">lm_random</span> <span class="o">=</span> <span class="n">LISA_Markov</span><span class="p">(</span><span class="n">pci</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">permutations</span><span class="o">=</span><span class="mi">99</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="n">lm_random</span><span class="o">.</span><span class="n">spillover</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;components&#39;</span><span class="p">][:,</span> <span class="mi">12</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="go">17</span>
+<span class="go">np.int64(17)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;components&#39;</span><span class="p">][:,</span> <span class="mi">13</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="go">23</span>
+<span class="go">np.int64(23)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;spill_over&#39;</span><span class="p">][:,</span><span class="mi">12</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="go">6</span>
+<span class="go">np.int64(6)</span>
 </pre></div>
 </div>
 <p>Including neighbors of core neighbors
 &gt;&gt;&gt; rn = lm_random.spillover(neighbors_on=True)
 &gt;&gt;&gt; (rn[‘components’][:, 12] &gt; 0).sum()
-26
+np.int64(26)
 &gt;&gt;&gt; (rn[“components”][:, 13] &gt; 0).sum()
-34
+np.int64(34)
 &gt;&gt;&gt; (rn[“spill_over”][:, 12] &gt; 0).sum()
-8</p>
+np.int64(8)</p>
 </dd></dl>
 
 </dd></dl>
@@ -706,7 +704,7 @@ previously existing cluster.</p>
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.0.4.<br/>
     </p>
   </div>
 </footer>

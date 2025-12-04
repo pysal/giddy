@@ -5,18 +5,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Measures of Income Mobility &#8212; giddy v0.1.dev1+g6468f09 Manual</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <title>Measures of Income Mobility &#8212; giddy v2.3.7 Manual</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=9afac83c" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css?v=14ca3da1" />
-    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
-    <script src="../_static/documentation_options.js?v=8f3e3400"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <script src="../_static/documentation_options.js?v=08413e95"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <link rel="icon" href="../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -44,7 +44,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           giddy</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.dev1+g6468f09</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.3.7</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -190,19 +190,19 @@ estimate is absolute or reletive mobility depends on how the original continuous
 <p><span class="math notranslate nohighlight">\(\pi\)</span> is the inital income distribution. For any transition probability matrix with a quasi-maximal diagonal, all of these mobility measures take values on <span class="math notranslate nohighlight">\([0,1]\)</span>. <span class="math notranslate nohighlight">\(0\)</span> means immobility and <span class="math notranslate nohighlight">\(1\)</span> perfect mobility. If the transition probability matrix takes the form of the identity matrix, every region is stuck in its current state implying complete immobility. On the contrary, when each row of <span class="math notranslate nohighlight">\(P\)</span> is identical, current state is irrelevant to the probability of moving
 away to any class. Thus, the transition matrix with identical rows is considered perfect mobile. The larger the mobility estimate, the more mobile the regional income system is. However, it should be noted that these measures try to reveal mobility pattern from different aspects and are thus not comparable to each other. Actually the mean and variance of these measures are different.</p>
 <p>We implemented all the above five summary mobility measures in a single method <code class="docutils literal notranslate"><span class="pre">markov_mobility</span></code>. A parameter <code class="docutils literal notranslate"><span class="pre">measure</span></code> could be specified to select which measure to calculate. By default, the mobility measure ‘P’ will be estimated.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">markov_mobility</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">measure</span><span class="o">=</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="n">ini</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">markov_mobility</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">measure</span><span class="o">=</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="n">ini</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 
 <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
     <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
     <span class="c1"># ignore NumbaDeprecationWarning: gh-pysal/libpysal#560</span>
-    <span class="kn">from</span> <span class="nn">giddy</span> <span class="kn">import</span> <span class="n">markov</span><span class="p">,</span> <span class="n">mobility</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">giddy</span><span class="w"> </span><span class="kn">import</span> <span class="n">markov</span><span class="p">,</span> <span class="n">mobility</span>
 
 <span class="o">?</span>mobility.markov_mobility
 </pre></div>
@@ -323,10 +323,10 @@ distribution should be given):
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
     <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
     <span class="c1"># ignore NumbaDeprecationWarning: gh-pysal/libpysal#560</span>
-    <span class="kn">import</span> <span class="nn">libpysal</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">libpysal</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">mapclassify</span> <span class="k">as</span> <span class="nn">mc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mapclassify</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mc</span>
 </pre></div>
 </div>
 </div>
@@ -547,7 +547,7 @@ M_{B2} = \frac{1}{m-1} \sum_{i=1}^m \sum_{j=1}^m \pi_i P_{ij} |i-j|
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.0.4.<br/>
     </p>
   </div>
 </footer>

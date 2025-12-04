@@ -5,18 +5,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Rank based Methods &#8212; giddy v0.1.dev1+g6468f09 Manual</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <title>Rank based Methods &#8212; giddy v2.3.7 Manual</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=9afac83c" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css?v=14ca3da1" />
-    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
-    <script src="../_static/documentation_options.js?v=8f3e3400"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <script src="../_static/documentation_options.js?v=08413e95"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <link rel="icon" href="../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -44,7 +44,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           giddy</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.dev1+g6468f09</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.3.7</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -191,16 +191,16 @@ Interactive online version:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 
 <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
     <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
     <span class="c1"># ignore NumbaDeprecationWarning: gh-pysal/libpysal#560</span>
-    <span class="kn">import</span> <span class="nn">libpysal</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">libpysal</span>
 </pre></div>
 </div>
 </div>
@@ -392,8 +392,8 @@ Interactive online version:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 
 <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
     <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
@@ -422,7 +422,7 @@ Interactive online version:
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_RankBasedMethods_4_0.png" class="no-scaled-link" src="../_images/notebooks_RankBasedMethods_4_0.png" style="width: 1489px; height: 546px;" />
+<img alt="../_images/notebooks_RankBasedMethods_4_0.png" class="no-scaled-link" height="546" src="../_images/notebooks_RankBasedMethods_4_0.png" width="1489" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -438,7 +438,7 @@ Interactive online version:
 <span class="n">names1929</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">order1929</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
 <span class="n">names2009</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">order2009</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
 <span class="n">first_last</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">names1929</span><span class="p">,</span> <span class="n">names2009</span><span class="p">))</span>
-<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="n">rcParams</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pylab</span><span class="w"> </span><span class="kn">import</span> <span class="n">rcParams</span>
 
 <span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">10</span>
 <span class="n">p</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">years</span><span class="p">,</span> <span class="n">rpci</span><span class="p">)</span>
@@ -466,11 +466,21 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_RankBasedMethods_5_1.png" class="no-scaled-link" src="../_images/notebooks_RankBasedMethods_5_1.png" style="width: 1539px; height: 863px;" />
+<img alt="../_images/notebooks_RankBasedMethods_5_1.png" class="no-scaled-link" height="863" src="../_images/notebooks_RankBasedMethods_5_1.png" width="1539" />
 </div>
 </div>
 <p>The above figure displays the trajectories of relative per capita incomes of 48 US states. It is quite obvious that states were swapping positions across 1929-2009. We will demonstrate how to quantify the exchange mobility as well as how to assess the regional and local contribution to the overall exchange mobility. We will ultilize <a class="reference external" href="https://www.bea.gov/regional/docs/regions.cfm">BEA regions</a> and base on it for constructing the block weight matrix.</p>
-<p>BEA regional scheme divide US states into 8 regions: * New England Region * Mideast Region * Great Lakes Region * Plains Region * Southeast Region * Southwest Region * Rocky Mountain Region * Far West Region</p>
+<p>BEA regional scheme divide US states into 8 regions:</p>
+<ul class="simple">
+<li><p>New England Region</p></li>
+<li><p>Mideast Region</p></li>
+<li><p>Great Lakes Region</p></li>
+<li><p>Plains Region</p></li>
+<li><p>Southeast Region</p></li>
+<li><p>Southwest Region</p></li>
+<li><p>Rocky Mountain Region</p></li>
+<li><p>Far West Region</p></li>
+</ul>
 <p>As the dataset does not contain information regarding BEA regions, we manually input the regional information:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -805,7 +815,7 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_RankBasedMethods_10_0.png" class="no-scaled-link" src="../_images/notebooks_RankBasedMethods_10_0.png" style="width: 1182px; height: 547px;" />
+<img alt="../_images/notebooks_RankBasedMethods_10_0.png" class="no-scaled-link" height="547" src="../_images/notebooks_RankBasedMethods_10_0.png" width="1182" />
 </div>
 </div>
 </section>
@@ -833,7 +843,7 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
     <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
     <span class="c1"># ignore NumbaDeprecationWarning: gh-pysal/libpysal#560</span>
 
-    <span class="kn">import</span> <span class="nn">giddy</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">giddy</span>
 </pre></div>
 </div>
 </div>
@@ -941,7 +951,7 @@ Text(0.5, 1.0, &#39;Relative per capita incomes of 48 US states&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">libpysal.weights</span> <span class="kn">import</span> <span class="n">block_weights</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">libpysal.weights</span><span class="w"> </span><span class="kn">import</span> <span class="n">block_weights</span>
 
 <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
     <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span>
@@ -1573,7 +1583,7 @@ array([ 0.33333333,  1.        ,  1.        , -0.66666667,  0.        ,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_RankBasedMethods_46_0.png" class="no-scaled-link" src="../_images/notebooks_RankBasedMethods_46_0.png" style="width: 1182px; height: 540px;" />
+<img alt="../_images/notebooks_RankBasedMethods_46_0.png" class="no-scaled-link" height="540" src="../_images/notebooks_RankBasedMethods_46_0.png" width="1182" />
 </div>
 </div>
 <p>Therefore, Arizona, North Dakota, and Missouri exchanged ranks with most of their neighbors over 1929-2009 while California, Virginia etc. barely exchanged ranks with their neighbors.</p>
@@ -1658,7 +1668,7 @@ array([ 0.        ,  0.        ,  0.        , -0.        ,  0.        ,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_RankBasedMethods_50_0.png" class="no-scaled-link" src="../_images/notebooks_RankBasedMethods_50_0.png" style="width: 1182px; height: 540px;" />
+<img alt="../_images/notebooks_RankBasedMethods_50_0.png" class="no-scaled-link" height="540" src="../_images/notebooks_RankBasedMethods_50_0.png" width="1182" />
 </div>
 </div>
 <p>Thus, Arizona and Missouri have significant and negative neighbor set LIMA values, and can be considered as hotspots of rank exchanges. This means that Arizona (or Missouri) tended to exchange ranks with its neighbors than with others over 1929-2009. On the contrary, Virgina has significant and large positive neighbor set LIMA value indicating that it tended to exchange ranks with its nonneighbors than with neighbors.</p>
@@ -1746,7 +1756,7 @@ array([ 0.66666667,  0.8       ,  0.86666667, -0.14285714, -0.14285714,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_RankBasedMethods_54_0.png" class="no-scaled-link" src="../_images/notebooks_RankBasedMethods_54_0.png" style="width: 1182px; height: 540px;" />
+<img alt="../_images/notebooks_RankBasedMethods_54_0.png" class="no-scaled-link" height="540" src="../_images/notebooks_RankBasedMethods_54_0.png" width="1182" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -1829,7 +1839,7 @@ array([ 0.        ,  0.        ,  0.        , -0.14285714, -0.14285714,
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_RankBasedMethods_57_0.png" class="no-scaled-link" src="../_images/notebooks_RankBasedMethods_57_0.png" style="width: 1182px; height: 540px;" />
+<img alt="../_images/notebooks_RankBasedMethods_57_0.png" class="no-scaled-link" height="540" src="../_images/notebooks_RankBasedMethods_57_0.png" width="1182" />
 </div>
 </div>
 </section>
@@ -1874,7 +1884,7 @@ array([ 0.        ,  0.        ,  0.        , -0.14285714, -0.14285714,
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.0.4.<br/>
     </p>
   </div>
 </footer>

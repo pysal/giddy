@@ -4,14 +4,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>giddy.directional &#8212; giddy v0.1.dev1+g6468f09 Manual</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <title>giddy.directional &#8212; giddy v2.3.7 Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=9afac83c" />
     <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/pysal-styles.css?v=14ca3da1" />
-    <script src="../../_static/documentation_options.js?v=8f3e3400"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/documentation_options.js?v=08413e95"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="../../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -38,7 +38,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           giddy</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.dev1+g6468f09</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.3.7</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -129,14 +129,14 @@
 <span class="sd">Directional Analysis of Dynamic LISAs</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Sergio J. Rey &lt;sjsrey@gmail.com&gt;&quot;</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Rose&quot;</span><span class="p">]</span>
 
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">libpysal</span> <span class="kn">import</span> <span class="n">weights</span>
-<span class="kn">from</span> <span class="nn">libpysal.common</span> <span class="kn">import</span> <span class="n">requires</span> <span class="k">as</span> <span class="n">_requires</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">libpysal</span><span class="w"> </span><span class="kn">import</span> <span class="n">weights</span>
 
 <span class="n">_POS8</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 <span class="n">_POS4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
@@ -146,7 +146,7 @@
 
 <div class="viewcode-block" id="Rose">
 <a class="viewcode-back" href="../../generated/giddy.directional.Rose.html#giddy.directional.Rose">[docs]</a>
-<span class="k">class</span> <span class="nc">Rose</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Rose</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Rose diagram based inference for directional LISAs.</span>
 
@@ -194,7 +194,7 @@
 
 <div class="viewcode-block" id="Rose.__init__">
 <a class="viewcode-back" href="../../generated/giddy.directional.Rose.html#giddy.directional.Rose.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculation of rose diagram for local indicators of spatial</span>
 <span class="sd">        association.</span>
@@ -356,7 +356,7 @@
 
 <div class="viewcode-block" id="Rose.permute">
 <a class="viewcode-back" href="../../generated/giddy.directional.Rose.html#giddy.directional.Rose.permute">[docs]</a>
-    <span class="k">def</span> <span class="nf">permute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">permutations</span><span class="o">=</span><span class="mi">99</span><span class="p">,</span> <span class="n">alternative</span><span class="o">=</span><span class="s2">&quot;two.sided&quot;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">permute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">permutations</span><span class="o">=</span><span class="mi">99</span><span class="p">,</span> <span class="n">alternative</span><span class="o">=</span><span class="s2">&quot;two.sided&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate ransom spatial permutations for inference on LISA vectors.</span>
 
@@ -431,10 +431,10 @@
             <span class="n">P</span> <span class="o">=</span> <span class="n">NEG</span> <span class="o">*</span> <span class="n">L</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">NEG</span><span class="p">)</span> <span class="o">*</span> <span class="n">S</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">P</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Bad option for alternative: </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">alternative</span><span class="p">)</span></div>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bad option for alternative: </span><span class="si">{</span><span class="n">alternative</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_calc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_calc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
         <span class="n">wY</span> <span class="o">=</span> <span class="n">weights</span><span class="o">.</span><span class="n">lag_spatial</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
         <span class="n">dx</span> <span class="o">=</span> <span class="n">Y</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">Y</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
         <span class="n">dy</span> <span class="o">=</span> <span class="n">wY</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">wY</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
@@ -457,8 +457,7 @@
 
 <div class="viewcode-block" id="Rose.plot">
 <a class="viewcode-back" href="../../generated/giddy.directional.Rose.html#giddy.directional.Rose.plot">[docs]</a>
-    <span class="nd">@_requires</span><span class="p">(</span><span class="s2">&quot;splot&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plot the rose diagram.</span>
 
@@ -482,7 +481,7 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="kn">from</span> <span class="nn">splot.giddy</span> <span class="kn">import</span> <span class="n">dynamic_lisa_rose</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.plotting</span><span class="w"> </span><span class="kn">import</span> <span class="n">dynamic_lisa_rose</span>
 
         <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">dynamic_lisa_rose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="n">attribute</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span></div>
@@ -490,16 +489,16 @@
 
 <div class="viewcode-block" id="Rose.plot_origin">
 <a class="viewcode-back" href="../../generated/giddy.directional.Rose.html#giddy.directional.Rose.plot_origin">[docs]</a>
-    <span class="k">def</span> <span class="nf">plot_origin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># TODO add attribute option to color vectors</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_origin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># TODO add attribute option to color vectors</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plot vectors of positional transition of LISA values starting</span>
 <span class="sd">        from the same origin.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 
         <span class="n">xlim</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
         <span class="n">ylim</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_dy</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
-        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dx</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dy</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
             <span class="n">xs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span>
             <span class="n">ys</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="s2">&quot;-b&quot;</span><span class="p">)</span>  <span class="c1"># TODO change this to scale with attribute</span>
@@ -510,8 +509,7 @@
 
 <div class="viewcode-block" id="Rose.plot_vectors">
 <a class="viewcode-back" href="../../generated/giddy.directional.Rose.html#giddy.directional.Rose.plot_vectors">[docs]</a>
-    <span class="nd">@_requires</span><span class="p">(</span><span class="s2">&quot;splot&quot;</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">plot_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arrows</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arrows</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Plot vectors of positional transition of LISA values</span>
 <span class="sd">        within quadrant in scatterplot in a polar plot.</span>
@@ -536,7 +534,7 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="kn">from</span> <span class="nn">splot.giddy</span> <span class="kn">import</span> <span class="n">dynamic_lisa_vectors</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">.plotting</span><span class="w"> </span><span class="kn">import</span> <span class="n">dynamic_lisa_vectors</span>
 
         <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">dynamic_lisa_vectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arrows</span><span class="o">=</span><span class="n">arrows</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span></div>
@@ -559,7 +557,7 @@
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.0.4.<br/>
     </p>
   </div>
 </footer>

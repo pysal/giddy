@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>giddy.markov.Markov &#8212; giddy v0.1.dev1+g6468f09 Manual</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <title>giddy.markov.Markov &#8212; giddy v2.3.7 Manual</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=9afac83c" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css?v=14ca3da1" />
-    <script src="../_static/documentation_options.js?v=8f3e3400"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=08413e95"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -41,7 +41,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           giddy</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.dev1+g6468f09</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.3.7</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -143,7 +143,7 @@
 <h1>giddy.markov.Markov<a class="headerlink" href="#giddy-markov-markov" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="giddy.markov.Markov">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">giddy.markov.</span></span><span class="sig-name descname"><span class="pre">Markov</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_empty_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/markov.html#Markov"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.markov.Markov" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">giddy.markov.</span></span><span class="sig-name descname"><span class="pre">Markov</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_empty_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/markov.html#Markov"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.markov.Markov" title="Link to this definition">¶</a></dt>
 <dd><p>Classic Markov Chain estimation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -163,10 +163,40 @@ initialization. Default is True.</p>
 </dd>
 </dl>
 </dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>k</strong><span class="classifier">int</span></dt><dd><p>Number of Markov states.</p>
+</dd>
+<dt><strong>p</strong><span class="classifier">array</span></dt><dd><p>(k, k), transition probability matrix.</p>
+</dd>
+<dt><strong>num_cclasses</strong><span class="classifier">int</span></dt><dd><p>Number of communicating classes.</p>
+</dd>
+<dt><strong>cclasses_indices</strong><span class="classifier">list</span></dt><dd><p>List of indices within each communicating classes.</p>
+</dd>
+<dt><strong>num_rclasses</strong><span class="classifier">int</span></dt><dd><p>Number of recurrent classes.</p>
+</dd>
+<dt><strong>rclasses_indices</strong><span class="classifier">list</span></dt><dd><p>List of indices within each recurrent classes.</p>
+</dd>
+<dt><strong>num_astates</strong><span class="classifier">int</span></dt><dd><p>Number of absorbing states.</p>
+</dd>
+<dt><strong>astates_indices</strong><span class="classifier">list</span></dt><dd><p>List of indices of absorbing states.</p>
+</dd>
+<dt><strong>steady_state</strong><span class="classifier">array</span></dt><dd><p>Steady state distributions. If the Markov chain only has
+one recurrent class (num_rclasses=1), it will converge to
+an unique distribution in the long run, and thus steady_state
+is of (k, ) dimension; if the Markov chain has multiple
+recurrent classes (num_rclasses&gt;1), there will be
+(num_rclasses) steady state distributions and steady_state
+will be of (num_rclasses, k) dimension.</p>
+</dd>
+<dt><strong>transitions</strong><span class="classifier">array</span></dt><dd><p>(k, k), count of transitions between each state i and j.</p>
+</dd>
+</dl>
+</dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">giddy.markov</span> <span class="kn">import</span> <span class="n">Markov</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">giddy.markov</span><span class="w"> </span><span class="kn">import</span> <span class="n">Markov</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">],[</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">],[</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">]]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">extend</span><span class="p">([[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
@@ -199,8 +229,8 @@ initialization. Default is True.</p>
 </pre></div>
 </div>
 <p>US nominal per capita income 48 states 81 years 1929-2009</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libpysal</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">mapclassify</span> <span class="k">as</span> <span class="nn">mc</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">libpysal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">mapclassify</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mc</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">libpysal</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">libpysal</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;usjoin.csv&quot;</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pci</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">f</span><span class="o">.</span><span class="n">by_col</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">y</span><span class="p">)]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1929</span><span class="p">,</span><span class="mi">2010</span><span class="p">)])</span>
 </pre></div>
@@ -249,38 +279,6 @@ initialization. Default is True.</p>
 <span class="go">array([0.17957376, 0.21631443, 0.21499942, 0.21134662, 0.17776576])</span>
 </pre></div>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>k</strong><span class="classifier">int</span></dt><dd><p>Number of Markov states.</p>
-</dd>
-<dt><strong>p</strong><span class="classifier">array</span></dt><dd><p>(k, k), transition probability matrix.</p>
-</dd>
-<dt><strong>num_cclasses</strong><span class="classifier">int</span></dt><dd><p>Number of communicating classes.</p>
-</dd>
-<dt><strong>cclasses_indices</strong><span class="classifier">list</span></dt><dd><p>List of indices within each communicating classes.</p>
-</dd>
-<dt><strong>num_rclasses</strong><span class="classifier">int</span></dt><dd><p>Number of recurrent classes.</p>
-</dd>
-<dt><strong>rclasses_indices</strong><span class="classifier">list</span></dt><dd><p>List of indices within each recurrent classes.</p>
-</dd>
-<dt><strong>num_astates</strong><span class="classifier">int</span></dt><dd><p>Number of absorbing states.</p>
-</dd>
-<dt><strong>astates_indices</strong><span class="classifier">list</span></dt><dd><p>List of indices of absorbing states.</p>
-</dd>
-<dt><strong>steady_state</strong><span class="classifier">array</span></dt><dd><p>Steady state distributions. If the Markov chain only has
-one recurrent class (num_rclasses=1), it will converge to
-an unique distribution in the long run, and thus steady_state
-is of (k, ) dimension; if the Markov chain has multiple
-recurrent classes (num_rclasses&gt;1), there will be
-(num_rclasses) steady state distributions and steady_state
-will be of (num_rclasses, k) dimension.</p>
-</dd>
-<dt><strong>transitions</strong><span class="classifier">array</span></dt><dd><p>(k, k), count of transitions between each state i and j.</p>
-</dd>
-</dl>
-</dd>
-</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="giddy.markov.Markov.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_empty_classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/markov.html#Markov.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.markov.Markov.__init__" title="Link to this definition">¶</a></dt>
@@ -310,17 +308,17 @@ will be of (num_rclasses, k) dimension.</p>
 </table>
 <dl class="py property">
 <dt class="sig sig-object py" id="giddy.markov.Markov.mfpt">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mfpt</span></span><a class="headerlink" href="#giddy.markov.Markov.mfpt" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">mfpt</span></span><a class="headerlink" href="#giddy.markov.Markov.mfpt" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="giddy.markov.Markov.sojourn_time">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sojourn_time</span></span><a class="headerlink" href="#giddy.markov.Markov.sojourn_time" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">sojourn_time</span></span><a class="headerlink" href="#giddy.markov.Markov.sojourn_time" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="giddy.markov.Markov.steady_state">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">steady_state</span></span><a class="headerlink" href="#giddy.markov.Markov.steady_state" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">steady_state</span></span><a class="headerlink" href="#giddy.markov.Markov.steady_state" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -347,7 +345,7 @@ will be of (num_rclasses, k) dimension.</p>
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.0.4.<br/>
     </p>
   </div>
 </footer>

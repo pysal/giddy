@@ -5,18 +5,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Full Rank Markov and Geographic Rank Markov &#8212; giddy v0.1.dev1+g6468f09 Manual</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <title>Full Rank Markov and Geographic Rank Markov &#8212; giddy v2.3.7 Manual</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=9afac83c" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css?v=14ca3da1" />
-    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
-    <script src="../_static/documentation_options.js?v=8f3e3400"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+    <script src="../_static/documentation_options.js?v=08413e95"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"TeX": {"equationNumbers": {"autoNumber": "AMS", "useLabelIds": true}}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <link rel="icon" href="../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -44,7 +44,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           giddy</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.dev1+g6468f09</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.3.7</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -149,18 +149,18 @@ Interactive online version:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
 
 <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
     <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
     <span class="c1"># ignore NumbaDeprecationWarning: gh-pysal/libpysal#560</span>
-    <span class="kn">import</span> <span class="nn">libpysal</span> <span class="k">as</span> <span class="nn">ps</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">libpysal</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ps</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
 </pre></div>
 </div>
 </div>
@@ -173,7 +173,7 @@ Interactive online version:
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
     <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
     <span class="c1"># ignore NumbaDeprecationWarning: gh-pysal/libpysal#560</span>
-    <span class="kn">from</span> <span class="nn">giddy.markov</span> <span class="kn">import</span> <span class="n">FullRank_Markov</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">giddy.markov</span><span class="w"> </span><span class="kn">import</span> <span class="n">FullRank_Markov</span>
 </pre></div>
 </div>
 </div>
@@ -613,7 +613,7 @@ array([[&lt;Axes: &gt;, &lt;Axes: &gt;]], dtype=object)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_RankMarkov_14_1.png" class="no-scaled-link" src="../_images/notebooks_RankMarkov_14_1.png" style="width: 1219px; height: 431px;" />
+<img alt="../_images/notebooks_RankMarkov_14_1.png" class="no-scaled-link" height="431" src="../_images/notebooks_RankMarkov_14_1.png" width="1219" />
 </div>
 </div>
 <div class="nbinput docutils container">
@@ -636,7 +636,7 @@ array([[&lt;Axes: &gt;, &lt;Axes: &gt;]], dtype=object)
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_RankMarkov_15_0.png" class="no-scaled-link" src="../_images/notebooks_RankMarkov_15_0.png" style="width: 489px; height: 489px;" />
+<img alt="../_images/notebooks_RankMarkov_15_0.png" class="no-scaled-link" height="489" src="../_images/notebooks_RankMarkov_15_0.png" width="489" />
 </div>
 </div>
 </section>
@@ -646,7 +646,7 @@ array([[&lt;Axes: &gt;, &lt;Axes: &gt;]], dtype=object)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">giddy.markov</span> <span class="kn">import</span> <span class="n">GeoRank_Markov</span><span class="p">,</span> <span class="n">Markov</span><span class="p">,</span> <span class="n">sojourn_time</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">giddy.markov</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeoRank_Markov</span><span class="p">,</span> <span class="n">Markov</span><span class="p">,</span> <span class="n">sojourn_time</span>
 
 <span class="n">gm</span> <span class="o">=</span> <span class="n">GeoRank_Markov</span><span class="p">(</span><span class="n">pci</span><span class="p">)</span>
 </pre></div>
@@ -1208,7 +1208,7 @@ Index([&#39;AREA&#39;, &#39;PERIMETER&#39;, &#39;STATE_&#39;, &#39;STATE_ID&#39;
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_RankMarkov_27_0.png" class="no-scaled-link" src="../_images/notebooks_RankMarkov_27_0.png" style="width: 1451px; height: 688px;" />
+<img alt="../_images/notebooks_RankMarkov_27_0.png" class="no-scaled-link" height="688" src="../_images/notebooks_RankMarkov_27_0.png" width="1451" />
 </div>
 </div>
 <p>Visualizing sojourn time for each US state:</p>
@@ -1239,7 +1239,7 @@ Index([&#39;AREA&#39;, &#39;PERIMETER&#39;, &#39;STATE_&#39;, &#39;STATE_ID&#39;
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/notebooks_RankMarkov_29_0.png" class="no-scaled-link" src="../_images/notebooks_RankMarkov_29_0.png" style="width: 1489px; height: 357px;" />
+<img alt="../_images/notebooks_RankMarkov_29_0.png" class="no-scaled-link" height="357" src="../_images/notebooks_RankMarkov_29_0.png" width="1489" />
 </div>
 </div>
 </section>
@@ -1265,7 +1265,7 @@ Index([&#39;AREA&#39;, &#39;PERIMETER&#39;, &#39;STATE_&#39;, &#39;STATE_ID&#39;
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.0.4.<br/>
     </p>
   </div>
 </footer>

@@ -4,14 +4,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>giddy.sequence &#8212; giddy v0.1.dev1+g6468f09 Manual</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <title>giddy.sequence &#8212; giddy v2.3.7 Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=9afac83c" />
     <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/pysal-styles.css?v=14ca3da1" />
-    <script src="../../_static/documentation_options.js?v=8f3e3400"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/documentation_options.js?v=08413e95"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="../../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -38,7 +38,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           giddy</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.dev1+g6468f09</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.3.7</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -133,17 +133,17 @@
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Sequence&quot;</span><span class="p">]</span>
 
-<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy.spatial.distance</span> <span class="k">as</span> <span class="nn">d</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.spatial.distance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">d</span>
 
-<span class="kn">from</span> <span class="nn">.markov</span> <span class="kn">import</span> <span class="n">Markov</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.markov</span><span class="w"> </span><span class="kn">import</span> <span class="n">Markov</span>
 
 
 <div class="viewcode-block" id="Sequence">
 <a class="viewcode-back" href="../../generated/giddy.sequence.Sequence.html#giddy.sequence.Sequence">[docs]</a>
-<span class="k">class</span> <span class="nc">Sequence</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Sequence</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Pairwise sequence analysis.</span>
 
@@ -307,7 +307,7 @@
 
 <div class="viewcode-block" id="Sequence.__init__">
 <a class="viewcode-back" href="../../generated/giddy.sequence.Sequence.html#giddy.sequence.Sequence.__init__">[docs]</a>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">subs_mat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dist_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">indel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cluster_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">subs_mat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dist_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">indel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cluster_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
         <span class="n">merged</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">classes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">merged</span><span class="p">)</span>
@@ -316,7 +316,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">indel</span> <span class="o">=</span> <span class="n">indel</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">subs_mat</span> <span class="o">=</span> <span class="n">subs_mat</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cluster_type</span> <span class="o">=</span> <span class="n">cluster_type</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">label_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">classes</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">classes</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k</span><span class="p">),</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
 
         <span class="n">y_int</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">yi</span> <span class="ow">in</span> <span class="n">y</span><span class="p">:</span>
@@ -398,7 +398,11 @@
                     <span class="n">y_tran_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">y_int</span><span class="p">)</span>
                     <span class="n">y_tran</span> <span class="o">=</span> <span class="p">[]</span>
                     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y_int</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
-                        <span class="n">y_tran</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">y_int_ext</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">y_int_ext</span><span class="p">[:,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])))</span>
+                        <span class="n">y_tran</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                            <span class="nb">list</span><span class="p">(</span>
+                                <span class="nb">zip</span><span class="p">(</span><span class="n">y_int_ext</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">y_int_ext</span><span class="p">[:,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                            <span class="p">)</span>
+                        <span class="p">)</span>
                     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y_int</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
                         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y_int</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
                             <span class="n">y_tran_index</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dict_trans_state</span><span class="p">[</span><span class="n">y_tran</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span>
@@ -408,7 +412,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_om_dist</span><span class="p">(</span><span class="n">y_int</span><span class="p">)</span></div>
 
 
-    <span class="k">def</span> <span class="nf">_om_pair_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq1</span><span class="p">,</span> <span class="n">seq2</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_om_pair_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq1</span><span class="p">,</span> <span class="n">seq2</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method for calculating the optimal matching distance between a pair of</span>
 <span class="sd">        sequences given a substitution cost matrix and an indel cost.</span>
@@ -446,7 +450,7 @@
                 <span class="n">D</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">match</span><span class="p">,</span> <span class="n">gaps</span><span class="p">,</span> <span class="n">gapt</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">D</span>
 
-    <span class="k">def</span> <span class="nf">_om_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_int</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_om_dist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_int</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method for calculating optimal matching distances between all</span>
 <span class="sd">        sequence pairs.</span>
@@ -469,7 +473,7 @@
         <span class="n">moves_str</span><span class="p">,</span> <span class="n">unique_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_str</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">moves_int</span> <span class="o">=</span> <span class="n">y_int</span><span class="p">[</span><span class="n">unique_indices</span><span class="p">]</span>
         <span class="n">uni_num</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">moves_str</span><span class="p">)</span>
-        <span class="n">dict_move_index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">moves_int</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="n">uni_num</span><span class="p">)))</span>
+        <span class="n">dict_move_index</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">moves_int</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="n">uni_num</span><span class="p">),</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
 
         <span class="c1"># dict_move_index = dict(zip(map(tuple, moves_str), range(uni_num)))</span>
 
@@ -508,7 +512,7 @@
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.0.4.<br/>
     </p>
   </div>
 </footer>

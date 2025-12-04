@@ -5,14 +5,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>giddy.rank.Tau &#8212; giddy v0.1.dev1+g6468f09 Manual</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <title>giddy.rank.Tau &#8212; giddy v2.3.7 Manual</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=9afac83c" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css?v=14ca3da1" />
-    <script src="../_static/documentation_options.js?v=8f3e3400"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/documentation_options.js?v=08413e95"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -41,7 +41,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           giddy</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.dev1+g6468f09</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.3.7</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -140,7 +140,7 @@
 <h1>giddy.rank.Tau<a class="headerlink" href="#giddy-rank-tau" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="giddy.rank.Tau">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">giddy.rank.</span></span><span class="sig-name descname"><span class="pre">Tau</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/rank.html#Tau"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.rank.Tau" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">giddy.rank.</span></span><span class="sig-name descname"><span class="pre">Tau</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/rank.html#Tau"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.rank.Tau" title="Link to this definition">¶</a></dt>
 <dd><p>Kendall’s Tau is based on a comparison of the number of pairs of n
 observations that have concordant ranks between two variables.</p>
 <dl class="field-list simple">
@@ -152,6 +152,14 @@ observations that have concordant ranks between two variables.</p>
 </dd>
 </dl>
 </dd>
+<dt class="field-even">Attributes<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>tau</strong><span class="classifier">float</span></dt><dd><p>The classic Tau statistic.</p>
+</dd>
+<dt><strong>tau_p</strong><span class="classifier">float</span></dt><dd><p>asymptotic p-value.</p>
+</dd>
+</dl>
+</dd>
 </dl>
 <p class="rubric">Notes</p>
 <p>Modification of algorithm suggested by <span id="id1">[<a class="reference internal" href="../references.html#id13" title="David Christensen. Fast algorithms for the calculation of kendall's τ. Computational Statistics, 20(1):51–62, Mar 2005. URL: https://doi.org/10.1007/BF02736122&quot;, doi:10.1007/BF02736122.">Chr05</a>]</span>.PySAL/giddy
@@ -160,8 +168,8 @@ the accumulation of the concordance measures. Ties are handled by this
 implementation (in other words, if there are ties in either x, or y, or
 both, the calculation returns Tau_b, if no ties classic Tau is returned.)</p>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">kendalltau</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">giddy.rank</span> <span class="kn">import</span> <span class="n">Tau</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">kendalltau</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">giddy.rank</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tau</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">kt</span> <span class="o">=</span> <span class="n">Tau</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">x2</span><span class="p">)</span>
@@ -176,16 +184,6 @@ both, the calculation returns Tau_b, if no ties classic Tau is returned.)</p>
 <span class="go">0.28275</span>
 </pre></div>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Attributes<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>tau</strong><span class="classifier">float</span></dt><dd><p>The classic Tau statistic.</p>
-</dd>
-<dt><strong>tau_p</strong><span class="classifier">float</span></dt><dd><p>asymptotic p-value.</p>
-</dd>
-</dl>
-</dd>
-</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="giddy.rank.Tau.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/giddy/rank.html#Tau.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#giddy.rank.Tau.__init__" title="Link to this definition">¶</a></dt>
@@ -223,7 +221,7 @@ both, the calculation returns Tau_b, if no ties classic Tau is returned.)</p>
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.0.4.<br/>
     </p>
   </div>
 </footer>

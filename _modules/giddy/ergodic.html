@@ -4,14 +4,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>giddy.ergodic &#8212; giddy v0.1.dev1+g6468f09 Manual</title>
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <title>giddy.ergodic &#8212; giddy v2.3.7 Manual</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=9afac83c" />
     <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/pysal-styles.css?v=14ca3da1" />
-    <script src="../../_static/documentation_options.js?v=8f3e3400"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/documentation_options.js?v=08413e95"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="icon" href="../../_static/pysal_favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
@@ -38,7 +38,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           giddy</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.1.dev1+g6468f09</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.3.7</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -128,20 +128,21 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Summary measures for ergodic Markov chains.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Sergio J. Rey &lt;sjsrey@gmail.com&gt;, Wei Kang &lt;weikang9009@gmail.com&gt;&quot;</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;steady_state&quot;</span><span class="p">,</span> <span class="s2">&quot;var_mfpt_ergodic&quot;</span><span class="p">,</span> <span class="s2">&quot;mfpt&quot;</span><span class="p">]</span>
 
-<span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">warnings</span><span class="w"> </span><span class="kn">import</span> <span class="n">warn</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">numpy.linalg</span> <span class="k">as</span> <span class="nn">la</span>
-<span class="kn">import</span> <span class="nn">quantecon</span> <span class="k">as</span> <span class="nn">qe</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy.linalg</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">la</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">quantecon</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">qe</span>
 
-<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">fill_empty_diagonals</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.util</span><span class="w"> </span><span class="kn">import</span> <span class="n">fill_empty_diagonals</span>
 
 
-<span class="k">def</span> <span class="nf">_steady_state_ergodic</span><span class="p">(</span><span class="n">P</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_steady_state_ergodic</span><span class="p">(</span><span class="n">P</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the steady state probability vector for a regular Markov</span>
 <span class="sd">    transition matrix P.</span>
@@ -193,7 +194,7 @@
 
 <div class="viewcode-block" id="steady_state">
 <a class="viewcode-back" href="../../generated/giddy.ergodic.steady_state.html#giddy.ergodic.steady_state">[docs]</a>
-<span class="k">def</span> <span class="nf">steady_state</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">fill_empty_classes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">steady_state</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">fill_empty_classes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generalized function for calculating the steady state distribution</span>
 <span class="sd">    for a regular or reducible Markov transition matrix P.</span>
@@ -267,10 +268,10 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;Input transition probability matrix has &quot;</span>
-                <span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> rows full of 0s. Please set &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">rows0</span><span class="si">}</span><span class="s2"> rows full of 0s. Please set &quot;</span>
                 <span class="s2">&quot;fill_empty_classes=True to set diagonal &quot;</span>
                 <span class="s2">&quot;elements for these rows to be 1 to make &quot;</span>
-                <span class="s2">&quot;sure the matrix is stochastic.&quot;</span> <span class="o">%</span> <span class="n">rows0</span>
+                <span class="s2">&quot;sure the matrix is stochastic.&quot;</span>
             <span class="p">)</span>
     <span class="n">mc</span> <span class="o">=</span> <span class="n">qe</span><span class="o">.</span><span class="n">MarkovChain</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
     <span class="n">num_classes</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">num_communication_classes</span>
@@ -281,7 +282,7 @@
 
 
 
-<span class="k">def</span> <span class="nf">_fmpt_ergodic</span><span class="p">(</span><span class="n">P</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_fmpt_ergodic</span><span class="p">(</span><span class="n">P</span><span class="p">):</span>
     <span class="n">warn</span><span class="p">(</span>
         <span class="s2">&quot;_fmpt_ergodic is deprecated. It will be replaced in giddy 2.5 with _mfpt_&quot;</span><span class="p">,</span>
         <span class="ne">DeprecationWarning</span><span class="p">,</span>
@@ -290,7 +291,7 @@
     <span class="k">return</span> <span class="n">_mfpt_ergodic</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_mfpt_ergodic</span><span class="p">(</span><span class="n">P</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_mfpt_ergodic</span><span class="p">(</span><span class="n">P</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the matrix of mean first passage times for an ergodic transition</span>
 <span class="sd">    probability matrix.</span>
@@ -349,7 +350,7 @@
     <span class="k">return</span> <span class="n">M</span>
 
 
-<span class="k">def</span> <span class="nf">fmpt</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">fill_empty_classes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">fmpt</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">fill_empty_classes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="n">warn</span><span class="p">(</span>
         <span class="s2">&quot;fmpt is deprecated. It will be replaced in giddy 2.5 with mfpt&quot;</span><span class="p">,</span>
         <span class="ne">DeprecationWarning</span><span class="p">,</span>
@@ -360,7 +361,7 @@
 
 <div class="viewcode-block" id="mfpt">
 <a class="viewcode-back" href="../../generated/giddy.ergodic.mfpt.html#giddy.ergodic.mfpt">[docs]</a>
-<span class="k">def</span> <span class="nf">mfpt</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">fill_empty_classes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">mfpt</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">fill_empty_classes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generalized function for calculating mean first passage times for an</span>
 <span class="sd">    ergodic or non-ergodic transition probability matrix.</span>
@@ -441,10 +442,10 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;Input transition probability matrix has &quot;</span>
-                <span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> rows full of 0s. Please set &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">rows0</span><span class="si">}</span><span class="s2"> rows full of 0s. Please set &quot;</span>
                 <span class="s2">&quot;fill_empty_classes=True to set diagonal &quot;</span>
                 <span class="s2">&quot;elements for these rows to be 1 to make &quot;</span>
-                <span class="s2">&quot;sure the matrix is stochastic.&quot;</span> <span class="o">%</span> <span class="n">rows0</span>
+                <span class="s2">&quot;sure the matrix is stochastic.&quot;</span>
             <span class="p">)</span>
     <span class="n">mc</span> <span class="o">=</span> <span class="n">qe</span><span class="o">.</span><span class="n">MarkovChain</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
     <span class="n">num_classes</span> <span class="o">=</span> <span class="n">mc</span><span class="o">.</span><span class="n">num_communication_classes</span>
@@ -489,7 +490,7 @@
 
 
 
-<span class="k">def</span> <span class="nf">var_fmpt_ergodic</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">var_fmpt_ergodic</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
     <span class="n">warn</span><span class="p">(</span>
         <span class="p">(</span>
             <span class="s2">&quot;var_fmpt_ergodic is deprecated. It will be &quot;</span>
@@ -503,7 +504,7 @@
 
 <div class="viewcode-block" id="var_mfpt_ergodic">
 <a class="viewcode-back" href="../../generated/giddy.ergodic.var_mfpt_ergodic.html#giddy.ergodic.var_mfpt_ergodic">[docs]</a>
-<span class="k">def</span> <span class="nf">var_mfpt_ergodic</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">var_mfpt_ergodic</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Variances of mean first passage times for an ergodic transition</span>
 <span class="sd">    probability matrix.</span>
@@ -569,7 +570,7 @@
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.6.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.0.4.<br/>
     </p>
   </div>
 </footer>
