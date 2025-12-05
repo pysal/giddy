@@ -1,11 +1,12 @@
-import numpy as np
-import pytest
-from ..sequence import Sequence
 import libpysal
 import mapclassify as mc
+import numpy as np
+import pytest
+
+from ..sequence import Sequence
 
 
-def test_Sequence_unequal():
+def test_sequence_unequal():
     """
     1. Testing on sequences of unequal lengths.
     """
@@ -16,7 +17,7 @@ def test_Sequence_unequal():
 
     # 1.1 substitution cost matrix and indel cost are not given, and will be
     # generated based on the distance type "interval"
-    seqAna = Sequence([seq1, seq2, seq3], dist_type="interval")
+    seq_ana = Sequence([seq1, seq2, seq3], dist_type="interval")
     subs_mat = np.array(
         [
             [0.0, 1.0, 2.0, 3.0],
@@ -26,9 +27,9 @@ def test_Sequence_unequal():
         ]
     )
     seq_dis_mat = np.array([[0.0, 7.0, 10.0], [7.0, 0.0, 3.0], [10.0, 3.0, 0.0]])
-    assert seqAna.k == 4
-    np.testing.assert_allclose(seqAna.subs_mat, subs_mat)
-    np.testing.assert_allclose(seqAna.seq_dis_mat, seq_dis_mat)
+    assert seq_ana.k == 4
+    np.testing.assert_allclose(seq_ana.subs_mat, subs_mat)
+    np.testing.assert_allclose(seq_ana.seq_dis_mat, seq_dis_mat)
 
     # 1.2 User-defined substitution cost matrix and indel cost
     subs_mat = np.array(
@@ -40,9 +41,9 @@ def test_Sequence_unequal():
         ]
     )
     indel = subs_mat.max()
-    seqAna = Sequence([seq1, seq2, seq3], subs_mat=subs_mat, indel=indel)
+    seq_ana = Sequence([seq1, seq2, seq3], subs_mat=subs_mat, indel=indel)
     seq_dis_mat = np.array([[0.0, 1.94, 2.46], [1.94, 0.0, 0.76], [2.46, 0.76, 0.0]])
-    np.testing.assert_allclose(seqAna.seq_dis_mat, seq_dis_mat)
+    np.testing.assert_allclose(seq_ana.seq_dis_mat, seq_dis_mat)
     # 1.3 Calculating "hamming" distance will fail on unequal sequences
 
     with pytest.raises(
@@ -51,7 +52,7 @@ def test_Sequence_unequal():
         Sequence([seq1, seq2, seq3], dist_type="hamming")
 
 
-def test_Sequence_equal():
+def test_sequence_equal():
     """
     2. Testing on sequences of equal length.
     """
@@ -62,9 +63,9 @@ def test_Sequence_equal():
 
     # 2.1 Calculating "hamming" distance will not fail on equal sequences
 
-    seqAna = Sequence([seq1, seq2, seq3], dist_type="hamming")
+    seq_ana = Sequence([seq1, seq2, seq3], dist_type="hamming")
     seq_dis_mat = np.array([[0.0, 6.0, 6.0], [6.0, 0.0, 1.0], [6.0, 1.0, 0.0]])
-    np.testing.assert_allclose(seqAna.seq_dis_mat, seq_dis_mat)
+    np.testing.assert_allclose(seq_ana.seq_dis_mat, seq_dis_mat)
 
     # 2.2 User-defined substitution cost matrix and indel cost (distance
     #     between different types is always 1 and indel cost is 2 or larger) -
@@ -78,18 +79,18 @@ def test_Sequence_equal():
         ]
     )
     indel = 2
-    seqAna = Sequence([seq1, seq2, seq3], subs_mat=subs_mat, indel=indel)
+    seq_ana = Sequence([seq1, seq2, seq3], subs_mat=subs_mat, indel=indel)
     seq_dis_mat = np.array([[0.0, 6.0, 6.0], [6.0, 0.0, 1.0], [6.0, 1.0, 0.0]])
-    np.testing.assert_allclose(seqAna.seq_dis_mat, seq_dis_mat)
+    np.testing.assert_allclose(seq_ana.seq_dis_mat, seq_dis_mat)
 
     # 2.3 User-defined substitution cost matrix and indel cost (distance
     #     between different types is always 1 and indel cost is 1) - give a
     #     slightly different sequence distance matrix from "hamming" distance since
     #     insertion and deletion is happening
     indel = 1
-    seqAna = Sequence([seq1, seq2, seq3], subs_mat=subs_mat, indel=indel)
+    seq_ana = Sequence([seq1, seq2, seq3], subs_mat=subs_mat, indel=indel)
     seq_dis_mat = np.array([[0.0, 5.0, 5.0], [5.0, 0.0, 1.0], [5.0, 1.0, 0.0]])
-    np.testing.assert_allclose(seqAna.seq_dis_mat, seq_dis_mat)
+    np.testing.assert_allclose(seq_ana.seq_dis_mat, seq_dis_mat)
 
     f = libpysal.io.open(libpysal.examples.get_path("usjoin.csv"))
     pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)])

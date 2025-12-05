@@ -1,11 +1,11 @@
-import pytest
-import unittest
-from .. import ergodic
 import numpy as np
+import pytest
+
+from .. import ergodic
 
 
-class SteadyState_Tester(unittest.TestCase):
-    def setUp(self):
+class TestSteadyState:
+    def setup_method(self):
         self.p = np.array([[0.5, 0.25, 0.25], [0.5, 0, 0.5], [0.25, 0.25, 0.5]])
         self.p2 = np.array([[0.5, 0.5, 0], [0.3, 0.7, 0], [0, 0, 1]])
         self.p3 = np.array([[0.5, 0.5, 0], [0.3, 0.7, 0], [0, 0, 0]])
@@ -28,11 +28,12 @@ class SteadyState_Tester(unittest.TestCase):
         exp = np.array([[0.375, 0.625, 0.0], [0.0, 0.0, 1.0]])
         np.testing.assert_array_almost_equal(exp, obs)
 
-        self.assertRaises(ValueError, ergodic.steady_state, self.p3, False)
+        with pytest.raises(ValueError, match="Input transition probability matrix"):
+            ergodic.steady_state(self.p3)
 
 
-class Mfpt_Tester(unittest.TestCase):
-    def setUp(self):
+class TestMfpt:
+    def setup_method(self):
         self.p = np.array([[0.5, 0.25, 0.25], [0.5, 0, 0.5], [0.25, 0.25, 0.5]])
         self.p2 = np.array([[0.5, 0.5, 0], [0.3, 0.7, 0], [0, 0, 1]])
         self.p3 = np.array([[0.5, 0.5, 0], [0.3, 0.7, 0], [0, 0, 0]])
@@ -81,8 +82,8 @@ class Mfpt_Tester(unittest.TestCase):
         np.testing.assert_array_almost_equal(exp, obs)
 
 
-class VarMfpt_Tester(unittest.TestCase):
-    def setUp(self):
+class TestVarMfpt:
+    def setup_method(self):
         self.p = np.array([[0.5, 0.25, 0.25], [0.5, 0, 0.5], [0.25, 0.25, 0.5]])
 
     def test_var_mfpt(self):
@@ -95,14 +96,3 @@ class VarMfpt_Tester(unittest.TestCase):
             ]
         )
         np.testing.assert_array_almost_equal(exp, obs)
-
-
-suite = unittest.TestSuite()
-test_classes = [SteadyState_Tester, Mfpt_Tester, VarMfpt_Tester]
-for i in test_classes:
-    a = unittest.TestLoader().loadTestsFromTestCase(i)
-    suite.addTest(a)
-
-if __name__ == "__main__":
-    runner = unittest.TextTestRunner()
-    runner.run(suite)

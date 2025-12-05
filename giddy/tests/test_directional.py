@@ -1,14 +1,14 @@
-import unittest
 import libpysal as ps
-from .. import directional
 import numpy as np
+import pytest
+
+from .. import directional
 
 
-class Rose_Tester(unittest.TestCase):
-    def setUp(self):
-        f = open(ps.examples.get_path("spi_download.csv"), "r")
-        lines = f.readlines()
-        f.close()
+class TestRose:
+    def setup_method(self):
+        with open(ps.examples.get_path("spi_download.csv")) as f:
+            lines = f.readlines()
         lines = [line.strip().split(",") for line in lines]
         names = [line[2] for line in lines[1:-5]]
         data = np.array([list(map(int, line[3:])) for line in lines[1:-5]])
@@ -43,8 +43,8 @@ class Rose_Tester(unittest.TestCase):
         exp = [0.0, 1.57079633, 3.14159265, 4.71238898, 6.28318531]
         obs = list(r4.cuts)
         for i in range(k + 1):
-            self.assertAlmostEqual(exp[i], obs[i])
-        self.assertEqual(list(r4.counts), [32, 5, 9, 2])
+            assert pytest.approx(exp[i]) == obs[i]
+        assert list(r4.counts) == [32, 5, 9, 2]
 
         import matplotlib.pyplot as plt
 
@@ -61,14 +61,3 @@ class Rose_Tester(unittest.TestCase):
         # customize plot
         fig, _ = r4.plot_vectors(arrows=False)
         plt.close(fig)
-
-
-suite = unittest.TestSuite()
-test_classes = [Rose_Tester]
-for i in test_classes:
-    a = unittest.TestLoader().loadTestsFromTestCase(i)
-    suite.addTest(a)
-
-if __name__ == "__main__":
-    runner = unittest.TextTestRunner()
-    runner.run(suite)
