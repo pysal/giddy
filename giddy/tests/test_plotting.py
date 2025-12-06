@@ -34,7 +34,7 @@ def _data_generation():
     y1 = gdf["1969_rel"].values
     y2 = gdf["2000_rel"].values
     # calculate rose Object
-    Y = np.array([y1, y2]).T  # noqa: N806 - variable should be lowercase
+    Y = np.array([y1, y2]).T
     rose = Rose(Y, w, k=5)
     return gdf, y1, rose
 

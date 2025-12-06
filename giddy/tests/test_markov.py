@@ -118,7 +118,7 @@ class TestSpatialMarkov:
 
     def test___init__(self):
         sm = Spatial_Markov(self.rpci, self.w, fixed=True, k=5, m=5)
-        S = np.array(  # noqa: N806 - variable should be lowercase
+        S = np.array(
             [
                 [0.43509425, 0.2635327, 0.20363044, 0.06841983, 0.02932278],
                 [0.13391287, 0.33993305, 0.25153036, 0.23343016, 0.04119356],
@@ -128,7 +128,7 @@ class TestSpatialMarkov:
             ]
         )
         np.testing.assert_array_almost_equal(S, sm.S)
-        F0 = np.array(  # noqa: N806 - variable should be lowercase
+        F0 = np.array(
             [
                 [2.29835259, 28.95614035, 46.14285714, 80.80952381, 279.42857143],
                 [33.86549708, 3.79459555, 22.57142857, 57.23809524, 255.85714286],
@@ -142,7 +142,7 @@ class TestSpatialMarkov:
     def test_cutoff(self):
         cc = np.array([0.8, 0.9, 1, 1.2])
         sm = Spatial_Markov(self.rpci, self.w, cutoffs=cc, lag_cutoffs=cc)
-        P = np.array(  # noqa: N806 - variable should be lowercase
+        P = np.array(
             [
                 [
                     [0.96703297, 0.03296703, 0.0, 0.0, 0.0],
@@ -188,7 +188,7 @@ class TestSpatialMarkov:
         sm = Spatial_Markov(
             self.rpci, self.w, cutoffs=cc, lag_cutoffs=cc, fill_empty_classes=True
         )
-        P = np.array(  # noqa: N806 - variable should be lowercase
+        P = np.array(
             [
                 [
                     [0.96703297, 0.03296703, 0.0, 0.0, 0.0],
@@ -229,7 +229,7 @@ class TestSpatialMarkov:
         )
         np.testing.assert_array_almost_equal(P, sm.P)
 
-        S0 = np.array(  # noqa: N806 - variable should be lowercase
+        S0 = np.array(
             [
                 [0.54148249, 0.16780007, 0.24991499, 0.04080245, 0.0],
                 [0.0, 0.0, 0.0, 0.0, 1.0],
@@ -371,7 +371,7 @@ class TestKullback:
             ]
         )
 
-        F = np.array([s1, s2])  # noqa: N806 - variable should be lowercase
+        F = np.array([s1, s2])
         res = kullback(F)
         np.testing.assert_array_almost_equal(
             160.96060031170782, res["Conditional homogeneity"]
