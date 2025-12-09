@@ -65,7 +65,7 @@ include = [
 [tool.ruff]
 line-length = 88
 lint.select = ["E", "F", "W", "I", "UP", "N", "B", "A", "C4", "SIM", "ARG"]
-exclude = ["giddy/tests/*", "docs/*"]
+exclude = ["docs/*"]
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = [
@@ -84,6 +84,9 @@ exclude = ["giddy/tests/*", "docs/*"]
 ]
 "giddy/{ergodic,markov,sequence}.py" = [
     "E501",     # Line too long
+]
+"giddy/tests/*" = [
+    "N806",
 ]
 
 [tool.coverage.run]

@@ -1,22 +1,22 @@
-import unittest
 import libpysal as ps
-import numpy as np
 import mapclassify as mc
+import numpy as np
+
 from ..markov import (
+    FullRank_Markov,
+    GeoRank_Markov,
+    LISA_Markov,
     Markov,
+    Spatial_Markov,
     kullback,
     prais,
-    Spatial_Markov,
-    LISA_Markov,
-    FullRank_Markov,
     sojourn_time,
-    GeoRank_Markov,
 )
 
 RTOL = 0.00001
 
 
-class test_Markov(unittest.TestCase):
+class TestMarkov:
     def test___init__(self):
         # markov = Markov(class_ids, classes)
         f = ps.io.open(ps.examples.get_path("usjoin.csv"))
@@ -106,8 +106,8 @@ class test_Markov(unittest.TestCase):
         np.testing.assert_array_almost_equal(m.sojourn_time, expected)
 
 
-class test_Spatial_Markov(unittest.TestCase):
-    def setUp(self):
+class TestSpatialMarkov:
+    def setup_method(self):
         f = ps.io.open(ps.examples.get_path("usjoin.csv"))
         pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)])
         pci = pci.transpose()
@@ -273,7 +273,7 @@ class test_Spatial_Markov(unittest.TestCase):
         np.testing.assert_array_equal(sm.T, answer)
 
 
-class test_chi2(unittest.TestCase):
+class TestChi2:
     def test_chi2(self):
         f = ps.io.open(ps.examples.get_path("usjoin.csv"))
         pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)])
@@ -305,7 +305,7 @@ class test_chi2(unittest.TestCase):
         np.testing.assert_array_almost_equal(obs, np.array(sm.shtest))
 
 
-class test_LISA_Markov(unittest.TestCase):
+class TestLISAMarkov:
     def test___init__(self):
         f = ps.io.open(ps.examples.get_path("usjoin.csv"))
         pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)]).transpose()
@@ -348,7 +348,7 @@ class test_LISA_Markov(unittest.TestCase):
         np.testing.assert_allclose(lm_random.chi_2, c, RTOL)
 
 
-class test_kullback(unittest.TestCase):
+class TestKullback:
     def test___init__(self):
         s1 = np.array(
             [
@@ -382,7 +382,7 @@ class test_kullback(unittest.TestCase):
         np.testing.assert_array_almost_equal(0.0, p_value)
 
 
-class test_prais(unittest.TestCase):
+class TestPrais:
     def test___init__(self):
         f = ps.io.open(ps.examples.get_path("usjoin.csv"))
         pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)])
@@ -392,7 +392,7 @@ class test_prais(unittest.TestCase):
         np.testing.assert_array_almost_equal(prais(m.p), res)
 
 
-class FullRank_Markov_Tester(unittest.TestCase):
+class TestFullRankMarkov:
     def test___init__(self):
         f = ps.io.open(ps.examples.get_path("usjoin.csv"))
         pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)]).transpose()
@@ -664,7 +664,7 @@ class FullRank_Markov_Tester(unittest.TestCase):
         np.testing.assert_array_almost_equal(m.sojourn_time, expected)
 
 
-class GeoRank_Markov_Tester(unittest.TestCase):
+class TestGeoRankMarkov:
     def test___init__(self):
         f = ps.io.open(ps.examples.get_path("usjoin.csv"))
         pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)]).transpose()
@@ -707,8 +707,8 @@ class GeoRank_Markov_Tester(unittest.TestCase):
         np.testing.assert_array_almost_equal(gm.sojourn_time[:10], expected)
 
 
-class Sojourn_time_Tester(unittest.TestCase):
-    def setUp(self):
+class TestSojournTime:
+    def setup_method(self):
         self.p = np.array([[0.5, 0.25, 0.25], [0.5, 0, 0.5], [0.25, 0.25, 0.5]])
         self.p2 = np.array([[0.5, 0.5, 0], [0.3, 0.7, 0], [0, 0, 1]])
 
@@ -719,7 +719,3 @@ class Sojourn_time_Tester(unittest.TestCase):
 
         exp = np.array([2.0, 3.33333333, np.inf])
         np.testing.assert_array_almost_equal(exp, sojourn_time(self.p2))
-
-
-if __name__ == "__main__":
-    unittest.main()

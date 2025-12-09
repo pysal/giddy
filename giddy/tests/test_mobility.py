@@ -1,15 +1,13 @@
-import unittest
 import libpysal as ps
-import numpy as np
 import mapclassify as mc
+import numpy as np
+
 from ..markov import Markov
 from ..mobility import markov_mobility
 
 
-class Shorrock_Tester(unittest.TestCase):
+class TestShorrock:
     def test___init__(self):
-        import numpy as np
-
         f = ps.io.open(ps.examples.get_path("usjoin.csv"))
         pci = np.array([f.by_col[str(y)] for y in range(1929, 2010)])
         q5 = np.array([mc.Quantiles(y).yb for y in pci]).transpose()
@@ -19,7 +17,7 @@ class Shorrock_Tester(unittest.TestCase):
         )
 
 
-class MarkovMobility_Tester(unittest.TestCase):
+class TestMarkovMobility:
     def test___init__(self):
         pi = np.array([0.1, 0.2, 0.2, 0.4, 0.1])
         f = ps.io.open(ps.examples.get_path("usjoin.csv"))
@@ -41,7 +39,3 @@ class MarkovMobility_Tester(unittest.TestCase):
         np.testing.assert_array_almost_equal(
             markov_mobility(m.p, measure="B2", ini=pi), 0.046366601194789261
         )
-
-
-if __name__ == "__main__":
-    unittest.main()
