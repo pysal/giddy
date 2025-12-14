@@ -1,8 +1,8 @@
-name: 313-latest
+name: 314-latest
 channels:
   - conda-forge
 dependencies:
-  - python=3.13
+  - python=3.14
   # required
   - esda
   - libpysal
@@ -17,3 +17,11 @@ dependencies:
   - pytest
   - pytest-cov
   - pytest-xdist
+  # docs (this env only)
+  - nbsphinx
+  - numpydoc
+  - sphinx
+  - sphinxcontrib-bibtex
+  - sphinxcontrib-napoleon
+  - sphinx-gallery
+  - sphinx_bootstrap_theme
