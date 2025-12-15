@@ -1,8 +1,8 @@
-name: 313-dev
+name: 314-dev
 channels:
   - conda-forge
 dependencies:
-  - python=3.13
+  - python=3.14
   # required
   - pip
   # testing

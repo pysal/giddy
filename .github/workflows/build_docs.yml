@@ -20,7 +20,7 @@ jobs:
         os:
           - ubuntu-latest
         environment-file:
-          - ci/313-latest.yaml
+          - ci/314-latest.yaml
         experimental:
           - false
     defaults:
