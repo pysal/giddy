@@ -15,7 +15,7 @@ dependencies:
   - pip:
     # dev versions of packages
     - --pre \
-      --index-url https://pypi.anaconda.org/scientific-python-nightly-wheels/simple  \
+      --index-url https://pypi.anaconda.org/scientific-python-nightly-wheels/simple \
       --extra-index-url https://pypi.org/simple
     - matplotlib
     - seaborn
@@ -27,5 +27,3 @@ dependencies:
     - git+https://github.com/pysal/libpysal.git@main
     - git+https://github.com/pysal/mapclassify.git@main
     - git+https://github.com/QuantEcon/QuantEcon.py.git@main
-
-  
