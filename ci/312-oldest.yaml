@@ -1,14 +1,14 @@
-name: 311-latest
+name: 312-oldest
 channels:
   - conda-forge
 dependencies:
-  - python=3.11
+  - python=3.12
   # required
-  - esda
-  - libpysal
-  - mapclassify
-  - quantecon
-  - scipy
+  - esda=2.7
+  - libpysal=4.12
+  - mapclassify=2.7
+  - quantecon=0.8
+  - scipy=1.14
   - seaborn
   # testing
   - codecov

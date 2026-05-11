@@ -3,7 +3,7 @@
 Installation
 ============
 
-giddy currently supports python `3.11`_ and above.
+giddy currently supports python `3.12`_ and above.
 Please make sure that you are operating in a supported environment.
 
 Installing released version
@@ -40,7 +40,7 @@ your fork. By making changes
 to your local clone and submitting a pull request to `pysal/giddy`_, you can
 contribute to the giddy development.
 
-.. _3.11: https://docs.python.org/3.11/
+.. _3.12: https://docs.python.org/3.12/
 .. _Python Package Index: https://pypi.org/project/giddy/
 .. _pysal/giddy: https://github.com/pysal/giddy
 .. _fork: https://help.github.com/articles/fork-a-repo/

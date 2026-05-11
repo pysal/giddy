@@ -2,8 +2,7 @@
 name: Continuous Integration
 on:
   push:
-    branches:
-      - "*"
+    branches: [main]
   pull_request:
     branches:
       - "*"
@@ -15,6 +14,7 @@ on:
         description: Manual Unittest Run
         default: test
         required: false
+
 jobs:
   unittests:
     name: ${{ matrix.os }}, ${{ matrix.environment-file }}
@@ -28,8 +28,7 @@ jobs:
         os:
           - ubuntu-latest
         environment-file:
-          - ci/311-oldest.yaml
-          - ci/311-latest.yaml
+          - ci/312-oldest.yaml
           - ci/312-latest.yaml
           - ci/313-latest.yaml
           - ci/314-latest.yaml
@@ -42,25 +41,30 @@ jobs:
           - environment-file: ci/314-latest.yaml
             os: windows-latest
       fail-fast: false
+
     steps:
       - name: checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
+
       - name: setup micromamba
-        uses: mamba-org/setup-micromamba@v2
+        uses: mamba-org/setup-micromamba@v3
         with:
           environment-file: ${{ matrix.environment-file }}
           micromamba-version: latest
+
       - name: environment info
         shell: bash -l {0}
         run: |
           micromamba info
           micromamba list
+
       - name: spatial versions (if geopandas is installed)
         shell: bash -l {0}
         run: python -c "import geopandas; geopandas.show_versions();"
         if: contains(matrix.environment-file, 'dev')
+
       - name: run pytest
         run: |
           pytest \
@@ -73,6 +77,7 @@ jobs:
           --cov-append \
           --cov-report xml \
           --cov-report term-missing
+
       - name: run docstring tests
         if: contains(matrix.environment-file, 'dev') && contains(matrix.os, 'ubuntu')
         run: |
@@ -88,8 +93,9 @@ jobs:
           --cov-report term-missing \
           --doctest-only \
           --doctest-continue-on-failure 
+
       - name: codecov
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v6
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           name: giddy-codecov
