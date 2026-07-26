@@ -5,12 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>giddy.markov.Spatial_Markov &#8212; giddy v2.3.8 Manual</title>
+    <title>giddy.markov.Spatial_Markov &#8212; giddy v2.3.9 Manual</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=9afac83c" />
     <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
     <link rel="stylesheet" type="text/css" href="../_static/pysal-styles.css?v=14ca3da1" />
-    <script src="../_static/documentation_options.js?v=e05b9d57"></script>
+    <script src="../_static/documentation_options.js?v=4423194e"></script>
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -41,7 +41,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           giddy</a>
-        <span class="navbar-text navbar-version pull-left"><b>2.3.8</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>2.3.9</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -281,12 +281,12 @@ permutations of the rows of the original transitions.</p>
 permutations.</p>
 </dd>
 <dt><strong>Q</strong><span class="classifier">float</span></dt><dd><p>Chi-square test of homogeneity across lag classes based
-on <span id="id1">[<a class="reference internal" href="../references.html#id15" title="Frank Bickenbach and Eckhardt Bode. Evaluating the Markov property in studies of economic convergence. International Regional Science Review, 26(3):363-392, 2003. URL: https://doi.org/10.1177/0160017603253789, doi:10.1177/0160017603253789.">BB03</a>]</span>.</p>
+on <span class="bibtex-citation" id="id1">[<a class="reference internal" href="../references.html#id15" title="Frank Bickenbach and Eckhardt Bode. Evaluating the Markov property in studies of economic convergence. International Regional Science Review, 26(3):363-392, 2003. URL: https://doi.org/10.1177/0160017603253789, doi:10.1177/0160017603253789.">BB03</a>]</span>.</p>
 </dd>
 <dt><strong>Q_p_value</strong><span class="classifier">float</span></dt><dd><p>p-value for Q.</p>
 </dd>
 <dt><strong>LR</strong><span class="classifier">float</span></dt><dd><p>Likelihood ratio statistic for homogeneity across lag
-classes based on <span id="id2">[<a class="reference internal" href="../references.html#id15" title="Frank Bickenbach and Eckhardt Bode. Evaluating the Markov property in studies of economic convergence. International Regional Science Review, 26(3):363-392, 2003. URL: https://doi.org/10.1177/0160017603253789, doi:10.1177/0160017603253789.">BB03</a>]</span>.</p>
+classes based on <span class="bibtex-citation" id="id2">[<a class="reference internal" href="../references.html#id15" title="Frank Bickenbach and Eckhardt Bode. Evaluating the Markov property in studies of economic convergence. International Regional Science Review, 26(3):363-392, 2003. URL: https://doi.org/10.1177/0160017603253789, doi:10.1177/0160017603253789.">BB03</a>]</span>.</p>
 </dd>
 <dt><strong>LR_p_value</strong><span class="classifier">float</span></dt><dd><p>p-value for LR.</p>
 </dd>
@@ -296,7 +296,7 @@ classes based on <span id="id2">[<a class="reference internal" href="../referenc
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<p>Based on <span id="id3">[<a class="reference internal" href="../references.html#id17" title="Sergio J. Rey. Spatial empirics for economic growth and convergence. Geographical Analysis, 33(3):195–214, 2001. URL: https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1538-4632.2001.tb00444.x, doi:10.1111/j.1538-4632.2001.tb00444.x.">Rey01</a>]</span>.</p>
+<p>Based on <span class="bibtex-citation" id="id3">[<a class="reference internal" href="../references.html#id17" title="Sergio J. Rey. Spatial empirics for economic growth and convergence. Geographical Analysis, 33(3):195–214, 2001. URL: https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1538-4632.2001.tb00444.x, doi:10.1111/j.1538-4632.2001.tb00444.x.">Rey01</a>]</span>.</p>
 <p>The shtest and chi2 tests should be used with caution as they are based on
 classic theory assuming random transitions. The x2 based test is
 preferable since it simulates the randomness under the null. It is an
@@ -762,7 +762,7 @@ discretize them into categories and then pass them to <cite>Spatial_Markov</cite
 <dd><p>A summary method to call the Markov homogeneity test to test for
 temporally lagged spatial dependence.</p>
 <p>To learn more about the properties of the tests, refer to
-<span id="id4">[<a class="reference internal" href="../references.html#id8" title="Sergio J. Rey, Wei Kang, and Levi Wolf. The properties of tests for spatial effects in discrete Markov chain models of regional income distribution dynamics. Journal of Geographical Systems, 18(4):377–398, 2016. URL: http://dx.doi.org/10.1007/s10109-016-0234-x, doi:10.1007/s10109-016-0234-x.">RKW16</a>]</span> and <span id="id5">[<a class="reference internal" href="../references.html#id3" title="Wei Kang and Sergio J. Rey. Conditional and joint tests for spatial effects in discrete markov chain models of regional income distribution dynamics. The Annals of Regional Science, 61(1):73–93, Jul 2018. URL: https://doi.org/10.1007/s00168-017-0859-9, doi:10.1007/s00168-017-0859-9.">KR18</a>]</span>.</p>
+<span class="bibtex-citation" id="id4">[<a class="reference internal" href="../references.html#id8" title="Sergio J. Rey, Wei Kang, and Levi Wolf. The properties of tests for spatial effects in discrete Markov chain models of regional income distribution dynamics. Journal of Geographical Systems, 18(4):377–398, 2016. URL: http://dx.doi.org/10.1007/s10109-016-0234-x, doi:10.1007/s10109-016-0234-x.">RKW16</a>]</span> and <span class="bibtex-citation" id="id5">[<a class="reference internal" href="../references.html#id3" title="Wei Kang and Sergio J. Rey. Conditional and joint tests for spatial effects in discrete markov chain models of regional income distribution dynamics. The Annals of Regional Science, 61(1):73–93, Jul 2018. URL: https://doi.org/10.1007/s00168-017-0859-9, doi:10.1007/s00168-017-0859-9.">KR18</a>]</span>.</p>
 </dd></dl>
 
 <dl class="py property">
@@ -804,7 +804,7 @@ temporally lagged spatial dependence.</p>
     </p>
     <p>
         &copy; Copyright 2018-, pysal developers.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.0.4.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 9.1.0.<br/>
     </p>
   </div>
 </footer>
