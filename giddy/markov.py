@@ -1628,7 +1628,11 @@ def kullback(F):
     FdJd1 = FdJd + (FdJd == 0)
     T3 = 2 * (FdJd * np.log(FdJd1)).sum()
 
-    FIJd = F[:, :].sum(axis=1)
+    # Number of transitions starting in each initial state, within each
+    # stratum. Summing over axis=1 would instead count transitions *ending*
+    # in each state, which only coincides with this when every stratum's
+    # table is flow-balanced (see gh-259).
+    FIJd = F.sum(axis=2)
     FIJd1 = FIJd + (FIJd == 0)
     T4 = 2 * (FIJd * np.log(FIJd1)).sum()
 
