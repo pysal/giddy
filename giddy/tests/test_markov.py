@@ -381,6 +381,39 @@ class TestKullback:
         p_value = res["Conditional homogeneity pvalue"]
         np.testing.assert_array_almost_equal(0.0, p_value)
 
+    def test_identical_strata(self):
+        # Strata with the same transition table have no heterogeneity to
+        # detect, so the statistic must be zero. This table is not
+        # flow-balanced (row totals 13, 16 vs column totals 14, 15), which
+        # is what exposed the wrong-axis margin in gh-259.
+        m = np.array([[10, 3], [4, 12]])
+        F = np.array([m, m])
+        res = kullback(F)
+        np.testing.assert_allclose(0.0, res["Conditional homogeneity"], atol=1e-10)
+        np.testing.assert_array_almost_equal(2, res["Conditional homogeneity dof"])
+        np.testing.assert_array_almost_equal(1.0, res["Conditional homogeneity pvalue"])
+
+    def test_matches_conditional_g(self):
+        # The statistic is the sum over initial states of the G-test for a
+        # strata x terminal-state contingency table.
+        from scipy.stats import chi2_contingency
+
+        F = np.array(
+            [
+                [[10, 3, 2], [4, 12, 1], [0, 5, 9]],
+                [[7, 6, 0], [2, 8, 3], [1, 2, 11]],
+            ]
+        )
+        expected = 0.0
+        for i in range(F.shape[1]):
+            table = F[:, i, :]
+            table = table[:, table.sum(axis=0) > 0]
+            expected += chi2_contingency(
+                table, correction=False, lambda_="log-likelihood"
+            )[0]
+        res = kullback(F)
+        np.testing.assert_allclose(expected, res["Conditional homogeneity"])
+
 
 class TestPrais:
     def test___init__(self):
